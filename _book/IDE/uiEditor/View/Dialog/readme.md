@@ -16,7 +16,7 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 （动图2）
 
-如果我们想将Dialog作为根节点使用，可以在项目面板鼠标右键单击assets，找到creat，点击Prefab2D，右键单击View，点击Change Type点击UI，点击Dialog即可创建完毕如图3、动图4所示
+如果我们想将Dialog作为根节点使用，可以在项目面板鼠标右键单击assets，找到Create，点击Prefab 2D，右键单击View，点击Change Type点击UI，点击Dialog即可创建完毕如图3、动图4所示
 
 ![](img/3.png) 
 
@@ -28,7 +28,7 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 ## 2、Dialog属性介绍
 
-![](img/1.png) 
+![](img/5.png) 
 
 (图5)
 
@@ -54,10 +54,10 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 因为Dialog是弹窗，所以要设置弹窗的下层级是否可以进行点击，默认情况下是可以点击的，如果不想开启可自行关闭，关闭后即为不可点击状态（即不可穿透）。
 
-2.3 Is Show Effect属性
+### 2.3 Is Show Effect属性
 
 ![]()
 
-2.4 Is Popup Center属性
+### 2.4 Is Popup Center属性
 
 ![]()
