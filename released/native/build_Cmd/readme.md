@@ -1,6 +1,5 @@
 # LayaNative命令行工具
-layanative命令行工具用来生成Android和iOS原生项目，以及项目的资源刷新功能， 方便项目迭代过程中的资源更新。
-生成项目的功能对应IDE中的 `工具/app构建` 。  
+layanative命令行工具用来生成Android和iOS原生项目，以及项目的资源刷新功能， 方便项目迭代过程中的资源更新。 
 
 ## 1.命令详解
 ### 1.安装layanative
@@ -30,7 +29,7 @@ $ layanative3 createapp --help
 
 | 关键字 | 描述
 | ------------ | ------------ 
-| `--folder,-f` |    资源路径：把游戏资源打包进客户端以减少网络下载,选择本地的游戏目录，例如启动index在d:/game/index.html下,那资源路径就是d:/game。t为0时可不填
+| `--folder,-f` |    资源路径：把游戏资源打包进客户端以减少网络下载,选择本地的游戏目录，例如启动index在d:/game/index.js下,那资源路径就是d:/game。t为0时可不填
 | `--path` |       native项目输出目录 [默认值: "."]
 | `--version，-v` |       SDK版本：自动使用特定版本的SDK，系统会从服务器下载SDK并存放在特定位置。--version和--sdk互相矛盾不能同时指定，都不指定时默认使用最新版本的SDK
 | `--platform, -p` |    项目平台 [可选值: all, ios, android_studio][默认值: all]
