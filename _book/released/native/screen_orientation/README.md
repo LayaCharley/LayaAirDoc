@@ -1,10 +1,9 @@
 #  横竖屏设置
 
-> Update: 2021-10-12 
 
 在之前的文档里，简单介绍过入口配置里，可以**使用引擎项目bin目录下的index.js或runtime.json来加载js和配置横竖屏**。
 
-相关文档为：[https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-6-0-2](https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-6-0-2)
+相关文档为：[LayaNative不是浏览器](../native_index/readme.md)
 
 本篇文档进一步全面介绍LayaNative横竖屏的设置。
 
