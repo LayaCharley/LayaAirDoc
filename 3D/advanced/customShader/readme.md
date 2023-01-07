@@ -507,31 +507,31 @@ Shader3D Start
 Shader3D End
 ```
 
-Shader3D Block设置了Shader的type和name以及对instancing、探针的支持情况，对shader中需要的uniform变量做了声明，shaderpass定义了渲染的方式为前向渲染和相对于的glsl的vs和fs的CGBlock内容。
+Shader3D Block设置了Shader的type和name以及对instancing、探针的支持情况，对shader中需要的uniform变量做了声明，shaderpass定义了渲染的方式为前向渲染和相对于的glsl的vs和fs的GLSL Block内容。
 
-## 8.CG Block
+## 8.GLSL Block
 
-#### 8.1 CG Block的概述
+#### 8.1 GLSL Block的概述
 
 该部分的内容主要是定义上述ShaderPass中不同渲染片段中的vs和fs中的glsl语句内容
 
-开始和结束标志：CG Start / CG End
+开始和结束标志：GLSL Start / GLSL End
 
-Pass 对应的VS和FS片段标记：#defineCG “name”  / #endCG
+Pass 对应的VS和FS片段标记：#defineGLSL  “name”  / #endGLSL 
 
-#defineCG和#endCG中包含的内容为与之着色器功能相对于的glsl的语句
+#defineGLSL 和#endGLSL 中包含的内容为与之着色器功能相对于的glsl的语句
 
 ```glsl
-CG Start
-#defineCG OutlineVS
+GLSL  Start
+#defineGLSL  OutlineVS
     void main()
     {
         vec4 position = vec4(a_Position.xyz + a_Normal * u_OutlineWidth, 1.0);
         gl_Position = u_MvpMatrix * position;
     }
-#endCG
+#endGLSL 
 
-#defineCG OutlineFS
+#defineGLSL  OutlineFS
 	varying vec3 v_Normal; 
     varying vec2 v_Texcoord0; 
     void main() 
@@ -542,8 +542,8 @@ CG Start
         v_Texcoord0 = a_Texcoord0; 
         gl_Position=remapGLPositionZ(gl_Position); 
     }
-#endCG
-CG End
+#endGLSL 
+GLSL  End
 ```
 
 ## 9.开始编写一个LayaAir Shader
@@ -590,9 +590,9 @@ CG End
 
 `shaderPass`当前Shader只有一个pass，vs内容为unlitVS，fs内容为unlitFS，渲染模式为前向渲染
 
-CG Start  /  CG End 每个Pass的VS与FS对的开始与结束
+GLSL  Start  /  GLSL End 每个Pass的VS与FS对的开始与结束
 
-#defineCG定义 VS或FS的glsl语句片段
+#defineGLSL 定义 VS或FS的glsl语句片段
 
 **FS片段**
 
