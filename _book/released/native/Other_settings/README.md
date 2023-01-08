@@ -34,7 +34,6 @@ if( window.conch )
 
 **Tips**
 *1、conch只能LayaNative环境下调用，在网页版本中是没有conch定义的，所以需要判断一下是否存在。*
-*2、如果使用as语言开发的时候，可以通过 Browser.window['conch']这种方式获得conch对象。*
 
 ## 4.关于iOS对接微信
 
@@ -71,7 +70,6 @@ if( window.conch )
 
 **Tips**
 *1、conch只能LayaNative环境下调用，在网页版本中是没有conch定义的，所以需要判断一下是否存在。*
-*2、如果使用as语言开发的时候，可以通过 Browser.window['conch']这种方式获得conch对象。*
 
 ## 7. 屏蔽项目中报错弹框
 
@@ -82,7 +80,7 @@ window.showAlertOnJsException(false);
 ```
 
 ## 8. 引擎初始化或加载启动脚本过程中的异常处理
-在LayaNative2.0版本中，当引擎初始化、加载启动脚本过程中，如果发生异常（如网络不稳定），引擎会自动调用到window.onLayaInitError(error)函数，该函数默认在config.js中定义，代码如下：
+在LayaNative版本中，当引擎初始化、加载启动脚本过程中，如果发生异常（如网络不稳定），引擎会自动调用到window.onLayaInitError(error)函数，该函数默认在config.js中定义，代码如下：
 ```javascript
 window.onLayaInitError=function(e)
 {
@@ -93,7 +91,7 @@ window.onLayaInitError=function(e)
 开发者可以根据自己需求，修改报错信息和报错方式。
 
 ## 9. 获取设备型号
-在LayaNative2.0中，iOS可以通过调用conch.config.getDeviceInfo()获取设备型号。可以用于iPhone X的头帘适配，代码如下：
+在LayaNative中，iOS可以通过调用conch.config.getDeviceInfo()获取设备型号。可以用于iPhone X的头帘适配，代码如下：
 ```javascript
 if( window.conch )
 {
