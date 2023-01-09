@@ -192,6 +192,8 @@ Laya.LayaEnv.afterInit = function() {
 
 需要注意的是，需保证这些代码所在的脚本文件需要是被引用的，如果被tree shaking了就无效了。
 
+**注意：如果没有特殊需求，一般不推荐使用这种方法进行游戏初始化。开发者应该使用挂载组件脚本的方式。**
+
 如图4-1所示，把代码加入 Main.ts 的代码最上面
 
 <img src="images/4-1.png" style="zoom:50%;" /> 
