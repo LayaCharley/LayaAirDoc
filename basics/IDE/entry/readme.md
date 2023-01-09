@@ -169,3 +169,38 @@ Runtime 是Scene2D场景运行时的逻辑类，Runtime脚本与自定义脚本�
 
 
 这样，运行项目，依然可以看到输出 Game start，那么用 runtime 作为项目启动入口就介绍完了，开发者可以根据自己项目的需要来使用 runtime类或者自定义脚本类！
+
+
+
+## 四、自定义初始化
+
+使用IDE开发项目，Laya.init入口是屏蔽的。如果开发者需要在Laya.Init之前执行一些逻辑处理，可以使用以下方法。选择一个Typescript文件，例如Main.ts，在代码中加入：
+
+```Go
+Laya.LayaEnv.beforeInit = function(config: Laya.IStageConfig) {
+    //这个方法会在Laya.init前调用
+    console.log("before init");
+    
+    //这里可以对config以及Laya.Config、Laya.Config3D进行自定义的修改
+}
+
+Laya.LayaEnv.afterInit = function() {
+    //这个方法会在Laya.init后调用
+    console.log("after init");
+}
+```
+
+需要注意的是，需保证这些代码所在的脚本文件需要是被引用的，如果被tree shaking了就无效了。
+
+如图4-1所示，把代码加入 Main.ts 的代码最上面
+
+<img src="images/4-1.png" style="zoom:50%;" /> 
+
+（图4-1）
+
+运行可以看到，输出结果如图4-2所示
+
+<img src="images/4-2.png" style="zoom: 67%;" /> 
+
+（图4-2）
+
