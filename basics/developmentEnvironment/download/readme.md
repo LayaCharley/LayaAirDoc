@@ -8,9 +8,7 @@
 
 IDE内集成了引擎，直接下载IDE即可。
 
-下载地址：xxx
-
-> 当前还处于封闭测试阶段，可联系QQ 399050 获取测试资格与下载地址
+下载地址：https://layaair.layabox.com/#/engineDownload
 
 
 
