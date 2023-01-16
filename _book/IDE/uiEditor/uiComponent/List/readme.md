@@ -4,7 +4,7 @@
 
 ##  一、通过LayaAirIDE创建List组件
 
-​        List 组件可显示项目列表。默认为垂直方向列表。可通过UI编辑器自定义列表。List 列表的每一个列表通常是一样的，也可以使用编辑器自定义不同样式的列表内容项。
+List 组件可显示项目列表。默认为垂直方向列表。可通过UI编辑器自定义列表。List 列表的每一个列表通常是一样的，也可以使用编辑器自定义不同样式的列表内容项。
 ​        List 通常由两个部分组成：列表渲染项（单元格）、滚动条。
 ​        List 组件的脚本接口请参考 [List API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.List)。
 
@@ -17,13 +17,16 @@
 ​	**b.**选中 Label 对象，右键单击该对象打开设置面板，点击change Type，点击UI，选择容器类型为 Box 完成 Box 容器的添加。 
 
 ​        ![图片0.png](gif/4.gif)<br/>
+
 ​    （图1）
 
 2. 转化为 List 容器。
 
    选择列表渲染项对象，右键单击该对象打开设置面板，点击change Type，点击UI，选择容器类型为 List，完成容器 List 的添加。 
-           ![图片0.png](img/2.png)<br/>
-       （图2）
+
+   ​        ![图片0.png](img/2.png)<br/>
+
+   ​    （图2）
 
 3. 指定 List 的列表渲染项。
 
@@ -32,6 +35,7 @@
   方法2：双击List 对象，进入List 内部，设置List 列表渲染项的属性 renderType的值为 render。
 
 ​           ![图片0.png](img/3.png)<br/>
+
    ​    （图3）
 
 4. 为 List 添加滚动条组件。
@@ -41,6 +45,7 @@
   方法2：选择list组件，右侧属性面板常用中会出现vScrollBarrSkin，从资源面板里选择并拖拽一个VScrollBarr组件到这个skin属性中，会立即生成滚动条
 
 ​        ![图片0.png](img/4.png)<br/>
+
 ​    （图4）
 
 5. 拖动设置 List 的宽高
@@ -124,87 +129,103 @@ m_list.array = data;
 **示例代码：**
 
 ```javascript
-module laya {
-    import Stage = Laya.Stage;
-    import List = Laya.List;
-    import Handler = Laya.Handler;
-    import WebGL = Laya.WebGL;
+const { regClass, property } = Laya;
 
-    export class UI_List {
-        constructor() {
-            // 不支持WebGL时自动切换至Canvas
-            Laya.init(800, 600, WebGL);
+@regClass()
+export class UI_List extends Laya.Script {
 
-            Laya.stage.alignV = Stage.ALIGN_MIDDLE;
-            Laya.stage.alignH = Stage.ALIGN_CENTER;
+	private _list: Laya.List;
+	pageWidth: number;
+	pageHeight: number;
 
-            Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
-            Laya.stage.bgColor = "#232628";
-
-            this.setup();
-        }
-
-        private setup(): void {
-            var list: List = new List();
-
-            list.itemRender = Item;
-
-            list.repeatX = 1;
-            list.repeatY = 4;
-
-            list.x = (Laya.stage.width - Item.WID) / 2;
-            list.y = (Laya.stage.height - Item.HEI * list.repeatY) / 2;
-
-            // 使用但隐藏滚动条
-            list.vScrollBarSkin = "";
-
-            list.selectEnable = true;
-            list.selectHandler = new Handler(this, this.onSelect);
-
-            list.renderHandler = new Handler(this, this.updateItem);
-            Laya.stage.addChild(list);
-
-            // 设置数据项为对应图片的路径
-            var data: Array<string> = [];
-            for (var i: number = 0; i < 10; ++i) {
-                data.push("res/ui/listskins/1.jpg");
-                data.push("res/ui/listskins/2.jpg");
-                data.push("res/ui/listskins/3.jpg");
-                data.push("res/ui/listskins/4.jpg");
-                data.push("res/ui/listskins/5.jpg");
-            }
-            list.array = data;
-        }
-
-        private updateItem(cell: Item, index: number): void {
-            cell.setImg(cell.dataSource);
-        }
-
-        private onSelect(index: number): void {
-            console.log("当前选择的索引：" + index);
-        }
+    constructor() {
+        super();
     }
 
-    import Box = Laya.Box;
-    import Image = Laya.Image;
-    class Item extends Box {
-        public static WID: number = 373;
-        public static HEI: number = 85;
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+	
+		this.setup();
+	}
+	
+	private setup(): void {
+		var list: Laya.List = new Laya.List();
 
-        private img: Image;
+		list.itemRender = Item;
+		list.repeatX = 1;
+		list.repeatY = 4;
 
-        constructor(){
-            super();
-            this.size(Item.WID, Item.HEI);
-            this.img = new Image();
-            this.addChild(this.img);
-        }
+		
+		// 使用但隐藏滚动条
+		list.vScrollBarSkin = " ";
+		// list.scrollBar.elasticBackTime = 0;
+		// list.scrollBar.elasticDistance = 0;
+		list.selectEnable = true;
+		list.selectHandler = new Laya.Handler(this, this.onSelect);
 
-        public setImg(src: string): void {
-            this.img.skin = src;
-        }
-    }
+		// list.scrollBar.
+		list.renderHandler = new Laya.Handler(this, this.updateItem);
+		
+		
+		// 设置数据项为对应图片的路径
+		var data: any[] = [];
+		for (var i: number = 0; i < 10; ++i) {
+			data.push("resources/res/ui/listskins/1.jpg");
+			data.push("resources/res/ui/listskins/2.jpg");
+			data.push("resources/res/ui/listskins/3.jpg");
+			data.push("resources/res/ui/listskins/4.jpg");
+			data.push("resources/res/ui/listskins/5.jpg");
+		}
+		list.array = data;
+		this._list = list;
+		this.owner.addChild(list);
+		
+	}
+
+	private _itemHeight: number;
+	private _oldY: number;
+	private onMuseHandler(type: Event, index: number): void {
+		console.log("type:" + type.type + "ddd--" + this._list.scrollBar.value + "---index:" + index);
+		var curX: number, curY: number;
+		if (type.type == "mousedown") {
+			this._oldY = Laya.stage.mouseY;
+			let itemBox = this._list.getCell(index);
+			this._itemHeight = itemBox.height;
+		} else if (type.type == "mouseout") {
+			curY = Laya.stage.mouseY;
+			var chazhiY: number = Math.abs(curY - this._oldY);
+			var tempIndex: number = Math.ceil(chazhiY / this._itemHeight);
+			console.log("----------tempIndex:" + tempIndex + "---_itemHeight:" + this._itemHeight + "---chazhiY:" + chazhiY);
+			
+		}
+	}
+
+	private updateItem(cell: Item,index: number): void {
+		cell.setImg(cell.dataSource);
+	}
+
+	private onSelect(index: number): void {
+		console.log("当前选择的索引：" + index);
+	}
 }
-new laya.UI_List();
+
+class Item extends Laya.Box {
+	static WID: number = 373;
+	static HEI: number = 85;
+
+	private img: Laya.Image;
+	constructor() {
+		super();
+		this.size(Item.WID, Item.HEI);
+		this.img = new Laya.Image();
+		this.addChild(this.img);
+	}
+
+	setImg(src: string): void {
+		this.img.skin = src;
+	}
+}
 ```
 

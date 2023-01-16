@@ -14,11 +14,13 @@
 ​        Label 组件的资源示例：
 
 ​        ![图片0.png](img/1.png)<br/>
+
 ​    （图1）
 
 ​        Label组件拖放到编辑区后，设置 text 属性的值为 LayaAir IDE 后的显示效果如下：
 
 ​        ![图片0.png](img/2.png)<br/>
+
 ​    （图2）
 
  
@@ -28,6 +30,7 @@
 ###  1.2 Label 属性
 
 ​        ![图片0.png](img/3.png)<br/>
+
 ​    （图3）
 
  
@@ -58,65 +61,62 @@
  	在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Label`类，通过代码设定Label相关的属性。
 
 **运行示例效果:**
-​	![5](img/4.png)<br/>
-​	(图5)通过代码创建Label
 
-​	Label的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的Label，有兴趣的读者可以自己通过代码设置Label，创建出符合自己需要的文字效果。
+​	![5](img/4.png) <br/>
 
-​	更多的文字效果可以去查看2D基础篇中的文本部分。
+​    (图5)通过代码创建Label
+
+Label的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的Label，有兴趣的读者可以自己通过代码设置Label，创建出符合自己需要的文字效果。
+
+更多的文字效果可以去查看2D基础篇中的文本部分。
 
 **示例代码：**
 
 ```javascript
-module laya {
-	import Stage = Laya.Stage;
-	import Label = Laya.Label;
-	import WebGL = Laya.WebGL;
+const { regClass, property } = Laya;
+const Label = Laya.Label;
+@regClass()
+export class UI_Label extends Laya.Script {
 
-	export class UI_Label {
-		constructor() {
-			// 不支持WebGL时自动切换至Canvas
-			Laya.init(800, 600, WebGL);
 
-			Laya.stage.alignV = Stage.ALIGN_MIDDLE;
-			Laya.stage.alignH = Stage.ALIGN_CENTER;
+    constructor() {
+        super();
+    }
 
-			Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
-			Laya.stage.bgColor = "#232628";
-
-			this.setup();
-		}
-
-		private setup(): void {
-			this.createLabel("#FFFFFF", null).pos(30, 50);
-			this.createLabel("#00FFFF", null).pos(290, 50);
-			this.createLabel("#FFFF00", "#FFFFFF").pos(30, 100);
-			this.createLabel("#000000", "#FFFFFF").pos(290, 100);
-			this.createLabel("#FFFFFF", "#00FFFF").pos(30, 150);
-			this.createLabel("#0080FF", "#00FFFF").pos(290, 150);
-		}
-
-		private createLabel(color: string, strokeColor: string): Label {
-			const STROKE_WIDTH: number = 4;
-
-			var label: Label = new Label();
-			label.font = "Microsoft YaHei";
-			label.text = "SAMPLE DEMO";
-			label.fontSize = 30;
-			label.color = color;
-
-			if (strokeColor) {
-				label.stroke = STROKE_WIDTH;
-				label.strokeColor = strokeColor;
-			}
-
-			Laya.stage.addChild(label);
-
-			return label;
-		}
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+        this.setup();        
 	}
-}
-new laya.UI_Label();
+
+	private setup(): void {
+		this.createLabel("#FFFFFF", null).pos(30, 50);
+		this.createLabel("#00FFFF", null).pos(290, 50);
+		this.createLabel("#FFFF00", "#FFFFFF").pos(30, 100);
+		this.createLabel("#000000", "#FFFFFF").pos(290, 100);
+		this.createLabel("#FFFFFF", "#00FFFF").pos(30, 150);
+		this.createLabel("#0080FF", "#00FFFF").pos(290, 150);
+	}
+
+	private createLabel(color: string, strokeColor: string): Laya.Label {
+		const STROKE_WIDTH: number = 4;
+
+		var label: Laya.Label = new Label();
+		label.font = "Microsoft YaHei";
+		label.text = "SAMPLE DEMO";
+		label.fontSize = 30;
+		label.color = color;
+
+		if (strokeColor) {
+			label.stroke = STROKE_WIDTH;
+			label.strokeColor = strokeColor;
+		}
+
+		this.owner.addChild(label);
+
+		return label;
+	}
 ```
 
 
