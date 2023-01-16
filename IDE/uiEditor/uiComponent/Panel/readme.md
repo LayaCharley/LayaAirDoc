@@ -8,11 +8,15 @@ Panel是一个带有裁剪功能的面板容器类，常用来设置元素的显
 
 从IDE资源管理右侧组件面板的UI文件夹中，将Panel组件拖拽到UI页面中。如动图1所示：
 
-![1](img\1.gif)</br>(图1)
+![1](img\1.gif)</br>
+
+(图1)
 
 给Panel设置宽高（例如：100*100）。双击UI界面中的Panel组件，放入一张图片。显示效果以及层级结构图如图2所示：
 
-![2](img\2.png)</br>(图2)
+![2](img\2.png)</br>
+
+(图2)
 
 由图2可以看出放入的图片被裁剪了，图片最终所显示的宽高就是Panel容器的宽高。这样我们就可以直接调整图片的坐标让其显示的内容发生改变了。
 
@@ -22,17 +26,23 @@ Panel是一个带有裁剪功能的面板容器类，常用来设置元素的显
 
 在UI界面上准备一张图片，右键单击该图片调出设置面板，点击change Type，点击UI转为Panel容器。如图1-1所示：
 
-![1-1](img\1-1.png)</br>(图1-1)
+![1-1](img\1-1.png)</br>
+
+(图1-1)
 
 **1.3添加滚动条显示**
 
 Panel组件还可以设置滚动条；**除list组件外，Panel是唯一一个可以设置滚动条的容器组件**。在此我们可以对Panel设置一个滚动条看下效果。为Panel设置滚动条，如图3所示：
 
-![3](img\3.png)</br>(图3)
+![](img/3.png)
+
+（图3）
 
 Ctrl+F12（或F12）导出UI界面，在代码中预加载资源并实例化该UI界面。最终显示效果如动图4所示：
 
-![4](img\4.gif)</br>(图4)
+![4](img\4.gif)</br>
+
+(图4)
 
 
 
@@ -42,38 +52,46 @@ panel组件除了可以直接在UI界面中可视化的操作之外，在代码�
 
 用代码实现的效果如动图5所示：
 
-![5](img\5.gif)</br>(图5)
+![5](img\5.gif)</br>
+
+(图5)
 
 **示例代码：**
 
 ```typescript
-class PanelTest {
-    constructor() {
-        //初始化引擎
-        Laya.init(800, 600);
-        //预加载所需资源
-        Laya.loader.load("res/atlas/comp.atlas", Laya.Handler.create(this, this.onLoaded));
-    }
-    private onLoaded(): void {
-        //实例化Panel组件
-        var panel: Laya.Panel = new Laya.Panel();
-        //给panel添加背景色
-        panel.graphics.drawRect(0, 0, 100, 100, "#ffcccc");
-        //给panel设置宽高
-        panel.size(100, 100);
-        //给panel设置滚动条皮肤
-        panel.vScrollBarSkin = "comp/vscroll.png";
-        //将panel添加到stage上
-        Laya.stage.addChild(panel);
+const { regClass, property } = Laya;
 
-        //实例化Image组件
-        var img: Laya.Image = new Laya.Image();
-        //给image添加皮肤
-        img.skin = "comp/image.png";
-        //将image添加到panel组件中
-        panel.addChild(img);
+@regClass()
+export class UI_Panel extends Laya.Script {
+
+
+    constructor() {
+        super();
     }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		this.setup();
+	}
+    
+	private setup(): void {
+		var panel: Laya.Panel = new Laya.Panel();
+		panel.hScrollBarSkin = "resources/res/ui/hscroll.png";
+		panel.hScrollBar.hide = true;
+		panel.size(600, 275);
+
+		this.owner.addChild(panel);
+
+		var img: Laya.Image;
+		for (var i: number = 0; i < 4; i++) {
+			img = new Laya.Image("resources/res/ui/dialog (1).png");
+			img.x = i * 250;
+			panel.addChild(img);
+		}
+	} 
 }
-new PanelTest();
 ```
 
