@@ -1,5 +1,7 @@
 # ColorPicker组件参考
 
+> Author:   诗换花
+
 ColorPicker继承自UIComponent，ColorPicker组件将显示包含多个颜色样本的列表，用户可以从中选择颜色，如动图1所示。
 
 ![](img/1.gif) 
@@ -43,3 +45,49 @@ ColorPicker组件在拿到颜色值后，就可以项目里进行赋值，在IDE
 ![](img/6.png) 
 
 （图6）
+
+## 3、代码创建ColorPicker
+
+代码运行结果：
+
+![](img/7.gif) 
+
+```javascript
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_ColorPicker extends Laya.Script {
+
+	private skin: string = "resources/res/ui/colorPicker.png";
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		Laya.loader.load(this.skin).then( ()=>{
+            this.onColorPickerSkinLoaded();
+        } );
+	}
+
+	private onColorPickerSkinLoaded(e: any = null): void {
+		var colorPicker: Laya.ColorPicker = new Laya.ColorPicker();
+		colorPicker.selectedColor = "#ff0033";
+		colorPicker.skin = this.skin;
+
+		colorPicker.pos(100, 100);
+		colorPicker.changeHandler = new Laya.Handler(this, this.onChangeColor, [colorPicker]);
+		this.owner.addChild(colorPicker);
+
+		this.onChangeColor(colorPicker);
+	}
+
+	private onChangeColor(colorPicker: Laya.ColorPicker, e: any = null): void {
+		console.log(colorPicker.selectedColor);
+	}
+}
+```
