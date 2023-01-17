@@ -6,7 +6,7 @@
 
 在使用LayaAir2.0中，只能使用Main类来作为项目的入口，并使用如下方式启动，设置参数配置：
 
-在LayaAir3.0中，项目的入口做了根本的改变，在IDE中，可以在Project Setting中对项目做初始化参数设置，启动默认场景
+在LayaAir3.0中，项目的入口做了根本的改变，在IDE中，可以在Project Setting中对项目做初始化参数设置，启动默认场景。
 
 <img src="images/1.png" alt="image-20221101111121282" style="zoom: 33%;" /> 
 
@@ -14,7 +14,7 @@
 
 ## 设置初始入口
 
-使用LayaAir3.0创建工程后，会建立一个默认的场景，位于Assets下的Scene.ls，同时会创建一个Main的脚本，位于Src目录下。点击IDE的Project Setting，可以指定初始场景Scene。打开Scene场景，在场景中的Scene3D或者Scene2D节点都可以拖入Main脚本，已启动项目
+使用LayaAir3.0创建工程后，会建立一个默认的场景，位于Assets下的Scene.ls，同时会创建一个Main的脚本，位于Src目录下。点击IDE的Project Setting，可以指定初始场景Scene。打开Scene场景，在场景中的Scene3D或者Scene2D节点都可以拖入Main脚本，已启动项目。
 
 <img src="images/2.png" alt="image-20221101112639072" style="zoom:33%;" /> 
 
@@ -28,7 +28,7 @@
 
 在LayaAir3.0中，可以使用LayaAir自定义脚本或者runTime作为入口类。
 
-**自定义脚本**：自定义脚本，请参考“自定义脚本组件”文档
+**自定义脚本**：自定义脚本，请参考“自定义脚本组件”文档。
 
 <img src="images/4.png" alt="image-20221102172202163" style="zoom:33%;" /> 
 
@@ -48,13 +48,13 @@
 
 （图6）
 
-在Scene2D下创建一个Image组件，在属性面板勾选Declare Var，并修改名字为img，保存场景
+在Scene2D下创建一个Image组件，在属性面板勾选Declare Var，并修改名字为img，保存场景。
 
 <img src="images/7.png" alt="image-20221102173503223" style="zoom:50%;" /> 
 
 （图7）
 
-Main_gen.ts会再次生产，多了一个img属性，此时Main.ts代码中可以直接使用img属性如图8
+Main_gen.ts会再次生产，多了一个img属性，此时Main.ts代码中可以直接使用img属性，如图8。
 
 <img src="images/8.png" alt="image-20221102173659012" style="zoom:50%;" /> 
 

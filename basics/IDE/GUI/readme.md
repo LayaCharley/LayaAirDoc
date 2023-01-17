@@ -1,6 +1,6 @@
 # IDE开发工作流模块概述
 
-> Author：Charley  &&  高宇浩
+> Author：Charley  &&  诗换花
 
 ## 一、IDE帐号登录
 

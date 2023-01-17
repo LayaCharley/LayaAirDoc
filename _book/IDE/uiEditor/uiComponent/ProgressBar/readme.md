@@ -13,14 +13,17 @@
 ​        ProgressBar 组件的资源示例：
 
 ​        ![图片0.png](img/1.png)<br/>
+
 ​    （图1）
 
 ​        ![图片0.png](img/2.png)<br/>
+
 ​    （图2）
 
 ​        设置 ProgressBar 组件的属性 value 的值为 0.3 后，显示效果如下所示：
 
 ​        ![图片0.png](img/3.png)<br/>
+
 ​    （图3）
 
   
@@ -28,6 +31,7 @@
 ### 1.2 ProgressBar 组件的常用属性
 
 ​        ![图片0.png](img/4.png)<br/>
+
 ​    （图4）
 
  
@@ -46,6 +50,7 @@
 
 **运行示例效果:**
 ​	![5](gif/1.gif)<br/>
+
 ​	(图5)通过代码创建ProgressBar
 
 ​	ProgressBar的其他属性也可以通过代码来设置，上述示例演示了如何通过代码创建不同皮肤（样式）的ProgressBar，有兴趣的读者可以自己通过代码设置ProgressBar，创建出符合自己需要的进度条。
@@ -53,55 +58,54 @@
 **示例代码：**
 
 ```javascript
-module laya {
-    import Stage = Laya.Stage;
-    import ProgressBar = Laya.ProgressBar;
-    import Handler = Laya.Handler;
-    import WebGL = Laya.WebGL;
+const { regClass, property } = Laya;
 
-    export class UI_ProgressBar {
-        private progressBar: ProgressBar;
+@regClass()
+export class UI_ProgressBar extends Laya.Script {
 
-        constructor() {
-            // 不支持WebGL时自动切换至Canvas
-            Laya.init(800, 600, WebGL);
+    private progressBar: Laya.ProgressBar;
 
-            Laya.stage.alignV = Stage.ALIGN_MIDDLE;
-            Laya.stage.alignH = Stage.ALIGN_CENTER;
-
-            Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
-            Laya.stage.bgColor = "#232628";
-
-            Laya.loader.load(["res/ui/progressBar.png", "res/ui/progressBar$bar.png"], Handler.create(this, this.onLoadComplete));
-        }
-
-        private onLoadComplete(): void {
-            this.progressBar = new ProgressBar("res/ui/progressBar.png");
-
-            this.progressBar.width = 400;
-
-            this.progressBar.x = (Laya.stage.width - this.progressBar.width) / 2;
-            this.progressBar.y = Laya.stage.height / 2;
-
-            this.progressBar.sizeGrid = "5,5,5,5";
-            this.progressBar.changeHandler = new Handler(this, this.onChange);
-            Laya.stage.addChild(this.progressBar);
-
-            Laya.timer.loop(100, this, this.changeValue);
-        }
-
-        private changeValue(): void {
-
-            if (this.progressBar.value >= 1)
-                this.progressBar.value = 0;
-            this.progressBar.value += 0.05;
-        }
-
-        private onChange(value: number): void {
-            console.log("进度：" + Math.floor(value * 100) + "%");
-        }
+    constructor() {
+        super();
     }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+
+		Laya.loader.load(["resources/res/ui/progressBar.png", "resources/res/ui/progressBar$bar.png"]).then( ()=>{
+            this.onLoadComplete();
+        } );
+	}
+
+	private onLoadComplete(e: any = null): void {
+		this.progressBar = new Laya.ProgressBar("resources/res/ui/progressBar.png");
+
+		this.progressBar.width = 400;
+
+
+		this.progressBar.sizeGrid = "5,5,5,5";
+		this.progressBar.changeHandler = new Laya.Handler(this, this.onChange);
+		this.owner.addChild(this.progressBar);
+
+		Laya.timer.loop(100, this, this.changeValue);
+	}
+
+	private changeValue(): void {
+
+		if (this.progressBar.value >= 1)
+			this.progressBar.value = 0;
+		this.progressBar.value += 0.05;
+	}
+
+	private onChange(value: number): void {
+		console.log("进度：" + Math.floor(value * 100) + "%");
+	}
+
+ 
 }
-new laya.UI_ProgressBar();
+ 
 ```
 

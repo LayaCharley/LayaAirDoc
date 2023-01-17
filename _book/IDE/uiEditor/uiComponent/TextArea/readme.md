@@ -37,3 +37,52 @@
 ![](img/5.gif) 
 
 （动图5）
+
+## 3、通过代码创建TextArea
+
+```
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_TextArea extends Laya.Script {
+	
+	private skin: string = "resources/res/ui/textarea.png";
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		Laya.loader.load(this.skin).then( ()=>{
+            this.onLoadComplete();
+        } );
+	}
+
+	private onLoadComplete(e: any = null): void {
+
+		let ta: Laya.TextArea = new Laya.TextArea("");
+		ta.skin = this.skin;
+
+		ta.font = "Arial";
+		ta.fontSize = 18;
+		ta.bold = true;
+
+		ta.color = "#3d3d3d";
+
+		ta.pos(100, 15);
+		ta.size(375, 355);
+
+		ta.padding = "70,8,8,8";
+
+		this.owner.addChild(ta);
+	}
+}
+```
+
+运行结果：
+
+![](img/4.png) 

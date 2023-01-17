@@ -1,4 +1,6 @@
-# TextInput的单行输入&多行输入
+# TextInput组件介绍
+
+## 1、TextInputAPI参数
 
 ​        文本输入框是游戏中经常会用到的一个UI组件，任何时候需要输入的时候都要使用到textInput这个类，我们先看一下TextInput这个类的API。
 
@@ -19,7 +21,7 @@
 | type : String                    | 输入框类型为Input静态常量之一。平台兼容性参见http:/www.w3school.com.cn/html5/html_5_form_input_ types_asp。 | TextInput |
 | width : Number                   | [override]表示显示对象的宽度，以像素为单位。注：当值为0时，宽度为自适应大小。 | TextInput |
 
-### TextInput相关属性：
+## 2、TextInput相关属性：
 
 ![](img/3.png) 
 
@@ -35,70 +37,62 @@
 | editable    | 设置可编辑状态，默认为true。                                 |
 | multiline   | 是否是文本域，值为true表示当前是文本域，可多行输入，否则不是文本域。默认为false |
 
-​        这里我们设置文本的单行输入和多行输入，单行输入只能在一行内输入，多行可以通过回车在上一行未满的情况下在下一行输入。
+## 3、Textinput代码创建
 
 ```typescript
-module laya {
-    import Input = Laya.Input;
-    import Stage = Laya.Stage;
-    import Browser = Laya.Browser;
-    import WebGL = Laya.WebGL;
-    export class HelloLayabox {
- 
-      constructor() {
-            // 不支持WebGL时自动切换至Canvas
-            Laya.init(Browser.clientWidth, Browser.clientHeight, WebGL);
- 
-            Laya.stage.alignV = Stage.ALIGN_MIDDLE;
-            Laya.stage.alignH = Stage.ALIGN_CENTER;
+const { regClass, property } = Laya;
 
-            Laya.stage.scaleMode = "showall";
-            Laya.stage.bgColor = "#232628";
+@regClass()
+export class UI_Input extends Laya.Script {
 
-            this.createSingleInput();
-            this.createMultiInput();
-        }
+    private SPACING: number = 100;
+	private INPUT_WIDTH: number = 300;
+	private INPUT_HEIGHT: number = 50;
+	private Y_OFFSET: number = 50;
 
-       private createSingleInput(): void {
-            var inputText: Input = new Input();
+	private skins: any[];
 
-            inputText.size(350, 100);
-            inputText.x = Laya.stage.width - inputText.width >> 1;
-            inputText.y = (Laya.stage.height - inputText.height >> 1) - 100;
-
-            // 移动端输入提示符
-            inputText.prompt = "Type some word...";
- 
-            // 设置字体样式
-            inputText.bold = true;
-            inputText.bgColor = "#666666";
-            inputText.color = "#ffffff";
-            inputText.fontSize = 20;
-            Laya.stage.addChild(inputText);
-        }
-        private createMultiInput(): void {
-            var inputText: Input = new Input();
-
-            // 移动端输入提示符
-            inputText.prompt = "Type some word...";
-            //多行输入
-            inputText.multiline = true;
-            inputText.wordWrap = true;
-
-            inputText.size(350, 100);
-            inputText.x = Laya.stage.width - inputText.width >> 1;
-            inputText.y = (Laya.stage.height - inputText.height >> 1) +100;
-            inputText.padding = [2, 2, 2, 2];
-
-            inputText.bgColor = "#666666";
-            inputText.color = "#ffffff";
-            inputText.fontSize = 20;
-
-            Laya.stage.addChild(inputText);
-        }
+    constructor() {
+        super();
     }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+
+		this.skins = ["resources/res/ui/input (1).png", "resources/res/ui/input (2).png", "resources/res/ui/input (3).png", "resources/res/ui/input (4).png"];
+		Laya.loader.load(this.skins).then( ()=>{
+            this.onLoadComplete();
+        } );
+	}
+
+	private onLoadComplete(e: any = null): void {
+		for (var i: number = 0; i < this.skins.length; ++i) {
+			var input: Laya.TextInput = this.createInput(this.skins[i]);
+			input.prompt = 'Type:';
+			input.x = (Laya.stage.width - input.width) / 2;
+			input.y = i * this.SPACING + this.Y_OFFSET;
+		}
+	}
+
+	private createInput(skin: string): Laya.TextInput {
+		var ti: Laya.TextInput = new Laya.TextInput();
+
+		ti.skin = skin;
+		ti.size(300, 50);
+		ti.sizeGrid = "0,40,0,40";
+		ti.font = "Arial";
+		ti.fontSize = 30;
+		ti.bold = true;
+		ti.color = "#606368";
+
+		this.owner.addChild(ti);
+
+		return ti;
+	}
 }
-new laya.HelloLayabox();
 ```
 
 运行结果：

@@ -6,11 +6,12 @@
 
 ### 1.1 HSlider的作用与效果演示
 
-​	HSlider与VSlider组件都是Slider组件的子类，它们分别表示横向滑动条与纵向滑动条。用户可以通过在滑块轨道之间移动滑块来选择值。常用于如播放器进度控制、音量大小控制，一些UI上的数值调整等。
+HSlider与VSlider组件都是Slider组件的子类，它们分别表示横向滑动条与纵向滑动条。用户可以通过在滑块轨道之间移动滑块来选择值。常用于如播放器进度控制、音量大小控制，一些UI上的数值调整等。
 
 ​      HSlider 组件采用水平方向。滑块轨道从左向右扩展，而显示滑动块位置数值的标签位于轨道的上部，可隐藏。
 
 ​      ![图片1.gif](img/1.gif)<br/>
+
 ​    （图1）
 
 
@@ -24,7 +25,8 @@
  	tips：进度条资源`hslider$progress`可以与底图资源`hslider`互换，互换后进度可以反向显示。
 
 ![图片0.png](img/1.png)<br/>
-​    （图2）
+
+（图2）
 
 
 
@@ -43,6 +45,7 @@ HSlider的API介绍请参考 [http://layaair.ldc.layabox.com/api/index.html?cate
 ​       HSlider 拖放到编辑器区后，设置sizeGrid九宫格属性，使之放大后不会拉伸，缩放后显示效果如下：
 
 ​        ![图片2.png](img/2.png)<br/>
+
 ​    （图2）
 
 ### 1.2 HSlider 组件常用属性
@@ -50,6 +53,7 @@ HSlider的API介绍请参考 [http://layaair.ldc.layabox.com/api/index.html?cate
 ​        设置 HSlider 的属性 max 的值为 20、属性 min 的值为0、属性 value 的值为5后，显示效果如下：
 
 ​        ![图片3.png](img/3.png)<br/>
+
 ​    （图3）
 
 **max：**HSlider滑块拖动到最右边时的最大值，默认数值为100；
@@ -59,11 +63,14 @@ HSlider的API介绍请参考 [http://layaair.ldc.layabox.com/api/index.html?cate
 **value：**滑块目前所处的数值，应当等于max或min，或在它们之间的值。
 
 ​        ![图片4.png](img/4.png) <br/>
+
 ​    （图4）
 
 发布后编译运行，显示效果如下，可以拖动滑块来选择值：
 
-​        ![图片5.gif](img/5.gif)<br/>（图5）
+​        ![图片5.gif](img/5.gif)<br/>
+
+​     （图5）
 
 
 

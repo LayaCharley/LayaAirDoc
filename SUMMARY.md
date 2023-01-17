@@ -14,6 +14,7 @@
       * [项目工程目录说明](basics/IDE/projecFolders/readme.md)
       * [项目设置详解](basics/IDE/projectSettings/readme.md)
       * [项目入口说明](basics/IDE/entry/readme.md)
+      * [引用第三方JS模块](basics/IDE/importJsLibrary/readme.md)
       * [项目资源面板说明](basics/IDE/assets/readme.md)
       * [IDE快捷键与鼠标交互操作大全](basics/IDE/shortcutKeyCombinations/readme.md)
     - [引擎通用基础](basics/common/readme.md)
