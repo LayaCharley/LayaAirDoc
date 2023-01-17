@@ -54,10 +54,62 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 因为Dialog是弹窗，所以要设置弹窗的下层级是否可以进行点击，默认情况下是可以点击的，如果不想开启可自行关闭，关闭后即为不可点击状态（即不可穿透）。
 
-### 2.3 Is Show Effect属性
+## 3、代码创建Dialog组件
 
-![]()
+代码运行结果：
 
-### 2.4 Is Popup Center属性
+![](img/9.gif) 
 
-![]()
+```
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_Dialog extends Laya.Script {
+
+    private DIALOG_WIDTH: number = 220;
+	private DIALOG_HEIGHT: number = 275;
+	private CLOSE_BTN_WIDTH: number = 43;
+	private CLOSE_BTN_PADDING: number = 5;
+
+	private assets: any[];
+    private dialog: Laya.Dialog;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		this.assets = ["resources/res/ui/dialog (1).png", "resources/res/ui/close.png"];
+		Laya.loader.load(this.assets).then( ()=>{
+            this.onSkinLoadComplete();
+        } );
+	}
+
+	
+	private onSkinLoadComplete(e: any = null): void {
+		this.dialog = new Laya.Dialog();
+
+		var bg: Laya.Image = new Laya.Image(this.assets[0]);
+		this.dialog.addChild(bg);
+
+		var button: Laya.Button = new Laya.Button(this.assets[1]);
+		button.name = Laya.Dialog.CLOSE;
+		button.pos(this.DIALOG_WIDTH - this.CLOSE_BTN_WIDTH - this.CLOSE_BTN_PADDING, this.CLOSE_BTN_PADDING);
+		this.dialog.addChild(button);
+
+		this.dialog.dragArea = "0,0," + this.DIALOG_WIDTH + "," + this.DIALOG_HEIGHT;
+		this.dialog.show();
+	}
+
+	onDestroy(): void {
+		if (this.dialog) {
+			this.dialog.close();
+		}
+	}
+}
+```
+

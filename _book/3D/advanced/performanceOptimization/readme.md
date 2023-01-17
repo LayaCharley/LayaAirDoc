@@ -111,13 +111,17 @@ GPU Instance需要硬件的支持，确保你当前所使用的硬件可以支�
 
 图6-2
 
-Static Batch Volume组件的使用: 上面的Volume框选到合适的大小后，在组件的详情面板中，勾选Static Instance Batch，再点击reBatch，Volume中所框选的物件就会执行Batch操作，优化Draw Call，提升运行效率。
+Static Batch Volume组件的使用: 上面的Volume框选到合适的大小后，在组件的详情面板中，勾选Static Instance Batch，再点击reBatch，Volume中所框选的物件就会执行Batch操作，优化Draw Call，提升运行效率。勾选了CheckLOD选项的Batch组件, 会自动检查Volume中的物体LOD属性信息, 然后将Volume中的所有物体按照LOD Cull Rate Array的物体LOD等级划分为不同的LOD渲染对象
 
  ![image-20221226104233853](img/image-20221226104233853.png)
 
 图6-3
 
 
+
+ ![image-20230117103118514](img/image-20230117103118514.png)
+
+图6-4
 
 
 

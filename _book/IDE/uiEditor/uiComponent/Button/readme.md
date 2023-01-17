@@ -16,27 +16,56 @@
 const { regClass, property } = Laya;
 
 @regClass()
-export class Main extends Laya.Script {
-    private skin: string = "comp/button.png";
+export class UI_Button extends Laya.Script {
 
-    onEnable() {
-        console.log("Script Enable");
-        //加载资源成功后，执行onLoaded回调方法
-        Laya.loader.load(this.skin).then(()=>{
-            this.onLoaded();
-        });
+
+    constructor() {
+        super();
     }
-    private onLoaded(): void {
-        //创建一个Button实例
-        var btn: Laya.Button = new Laya.Button(this.skin);
-        //将Button添加到当前场景上
-        this.owner.addChild(btn);
-        //设置Button相关属性
-        btn.width = 100;
-        btn.height = 50;
-        btn.pos(100, 100);
-        btn.label = "按钮";
-    }
+
+	private COLUMNS: number = 2;
+	private BUTTON_WIDTH: number = 147;
+	private BUTTON_HEIGHT: number = 165 / 3;
+	private HORIZONTAL_SPACING: number = 200;
+	private VERTICAL_SPACING: number = 100;
+
+	private xOffset: number;
+	private yOffset: number;
+
+	private skins: any[];
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		this.skins = ["resources/res/ui/button-1.png", "resources/res/ui/button-2.png", "resources/res/ui/button-3.png",
+			"resources/res/ui/button-4.png", "resources/res/ui/button-5.png", "resources/res/ui/button-6.png"];
+
+		// 计算将Button至于舞台中心的偏移量
+		this.xOffset = (Laya.stage.width - this.HORIZONTAL_SPACING * (this.COLUMNS - 1) - this.BUTTON_WIDTH) / 2;
+		this.yOffset = (Laya.stage.height - this.VERTICAL_SPACING * (this.skins.length / this.COLUMNS - 1) - this.BUTTON_HEIGHT) / 2;
+
+		Laya.loader.load(this.skins).then( ()=>{
+            this.onUIAssetsLoaded();
+        } );
+	}
+
+	private onUIAssetsLoaded(e: any = null): void {
+		for (var i: number = 0, len: number = this.skins.length; i < len; ++i) {
+			var btn: Laya.Button = this.createButton(this.skins[i]);
+			var x: number = i % this.COLUMNS * this.HORIZONTAL_SPACING + this.xOffset;
+			var y: number = (i / this.COLUMNS | 0) * this.VERTICAL_SPACING + this.yOffset;
+			btn.pos(x, y);
+			console.log(x, y);
+		}
+	}
+
+	private createButton(skin: string): Laya.Button {
+		var btn: Laya.Button = new Laya.Button(skin);
+		this.owner.addChild(btn);
+		return btn;
+	}
 }
 ```
 
@@ -56,11 +85,13 @@ export class Main extends Laya.Script {
 
 第一步：鼠标右键单击Scene2D，然后找到UI，鼠标左键点击Button，如图3所示。
 
-![图3](img/3.png) <br />
+![](img/3.png)
 
-(图3)
+（ 图3）
 
-第二步：设置组件属性，如图3所示
+
+
+第二步：设置组件属性，如图4所示
 
 ![图3](img/4.png) <br />
 

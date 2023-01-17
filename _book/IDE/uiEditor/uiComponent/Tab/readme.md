@@ -66,5 +66,71 @@ SelectedIndex属性是用于改变Tab组件的索引值，默认不设置时，�
 
 
 
+## 3、代码创建Tab组件
 
+代码运行结果：
+
+![](img/10.gif) 
+
+```javascript
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_Tab extends Laya.Script {
+
+    private skins: any[] = ["resources/res/ui/tab1.png", "resources/res/ui/tab2.png"];
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		Laya.loader.load(this.skins).then( ()=>{
+            this.onLoadComplete();
+        } );
+	}
+
+	private onLoadComplete(e: any = null): void {
+		var tabA: Laya.Tab = this.createTab(this.skins[0]);
+		tabA.pos(40, 120);
+		tabA.labelColors = "#000000,#d3d3d3,#333333";
+
+		var tabB: Laya.Tab = this.createTab(this.skins[1]);
+		tabB.pos(40, 220);
+		tabB.labelColors = "#FFFFFF,#8FB299,#FFFFFF";
+	}
+
+	private createTab(skin: string): Laya.Tab {
+		var tab: Laya.Tab = new Laya.Tab();
+		tab.skin = skin;
+
+		tab.labelBold = true;
+		tab.labelSize = 20;
+		tab.labelStrokeColor = "#000000";
+
+		tab.labels = "Tab Control 1,Tab Control 2,Tab Control 3";
+		tab.labelPadding = "0,0,0,0";
+
+		tab.selectedIndex = 1;
+
+		this.onSelect(tab.selectedIndex);
+		tab.selectHandler = new Laya.Handler(this, this.onSelect);
+
+		this.owner.addChild(tab);
+
+		return tab;
+	}
+
+	private onSelect(index: number): void {
+		console.log("当前选择的标签页索引为 " + index);
+	}
+
+
+ 
+}
+```
 

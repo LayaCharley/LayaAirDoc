@@ -111,6 +111,7 @@
     * [反射探针](IDE/Component/ReflectionProbe/readme.md)
     * [静态合批](IDE/Component/StaticBatchVolume/readme.md)
     * [LOD组](IDE/Component/LOD/readme.md)
+  - [预制体模块](IDE/prefab/readme.md)
 - 进阶使用
     - [2D进阶](2D/advanced/readme.md)
       * [文本进阶使用](2D/advanced/useText/readme.md)

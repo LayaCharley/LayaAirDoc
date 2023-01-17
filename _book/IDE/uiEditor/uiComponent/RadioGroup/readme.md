@@ -128,3 +128,72 @@ selectedIndex属性是用于改变单选框组的索引值，默认不设置时�
 
 ​	通过以上几个步骤可以看到自定义RadioGroup组件制作成功。默认选择了第一个选框并切换到它的第三帧选择状态，其他选框则是第一帧未选择状态。
 
+## 4、代码创建RadioGroup
+
+代码运行结果：
+
+![](img/10.gif) 
+
+```javascript
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_RadioGroup extends Laya.Script {
+
+	private SPACING: number = 150;
+	private X_OFFSET: number = 200;
+	private Y_OFFSET: number = 80;
+
+	private skins: any[];
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+		this.skins = ["resources/res/ui/radioButton (1).png", "resources/res/ui/radioButton (2).png", "resources/res/ui/radioButton (3).png"];
+		Laya.loader.load(this.skins).then( ()=>{
+            this.onLoadComplete();
+        } );
+	}
+
+	private onLoadComplete(e: any = null): void {
+		for (var i: number = 0; i < this.skins.length; ++i) {
+			var rg: Laya.RadioGroup = this.createRadioGroup(this.skins[i]);
+			rg.selectedIndex = i;
+			rg.x = i * this.SPACING + this.X_OFFSET;
+			rg.y = this.Y_OFFSET;
+		}
+	}
+
+	private createRadioGroup(skin: string): Laya.RadioGroup {
+		var rg: Laya.RadioGroup = new Laya.RadioGroup();
+		rg.skin = skin;
+
+		rg.space = 70;
+		rg.direction = "v";
+
+		rg.labels = "Item1, Item2, Item3";
+		rg.labelColors = "#787878,#d3d3d3,#FFFFFF";
+		rg.labelSize = 20;
+		rg.labelBold = true;
+		rg.labelPadding = "5,0,0,5";
+
+		rg.selectHandler = new Laya.Handler(this, this.onSelectChange);
+		this.owner.addChild(rg);
+
+		return rg;
+	}
+
+	private onSelectChange(index: number): void {
+		console.log("你选择了第 " + (index + 1) + " 项");
+	}
+
+ 
+}
+```
+

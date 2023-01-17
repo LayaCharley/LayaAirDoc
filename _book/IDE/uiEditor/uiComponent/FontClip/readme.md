@@ -59,9 +59,76 @@ SpaceY用来调节Y方向的间隔，需要配合Direction来使用，如图6所
 
 （图6）
 
-## 3、代码创建Fontclip
+## 3、Fontclip代码创建
 
-```
+代码运行示例：
 
+![](img/7.png) 
+
+```javascript
+const { regClass, property } = Laya;
+
+@regClass()
+export class UI_FontClip extends Laya.Script {
+
+    private TestClipNum: string = "resources/res/comp/fontClip_num.png";
+    private _ClipNum: string = "resources/res/comp/fontClip_num.png";
+    private _ClipNum1: string = "resources/res/comp/fontClip_num.png";
+    private TestFontClip: string = "resources/res/comp/fontClip.png";
+    private _FontClip: string = "resources/res/comp/fontClip.png";
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+        Laya.loader.load([this.TestClipNum, this.TestFontClip, this._ClipNum, this._FontClip, this._ClipNum1]).then( ()=>{
+            this.ShowContent();
+        } );
+    }
+    
+    private ShowContent(): void {
+        var clipnum: Laya.FontClip = new Laya.FontClip(this._ClipNum);
+        var fontClip: Laya.FontClip = new Laya.FontClip(this._FontClip);
+        var testFontClip: Laya.FontClip = new Laya.FontClip(this.TestFontClip);
+        var testClipNum: Laya.FontClip = new Laya.FontClip(this.TestClipNum);
+        var clipnum1: Laya.FontClip = new Laya.FontClip(this._ClipNum1);
+
+        clipnum.pos(240, 400);
+        clipnum.size(250, 50);
+        clipnum.sheet = "0123456789";
+        clipnum.value = "114499";
+        clipnum.spaceY = 10;
+
+        testClipNum.pos(200, 300);
+        testClipNum.sheet = "0123456789";
+        testClipNum.value = "0123456789";
+
+        clipnum1.pos(150, 100);
+        clipnum1.direction = "vertical";
+        clipnum1.sheet = "0123456789";
+        clipnum1.value = "223388";
+
+        fontClip.pos(240, 200);
+        fontClip.sheet = "鼠牛虎兔龙蛇马羊 猴鸡狗猪年快乐";
+        fontClip.value = "猪年快乐";
+        fontClip.spaceY = 10;
+
+        testFontClip.pos(200, 100);
+        testFontClip.sheet = "鼠牛虎兔龙蛇马羊猴鸡狗猪年快乐";
+        testFontClip.value = "鼠牛虎兔龙蛇马羊猴鸡狗猪年快乐";
+        testFontClip.spaceY = 10;
+
+        this.owner.addChild(clipnum);
+        this.owner.addChild(fontClip);
+        this.owner.addChild(testFontClip);
+        this.owner.addChild(testClipNum);
+        this.owner.addChild(clipnum1);
+    }
+}
 ```
 
