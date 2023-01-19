@@ -65,6 +65,8 @@ SpaceY用来调节Y方向的间隔，需要配合Direction来使用，如图6所
 
 ![](img/7.png) 
 
+
+
 ```javascript
 const { regClass, property } = Laya;
 
