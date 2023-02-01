@@ -113,6 +113,7 @@
     * [LOD组](IDE/Component/LOD/readme.md)
   - [预制体模块](IDE/prefab/readme.md)
 - 进阶使用
+    * [2.x引擎项目升级指南](basics/2.x-Upgrade/readme.md)
     - [2D进阶](2D/advanced/readme.md)
       * [文本进阶使用](2D/advanced/useText/readme.md)
       * [TiledMap地图](2D/TiledMap/readme.md)
