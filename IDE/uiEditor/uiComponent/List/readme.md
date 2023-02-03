@@ -30,13 +30,13 @@ List 组件可显示项目列表。默认为垂直方向列表。可通过UI编�
 
 3. 指定 List 的列表渲染项。
 
-  方法1： 双击List 对象，进入List 内部，设置List 列表渲染项的属性 name 的值为 render。 **注意：此处列表渲染项属性 name 的值必须为 render。**
-
-  方法2：双击List 对象，进入List 内部，设置List 列表渲染项的属性 renderType的值为 render。
+   双击List 对象，进入List 内部，设置List 列表渲染项的属性 name 的值为 render。 **注意：此处列表渲染项属性 name 的值必须为 render。**
 
 ​           ![图片0.png](img/3.png)<br/>
 
    ​    （图3）
+
+现在List组件下第一个子节点作为item，默认第一个子节点拥有runder Type属性，不需要开发者再去手动设置。
 
 4. 为 List 添加滚动条组件。
 
@@ -89,6 +89,7 @@ m_list.array = data;
 ### 1.2 List 组件常用属性
 
 ​        ![图片0.png](img/6.png)<br/>
+
 ​    （图8）
 
   
