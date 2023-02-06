@@ -52,7 +52,7 @@ LayaAir3.0引擎，包括引擎代码、项目开发工具、项目发布，三�
 - 3D纹理
 - 3D粒子系统
 - 3D拖尾
-- 3D物理（bullet 、Cannon.js、PhysX）
+- 3D物理（bullet 、PhysX）
 - 3D动画（刚体动画、材质动画、骨骼动画、摄像机动画、时间轴动画）
 - 自定义Shader
 - webXR
