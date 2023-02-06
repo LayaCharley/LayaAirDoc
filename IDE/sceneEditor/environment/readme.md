@@ -105,7 +105,7 @@
 
 天空盒随着视角的旋转改变，我们可以观察到四面八方都有远景效果。目前提供的这两种网格中，盒型天空的顶点数据要更少，所以这种天空的性能要更好一些。
 
-`Panoramic Texture`：天空盒的纹理贴图
+`Panoramic Texture`：天空盒的纹理贴图（一张球形模型对应的贴图）
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-### 2.2 使用代码设置场景天空
+### 2.2 使用代码设置场景天空材质
 
 当然我们也可以通过代码来加载和指定天空盒
 
@@ -151,6 +151,66 @@ Laya.Material.load("sky2.lmat", Laya.Handler.create(null, function(mat: any) {
     skyRenderer.material = mat;
 }));
 ```
+
+
+
+### 2.3 IDE中创建天空盒
+
+#### 2.3.1 更改IDE默认的球形天空盒
+
+当我们用IDE场景一个3D场景时，默认是采用SkyPanoramic材质的球形天空盒，如图2-8所示
+
+<img src="img/2-8.png" style="zoom: 50%;" /> 
+
+（图2-8）
+
+由于系统的材质是在IDE内部，无法直接修改，如果需要修改的话，可以通过克隆的方式复制一个同样的天空盒材质到assets目录下，如动图2-9所示
+
+<img src="img/2-9.gif" style="zoom:50%;" /> 
+
+（动图2-9）
+
+然后准备好一张新的球形天空盒贴图，如图2-10所示
+
+<img src="img/2-10.png" style="zoom: 50%;" />
+
+（图2-10）
+
+拖入新的贴图到克隆后的材质中，如动图2-11所示
+
+<img src="img/2-11.gif" style="zoom:50%;" />
+
+（动图2-11）
+
+此时，不管是在IDE的场景中还是预览的效果，天空盒都换成了新的了
+
+
+
+#### 2.3.2 更改立方体天空盒
+
+如果开发者像使用立方体天空盒，首先我们更改上述天空盒材质为Skybox，如动图2-12所示
+
+<img src="img/2-12.gif" style="zoom:50%;" /> 
+
+（动图2-12）
+
+Laya.SkyBox材质是支持6张可以无缝相接的贴图，但是需要先创建一个Cube Texture，如动图2-13所示，在assets目录下创建Cube Texture
+
+<img src="img/2-13.gif" style="zoom:50%;" /> 
+
+（动图2-13）
+
+在Cube Texture中，添加好预先准备好的6张贴图，并点击应用，如图2-14所示
+
+![image-20230206205930406](img/2-14.png)
+
+（图2-14）
+
+最后，拖入配置好贴图的Cube Texture到skyBox材质的天空盒Texture中，立方体天空盒就配置好了，运行场景可以看到效果
+
+<img src="img/2-15.png" style="zoom:50%;" /> 
+
+（图2-15）
 
 
 
@@ -305,14 +365,6 @@ scene.ambientColor = new Laya.Color(0,0,0,0);
 `ibl Tex RGBD`：默认采用RGB深度图
 
 采用IBL时，环境光必须采用 `Spherical Harmonics` 方式，当点击 `Generate Light` 后，可以看到IBL Tex纹理会自动生成，并可以在3D物体的材质种调节反射效果。
-
-
-
-### 4.4 详情请参考视频
-
-<video src="img/GI.mp4"></video>
-
-（视频-GI.mp4）
 
 
 
@@ -502,14 +554,6 @@ this.scene.fogRange = 40;
  <img src="img\6-10.png" style="zoom:80%;" />
 
 （图6-10）
-
-
-
-### 6.5 详情请参考视频 
-
-<video src="img/烘焙.mp4"></video>
-
-（视频-烘培.mp4）
 
 
 
