@@ -635,16 +635,17 @@ Laya.Scene.destroy("scene/Login.ls")
 示例代码如下：
 
 ```
-//只加载Scene3D资源
+//用Laya.Scene3D的方式加载
 Laya.Scene3D.load('scene/Game.ls', Laya.Handler.create(null, function (res:any){
 	Laya.stage.addChild(res);
 }));
 
-//只加载Scene2D资源
+//用Laya.loader的方式加载，加载后根节点是Scene2D
 Laya.loader.load('scene/Game.ls', Laya.Handler.create(this, this.onLoaded), Laya.Handler.create(this, this.onLoading)).then( (res)=>{
     let scene = res.create();
-    Laya.stage.addChild(scene);
-    //res.scene3D 可以获得Scene3D资源
+    //scene.scene3D 可以获得Scene3D资源
+    Laya.stage.addChild(scene.scene3D);
+    
 });
 ```
 
