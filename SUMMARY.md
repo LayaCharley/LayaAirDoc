@@ -8,6 +8,7 @@
       * [TS语言基础](basics/language/readme.md)
       * [DevTools调试工具](basics/DevTools/readme.md)
       * [LayaTree调试工具](basics/LayaTree/readme.md)
+      * [VScode本地调试](basics/VsCode/readme.md)
 - 引擎基础
     - [IDE基础](basics/IDE/readme.md)
       * [自定义界面布局](basics/IDE/layouts/readme.md)

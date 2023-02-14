@@ -1,7 +1,10 @@
 ## 一篇上手LayaAir的3D物理引擎
 
+LayaAir引擎集成了世界三大物理引擎之一的Bullet引擎，当在Unity中使用了物理组件，用LayaAir的Unity插件导出后，默认就是采用的Bullet引擎。当然，LayaAir引擎也支持使用比较轻量的Cannon物理引擎的基础功能。本篇针对LayaAir引擎的初学者，全面介绍了3D物理引擎使用的基础能力。方便开发者快速上手。
 
-LayaAir引擎集成了世界三大物理引擎之一的Bullet引擎，LayaAir默认就是采用的Bullet引擎。本篇针对LayaAir引擎的初学者，全面介绍了3D物理引擎使用的基础能力。方便开发者快速上手。
+> 阅读本篇时，除非是Cannon物理引擎的专属章节，或者注明是cannon物理引擎，默认介绍都是基于LayaAir封装的Bullet引擎。
+
+
 
 ### 一、刚体
 
@@ -1019,3 +1022,7 @@ if (this.castAll) {
 > 射线检测里用于指定检测碰撞组的参数collisionMask对应的是前文介绍的canCollideWith
 
 
+
+### 五、其它物理引擎的使用
+
+之前的章节一直在介绍LayaAir基于Bullet物理引擎封装的物理引擎API。Bullet虽然强大，但是有些开发者对于物理精度要求不高，物理功能的使用也比较基础，只对物理引擎库的体积有要求，比如Cannon物理引擎库，其体积只有不足200k。目前LayaAir3.0的物理引擎接口正在改进中，以支持更多的第三方物理引擎，因此Cannon物理引擎暂时从IDE中删除，等后续改进完将会告知开发者。
