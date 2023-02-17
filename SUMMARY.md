@@ -118,6 +118,7 @@
     * [2.x引擎项目升级指南](basics/2.x-Upgrade/readme.md)
     - [2D进阶](2D/advanced/readme.md)
       * [文本进阶使用](2D/advanced/useText/readme.md)
+      * [使用二进制图片](2D/useBinaryImage/readme.md)
       * [TiledMap地图](2D/TiledMap/readme.md)
       * [2D性能优化](2D/performanceOptimization/readme.md)
     - [3D进阶](3D/advanced/readme.md)
