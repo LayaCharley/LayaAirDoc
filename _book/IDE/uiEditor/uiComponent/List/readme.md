@@ -2,95 +2,107 @@
 
 
 
-##  一、通过LayaAirIDE创建List组件
+##  一、IDE创建List组件
 
 List 组件可显示项目列表。默认为垂直方向列表。可通过UI编辑器自定义列表。List 列表的每一个列表通常是一样的，也可以使用编辑器自定义不同样式的列表内容项。
-​        List 通常由两个部分组成：列表渲染项（单元格）、滚动条。
-​        List 组件的脚本接口请参考 [List API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.List)。
+
+List 通常由两个部分组成：列表渲染项（单元格）、滚动条。
+List 组件的脚本接口请参考 [List API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.List)。
 
  
 
 ### 1.1 创建 List 组件
 
-​	列表项可以是 Box 对象或 View（页面） 或其它自定义页面对象。此处以Box 对象为例。
-​	**a.**从资源面板里选择拖入一个 Label 组件，到编辑区的界面里，设置一下 Label 的显示相关属性使它更好看一些。
-​	**b.**选中 Label 对象，右键单击该对象打开设置面板，点击change Type，点击UI，选择容器类型为 Box 完成 Box 容器的添加。 
+#### 1.添加List组件
 
-​        ![图片0.png](gif/4.gif)<br/>
+点击Scene2D节点，用鼠标右键打开菜单，选择UI，点击List，完成List组件的添加，调整好List的Size，如图1所示
 
-​    （图1）
+<img src="img/1.png" style="zoom:50%;" />
 
-2. 转化为 List 容器。
+（图1）
 
-   选择列表渲染项对象，右键单击该对象打开设置面板，点击change Type，点击UI，选择容器类型为 List，完成容器 List 的添加。 
 
-   ​        ![图片0.png](img/2.png)<br/>
 
-   ​    （图2）
+#### 2.添加列表项。
 
-3. 指定 List 的列表渲染项。
+列表项可以是 Box 对象或 View（页面） 或其它自定义页面对象。此处以Box 对象为例。
+**a.** 点击Scene2D节点，用鼠标右键打开菜单，选择UI，点击Box，完成Box的添加，调整好Box的高度为30
+**b.** 从资源面板里选择拖入一个 Label 组件，拖入到层级中Box的节点下，设置一下 Label 的显示相关属性使它更好看一些。
 
-   双击List 对象，进入List 内部，设置List 列表渲染项的属性 name 的值为 render。 **注意：此处列表渲染项属性 name 的值必须为 render。**
+![图片0.png](img/2.png)
 
-​           ![图片0.png](img/3.png)<br/>
+（图2）
 
-   ​    （图3）
 
-现在List组件下第一个子节点作为item，默认第一个子节点拥有runder Type属性，不需要开发者再去手动设置。
 
-4. 为 List 添加滚动条组件。
+#### 3.指定 List 的列表渲染项
 
-  方法1： 从资源面板里选择并拖拽一个 VScrollBar 组件到 List 组件的内部，并设置 VScrollBar 组件对象的属性 name 的值为 scrollBar。  ***注意：此处滚动条的属性 name 的值必须为 scrollBar。***
+LayaAir3.0与2.0的区别是已经去掉了renderType属性，对于List组件来说，List组件下第一个节点就默认作为列表渲染项，如图3所示，Box节点就是列表渲染项
 
-  方法2：选择list组件，右侧属性面板常用中会出现vScrollBarrSkin，从资源面板里选择并拖拽一个VScrollBarr组件到这个skin属性中，会立即生成滚动条
+![图片0.png](img/3.png) 
 
-​        ![图片0.png](img/4.png)<br/>
+（图3）
 
-​    （图4）
 
-5. 拖动设置 List 的宽高
 
-​	设置属性 repeatX 的值为 1，设置 repeatY 的值为6。
-   ​        ![图片0.png](img/5.png)<br/>
-   ​    （图5）
+#### 4.为 List 添加滚动条组件
 
-6. 在代码里给 List 对象赋值。
+选择List组件，右侧属性面板常用中会出现V Scroll Bar Skin属性，从资源面板里选择并拖拽一个vscroll组件到这个skin属性中，会立即生成滚动条
+
+![图片0.png](img/4.png)
+
+（图4）
+
+
+
+#### 5.拖动设置 List 的宽高
+
+设置属性 repeatX 的值为 1，设置 repeatY 的值为6。如图5所示
+![图片0.png](img/5.png)
+（图5）
+
+
+
+#### 6.在代码里给 List 对象赋值
 
 
 ```javascript
-  var data: Array<any> = [];
+var data: Array<any> = [];
 
-   for(var m:number =0;m<20;m++){
-
-        data.push({m_label:"No."+m});
+for(var m:number =0; m<20; m++){
+    
+	data.push({m_label:"No."+m});
+    
 }
 m_list.array = data;
 ```
 
-7. 在程序里运行查看效果。
 
-   ​        ![图片0.gif](gif/1.gif)<br/>
-​       （图6）
 
-8. 在代码里添加脚本，隐藏滚动条，设置拖拽的橡皮筋效果。
+#### 7.在程序里运行查看效果。
+
+![图片0.gif](gif/1.gif) 
+（图6）
+
+
+
+#### 8.在代码里添加脚本，隐藏滚动条，设置拖拽的橡皮筋效果
 
 ```javascript
- m_list.scrollBar.hide = true;//隐藏列表的滚动条。
+ m_list.vScrollBarSkin = "";//隐藏列表的滚动条。
+ m_list.elasticEnabled = true;//设置橡皮筋为ture
  m_list.scrollBar.elasticBackTime = 200;//设置橡皮筋回弹时间。单位为毫秒。
  m_list.scrollBar.elasticDistance = 50;//设置橡皮筋极限距离。
 ```
 
-9. 在程序里运行查看效果。
 
-   ​        ![图片0.gif](gif/1.gif)<br/>
-   ​    （图7）
 
 
 ### 1.2 List 组件常用属性
 
-​        ![图片0.png](img/6.png)<br/>
+![图片0.png](img/6.png) 
 
-​    （图8）
+（图8）
 
   
 
@@ -106,26 +118,19 @@ m_list.array = data;
 | selectindex       | 当前选择的项索引。                                           |
 | disablestopscroll | 禁用滚动条停止，用于控制array更新时是否停止滚动条，默认在更新数据时会停止滚动条，当通过滑动滚动条，进行动态更新，list的cell时，设置为true，不停止滚动条会让列表滚动的平滑流畅。 |
 
-  
-
-### 1.3 Tips:
-
-1. 给 List 添加滚动条有两种方式：一种是直接在List 内部拖放一个 滚动条，并设置滚动条的名字为 scrollBar，另一种方式是设置 List 的属性vScrollBarSkin、hScrollBarSkin 的值为滚动条的资源地址。
-
-2. List 的列表渲染项既可以是 Box 对象，也可以是页面对象。
-
-   
 
 
 ## 二、通过代码创建List组件
 
-​	在我们进行书写代码的时候，免不了通过代码控制UI，创建UI_List类，通过代码设定List相关的属性。
+在我们进行书写代码的时候，免不了通过代码控制UI，创建UI_List类，通过代码设定List相关的属性。
 
 **运行示例效果:**
-​	![5](gif/3.gif)<br/>
-​	(图9)通过代码创建List
+![5](gif/3.gif ) 
+(图9)
 
-​	List的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的List，有兴趣的读者可以自己通过代码设置List，创建出符合自己需要的列表。
+List的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的List，有兴趣的读者可以自己通过代码设置List，创建出符合自己需要的列表。
+
+
 
 **示例代码：**
 
@@ -152,15 +157,14 @@ export class UI_List extends Laya.Script {
 	}
 	
 	private setup(): void {
+        
 		var list: Laya.List = new Laya.List();
 
 		list.itemRender = Item;
 		list.repeatX = 1;
 		list.repeatY = 4;
 
-		
-		// 使用但隐藏滚动条
-		list.vScrollBarSkin = " ";
+		list.vScrollBarSkin = "";
 		// list.scrollBar.elasticBackTime = 0;
 		// list.scrollBar.elasticDistance = 0;
 		list.selectEnable = true;
@@ -168,7 +172,6 @@ export class UI_List extends Laya.Script {
 
 		// list.scrollBar.
 		list.renderHandler = new Laya.Handler(this, this.updateItem);
-		
 		
 		// 设置数据项为对应图片的路径
 		var data: any[] = [];
