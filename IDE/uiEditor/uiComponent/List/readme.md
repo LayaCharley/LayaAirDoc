@@ -47,11 +47,17 @@ LayaAir3.0与2.0的区别是已经去掉了renderType属性，对于List组件�
 
 #### 4.为 List 添加滚动条组件
 
-选择List组件，右侧属性面板常用中会出现V Scroll Bar Skin属性，从资源面板里选择并拖拽一个vscroll组件到这个skin属性中，会立即生成滚动条
+LayaAir3.0与2.0的区别是List增加了Scroll Type属性，用Scroll Type去控制是否有滚动条。而是否有皮肤，已经与是否滚动脱钩。选择List组件，查看右侧属性面板
+
+**a.**先选择List的属性Scroll Type为vertical
+
+**b.**V Scroll Bar Skin属性用来设置垂直滚动条的皮肤，从资源面板里选择并拖拽一个vscroll组件到这个skin属性中，会立即生成滚动条皮肤
 
 ![图片0.png](img/4.png)
 
 （图4）
+
+> 注意：当Scroll Type为none时，即时设置了滚动条皮肤，在运行时也不会有滚动效果
 
 
 
@@ -91,7 +97,8 @@ m_list.array = data;
 #### 8.在代码里添加脚本，隐藏滚动条，设置拖拽的橡皮筋效果
 
 ```javascript
- m_list.vScrollBarSkin = "";//隐藏列表的滚动条。
+ m_list.scrollType = Laya.ScrollType.Vertical;//设置列表使用垂直滚动
+ m_list.vScrollBarSkin = "";//隐藏列表的滚动条皮肤
  m_list.elasticEnabled = true;//设置橡皮筋为ture
  m_list.scrollBar.elasticBackTime = 200;//设置橡皮筋回弹时间。单位为毫秒。
  m_list.scrollBar.elasticDistance = 50;//设置橡皮筋极限距离。
@@ -111,8 +118,10 @@ m_list.array = data;
 | ----------------- | ------------------------------------------------------------ |
 | repeatX           | 水平方向显示的单元格数量。                                   |
 | repeatY           | 垂直方向显示的单元格数量。                                   |
+| elasticEnabled    | 是否开启橡皮筋效果                                           |
 | spaceX            | 水平方向显示的单元格之间的间距（以像素为单位）。             |
 | spaceY            | 垂直方向显示的单元格之间的间距（以像素为单位）。             |
+| scrollType        | 是否开启滚动                                                 |
 | vScrollBarSkin    | 垂直方向滚动条皮肤。                                         |
 | hScrollBarSkin    | 水平方向滚动条皮肤。                                         |
 | selectenable      | 是否可以选中。                                               |
@@ -126,55 +135,66 @@ m_list.array = data;
 在我们进行书写代码的时候，免不了通过代码控制UI，创建UI_List类，通过代码设定List相关的属性。
 
 **运行示例效果:**
-![5](gif/3.gif ) 
+<img src="gif/3.gif" alt="5" style="zoom:50%;" />  
 
 (图9)
 
-List的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的List，有兴趣的读者可以自己通过代码设置List，创建出符合自己需要的列表。
+List的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建List，有兴趣的读者可以自己通过代码设置List，创建出符合自己需要的列表。
 
 
 
 **示例代码：**
 
 ```javascript
+import { BaseScript } from "../../BaseScript";
+
+import List = Laya.List;
+import Event = Laya.Event;
+
+
 const { regClass, property } = Laya;
 
 @regClass()
-export class UI_List extends Laya.Script {
+export class UI_List extends BaseScript {
 
-	private _list: Laya.List;
-	pageWidth: number;
-	pageHeight: number;
+	private _list: List;
 
     constructor() {
         super();
     }
 
-    /**
-     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
-     */
     onAwake(): void {
-	
+
+        super.base();
 		this.setup();
 	}
 	
 	private setup(): void {
-        
-		var list: Laya.List = new Laya.List();
+		var list: List = new List();
 
 		list.itemRender = Item;
 		list.repeatX = 1;
 		list.repeatY = 4;
 
+		list.x = (this.pageWidth - Item.WID) / 2;
+		list.y = (this.pageHeight - Item.HEI * list.repeatY) / 2;
+
+		// 设置List的垂直滚动
+		list.scrollType = Laya.ScrollType.Vertical;
+		// 设置List的垂直滚动皮肤，不设置或者""就没有滚动条皮肤
 		list.vScrollBarSkin = "";
-		// list.scrollBar.elasticBackTime = 0;
-		// list.scrollBar.elasticDistance = 0;
+		// 是否开启橡皮筋效果
+		list.elasticEnabled = true;
+		// 设置橡皮筋回弹时间。单位为毫秒。
+		list.scrollBar.elasticBackTime = 300;
+		// 设置橡皮筋极限距离。
+		list.scrollBar.elasticDistance = 50;
 		list.selectEnable = true;
 		list.selectHandler = new Laya.Handler(this, this.onSelect);
 
-		// list.scrollBar.
 		list.renderHandler = new Laya.Handler(this, this.updateItem);
-		
+		this.box2D.addChild(list);
+
 		// 设置数据项为对应图片的路径
 		var data: any[] = [];
 		for (var i: number = 0; i < 10; ++i) {
@@ -186,8 +206,6 @@ export class UI_List extends Laya.Script {
 		}
 		list.array = data;
 		this._list = list;
-		this.owner.addChild(list);
-		
 	}
 
 	private _itemHeight: number;
@@ -204,11 +222,12 @@ export class UI_List extends Laya.Script {
 			var chazhiY: number = Math.abs(curY - this._oldY);
 			var tempIndex: number = Math.ceil(chazhiY / this._itemHeight);
 			console.log("----------tempIndex:" + tempIndex + "---_itemHeight:" + this._itemHeight + "---chazhiY:" + chazhiY);
+			var newIndex: number;
 			
 		}
 	}
 
-	private updateItem(cell: Item,index: number): void {
+	private updateItem(cell: Item, index: number): void {
 		cell.setImg(cell.dataSource);
 	}
 
@@ -216,6 +235,8 @@ export class UI_List extends Laya.Script {
 		console.log("当前选择的索引：" + index);
 	}
 }
+
+
 
 class Item extends Laya.Box {
 	static WID: number = 373;
