@@ -126,7 +126,7 @@ Runtime 属性中需要我们来选择一个 Script 脚本并拖入，用于生�
 
 此时，我们可以在 Scirpt 类中，使用此场景中的已经勾选过的UI组件，例如下面的代码：
 
-```
+```typescript
     onAwake(): void {
         
         // Button1添加鼠标事件，让Image不显示
@@ -247,7 +247,7 @@ UI继承类（Runtime）与自定义脚本类似，不同的是 Runtime 的实�
 
 此时 Scene 场景中既有 Runtime，又有自定义脚本，我们通过在Main自定义脚本中添加如下代码，来看看如何在脚本中使用 Runtime 的功能
 
-```
+```typescript
 import { MyRuntime } from "./Script";
 
 const { regClass, property } = Laya;
@@ -312,7 +312,7 @@ ui 属性直接从脚本中通过 `this.owner.scene as MyRuntime` 这句代码�
 
 在上述操作后，两个场景都有 Runtime 和 Script脚本了，那么如何做统一处理呢，我们发现 Runtime类是用来关联UI组件的，因为都是继承自各自的生成脚本，就不能再统一继承某个类了。而脚本类都继承自 Laya.Script ，那么我们再多继承一层，让 Main 和 Main1 都继承自一个新的类 MainBase，MainBase 再继承自 Laya.Script，从而实现统一处理的目的。另外 MainBase 类加一个方法 baseUI()，我们来看看修改后效果：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -331,7 +331,7 @@ export class MainBase extends Laya.Script {
 
 接下来，修改 Main 和 Main1 都继承自 MainBase，获得 Runtime 对象，并调用 MainBase 的 baseUI方法，传入 runtime 对象，如下
 
-```
+```typescript
 import { MainBase } from "./MainBase";
 import { MyRuntime } from "./Script";
 
@@ -349,7 +349,7 @@ export class Main extends MainBase {
 }
 ```
 
-```
+```typescript
 import { MainBase } from "./MainBase";
 import { MyRuntime1 } from "./Script1";
 
@@ -371,7 +371,7 @@ export class Main1 extends MainBase {
 
 最后，我们在 MainBase 中加入点击缩放 Button的代码，如下：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()

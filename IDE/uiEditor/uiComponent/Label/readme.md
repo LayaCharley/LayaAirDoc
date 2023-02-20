@@ -13,23 +13,21 @@
 
 ​        Label 组件的资源示例：
 
-​        ![图片0.png](img/1.png)<br/>
+​        ![图片0.png](img/1.png)
 
 ​    （图1）
 
 ​        Label组件拖放到编辑区后，设置 text 属性的值为 LayaAir IDE 后的显示效果如下：
 
-​        ![图片0.png](img/2.png)<br/>
+​        ![图片0.png](img/2.png)
 
 ​    （图2）
 
  
 
- 
-
 ###  1.2 Label 属性
 
-​        ![图片0.png](img/3.png)<br/>
+​        ![图片0.png](img/3.png)
 
 ​    （图3）
 
@@ -58,13 +56,15 @@
 
 ## 二、通过代码创建Label组件
 
- 	在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Label`类，通过代码设定Label相关的属性。
+在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Label`类，通过代码设定Label相关的属性。
 
 **运行示例效果:**
 
-​	![5](img/4.png) <br/>
+​	![5](img/4.png)
 
-​    (图5)通过代码创建Label
+​    (图5)
+
+通过代码创建Label
 
 Label的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的Label，有兴趣的读者可以自己通过代码设置Label，创建出符合自己需要的文字效果。
 
@@ -72,7 +72,7 @@ Label的其他属性也可以通过代码来设置，下述示例代码演示了
 
 **示例代码：**
 
-```javascript
+```typescript
 const { regClass, property } = Laya;
 const Label = Laya.Label;
 @regClass()

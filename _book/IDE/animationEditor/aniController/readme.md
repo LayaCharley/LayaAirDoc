@@ -126,7 +126,7 @@ Project面板中，任何目录下都可以创建一个动画状态机文件。�
 
 LayaAir 3D引擎的Sprite3D类提供了 `getComponent()` 方法来获取模型上的组件。带动画的模型在加载创建时引擎默认赋予了`Animator`动画组件，因此我们可以这样获取：
 
-```
+```typescript
 //获得状态机
 this.animator = this.target.getComponent<Laya.Animator>(Laya.Animator);
 ```
@@ -178,7 +178,7 @@ this.animator = this.target.getComponent<Laya.Animator>(Laya.Animator);
 
 通过代码，我们可以获得想要的图层，需要使用Animator的 `animator.getControllerLayer(layerIndex)`方法：
 
-```
+```typescript
     /**
      * 获取控制器层。
      */
@@ -189,7 +189,7 @@ this.animator = this.target.getComponent<Laya.Animator>(Laya.Animator);
 
 例如：
 
-```
+```typescript
 //获得BaseLayer层AnimatorControllerLayer
 let animatorControllerLayer : Laya.AnimatorControllerLayer = this.animator.getControllerLayer(0);
 //获得当前BaseLayer层的默认动画状态
@@ -400,7 +400,7 @@ solo与mute：两个选框，Solo表示只生效这一条切换，Mute相当于�
 
 可以通过代码来满足条件，代码如下：
 
-```
+```typescript
 //通过设置“Float”参数的值，来满足Idel到Run的条件，切换状态
 this.animator.setParamsNumber( "Float" , 2 );
 ```
@@ -423,7 +423,7 @@ this.animator.setParamsNumber( "Float" , 2 );
 
 可以通过代码来满足条件，如下：
 
-```
+```typescript
 //通过设置“Bool”参数的值，来满足Idel到Run的条件，切换状态
 this.animator.setParamsBool( "Bool" , true );
 ```
@@ -444,7 +444,7 @@ this.animator.setParamsBool( "Bool" , true );
 
 通过代码来满足条件，如下：
 
-```
+```typescript
 //通过触发“Trigger”，来满足Idel到Run的条件，切换状态
 this.animator.setParamsTrigger( "Trigger" );
 ```
@@ -537,7 +537,7 @@ this.animator.setParamsTrigger( "Trigger" );
 
 查看Animator动画组件中`play()`方法，具体方法参数如下：
 
-```
+```typescript
 /**
 * 播放动画。
 * @param	name 如果为null则播放默认动画，否则按名字播放动画片段。
@@ -549,7 +549,7 @@ play(name: string | null = null, layerIndex: number = 0, normalizedTime: number 
 
 这是动画状态机里最基本的播放动画方式，通过下面的代码：
 
-```
+```typescript
 //动画状态机，直接播放Run动画状态
 this.animator.play("Run");
 ```
@@ -562,7 +562,7 @@ this.animator.play("Run");
 
 通过Play()的参数也可以指定播放动画的起始位置
 
-```
+```typescript
 //动画状态机，直接播放Stand动画状态，从50%的位置开始
 this.animator.play("Stand", 0 , 0.5);
 ```
@@ -575,7 +575,7 @@ this.animator.play("Stand", 0 , 0.5);
 
 当然我们也可以通过代码修改动画状态的属性，播放不同的效果：
 
-```
+```typescript
 //获得动画状态机的BaseLayer层，也可以获得其它层
 let acl: Laya.AnimatorControllerLayer = this.animator.getControllerLayer(0);
 //获得一个动画状态
@@ -604,7 +604,7 @@ this.animator.play("Stand_new");
 
 先来看看Animator动画组件中`crossFade()`方法，具体方法参数如下：
 
-```
+```typescript
     /**
      * 在当前动画状态和目标动画状态之间进行融合过渡播放。
      * @param	name 目标动画状态。
@@ -617,7 +617,7 @@ this.animator.play("Stand_new");
 
 通过代码调用如下
 
-```
+```typescript
 //动画状态机，过渡融合到Run动画状态
 this.animator.crossFade("Run", 0.3);
 ```
@@ -632,7 +632,7 @@ this.animator.crossFade("Run", 0.3);
 
 播放动画说完了，我们再来说一下暂停动画。可以直接使用动画的播放速度控制动画的暂停与播放，直接设置需要暂停动画的播放速度为0即可，继续播放只需要重新设置速度为1。
 
-```
+```typescript
 //暂停动画
 animator.speed = 0.0;
 //播放动画
@@ -653,7 +653,7 @@ animator.speed = 0.5;
 
 获取动画播放状态，需要先使用Animator的 `animator.getControllerLayer(layerIndex)`方法：
 
-```
+```typescript
     /**
      * 获取控制器层。
      */
@@ -664,7 +664,7 @@ animator.speed = 0.5;
 
 获得 `AnimatorControllerLayer` 后，再使用 `getCurrentPlayState()` 方法：
 
-```
+```typescript
     /**
      * 获取当前的播放状态。
      * @return 动画播放状态。
@@ -676,7 +676,7 @@ animator.speed = 0.5;
 
 获得 `AnimatorPlayState` 后，有三个常用的方法获取播放状态如下：
 
-```
+```typescript
     /**
     * 播放状态的归一化时间,整数为循环次数，小数为单次播放时间。
     */
@@ -701,7 +701,7 @@ animator.speed = 0.5;
 
 通常我们可以利用 `normalizedTime` 来判断是否某个动画状态是否播完，例如下面的代码：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -765,7 +765,7 @@ export class Main extends Laya.Script {
 
 我们来看看刚刚创建的Idle状态的脚本代码，并起名为IdleStateScript：
 
-```
+```typescript
 const { regClass } = Laya;
 /**
  * 继承自AnimatorStateScript(动画状态脚本)
@@ -820,7 +820,7 @@ IdleStateScript脚本继承自Laya.AnimatorStateScript，具备三个方法：
 
 我们来简单加入一些代码来看效果：
 
-```
+```typescript
     /**
      * 动画状态开始时执行。
      */

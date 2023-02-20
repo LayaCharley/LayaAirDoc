@@ -18,7 +18,7 @@ LayaAir2.0开始，支持自定义脚本到编辑器，方便扩展已有组件�
 
 所有开发者编写的Laya.Script都需要使用这个装饰器才能被IDE识别。例如
 
-```Go
+```typescript
 const { regClass } = Laya;
 
 @regClass()
@@ -28,7 +28,7 @@ export class MyScript extends Laya.Script {
 
 所有需要被IDE显示和序列化保存的类型都需要使用这个装饰器。例如下面这个例子，虽然Animal不是脚本类，但它们需要被MyScript这个脚本暴露给开发者，所以也需要regClass。
 
-```Go
+```typescript
 //MyScript.ts
 const { regClass } = Laya;
 
@@ -59,7 +59,7 @@ export default class Animal {
 
 property用在类的属性上，表示这个属性需要保存和暴露给用户编辑。
 
-```Go
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -81,20 +81,20 @@ class Animal {
 
 其中：
 
-```
+```typescript
 const { regClass, property } = Laya;
 ```
 
 写在脚本类的最上面，声明此类支持暴露类中的属性
 
-```
+```typescript
 @regClass()
 export class Main extends Laya.Script
 ```
 
 在自定义脚本类的上一行，加入@regClass()
 
-```
+```typescript
 @property()
 private btn_1: Laya.Button; 
 ```
@@ -117,7 +117,7 @@ private btn_1: Laya.Button;
 
 当使用自定义脚本类时，可以实现如下事件方法，方便快速开发业务逻辑
 
-```
+```typescript
     /**
      * 开始碰撞时执行
      */
@@ -235,7 +235,7 @@ private btn_1: Laya.Button;
 
 当使用自定义脚本类时，可以实现如下生命周期方法，方便快速开发业务逻辑
 
-```
+```typescript
     /**
      * 被添加到节点后调用，和Awake不同的是即使节点未激活onAdded也会调用。
      */
@@ -307,7 +307,7 @@ private btn_1: Laya.Button;
 
 （图3-1）
 
-```
+```typescript
 const { regClass, property } = Laya;
 import { Particle3D } from "./Particle3D";
 import Sprite3D = Laya.Sprite3D;
@@ -368,7 +368,7 @@ export class Main extends Laya.Script {
 
 此时，在IDE中Cube是静止不动的，我们为Cube添加一些代码，让Cube可以围绕自身旋转，代码如下所示：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -422,7 +422,7 @@ export class Main extends Laya.Script {
 
 对于其它的生命周期方法同样也可以在触发时执行，开发者根据需要来添加生命周期方法
 
-```
+```typescript
     /**
      * 被添加到节点后调用，和Awake不同的是即使节点未激活onAdded也会调用。
      */
@@ -508,7 +508,7 @@ export class Main extends Laya.Script {
 
 通过在Main的@regClass()下加入
 
-```Go
+```typescript
 @classInfo( {
     menu : "MyScript",
     caption : "Main",
@@ -539,7 +539,7 @@ export class Main extends Laya.Script {
 
 不属于以上的，包括数组、字典、枚举等，则需要额外设置type属性。例如
 
-```Go
+```typescript
 @property()
 a : string; //自动识别
 
@@ -569,7 +569,7 @@ g : any; //any类型只会被序列化，不能显示和编辑。
 
 property除了设置属性类型和序列化开关外，还有丰富的样式控制。下面举一些例子，更多内容可参考装饰器注释。
 
-```Go
+```typescript
 //显示为下拉框
 @property({ enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
 a : number;
@@ -599,7 +599,7 @@ e: boolean;
 
 Property.ts
 
-```
+```typescript
 const { regClass, property} = Laya;
 
 import Animal from "./Animal"
@@ -660,7 +660,7 @@ export class Property extends Laya.Script {
 ```
 Animal.ts
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()

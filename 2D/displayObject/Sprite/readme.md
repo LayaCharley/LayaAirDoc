@@ -322,7 +322,7 @@ Misc属性面板中包括了精灵的其它属性，如图2-9所示
 
 创建Sprite对象实例
 
-```
+```typescript
 let sprite = new Laya.Sprite();
 ```
 
@@ -333,7 +333,7 @@ let sprite = new Laya.Sprite();
 我们通过一些代码示例来看看：
 
 
-```
+```typescript
 let sp = new Sprite();
 //设置起始点
 sp.x = Laya.stage.width/2;
@@ -365,7 +365,7 @@ sp.rotation = 30;
 
 #### 3.3.1 loadImage
 
-```
+```typescript
     /**
      * <p>加载并显示一个图片。相当于加载图片后，设置texture属性</p>
      * <p>注意：2.0改动：多次调用，只会显示一个图片（1.0会显示多个图片）,x,y,width,height参数取消。</p>
@@ -379,7 +379,7 @@ sp.rotation = 30;
 
  我们来看看代码示例：
 
-```
+```typescript
 let sprite = new Laya.Sprite();
 // 加载并显示一个图片
 sprite.loadImage("comp/image.png", null);
@@ -390,7 +390,7 @@ Laya.stage.addChild(sprite);
 
 #### 3.3.2 setTexture
 
-```
+```typescript
     /**
      * 设置一个Texture实例，并显示此图片（如果之前有其他绘制，则会被清除掉）。
      * 等同于graphics.clear();graphics.drawImage()，但性能更高
@@ -401,7 +401,7 @@ Laya.stage.addChild(sprite);
 
  我们来看看代码示例：
 
-```
+```typescript
 Laya.loader.load("comp/image.png").then(() => {
     let sprite = new Laya.Sprite();
     //精灵设置纹理并居中显示
@@ -425,7 +425,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 由于Sprite是继承自Node，因此Node的基础属性就不在这里介绍了，我们来看看Sprite的三个特有的属性：
 
-```
+```typescript
     /**
      * 鼠标事件与此对象的碰撞检测是否可穿透。碰撞检测发生在鼠标事件的捕获阶段，此阶段引擎会从stage开始递归检测stage及其子对象，直到找到命中的目标对象或者未命中任何对象。
      * 穿透表示鼠标事件发生的位置处于本对象绘图区域内时，才算命中，而与对象宽高和值为Rectangle对象的hitArea属性无关。如果sprite.hitArea值是HitArea对象，表示显式声明了此对象的鼠标事件响应区域，而忽略对象的宽高、mouseThrough属性。
@@ -456,7 +456,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 代码示例如下：
 
-```
+```typescript
         //创建遮罩
         let mask = new Laya.Sprite();      
         mask.graphics.drawCircle(0, 0, 100, "#FFFFFF");
@@ -484,7 +484,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 示例代码如下：
 
-```
+```typescript
     var textBox :Sprite = new Sprite();
     //缓存为静态图像，这里设置的容器的属性
     textBox.cacheAsBitmap = true;
@@ -497,7 +497,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 示例代码如下：
 
-```
+```typescript
 		let sp = new Laya.Sprite();
 		Laya.stage.addChild(sp);
         // 加载并显示一个图片
@@ -528,7 +528,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 设置 zOrder 的示例代码如下：
 
-```
+```typescript
 		let sp1 = new Laya.Sprite();
 		Laya.stage.addChild(sp1);
 		sp1.x = 150;
@@ -558,7 +558,7 @@ Laya.loader.load("comp/image.png").then(() => {
 
 设置 BlendMode 的示例代码如下：
 
-```
+```typescript
 		let sp1 = new Laya.Sprite();
 		Laya.stage.addChild(sp1);
         // 加载并显示一个图片1

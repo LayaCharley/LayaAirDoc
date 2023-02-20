@@ -132,7 +132,7 @@ laya.TiledMap类中的`createMap`方法可以创建一个 `TiledMap` 地图。�
 
 #### 3.2.2 创建地图示例
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -181,7 +181,7 @@ export class Main extends Laya.Script {
 
 示例代码如下：
 
-```
+```typescript
 private onLoaded():void
 {
 	this.tMap.mapSprite().removeSelf();
@@ -207,7 +207,7 @@ private onLoaded():void
 
 视口区域在创建地图方法 （`createMap`）的第二个参数中所设置，
 
-```
+```typescript
 //创建地图对象
 this.tMap = new Laya.TiledMap();
 //创建Rectangle实例，视口区域
@@ -267,7 +267,7 @@ this.tMap.setViewPortPivotByScale(0.1,0.5);
 
 当 `setViewPortPivotByScale` 的缩放中心点设置为`0,0`时，为视口的左上角。继续沿用前面的示例，编码如下：
 
-```
+```typescript
 //添加地图到Scene2D下
 private onLoaded(): void {
     this.tMap.mapSprite().removeSelf();
@@ -303,7 +303,7 @@ private onLoaded(): void {
 
 下面直接查看代码，了解这两个方法的使用。
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -409,7 +409,7 @@ this.tMap.destroy();
 
 LayaAir引擎使用`TiledMap`时，默认会将没有动画的地块自动缓存起来，并且缓存类型默认为normal。
 
-```
+```typescript
 //自动缓存没有动画的地块
 this.tMap.autoCache = true;
 //自动缓存的类型，地图较大时建议使用normal
@@ -440,7 +440,7 @@ this.tMap.antiCrack = true;
 
 缓存区块的设置需要在 `createMap`（创建地图）的时候设置。设置第四个参数 `gridSize`，示例如下：
 
-```
+```typescript
 //为第二个参数创建Rectangle实例，视口区域
 var viewRect:Laya.Rectangle = new Laya.Rectangle(0, 0, Laya.Browser.width, Laya.Browser.height);
 //为第四个参数gridSize创建一个512*512大小的Point对象实例
@@ -459,7 +459,7 @@ this.tMap.createMap("res/TiledMap/orthogonal.json",viewRect, Laya.Handler.create
 
 开启的方式为：
 
-```
+```typescript
 //开启图层合并
 this.tMap.enableMergeLayer = true;
 ```

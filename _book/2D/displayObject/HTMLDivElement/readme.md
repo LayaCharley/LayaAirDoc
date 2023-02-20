@@ -58,7 +58,7 @@ HTML文本组件，就像使用HTML语言一样来实现UI。在LayaAir IDE中�
 
 如图2-4所示，是在Inner HTML内容中输入下述文本的运行效果
 
-```
+```typescript
 <span style='font-weight:bold;font:50px Arial;color:red' href='https://ask.layabox.com'>LayaBox</span>
 ```
 
@@ -70,7 +70,7 @@ HTML文本组件，就像使用HTML语言一样来实现UI。在LayaAir IDE中�
 
 `Laya.HTMLDivElement` 类位于laya.html类库中。HTML图文类，用于显示html内容
 
-```
+```typescript
 /**
  * HTML图文类，用于显示html内容
  *
@@ -120,7 +120,7 @@ HTML文本组件，就像使用HTML语言一样来实现UI。在LayaAir IDE中�
 
 示例如下：
 
-```
+```typescript
 var div:Laya.HTMLDivElement = new Laya.HTMLDivElement();
 div.innerHTML="<span style='font-weight:bold;" +
 "font:24px Arial' " +
@@ -141,7 +141,7 @@ Laya.stage.addChild(div);
 
 示例如下：
 
-```
+```typescript
 var htmlD:HTMLDivElement = new HTMLDivElement();
 Laya.stage.addChild(htmlD);
 htmlD.innerHTML = "<font style='fontSize:30' color='#67fc2c'>测试</font><font style='fontSize:20'>html组件</font>";
@@ -157,7 +157,7 @@ htmlD.innerHTML = "<font style='fontSize:30' color='#67fc2c'>测试</font><font 
 
 示例如下：
 
-```
+```typescript
 var htmlDiv:HTMLDivElement=new HTMLDivElement();
 var html:string = "<span color='#e3d26a'>使用</span>";
 html += "<span style='color:#FFFFFF;font-weight:bold'>HTMLDivElement</span>";
@@ -177,14 +177,12 @@ Laya.stage.addChild(htmlDiv);
 
 
 
-### 3.4 设置文本的水平居中对齐(align需要和width配合使用)、换行(
-)、空格_(;)
-
+### 3.4 设置文本的水平居中对齐(align需要和width配合使用)
 **【注意：目前不支持文本的垂直居中对齐，开发者可以将(图片的高度-文本的高度)/2的值赋给文本的Y值，进行垂直居中对齐替代设置】**
 
 示例如下：
 
-```
+```typescript
 var html3:HTMLDivElement=new HTMLDivElement();
 html3.style.lineHeight=30;
 html3.style.width=300;
@@ -203,7 +201,7 @@ Laya.stage.addChild(html3);
 
 示例如下：
 
-```
+```typescript
 var div:HTMLDivElement=new HTMLDivElement();
 div.innerHTML="<span href='http://ask.layabox.com/'>LayaBox欢迎你的加入！</span>";
 div.on(Laya.Event.LINK,this,(data:any)=>{
@@ -224,7 +222,7 @@ Laya.stage.addChild(div);
 
 示例如下：
 
-```
+```typescript
 var iHtml:HTMLIframeElement = new HTMLIframeElement();
 Laya.stage.addChild(iHtml);
 iHtml.href="test.html";
@@ -240,7 +238,7 @@ iHtml.href="test.html";
 
 示例如下：
 
-```
+```typescript
 var t:HTMLDivElement = new HTMLDivElement;
 Laya.stage.addChild(t);
 t.style.valign = "middle";
@@ -260,7 +258,7 @@ t.innerHTML = "akshfkjashfkjhakshjdfhkasjdfhsaf";
 
 示例如下：
 
-```
+```typescript
 var html:HTMLDivElement=new HTMLDivElement();
 html.innerHTML = "<span style='color:#ffffff;valign:top;'>朋友abc11''31ABC朋友</span><span href='http://www.baidu.com' target='_blank'>百度</span>";
 Laya.stage.addChild(html);

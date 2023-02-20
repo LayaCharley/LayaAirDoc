@@ -12,21 +12,27 @@
 
 <img src="images/1.png" alt="image-20221103165707451" style="zoom:25%;" />        
 
-（图1）创建名为 OpenScene 的场景，保存在路径下 uiDemo/page/OpenScene.ls
+（图1）
 
-```
+创建名为 OpenScene 的场景，保存在路径下 uiDemo/page/OpenScene.ls
+
+```typescript
 Laya.Scene.open("uiDemo/page/OpenScene.ls", false);
 ```
 
 代码中可以这样打开场景，同时不关闭其它场景
 
+
+
 #### 2，传参与接收参数
 
 <img src="images/3.png" alt=" " style="zoom: 28%;" /> 
 
-（图2）创建名为Msg的场景，用于进入这个场景时会传递文字
+（图2）
 
-```
+创建名为Msg的场景，用于进入这个场景时会传递文字
+
+```typescript
 Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾选" });
 ```
 
@@ -34,7 +40,9 @@ Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾�
 
 <img src="images/2.png" alt="image-20221103172903482" style="zoom: 33%;" /> 
 
-（图3）在Msg场景内，加入Runtime类，`onOpened`方法中会接受传入的参数，`param.text` 就是 "没有勾选项，请先勾选"
+（图3）
+
+在Msg场景内，加入Runtime类，`onOpened`方法中会接受传入的参数，`param.text` 就是 "没有勾选项，请先勾选"
 
 <img src="images/4.png" alt="image-20221103173414315" style="zoom:50%;" /> 
 
@@ -56,7 +64,9 @@ Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾�
 
 <img src="images/5.png" alt="image-20221103174431210" style="zoom: 33%;" /> 
 
-（图5）采用Runtime的方式，可以方便使用 `this.close()` 来关闭场景
+（图5）
+
+采用Runtime的方式，可以方便使用 `this.close()` 来关闭场景
 
 **3，关闭所有场景（不包括dialog**）
 
@@ -66,7 +76,9 @@ Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾�
 
 <img src="images/6.png" style="zoom: 50%;" /> 
 
-（图6） 场景的Runtime类，当场景关闭的时候，会被调用 `onClosed()` 方法，可以在方法内实现各种资源的释放
+（图6）
+
+ 场景的Runtime类，当场景关闭的时候，会被调用 `onClosed()` 方法，可以在方法内实现各种资源的释放
 
 ### 场景的加载页面
 
@@ -82,11 +94,15 @@ Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾�
 
 <img src="images/8.png" alt="image-20221105102225313" style="zoom:40%;" /> 
 
-（图7）定义一个脚本代码，加入可能拖入loadingScene的Laya.Prefab属性
+（图7）
+
+定义一个脚本代码，加入可能拖入loadingScene的Laya.Prefab属性
 
  <img src="images/9.png" alt="image-20221105102404282" style="zoom:30%;" />
 
-（图8）在Scene.ls场景下，挂上脚本，并拖入Loading.ls场景
+（图8）
+
+在Scene.ls场景下，挂上脚本，并拖入Loading.ls场景
 
 
 

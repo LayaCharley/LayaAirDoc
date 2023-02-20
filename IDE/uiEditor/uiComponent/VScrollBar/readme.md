@@ -15,19 +15,19 @@
 ​        VScrollBar 组件的脚本接口请参考 [VScrollBar API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.VScrollBar)。
 ​        VScrollBar 组件的图像资源示例：
 
-​        ![图片0.png](img/1.png)<br/>
+​        ![图片0.png](img/1.png)
 
 ​    （图1）
 
-​        ![图片0.png](img/2.png)<br/>
+​        ![图片0.png](img/2.png)
 
 ​    （图2）
 
-​        ![图片0.png](img/3.png)<br/>
+​        ![图片0.png](img/3.png)
 
 ​    （图3）
 
-​        ![图片0.png](img/4.png)<br/>
+​        ![图片0.png](img/4.png)
 
 ​    （图4）
 
@@ -35,37 +35,37 @@
 
 ​        VScrollBar 拖放到编辑器区后，显示效果：
 
-​        ![图片0.png](img/5.png)<br/>
+​        ![图片0.png](img/5.png)
 
 ​    （图5）
 
 ​        设置 VScrollBar 的属性 max 的值为 10、属性 min 的值为0、属性 value 的值为3后，显示效果如下：
 
-​        ![图片0.png](img/6.png)<br/>
+​        ![图片0.png](img/6.png)
 
 ​    （图6）
 
 ​        在程序中运行时，可以拖动滑块或点击箭头按钮控制进度条的值：
 
-​        ![图片0.gif](gif/1.gif)<br/>
+​        ![图片0.gif](gif/1.gif)
 
 ​    （图7）
 
 ​        设置 VScrollBar 的属性 showButtons 的值为 false时的显示效果：
 
-​        ![图片0.png](img/7.png)<br/>
+​        ![图片0.png](img/7.png)
 
 ​    （图8）
 
 ​        在程序里运行时的效果：
 
-​        ![图片0.png](gif/1.gif)<br/>
+​        ![图片0.png](gif/1.gif)
 
 ​    （图9）
 
 ### 1.2 VScrollBar 组件常用属性
 
-​        ![图片0.png](img/8.png)<br/>
+​        ![图片0.png](img/8.png)
 
 ​    （图10）
 
@@ -94,10 +94,10 @@
 
 ##  二、通过代码创建VScrollBar组件 
 
-​	在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_ScrollBar` 类，并通过代码设定VScrollBar 相关的属性。
+在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_ScrollBar` 类，并通过代码设定VScrollBar 相关的属性。
 
 **运行示例效果:**
-​	![5](gif/3.gif)<br/>
+​	![5](gif/3.gif)
 
 ​	(图11)通过代码创建VScrollBar 
 

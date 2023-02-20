@@ -40,7 +40,7 @@
 
 ## 3、通过代码创建TextArea
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()

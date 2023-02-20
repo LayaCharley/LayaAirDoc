@@ -2431,57 +2431,58 @@
 <p>&#xFF08;&#x56FE;2-2&#xFF09;</p>
 <p>&#x4ECE;&#x56FE;&#x4E2D;&#x770B;&#x5230;&#xFF0C;&#x7269;&#x7406;&#x5BBD;&#x9AD8;&#xFF0C;<code>DPR</code>&#xFF0C;&#x903B;&#x8F91;&#x5BBD;&#x9AD8;&#x662F;&#x4E0D;&#x540C;&#x7684;</p>
 <p>&#x56E0;&#x6B64;&#xFF0C;&#x8981;&#x83B7;&#x5F97;&#x8FD9;&#x4E9B;&#x5C4F;&#x5E55;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;<code>Laya.Browser</code> &#x7C7B;&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x5982;&#x4E0B;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B; <code>Laya.Browser</code> &#x76F8;&#x5173;API &#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x53EF;&#x89C6;&#x5BBD;&#x5EA6;&#x3002;
      * &#x901A;&#x8FC7;&#x5206;&#x6790;&#x6D4F;&#x89C8;&#x5668;&#x4FE1;&#x606F;&#x83B7;&#x5F97;&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x591A;&#x4E2A;&#x5C5E;&#x6027;&#x503C;&#x4F18;&#x5148;&#x7EA7;&#x4E3A;&#xFF1A;window.innerWidth(&#x5305;&#x542B;&#x6EDA;&#x52A8;&#x6761;&#x5BBD;&#x5EA6;) &gt; document.body.clientWidth(&#x4E0D;&#x5305;&#x542B;&#x6EDA;&#x52A8;&#x6761;&#x5BBD;&#x5EA6;)&#xFF0C;&#x5982;&#x679C;&#x524D;&#x8005;&#x4E3A;0&#x6216;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x9009;&#x62E9;&#x540E;&#x8005;&#x3002;
-     */
-    static get clientWidth(): number {
-        Browser.__init__();
-        return Browser._clientWidth || Browser._window.innerWidth || Browser._document.body.clientWidth;
-    }
+     */</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">clientWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_clientWidth <span class="token operator">||</span> Browser<span class="token punctuation">.</span>_window<span class="token punctuation">.</span>innerWidth <span class="token operator">||</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>clientWidth<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    static set clientWidth(value: number) {
-        Browser._clientWidth = value;
-    }
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">clientWidth</span><span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span>_clientWidth <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x53EF;&#x89C6;&#x9AD8;&#x5EA6;&#x3002;
      * &#x901A;&#x8FC7;&#x5206;&#x6790;&#x6D4F;&#x89C8;&#x5668;&#x4FE1;&#x606F;&#x83B7;&#x5F97;&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x591A;&#x4E2A;&#x5C5E;&#x6027;&#x503C;&#x4F18;&#x5148;&#x7EA7;&#x4E3A;&#xFF1A;window.innerHeight(&#x5305;&#x542B;&#x6EDA;&#x52A8;&#x6761;&#x9AD8;&#x5EA6;) &gt; document.body.clientHeight(&#x4E0D;&#x5305;&#x542B;&#x6EDA;&#x52A8;&#x6761;&#x9AD8;&#x5EA6;) &gt; document.documentElement.clientHeight(&#x4E0D;&#x5305;&#x542B;&#x6EDA;&#x52A8;&#x6761;&#x9AD8;&#x5EA6;)&#xFF0C;&#x5982;&#x679C;&#x524D;&#x8005;&#x4E3A;0&#x6216;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x9009;&#x62E9;&#x540E;&#x8005;&#x3002;
-     */
-    static get clientHeight(): number {
-        Browser.__init__();
-        return Browser._clientHeight || Browser._window.innerHeight || Browser._document.body.clientHeight || Browser._document.documentElement.clientHeight;
-    }
+     */</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">clientHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_clientHeight <span class="token operator">||</span> Browser<span class="token punctuation">.</span>_window<span class="token punctuation">.</span>innerHeight <span class="token operator">||</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>clientHeight <span class="token operator">||</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientHeight<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    static set clientHeight(value: number) {
-        Browser._clientHeight = value;
-    }
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">clientHeight</span><span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span>_clientHeight <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x7269;&#x7406;&#x5BBD;&#x5EA6;&#x3002;&#x8003;&#x8651;&#x4E86;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/
-    static get width(): number {
-        Browser.__init__();
-        return ((ILaya.stage &amp;&amp; ILaya.stage.canvasRotation) ? Browser.clientHeight : Browser.clientWidth) * Browser.pixelRatio;
-    }
+    <span class="token comment">/** &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x7269;&#x7406;&#x5BBD;&#x5EA6;&#x3002;&#x8003;&#x8651;&#x4E86;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">width</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ILaya<span class="token punctuation">.</span>stage <span class="token operator">&amp;&amp;</span> ILaya<span class="token punctuation">.</span>stage<span class="token punctuation">.</span>canvasRotation<span class="token punctuation">)</span> <span class="token operator">?</span> Browser<span class="token punctuation">.</span>clientHeight <span class="token operator">:</span> Browser<span class="token punctuation">.</span>clientWidth<span class="token punctuation">)</span> <span class="token operator">*</span> Browser<span class="token punctuation">.</span>pixelRatio<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x7269;&#x7406;&#x9AD8;&#x5EA6;&#x3002;&#x8003;&#x8651;&#x4E86;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/
-    static get height(): number {
-        Browser.__init__();
-        return ((ILaya.stage &amp;&amp; ILaya.stage.canvasRotation) ? Browser.clientWidth : Browser.clientHeight) * Browser.pixelRatio;
-    }
+    <span class="token comment">/** &#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x7269;&#x7406;&#x9AD8;&#x5EA6;&#x3002;&#x8003;&#x8651;&#x4E86;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">height</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ILaya<span class="token punctuation">.</span>stage <span class="token operator">&amp;&amp;</span> ILaya<span class="token punctuation">.</span>stage<span class="token punctuation">.</span>canvasRotation<span class="token punctuation">)</span> <span class="token operator">?</span> Browser<span class="token punctuation">.</span>clientWidth <span class="token operator">:</span> Browser<span class="token punctuation">.</span>clientHeight<span class="token punctuation">)</span> <span class="token operator">*</span> Browser<span class="token punctuation">.</span>pixelRatio<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** &#x83B7;&#x5F97;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/
-    static get pixelRatio(): number {
-        if (Browser._pixelRatio &lt; 0) {
-            Browser.__init__();
-            if (Browser.userAgent.indexOf(&quot;Mozilla/6.0(Linux; Android 6.0; HUAWEI NXT-AL10 Build/HUAWEINXT-AL10)&quot;) &gt; -1) Browser._pixelRatio = 2;
-            else {
-                Browser._pixelRatio = (Browser._window.devicePixelRatio || 1);
-                if (Browser._pixelRatio &lt; 1) Browser._pixelRatio = 1;
-            }
-        }
-        return Browser._pixelRatio;
-    }
-</code></pre><h3 id="21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;"><a name="21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;" class="anchor-navigation-ex-anchor" href="#21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1 &#x903B;&#x8F91;&#x5BBD;&#x9AD8;</h3>
+    <span class="token comment">/** &#x83B7;&#x5F97;&#x8BBE;&#x5907;&#x50CF;&#x7D20;&#x6BD4;&#x3002;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">pixelRatio</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>Browser<span class="token punctuation">.</span>_pixelRatio <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Browser<span class="token punctuation">.</span>userAgent<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">&quot;Mozilla/6.0(Linux; Android 6.0; HUAWEI NXT-AL10 Build/HUAWEINXT-AL10)&quot;</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> Browser<span class="token punctuation">.</span>_pixelRatio <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                Browser<span class="token punctuation">.</span>_pixelRatio <span class="token operator">=</span> <span class="token punctuation">(</span>Browser<span class="token punctuation">.</span>_window<span class="token punctuation">.</span>devicePixelRatio <span class="token operator">||</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>Browser<span class="token punctuation">.</span>_pixelRatio <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> Browser<span class="token punctuation">.</span>_pixelRatio <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_pixelRatio<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;"><a name="21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;" class="anchor-navigation-ex-anchor" href="#21-&#x903B;&#x8F91;&#x5BBD;&#x9AD8;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1 &#x903B;&#x8F91;&#x5BBD;&#x9AD8;</h3>
 <p>LayaAir&#x5F15;&#x64CE;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>Laya.Browser.clientWidth</code> &#x83B7;&#x53D6;&#x903B;&#x8F91;&#x5206;&#x8FA8;&#x7387;&#x7684;&#x5BBD;&#xFF0C;&#x901A;&#x8FC7; <code>Laya.Browser.clientHeight</code> &#x83B7;&#x53D6;&#x903B;&#x8F91;&#x5206;&#x8FA8;&#x7387;&#x7684;&#x9AD8;&#x3002;</p>
 <p>&#x5728;&#x624B;&#x673A;&#x7B49;&#x79FB;&#x52A8;&#x8BBE;&#x5907;&#x7684;&#x7AD6;&#x5C4F;&#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x7A84;&#x9762;&#x4E3A;&#x5BBD;&#xFF0C;&#x957F;&#x9762;&#x4E3A;&#x9AD8;&#x3002;&#x5982;&#x679C;&#x53D1;&#x751F;&#x4E86;&#x5C4F;&#x5E55;&#x7FFB;&#x8F6C;&#x7684;&#x6A2A;&#x5C4F;&#x72B6;&#x6001;&#xFF0C;&#x5219;&#x957F;&#x7684;&#x4E00;&#x9762;&#x4E3A;&#x5BBD;&#xFF0C;&#x7A84;&#x9762;&#x4E3A;&#x9AD8;&#x3002;</p>
 <p>&#x5728;PC&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;&#x5219;&#x662F;&#x83B7;&#x53D6;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x53EF;&#x89C6;&#x5BBD;&#x9AD8;&#x3002;</p>
@@ -2501,160 +2502,167 @@
 <li><strong>container &#x753B;&#x5E03;</strong></li>
 </ul>
 <p><code>Laya.Browser</code> &#x4E5F;&#x4E3A;&#x6211;&#x4EEC;&#x5C01;&#x88C5;&#x4E86;&#x5BF9;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x7684;&#x8C03;&#x7528;&#xFF0C;&#x770B;&#x4E0B;API&#xFF1A;</p>
-<pre class="language-"><code>    /**&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F; window &#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;*/
-    static get window(): any {
-        return Browser._window || Browser.__init__();
-    }
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F; window &#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_window <span class="token operator">||</span> Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F; document &#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;*/
-    static get document(): any {
-        Browser.__init__();
-        return Browser._document;
-    }
+    <span class="token comment">/**&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F; document &#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">document</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-       /**&#x753B;&#x5E03;&#x5BB9;&#x5668;&#xFF0C;&#x7528;&#x6765;&#x76DB;&#x653E;&#x753B;&#x5E03;&#x7684;&#x5BB9;&#x5668;&#x3002;&#x65B9;&#x4FBF;&#x5BF9;&#x753B;&#x5E03;&#x8FDB;&#x884C;&#x63A7;&#x5236;*/
-    static get container(): any {
-        if (!Browser._container) {
-            Browser.__init__();
-            Browser._container = Browser.createElement(&quot;div&quot;);
-            Browser._container.id = &quot;layaContainer&quot;;
-            Browser._document.body.appendChild(Browser._container);
-        }
-        return Browser._container;
-    }
+       <span class="token comment">/**&#x753B;&#x5E03;&#x5BB9;&#x5668;&#xFF0C;&#x7528;&#x6765;&#x76DB;&#x653E;&#x753B;&#x5E03;&#x7684;&#x5BB9;&#x5668;&#x3002;&#x65B9;&#x4FBF;&#x5BF9;&#x753B;&#x5E03;&#x8FDB;&#x884C;&#x63A7;&#x5236;*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">container</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Browser<span class="token punctuation">.</span>_container<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Browser<span class="token punctuation">.</span>_container <span class="token operator">=</span> Browser<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;div&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Browser<span class="token punctuation">.</span>_container<span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token string">&quot;layaContainer&quot;</span><span class="token punctuation">;</span>
+            Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>Browser<span class="token punctuation">.</span>_container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_container<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    static set container(value: any) {
-        Browser._container = value;
-    }
-</code></pre><h3 id="31-document-dom"><a name="31-document-dom" class="anchor-navigation-ex-anchor" href="#31-document-dom"><i class="fa fa-link" aria-hidden="true"></i></a>3.1 document Dom</h3>
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">container</span><span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span>_container <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="31-document-dom"><a name="31-document-dom" class="anchor-navigation-ex-anchor" href="#31-document-dom"><i class="fa fa-link" aria-hidden="true"></i></a>3.1 document Dom</h3>
 <p>LayaAir&#x5F15;&#x64CE;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>Laya.Browser.document</code> &#x83B7;&#x53D6;&#x539F;&#x751F; document &#x5BF9;&#x8C61;&#x3002;</p>
 <p>&#x540C;&#x65F6; <code>Laya.Browser</code> &#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x5BF9;&#x4E8E; Dom &#x8282;&#x70B9;&#x5143;&#x7D20;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x521B;&#x5EFA;&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F;&#x8282;&#x70B9;&#x3002;
      * @param    type &#x8282;&#x70B9;&#x7C7B;&#x578B;&#x3002;
      * @return    &#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;
-     */
-    static createElement(type: string): any {
-        Browser.__init__();
-        return Browser._document.createElement(type);
-    }
+     */</span>
+    <span class="token keyword">static</span> <span class="token function">createElement</span><span class="token punctuation">(</span>type<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x8FD4;&#x56DE; Document &#x5BF9;&#x8C61;&#x4E2D;&#x62E5;&#x6709;&#x6307;&#x5B9A; id &#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;
      * @param    type &#x8282;&#x70B9;id&#x3002;
      * @return    &#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x3002;
-     */
-    static getElementById(type: string): any {
-        Browser.__init__();
-        return Browser._document.getElementById(type);
-    }
+     */</span>
+    <span class="token keyword">static</span> <span class="token function">getElementById</span><span class="token punctuation">(</span>type<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+        Browser<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Browser<span class="token punctuation">.</span>_document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x79FB;&#x9664;&#x6307;&#x5B9A;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x3002;
      * @param    type &#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x3002;
-     */
-    static removeElement(ele: any): void {
-        if (ele &amp;&amp; ele.parentNode) ele.parentNode.removeChild(ele);
-    }
-</code></pre><p>&#x901A;&#x8FC7;&#x548C;&#x539F;&#x751F;Dom&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x4F8B;&#x5982; LayaAir &#x4F7F;&#x7528;&#x5143;&#x7D20; iframe</p>
+     */</span>
+    <span class="token keyword">static</span> <span class="token function">removeElement</span><span class="token punctuation">(</span>ele<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ele <span class="token operator">&amp;&amp;</span> ele<span class="token punctuation">.</span>parentNode<span class="token punctuation">)</span> ele<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>ele<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x548C;&#x539F;&#x751F;Dom&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x4F8B;&#x5982; LayaAir &#x4F7F;&#x7528;&#x5143;&#x7D20; iframe</p>
 <p>&#x5728;&#x63D2;&#x5165;&#x4E09;&#x65B9;&#x7684;&#x4E00;&#x4E9B;&#x7F51;&#x7AD9;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x4F1A;&#x7528;&#x5230; iframe&#xFF0C;&#x751A;&#x81F3;&#x4E09;&#x65B9;&#x7684;&#x6E20;&#x9053;&#x57FA;&#x672C;&#x90FD;&#x662F;&#x7528;iframe&#x5D4C;&#x5165;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x3002;&#x6211;&#x4EEC;&#x9879;&#x76EE;&#x4E2D;&#x4E5F;&#x4F1A;&#x9047;&#x5230;&#x7528;iframe&#x7684;&#x60C5;&#x51B5;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x5C31;&#x662F;&#x6F14;&#x793A;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x5E94;&#x7528;iframe&#x3002;</p>
 <p>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
-<pre class="language-"><code>var iframe:any = Laya.Browser.document.createElement(&quot;iframe&quot;);
-iframe.style.position =&quot;absolute&quot;;//&#x8BBE;&#x7F6E;&#x5E03;&#x5C40;&#x5B9A;&#x4F4D;&#x3002;&#x8FD9;&#x4E2A;&#x4E0D;&#x80FD;&#x5C11;&#x3002;
-iframe.style.zIndex = 100;//&#x8BBE;&#x7F6E;&#x5C42;&#x7EA7;
-iframe.style.left =&quot;100px&quot;;
-iframe.style.top =&quot;100px&quot;;
-iframe.src = &quot;http://ask.layabox.com/&quot;;
-Laya.Browser.document.body.appendChild(iframe);
-</code></pre><p>&#x8FD9;&#x91CC;&#x9762;&#x9700;&#x8981;&#x63D0;&#x9192;&#x5F00;&#x53D1;&#x8005;&#x7684;&#x5C31;&#x662F;&#x5B9A;&#x4F4D;&#x548C;&#x5C42;&#x7EA7;&#x8981;&#x8BB0;&#x5F97;&#x8BBE;&#x7F6E;&#x3002;&#x5F88;&#x591A;&#x5F00;&#x53D1;&#x8005;&#x4E0D;&#x6CE8;&#x610F;&#x5BFC;&#x81F4; iframe &#x8DD1;&#x5230;&#x6E38;&#x620F;&#x5C42;&#x7684;&#x4E0B;&#x9762;&#x770B;&#x4E0D;&#x89C1;&#x4E86;&#x3002;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">var</span> iframe<span class="token operator">:</span><span class="token builtin">any</span> <span class="token operator">=</span> Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;iframe&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iframe<span class="token punctuation">.</span>style<span class="token punctuation">.</span>position <span class="token operator">=</span><span class="token string">&quot;absolute&quot;</span><span class="token punctuation">;</span><span class="token comment">//&#x8BBE;&#x7F6E;&#x5E03;&#x5C40;&#x5B9A;&#x4F4D;&#x3002;&#x8FD9;&#x4E2A;&#x4E0D;&#x80FD;&#x5C11;&#x3002;</span>
+iframe<span class="token punctuation">.</span>style<span class="token punctuation">.</span>zIndex <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span><span class="token comment">//&#x8BBE;&#x7F6E;&#x5C42;&#x7EA7;</span>
+iframe<span class="token punctuation">.</span>style<span class="token punctuation">.</span>left <span class="token operator">=</span><span class="token string">&quot;100px&quot;</span><span class="token punctuation">;</span>
+iframe<span class="token punctuation">.</span>style<span class="token punctuation">.</span>top <span class="token operator">=</span><span class="token string">&quot;100px&quot;</span><span class="token punctuation">;</span>
+iframe<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">&quot;http://ask.layabox.com/&quot;</span><span class="token punctuation">;</span>
+Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>iframe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x9762;&#x9700;&#x8981;&#x63D0;&#x9192;&#x5F00;&#x53D1;&#x8005;&#x7684;&#x5C31;&#x662F;&#x5B9A;&#x4F4D;&#x548C;&#x5C42;&#x7EA7;&#x8981;&#x8BB0;&#x5F97;&#x8BBE;&#x7F6E;&#x3002;&#x5F88;&#x591A;&#x5F00;&#x53D1;&#x8005;&#x4E0D;&#x6CE8;&#x610F;&#x5BFC;&#x81F4; iframe &#x8DD1;&#x5230;&#x6E38;&#x620F;&#x5C42;&#x7684;&#x4E0B;&#x9762;&#x770B;&#x4E0D;&#x89C1;&#x4E86;&#x3002;</p>
 <h3 id="32-window--&#x7A97;&#x53E3;"><a name="32-window--&#x7A97;&#x53E3;" class="anchor-navigation-ex-anchor" href="#32-window--&#x7A97;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2 window  &#x7A97;&#x53E3;</h3>
 <p>LayaAir&#x5F15;&#x64CE;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>Laya.Browser.window</code> &#x83B7;&#x53D6;&#x539F;&#x751F; window &#x5BF9;&#x8C61;&#x3002;</p>
 <p>&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528; window.open(url) &#x6253;&#x5F00;&#x53E6;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF0C;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>//Get&#x53D1;&#x9001;&#x6570;&#x636E;
-Laya.Browser.window.open(url?a=b&amp;c=d);
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//Get&#x53D1;&#x9001;&#x6570;&#x636E;</span>
+Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>window<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>url<span class="token operator">?</span>a<span class="token operator">=</span>b<span class="token operator">&amp;</span>c<span class="token operator">=</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-//Post&#x53D1;&#x9001;&#x6570;&#x636E;
-let win2 = Laya.Browser.window.open(url);
-win2.postMessage(content, url);// &#x6B64;&#x5904;&#x6700;&#x597D;&#x52A0;&#x5EF6;&#x8FDF;
-//&#x63A5;&#x53D7;&#x6570;&#x636E;
-Laya.Browser.window.addEventListener(&quot;message&quot;, (event)=&gt;{
-    // console.log(&quot;receive message == &gt; &quot;, event.data);
-})
-</code></pre><h3 id="33-container-&#x753B;&#x5E03;"><a name="33-container-&#x753B;&#x5E03;" class="anchor-navigation-ex-anchor" href="#33-container-&#x753B;&#x5E03;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3 container &#x753B;&#x5E03;</h3>
+<span class="token comment">//Post&#x53D1;&#x9001;&#x6570;&#x636E;</span>
+<span class="token keyword">let</span> win2 <span class="token operator">=</span> Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>window<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+win2<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span>content<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// &#x6B64;&#x5904;&#x6700;&#x597D;&#x52A0;&#x5EF6;&#x8FDF;</span>
+<span class="token comment">//&#x63A5;&#x53D7;&#x6570;&#x636E;</span>
+Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+    <span class="token comment">// console.log(&quot;receive message == &gt; &quot;, event.data);</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="33-container-&#x753B;&#x5E03;"><a name="33-container-&#x753B;&#x5E03;" class="anchor-navigation-ex-anchor" href="#33-container-&#x753B;&#x5E03;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3 container &#x753B;&#x5E03;</h3>
 <p>LayaAir&#x5F15;&#x64CE;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>Laya.Browser.container</code> &#x83B7;&#x53D6;&#x753B;&#x5E03;&#x5BB9;&#x5668;&#x3002;</p>
 <p>&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BA9;&#x753B;&#x5E03;&#x4E0D;&#x663E;&#x793A;&#xFF0C;&#x53EA;&#x663E;&#x793A; Dom &#x7684;&#x9875;&#x9762;&#xFF1A;</p>
-<pre class="language-"><code>Laya.Browser.container.style.display = &quot;none&quot;;
-</code></pre><h2 id="&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><a name="&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;</h2>
+<pre class="language-"><code class="lang-typescript">Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>container<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">&quot;none&quot;</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><a name="&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x56DB;&#x3001;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;</h2>
 <p>&#x5728;&#x5F00;&#x53D1;&#x8DE8;&#x5E73;&#x53F0;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x5F80;&#x5F80;&#x8981;&#x5904;&#x7406;&#x4E0D;&#x540C;&#x5E73;&#x53F0;&#x7684;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x4F1A;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x3002;<code>Laya.Browser</code> &#x7C7B;&#x9488;&#x5BF9;&#x8FD9;&#x4E9B;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x8FDB;&#x884C;&#x4E86;&#x5224;&#x65AD;&#xFF0C;&#x5BF9;&#x6211;&#x4EEC;&#x5F00;&#x53D1;&#x8005;&#x6765;&#x8BF4;&#xFF0C;&#x5224;&#x65AD;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x53EA;&#x76F4;&#x63A5;&#x8C03;&#x7528; <code>Laya.Browser</code> &#x7C7B;&#x7684;&#x63A5;&#x53E3;&#x5373;&#x53EF;&#xFF0C;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x8FD9;&#x4E9B;&#x63A5;&#x53E3;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
-<pre class="language-"><code>    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728;&#x79FB;&#x52A8;&#x8BBE;&#x5907;&#xFF0C;&#x5305;&#x62EC;IOS&#x548C;&#x5B89;&#x5353;&#x7B49;&#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onMobile: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IOS &#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onIOS: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Mac &#x8BBE;&#x5907;&#x3002;*/
-    static onMac: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IPhone &#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onIPhone: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IPad &#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onIPad: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Android &#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onAndroid: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Windows Phone &#x8BBE;&#x5907;&#x5185;&#x3002;*/
-    static onWP: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; QQ &#x6D4F;&#x89C8;&#x5668;&#x5185;&#x3002;*/
-    static onQQBrowser: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728;&#x79FB;&#x52A8;&#x7AEF; QQ &#x6216; QQ &#x6D4F;&#x89C8;&#x5668;&#x5185;&#x3002;*/
-    static onMQQBrowser: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Safari &#x5185;&#x3002;*/
-    static onSafari: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Chrome &#x5185; */
-    static onChrome: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IE &#x6D4F;&#x89C8;&#x5668;&#x5185;*/
-    static onIE: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; &#x5FAE;&#x4FE1; &#x5185;*/
-    static onWeiXin: boolean;
-    /** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; PC &#x7AEF;&#x3002;*/
-    static onPC: boolean;
-    /** &#x5FAE;&#x4FE1;&#x5C0F;&#x6E38;&#x620F; **/
-    static onMiniGame: boolean;
-    /** &#x767E;&#x5EA6;&#x5C0F;&#x6E38;&#x620F; **/
-    static onBDMiniGame: boolean;
-    /** &#x5C0F;&#x7C73;&#x620F;&#x5C0F;&#x6E38;&#x620F; **/
-    static onKGMiniGame: boolean;
-    /** OPPO&#x5C0F;&#x6E38;&#x620F; **/
-    static onQGMiniGame: boolean;
-    /** VIVO&#x5C0F;&#x6E38;&#x620F; **/
-    static onVVMiniGame: boolean;
-    /** &#x963F;&#x91CC;&#x5C0F;&#x6E38;&#x620F; **/
-    static onAlipayMiniGame: boolean;
-    /***&#x624B;&#x673A;QQ&#x5C0F;&#x6E38;&#x620F; */
-    static onQQMiniGame: boolean;
-    /*** BILIBILI&#x5C0F;&#x6E38;&#x620F; */
-    static onBLMiniGame: boolean;
-    /** &#x5B57;&#x8282;&#x8DF3;&#x52A8;&#x5C0F;&#x6E38;&#x620F;*/
-    static onTTMiniGame: boolean;
-    /** &#x534E;&#x4E3A;&#x5FEB;&#x6E38;&#x620F; */
-    static onHWMiniGame: boolean;
-    /** &#x6DD8;&#x5B9D;&#x5C0F;&#x7A0B;&#x5E8F; */
-    static onTBMiniGame: boolean;
-    /** @private */
-    static onFirefox: boolean;//TODO:&#x6C42;&#x8865;&#x5145;
-    /** @private */
-    static onEdge: boolean;//TODO:&#x6C42;&#x8865;&#x5145;
-    /** @private */
-    static onLayaRuntime: boolean;
-</code></pre><p>&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x5224;&#x65AD;&#xFF1A;</p>
-<pre class="language-"><code>//&#x5982;&#x679C;&#x662F;&#x5FAE;&#x4FE1;&#x5C0F;&#x6E38;&#x620F;
-if (Laya.Browser.onMiniGame) {
-    var wx = Laya.Browser.window.wx;
-    wx.onShow(() =&gt; {
-        console.log(&quot;wx OnShow&quot;);
-    });
-    wx.onHide(() =&gt; {
-        console.log(&quot;wx onHide&quot;);
-    });
-}
-</code></pre><footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2023-01-03 16:50:15
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728;&#x79FB;&#x52A8;&#x8BBE;&#x5907;&#xFF0C;&#x5305;&#x62EC;IOS&#x548C;&#x5B89;&#x5353;&#x7B49;&#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onMobile<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IOS &#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onIOS<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Mac &#x8BBE;&#x5907;&#x3002;*/</span>
+    <span class="token keyword">static</span> onMac<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IPhone &#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onIPhone<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IPad &#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onIPad<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Android &#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onAndroid<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Windows Phone &#x8BBE;&#x5907;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onWP<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; QQ &#x6D4F;&#x89C8;&#x5668;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onQQBrowser<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728;&#x79FB;&#x52A8;&#x7AEF; QQ &#x6216; QQ &#x6D4F;&#x89C8;&#x5668;&#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onMQQBrowser<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Safari &#x5185;&#x3002;*/</span>
+    <span class="token keyword">static</span> onSafari<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; Chrome &#x5185; */</span>
+    <span class="token keyword">static</span> onChrome<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; IE &#x6D4F;&#x89C8;&#x5668;&#x5185;*/</span>
+    <span class="token keyword">static</span> onIE<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; &#x5FAE;&#x4FE1; &#x5185;*/</span>
+    <span class="token keyword">static</span> onWeiXin<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x8868;&#x793A;&#x662F;&#x5426;&#x5728; PC &#x7AEF;&#x3002;*/</span>
+    <span class="token keyword">static</span> onPC<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x5FAE;&#x4FE1;&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x767E;&#x5EA6;&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onBDMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x5C0F;&#x7C73;&#x620F;&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onKGMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** OPPO&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onQGMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** VIVO&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onVVMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x963F;&#x91CC;&#x5C0F;&#x6E38;&#x620F; **/</span>
+    <span class="token keyword">static</span> onAlipayMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/***&#x624B;&#x673A;QQ&#x5C0F;&#x6E38;&#x620F; */</span>
+    <span class="token keyword">static</span> onQQMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/*** BILIBILI&#x5C0F;&#x6E38;&#x620F; */</span>
+    <span class="token keyword">static</span> onBLMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x5B57;&#x8282;&#x8DF3;&#x52A8;&#x5C0F;&#x6E38;&#x620F;*/</span>
+    <span class="token keyword">static</span> onTTMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x534E;&#x4E3A;&#x5FEB;&#x6E38;&#x620F; */</span>
+    <span class="token keyword">static</span> onHWMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** &#x6DD8;&#x5B9D;&#x5C0F;&#x7A0B;&#x5E8F; */</span>
+    <span class="token keyword">static</span> onTBMiniGame<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/** @private */</span>
+    <span class="token keyword">static</span> onFirefox<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span><span class="token comment">//TODO:&#x6C42;&#x8865;&#x5145;</span>
+    <span class="token comment">/** @private */</span>
+    <span class="token keyword">static</span> onEdge<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span><span class="token comment">//TODO:&#x6C42;&#x8865;&#x5145;</span>
+    <span class="token comment">/** @private */</span>
+    <span class="token keyword">static</span> onLayaRuntime<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x5224;&#x65AD;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x5982;&#x679C;&#x662F;&#x5FAE;&#x4FE1;&#x5C0F;&#x6E38;&#x620F;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>onMiniGame<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> wx <span class="token operator">=</span> Laya<span class="token punctuation">.</span>Browser<span class="token punctuation">.</span>window<span class="token punctuation">.</span>wx<span class="token punctuation">;</span>
+    wx<span class="token punctuation">.</span><span class="token function">onShow</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;wx OnShow&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wx<span class="token punctuation">.</span><span class="token function">onHide</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;wx onHide&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
+2023-02-20 10:30:48
 </span></footer>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -2699,7 +2707,7 @@ if (Laya.Browser.onMiniGame) {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"浏览器接口","level":"1.2.2.12","depth":3,"next":{"title":"设备接口","level":"1.2.2.13","depth":3,"path":"basics/common/device/readme.md","ref":"basics/common/device/readme.md","articles":[{"title":"使用音频","level":"1.2.2.13.1","depth":4,"path":"basics/common/device/media/readme.md","ref":"basics/common/device/media/readme.md","articles":[]},{"title":"陀螺仪与加速计","level":"1.2.2.13.2","depth":4,"path":"basics/common/device/motion/readme.md","ref":"basics/common/device/motion/readme.md","articles":[]},{"title":"获取位置信息","level":"1.2.2.13.3","depth":4,"path":"basics/common/device/geolocation/readme.md","ref":"basics/common/device/geolocation/readme.md","articles":[]},{"title":"使用百度地图","level":"1.2.2.13.4","depth":4,"path":"basics/common/device/baiduMap/readme.md","ref":"basics/common/device/baiduMap/readme.md","articles":[]}]},"previous":{"title":"屏幕适配","level":"1.2.2.11","depth":3,"path":"basics/common/adaptScreen/readme.md","ref":"basics/common/adaptScreen/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"basics/common/Browser/readme.md","mtime":"2023-01-03T08:50:15.644Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-17T12:28:13.133Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"浏览器接口","level":"1.2.2.12","depth":3,"next":{"title":"设备接口","level":"1.2.2.13","depth":3,"path":"basics/common/device/readme.md","ref":"basics/common/device/readme.md","articles":[{"title":"使用音频","level":"1.2.2.13.1","depth":4,"path":"basics/common/device/media/readme.md","ref":"basics/common/device/media/readme.md","articles":[]},{"title":"陀螺仪与加速计","level":"1.2.2.13.2","depth":4,"path":"basics/common/device/motion/readme.md","ref":"basics/common/device/motion/readme.md","articles":[]},{"title":"获取位置信息","level":"1.2.2.13.3","depth":4,"path":"basics/common/device/geolocation/readme.md","ref":"basics/common/device/geolocation/readme.md","articles":[]},{"title":"使用百度地图","level":"1.2.2.13.4","depth":4,"path":"basics/common/device/baiduMap/readme.md","ref":"basics/common/device/baiduMap/readme.md","articles":[]}]},"previous":{"title":"屏幕适配","level":"1.2.2.11","depth":3,"path":"basics/common/adaptScreen/readme.md","ref":"basics/common/adaptScreen/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"basics/common/Browser/readme.md","mtime":"2023-02-20T02:30:48.705Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-20T03:30:57.518Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

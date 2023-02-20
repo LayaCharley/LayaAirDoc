@@ -197,7 +197,7 @@ aNode.addComponent(MyScript);
 
 Laya.Script 里相关的输入处理函数有：
 
-```undefined
+```typescript
 /**
      * 鼠标按下时执行
      */

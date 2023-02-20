@@ -493,7 +493,7 @@ Start Speed的Constant为0，火焰发射时的初始速度为0，Start Size的C
 
 ### 5.1 自定义Particle3D类
 
-```
+```typescript
 import Node = Laya.Node;
 import Sprite3D = Laya.Sprite3D;
 import ShuriKenParticle3D = Laya.ShuriKenParticle3D;
@@ -631,7 +631,7 @@ export class Particle3D extends Sprite3D  {
 
 ### 5.2 自定义对象池类
 
-```
+```typescript
 export class Pool {
     
         private _poolDic:{[key: string]: any;} = {};
@@ -724,7 +724,7 @@ export class Pool {
 
 ### 5.3 代码调用
 
-```
+```typescript
 const { regClass, property } = Laya;
 import { Particle3D } from "./Particle3D";
 

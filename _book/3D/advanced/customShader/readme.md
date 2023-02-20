@@ -109,7 +109,7 @@ UV坐标的面积等于0.0f到1.0f的范围，其中0.0f表示起点，1.0表示
 
 用于声明渲染pass，渲染状态、材质参数等参数
 
-```
+```typescript
  Shader3D Start
 {
 	//此处填写Shader渲染pass、渲染状态、材质参数等属性
@@ -121,7 +121,7 @@ Start3D End
 
 用于解释该Shader的名称，区别不同的Shader的功能与效果
 
-```
+```typescript
 Shader3D Start
 {
 	//此处ShaderName为Shader的名字，非.shader文件名字，实际为Shader3D对象的名称
@@ -134,7 +134,7 @@ Shader3D End
 
 目前LayaAir仅支持Shader3D类型，考虑后续支持Compute Shader等高级Shader类型
 
-```
+```typescript
 Shader3D Start
 {
 	type:Shader3D
@@ -170,7 +170,7 @@ Uniform变量的常见类型：Texture2D，Color，Vector2，Vector3，Vector4�
 
 `TextureCube` 用于3D纹理采样的图片类型，图片本地支持格式：PNG，JPG，HDR
 
-```
+```typescript
 Shader3D Start
 {
 	//联动上面提到的属性(name, type)
@@ -311,7 +311,7 @@ Pass是Shader对象的基本元素，SubShader中定义了一系列的Pass，它
 
 但是过多的Pass存在一个SubShader中会造成渲染效率的下降，产生性能瓶颈。
 
-```
+```typescript
 Shader3D Start
 {
     .....
@@ -340,7 +340,7 @@ Shader3D End
 
 当启用EnableInstancing为true时，Shader启用Instancing功能，当启用EnableInstancing为false是，Shader不开启Instancing功能
 
-```
+```typescript
 Shader3D Start
 {
 	....
@@ -373,7 +373,7 @@ Shader3D End
 
 当场景中存在探针是，将开关启用为True，当场景中不存在探针时，将开关启用为False
 
-```
+```typescript
 Shader3D Start
 {
 	....
@@ -480,7 +480,7 @@ vec3 normal = normalize(v_normal);
 
 前面我们在SubShader中简要的介绍了Pass的作用，在本节中我们会结合详细的Shader内容来展示ShaderPass的具体功能
 
-```
+```typescript
 Shader3D Start
 {
 	type:Shader3D

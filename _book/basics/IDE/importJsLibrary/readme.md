@@ -58,7 +58,7 @@ license：发行项目需要的证书（这里就不写了）
 
 看一下package.json里的内容：
 
-```
+```json
 {
   "name": "test",
   "version": "1.0.0",
@@ -80,7 +80,7 @@ license：发行项目需要的证书（这里就不写了）
 
 接下来在我们的代码中可以使用 import AstarFinder 了，示例代码如下：
 
-```
+```typescript
 import { AStarFinder } from "../node_modules/astar-typescript/dist/astar";
 
 

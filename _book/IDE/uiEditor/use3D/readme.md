@@ -114,7 +114,7 @@ sRGB：此渲染纹理是否使用sRGB读/写转换（只读）
 
 LayaAir引擎提供的2D入门示例中有完整的3D混合使用代码示例，如下：
 
-```
+```typescript
 const { regClass, property } = Laya;
 import KeyBoardManager = Laya.InputManager;
 import Keyboard = Laya.Keyboard;
@@ -312,7 +312,7 @@ export default class D3Main extends Laya.Script {
 
 核心代码是通过使用 `Laya.RenderTexture` 来创建渲染纹理，并把渲染纹理分别应用到摄像机对象和Sprite对象中
 
-```
+```typescript
 // 把3D摄像机视图画到256宽高的纹理上
 _camera.renderTarget = new Laya.RenderTexture(256, 256, Laya.RenderTargetFormat.R8G8B8A8, Laya.RenderTargetFormat.DEPTHSTENCIL_24_8);
 // 再将离屏3D画到2D节点上，至此，就完成把3D画到2D的基础渲染流程

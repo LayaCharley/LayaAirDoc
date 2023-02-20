@@ -134,7 +134,7 @@
 
 示例代码如下：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -195,7 +195,7 @@ export class ScriptA extends Laya.Script {
 
 通过代码使用3D预制体是最常用的方式，往往在游戏战斗中的敌人是通过代码不断创建的，像上述IDE拖入LayaMonkey的情况，我们用代码来实现如下：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -235,7 +235,7 @@ export class Main extends Laya.Script {
 
 在LayaAir 2D入门示例代码中，可以看到，通过预加载一组预制体的实现代码：
 
-```
+```typescript
 import { LoadingRTBase } from "./LoadingRT.generated";
 
 const { regClass, property } = Laya;

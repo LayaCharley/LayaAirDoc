@@ -11,26 +11,26 @@
 
 ​        ComboBox 组件的图像资源示例：
 
-​        ![图片0.png](img/1.png)<br/>
+​        ![图片0.png](img/1.png)
 
 ​    （图1）
 
 ​        设置 ComboBox 的属性 labels 的值为 “label1,label2” 后，显示效果如下：
 ​        常态：
 
-​        ![图片0.png](img/2.png)<br/>
+​        ![图片0.png](img/2.png)
 
 ​    （图2）
 
 ​        点击后显示下拉选项列表：
 
-​        ![图片0.png](img/3.png)<br/>
+​        ![图片0.png](img/3.png)
 
 ​    （图3）
 
 ​        在下拉选项中选择 lable1 后：
 
-​        ![图片0.png](img/4.png)<br/>
+​        ![图片0.png](img/4.png)
 
 ​    （图4）
 
@@ -38,7 +38,7 @@
 
 ### 1.2 ComboBox 组件的常用属性
 
-​        ![图片0.png](img/5.png)<br/>
+​       ![图片0.png](img/5.png)
 
 ​    （图5）
 
@@ -62,11 +62,11 @@
  
 
 ### 1.3 ComboBox 组件下拉选项相关属性
-​        ![图片0.png](img/6.png)<br/>
+​        ![图片0.png](img/6.png)
 
 ​    （图6）
 
-​        ![图片0.png](img/7.png)<br/>
+​        ![图片0.png](img/7.png)
 
 ​    （图7）
 
@@ -77,11 +77,11 @@
 
 ### 1.4 ComboBox 组件下拉按钮相关属性
 
-​        ![图片0.png](img/8.png)<br/>
+​        ![图片0.png](img/8.png)
 
 ​    （图8）
 
-​        ![图片0.png](img/9.png)<br/>
+​        ![图片0.png](img/9.png)
 
 ​    （图9）
 
@@ -99,11 +99,11 @@
 
 ## 二、通过代码创建ComboBox组件 
 
- 	在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_ComboBox`类，通过代码设定ComboBox相关的属性。
+在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_ComboBox`类，通过代码设定ComboBox相关的属性。
 
 **运行示例效果：**
 
-​	![1](gif/1.gif)<br/>
+​	![1](gif/1.gif)
 
 （图10）
 

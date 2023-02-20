@@ -108,7 +108,7 @@ Pixel Lines Datas：像素线数据
 
 从下面的代码中可以看到，当初始化一个`PixelLineSprite3D` 的构造方法时，代码已经帮我们添加了 `PixelLineRenderer` 组件和 设置了 `UnlitMaterial` 材质并勾选了使用 `VertexColor` ，如上面2.3小节中手动添加材质的过程在代码中是自动做好了
 
-```
+```typescript
     /**
      * 创建一个 <code>PixelLineSprite3D</code> 实例。
      * @param maxCount 最大线段数量。
@@ -131,7 +131,7 @@ Pixel Lines Datas：像素线数据
 
 `PixelLineSprite3D` 已经直接调用了 `PixelLineRenderer` 组件的 `addLine()` ，看来可以直接设置点位置和颜色即可
 
-```
+```typescript
     /*
      * 增加一条线。
      * @param	startPosition  初始点位置
@@ -150,7 +150,7 @@ Pixel Lines Datas：像素线数据
 
 通常我们可以利用`addLine()` 方法来实现把复杂的网格数据转变成像素线数据，我们可以写一个Tool工具类，方便转换使用：
 
-```
+```typescript
 //Tool工具类
 export class Tool {
 	private static transVertex0: Vector3 = new Vector3();
@@ -194,7 +194,7 @@ export class Tool {
 
 通过如下代码对工具类 Tool.linearModel 的使用，可以把一个 PixelLineSprite3D 对象的网格数据设置成像素线数据：
 
-```
+```typescript
 		//创建一个球体
 		var sphere: MeshSprite3D = (<MeshSprite3D>this.sprite3D.addChild(new MeshSprite3D(PrimitiveMesh.createSphere(0.25, 20, 20))));
 		sphere.transform.position = new Vector3(0.0, 0.75, 2);

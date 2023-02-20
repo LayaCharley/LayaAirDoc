@@ -202,7 +202,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 **在manifest.json中配置分包名与分包路径的字段**
 
-```
+```json
 “subpackages”: [             //分包配置
        {
            "name" : "sub1Name", //子包名称
@@ -231,7 +231,7 @@ subpackages里，可以有多个name与root，每一组代表一个分包，单�
 
 小米快游戏官方提供了qg.loadSubpackage(Object object) API 来触发分包的下载，调用 qg.loadSubpackage 后，将触发分包的下载与加载，在加载完成后，通过 qg.loadSubpackage 的 success 回调来通知加载完成。示例代码如下：
 
-```
+```typescript
 const loadTaskA = qg.loadSubpackage({
 
     name: 'sub1Name',
@@ -246,7 +246,7 @@ const loadTaskA = qg.loadSubpackage({
 
 加载成功的同时，qg.loadSubpackage 会返回一个 `LoadSubpackageTask`，可以通过 `LoadSubpackageTask` 获取获取分包加载状态。示例代码如下：
 
-```
+```typescript
 oadTaskA.onProgressUpdate(res => {
 
     console.log('sub1Name 下载进度', res.progress)

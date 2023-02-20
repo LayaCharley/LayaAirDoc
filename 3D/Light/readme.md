@@ -115,7 +115,7 @@ PointLight（点光源）是向四面八方发射光线的光源，又称全向�
 
 ### 2.3 使用代码设置
 
-```
+```typescript
 //创建点光源
 var pointLight: PointLight = (<PointLight>this.scene.addChild(new PointLight()));
 //点光源的颜色
@@ -298,7 +298,7 @@ SpotLight 聚光指的是从特定光源方向射出的光，比如手电筒，�
 
 ### 4.3 使用代码设置
 
-```
+```typescript
 //聚光灯
 var spotLight = scene.addChild(new Laya.SpotLight()) as Laya.SpotLight;
 //设置聚光灯颜色
@@ -507,7 +507,7 @@ AreaLight（区域光）可以通过空间中的两个形状之一定义区域�
 
 灯光方面的设置:
 
-```
+```typescript
 // Use soft shadow.
 directionLight.shadowMode = ShadowMode.SoftLow;
 // Set shadow max distance from camera.
@@ -522,7 +522,7 @@ directionLight.shadowNormalBias = 4;
 
 开启地面接收阴影和模型产生阴影：
 
-```
+```typescript
 // A plane receive shadow.
 var grid: Sprite3D = <Sprite3D>scene.addChild(Loader.getRes("res/threeDimen/staticModel/grid/plane.lh"));
 (<MeshSprite3D>grid.getChildAt(0)).meshRenderer.receiveShadow = true;
@@ -556,7 +556,7 @@ X、Y、Z轴的光照集群数量，Z值会影响Cluster接受区域光(点光�
 
 动图7-2，为多光源的示例，下面为创建多光源的代码
 
-```
+```typescript
 export class MultiLight extends BaseScript {
 
     constructor() {

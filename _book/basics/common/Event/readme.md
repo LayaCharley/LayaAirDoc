@@ -136,25 +136,25 @@ LayaAir3.0引擎中的事件主要包含三部分
 
 ​	2，`clear(): Handler`	清理对象引用
 
-```
+```typescript
 this.Tab.selectHandler.clear();  
 ```
 
 ​	3，`recover(): void`	清理并回收到 Handler 对象池内
 
-```
+```typescript
 this.Tab.selectHandler.recover();
 ```
 
 ​	4，`run(): any`	执行处理器
 
-```
+```typescript
 this.Tab.selectHandler.run(); \\可以自行调用run()
 ```
 
 ​	5，`runWith(data: any): any` 	执行处理器，并携带额外数据
 
-```
+```typescript
 this.Tab.selectHandler.runWith(1); \\可以自行调用runWith(),并传入参数1
 ```
 

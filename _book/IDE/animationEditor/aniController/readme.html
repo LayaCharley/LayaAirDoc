@@ -2475,9 +2475,10 @@
 <p><img src="img/3-4.png" alt="image-20221205161713134" style="zoom:80%;"></p>
 <p>&#xFF08;&#x56FE;3-4&#xFF09;</p>
 <p>LayaAir 3D&#x5F15;&#x64CE;&#x7684;Sprite3D&#x7C7B;&#x63D0;&#x4F9B;&#x4E86; <code>getComponent()</code> &#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x6A21;&#x578B;&#x4E0A;&#x7684;&#x7EC4;&#x4EF6;&#x3002;&#x5E26;&#x52A8;&#x753B;&#x7684;&#x6A21;&#x578B;&#x5728;&#x52A0;&#x8F7D;&#x521B;&#x5EFA;&#x65F6;&#x5F15;&#x64CE;&#x9ED8;&#x8BA4;&#x8D4B;&#x4E88;&#x4E86;<code>Animator</code>&#x52A8;&#x753B;&#x7EC4;&#x4EF6;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x83B7;&#x53D6;&#xFF1A;</p>
-<pre class="language-"><code>//&#x83B7;&#x5F97;&#x72B6;&#x6001;&#x673A;
-this.animator = this.target.getComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Laya.Animator</span><span class="token punctuation">&gt;</span></span>(Laya.Animator);
-</code></pre><h4 id="34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;"><a name="34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;" class="anchor-navigation-ex-anchor" href="#34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4 &#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;</h4>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x83B7;&#x5F97;&#x72B6;&#x6001;&#x673A;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">getComponent</span><span class="token generic class-name"><span class="token operator">&lt;</span>Laya<span class="token punctuation">.</span>Animator<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>Laya<span class="token punctuation">.</span>Animator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;"><a name="34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;" class="anchor-navigation-ex-anchor" href="#34-&#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4 &#x7F16;&#x8F91;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;</h4>
 <p> <code>Animator</code> &#x9762;&#x677F;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x505A;&#x4E00;&#x4E9B;&#x5E38;&#x89C4;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;3-5&#x6240;&#x793A;&#xFF0C;&#x4E0B;&#x9762;&#x4E00;&#x7AE0;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5F15;&#x5165;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x7684;&#x4ECB;&#x7ECD;&#x548C;&#x64CD;&#x4F5C;</p>
 <p><img src="img/3-5.gif" style="zoom: 50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;3-5&#xFF09; </p>
@@ -2501,18 +2502,20 @@ this.animator = this.target.getComponent<span class="token tag"><span class="tok
 </ul>
 <p><code>Default Weight</code>&#xFF1A;&#x52A8;&#x753B;&#x5C42;&#x7684;&#x6743;&#x91CD;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;Base Layer&#x5FC5;&#x987B;&#x4E3A;1&#x3002;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A;0&#x5219;&#x5F53;&#x524D;&#x5C42;&#x7684;&#x52A8;&#x753B;&#x4E0D;&#x4F1A;&#x64AD;&#x653E;&#xFF0C;1&#x5219;&#x4F1A;&#x64AD;&#x653E;&#xFF0C;0-1&#x4E4B;&#x95F4;&#x4F1A;&#x91C7;&#x7528;&#x7C7B;&#x4F3C;&#x878D;&#x5408;&#x7684;&#x60C5;&#x51B5;&#x6765;&#x64AD;&#x653E;&#x52A8;&#x753B;&#xFF0C;&#x6BD4;&#x5982;&#x4E4B;&#x524D;&#x8BF4;&#x7684;&#x8FB9;&#x79FB;&#x52A8;&#x8FB9;&#x5C04;&#x51FB;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A;0.5&#x5219;&#x5C04;&#x51FB;&#x52A8;&#x753B;&#x64AD;&#x653E;&#x65F6;&#x624B;&#x90E8;&#x53EA;&#x4F1A;&#x62AC;&#x5230;&#x8116;&#x5B50;&#x9644;&#x8FD1;&#x3002;</p>
 <p>&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x60F3;&#x8981;&#x7684;&#x56FE;&#x5C42;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;Animator&#x7684; <code>animator.getControllerLayer(layerIndex)</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x83B7;&#x53D6;&#x63A7;&#x5236;&#x5668;&#x5C42;&#x3002;
-     */
-    getControllerLayer(layerInex: number = 0): AnimatorControllerLayer {
-        return this._controllerLayers[layerInex];
-    }
-</code></pre><p>&#x4F8B;&#x5982;&#xFF1A;</p>
-<pre class="language-"><code>//&#x83B7;&#x5F97;BaseLayer&#x5C42;AnimatorControllerLayer
-let animatorControllerLayer : Laya.AnimatorControllerLayer = this.animator.getControllerLayer(0);
-//&#x83B7;&#x5F97;&#x5F53;&#x524D;BaseLayer&#x5C42;&#x7684;&#x9ED8;&#x8BA4;&#x52A8;&#x753B;&#x72B6;&#x6001;
-let defaultState = animatorControllerLayer.defaultState;
-</code></pre><h5 id="352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;"><a name="352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2 &#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;</h5>
+     */</span>
+    <span class="token function">getControllerLayer</span><span class="token punctuation">(</span>layerInex<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">:</span> AnimatorControllerLayer <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_controllerLayers<span class="token punctuation">[</span>layerInex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x83B7;&#x5F97;BaseLayer&#x5C42;AnimatorControllerLayer</span>
+<span class="token keyword">let</span> animatorControllerLayer <span class="token operator">:</span> Laya<span class="token punctuation">.</span>AnimatorControllerLayer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">getControllerLayer</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x83B7;&#x5F97;&#x5F53;&#x524D;BaseLayer&#x5C42;&#x7684;&#x9ED8;&#x8BA4;&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+<span class="token keyword">let</span> defaultState <span class="token operator">=</span> animatorControllerLayer<span class="token punctuation">.</span>defaultState<span class="token punctuation">;</span>
+</code></pre>
+<h5 id="352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;"><a name="352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#352-&#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2 &#x56FE;&#x5C42;&#x7684;&#x53C2;&#x6570;</h5>
 <p>&#x6BCF;&#x4E2A;&#x56FE;&#x5C42;&#x662F;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#x7684;&#xFF0C;&#x5982;&#x56FE;3-9&#x6240;&#x793A;&#xFF0C;&#x5177;&#x4F53;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x662F;&#x5728;&#x52A8;&#x753B;&#x5207;&#x6362;&#x4E2D;&#x4F1A;&#x7528;&#x5230;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5728;&#x52A8;&#x753B;&#x5207;&#x6362;&#x4E00;&#x7AE0;&#x4E2D;&#x4ECB;&#x7ECD;</p>
 <p><img src="img/3-9.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;3-9&#xFF09;</p>
@@ -2620,9 +2623,10 @@ let defaultState = animatorControllerLayer.defaultState;
 <p><img src="img/5-4.png" alt="image-20221206095156169" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x56FE;5-4&#xFF09;</p>
 <p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x6765;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>//&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;&#x201C;Float&#x201D;&#x53C2;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;
-this.animator.setParamsNumber( &quot;Float&quot; , 2 );
-</code></pre><p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-4</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;&#x201C;Float&#x201D;&#x53C2;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">setParamsNumber</span><span class="token punctuation">(</span> <span class="token string">&quot;Float&quot;</span> <span class="token punctuation">,</span> <span class="token number">2</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-4</p>
 <p><img src="img/5-4.gif" style="zoom: 40%;">  </p>
 <p>&#xFF08;&#x52A8;&#x56FE;5-4&#xFF09;</p>
 <h5 id="542-bool&#xFF1A;&#x5E03;&#x5C14;"><a name="542-bool&#xFF1A;&#x5E03;&#x5C14;" class="anchor-navigation-ex-anchor" href="#542-bool&#xFF1A;&#x5E03;&#x5C14;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4.2 Bool&#xFF1A;&#x5E03;&#x5C14;</h5>
@@ -2633,9 +2637,10 @@ this.animator.setParamsNumber( &quot;Float&quot; , 2 );
 <p><img src="img/5-5.png" alt="image-20221206095653997" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x56FE;5-5&#xFF09;</p>
 <p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x6765;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>//&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;&#x201C;Bool&#x201D;&#x53C2;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;
-this.animator.setParamsBool( &quot;Bool&quot; , true );
-</code></pre><p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-5</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;&#x201C;Bool&#x201D;&#x53C2;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">setParamsBool</span><span class="token punctuation">(</span> <span class="token string">&quot;Bool&quot;</span> <span class="token punctuation">,</span> <span class="token boolean">true</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-5</p>
 <p><img src="img/5-5.gif" style="zoom: 40%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;5-5&#xFF09;</p>
 <h5 id="543-trigger&#xFF1A;&#x89E6;&#x53D1;&#x5668;"><a name="543-trigger&#xFF1A;&#x89E6;&#x53D1;&#x5668;" class="anchor-navigation-ex-anchor" href="#543-trigger&#xFF1A;&#x89E6;&#x53D1;&#x5668;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4.3 Trigger&#xFF1A;&#x89E6;&#x53D1;&#x5668;</h5>
@@ -2643,9 +2648,10 @@ this.animator.setParamsBool( &quot;Bool&quot; , true );
 <p><img src="img/5-6.png" alt="image-20221206095956670" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x56FE;5-6&#xFF09;</p>
 <p>&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x6765;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>//&#x901A;&#x8FC7;&#x89E6;&#x53D1;&#x201C;Trigger&#x201D;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;
-this.animator.setParamsTrigger( &quot;Trigger&quot; );
-</code></pre><p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-6</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x901A;&#x8FC7;&#x89E6;&#x53D1;&#x201C;Trigger&#x201D;&#xFF0C;&#x6765;&#x6EE1;&#x8DB3;Idel&#x5230;Run&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5207;&#x6362;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">setParamsTrigger</span><span class="token punctuation">(</span> <span class="token string">&quot;Trigger&quot;</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x5982;&#x52A8;&#x56FE;5-6</p>
 <p><img src="img/5-6.gif" style="zoom: 40%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;5-6&#xFF09;</p>
 <h5 id="544-&#x591A;&#x4E2A;&#x53C2;&#x6570;&#x4F7F;&#x7528;"><a name="544-&#x591A;&#x4E2A;&#x53C2;&#x6570;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#544-&#x591A;&#x4E2A;&#x53C2;&#x6570;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4.4 &#x591A;&#x4E2A;&#x53C2;&#x6570;&#x4F7F;&#x7528;</h5>
@@ -2698,143 +2704,154 @@ this.animator.setParamsTrigger( &quot;Trigger&quot; );
 <p>&#x5728;&#x83B7;&#x5F97;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x7EC4;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;&#x4E86;&#x591A;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x90A3;&#x600E;&#x4E48;&#x64AD;&#x653E;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x5462;&#xFF1F;&#x6709;&#x51E0;&#x79CD;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x5BF9;&#x52A8;&#x4F5C;&#x7684;&#x63A7;&#x5236;&#x4E0E;&#x5207;&#x6362;</p>
 <h5 id="611-play"><a name="611-play" class="anchor-navigation-ex-anchor" href="#611-play"><i class="fa fa-link" aria-hidden="true"></i></a>6.1.1 Play()</h5>
 <p>&#x67E5;&#x770B;Animator&#x52A8;&#x753B;&#x7EC4;&#x4EF6;&#x4E2D;<code>play()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>/**
+<pre class="language-"><code class="lang-typescript"><span class="token comment">/**
 * &#x64AD;&#x653E;&#x52A8;&#x753B;&#x3002;
 * @param    name &#x5982;&#x679C;&#x4E3A;null&#x5219;&#x64AD;&#x653E;&#x9ED8;&#x8BA4;&#x52A8;&#x753B;&#xFF0C;&#x5426;&#x5219;&#x6309;&#x540D;&#x5B57;&#x64AD;&#x653E;&#x52A8;&#x753B;&#x7247;&#x6BB5;&#x3002;
 * @param    layerIndex &#x5C42;&#x7D22;&#x5F15;&#x3002;
 * @param    normalizedTime &#x5F52;&#x4E00;&#x5316;&#x7684;&#x64AD;&#x653E;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#x3002;
-*/
-play(name: string | null = null, layerIndex: number = 0, normalizedTime: number = Number.NEGATIVE_INFINITY)
-</code></pre><p>&#x8FD9;&#x662F;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x91CC;&#x6700;&#x57FA;&#x672C;&#x7684;&#x64AD;&#x653E;&#x52A8;&#x753B;&#x65B9;&#x5F0F;&#xFF0C;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
-<pre class="language-"><code>//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Run&#x52A8;&#x753B;&#x72B6;&#x6001;
-this.animator.play(&quot;Run&quot;);
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-1</p>
+*/</span>
+<span class="token function">play</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span> layerIndex<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> normalizedTime<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> Number<span class="token punctuation">.</span><span class="token constant">NEGATIVE_INFINITY</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x91CC;&#x6700;&#x57FA;&#x672C;&#x7684;&#x64AD;&#x653E;&#x52A8;&#x753B;&#x65B9;&#x5F0F;&#xFF0C;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Run&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token string">&quot;Run&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-1</p>
 <p><img src="img/6-1.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-1&#xFF09; </p>
 <p>&#x901A;&#x8FC7;Play()&#x7684;&#x53C2;&#x6570;&#x4E5F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x64AD;&#x653E;&#x52A8;&#x753B;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;</p>
-<pre class="language-"><code>//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Stand&#x52A8;&#x753B;&#x72B6;&#x6001;&#xFF0C;&#x4ECE;50%&#x7684;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;
-this.animator.play(&quot;Stand&quot;, 0 , 0.5);
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-2&#xFF0C;&#x6BCF;&#x6B21;&#x9F20;&#x6807;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE;50%&#x7684;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x64AD;&#x653E;Stand&#x52A8;&#x753B;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Stand&#x52A8;&#x753B;&#x72B6;&#x6001;&#xFF0C;&#x4ECE;50%&#x7684;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token string">&quot;Stand&quot;</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-2&#xFF0C;&#x6BCF;&#x6B21;&#x9F20;&#x6807;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE;50%&#x7684;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x64AD;&#x653E;Stand&#x52A8;&#x753B;</p>
 <p> <img src="img/6-2.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-2&#xFF09; </p>
 <p>&#x5F53;&#x7136;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x4FEE;&#x6539;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x64AD;&#x653E;&#x4E0D;&#x540C;&#x7684;&#x6548;&#x679C;&#xFF1A;</p>
-<pre class="language-"><code>//&#x83B7;&#x5F97;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x7684;BaseLayer&#x5C42;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x5176;&#x5B83;&#x5C42;
-let acl: Laya.AnimatorControllerLayer = this.animator.getControllerLayer(0);
-//&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;
-let state = acl.getAnimatorState(&quot;Stand&quot;);
-//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x7684;&#x540D;&#x79F0;
-state.name = &quot;Stand_new&quot;;
-//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x64AD;&#x653E;&#x7684;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#xFF08;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#x4E0E;&#x7ED3;&#x675F;&#x65F6;&#x95F4;&#x7684;&#x8BBE;&#x7F6E;&#x4E3A;0-1&#x7684;&#x767E;&#x5206;&#x6BD4;&#x6570;&#x503C;&#xFF09;  &#x8981;&#x622A;&#x53D6;&#x7684;&#x65F6;&#x95F4;&#x70B9; / &#x52A8;&#x753B;&#x7684;&#x603B;&#x65F6;&#x957F;
-state.clipStart = 10/40;
-//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x64AD;&#x653E;&#x7684;&#x7ED3;&#x675F;&#x65F6;&#x95F4;
-state.clipEnd = 20/40;
-//&#x52A8;&#x753B;&#x64AD;&#x653E;&#x662F;&#x5426;&#x5FAA;&#x73AF;
-state.clip.islooping = true;
-//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Stand_new&#x52A8;&#x753B;&#x72B6;&#x6001;
-this.animator.play(&quot;Stand_new&quot;);
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-3</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x83B7;&#x5F97;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x7684;BaseLayer&#x5C42;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x5176;&#x5B83;&#x5C42;</span>
+<span class="token keyword">let</span> acl<span class="token operator">:</span> Laya<span class="token punctuation">.</span>AnimatorControllerLayer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">getControllerLayer</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+<span class="token keyword">let</span> state <span class="token operator">=</span> acl<span class="token punctuation">.</span><span class="token function">getAnimatorState</span><span class="token punctuation">(</span><span class="token string">&quot;Stand&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x7684;&#x540D;&#x79F0;</span>
+state<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;Stand_new&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x64AD;&#x653E;&#x7684;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#xFF08;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#x4E0E;&#x7ED3;&#x675F;&#x65F6;&#x95F4;&#x7684;&#x8BBE;&#x7F6E;&#x4E3A;0-1&#x7684;&#x767E;&#x5206;&#x6BD4;&#x6570;&#x503C;&#xFF09;  &#x8981;&#x622A;&#x53D6;&#x7684;&#x65F6;&#x95F4;&#x70B9; / &#x52A8;&#x753B;&#x7684;&#x603B;&#x65F6;&#x957F;</span>
+state<span class="token punctuation">.</span>clipStart <span class="token operator">=</span> <span class="token number">10</span><span class="token operator">/</span><span class="token number">40</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x8BBE;&#x7F6E;&#x52A8;&#x4F5C;&#x72B6;&#x6001;&#x64AD;&#x653E;&#x7684;&#x7ED3;&#x675F;&#x65F6;&#x95F4;</span>
+state<span class="token punctuation">.</span>clipEnd <span class="token operator">=</span> <span class="token number">20</span><span class="token operator">/</span><span class="token number">40</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x52A8;&#x753B;&#x64AD;&#x653E;&#x662F;&#x5426;&#x5FAA;&#x73AF;</span>
+state<span class="token punctuation">.</span>clip<span class="token punctuation">.</span>islooping <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x76F4;&#x63A5;&#x64AD;&#x653E;Stand_new&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token string">&quot;Stand_new&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-3</p>
 <p><img src="img/6-3.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-3&#xFF09; </p>
 <h5 id="612-crossfade"><a name="612-crossfade" class="anchor-navigation-ex-anchor" href="#612-crossfade"><i class="fa fa-link" aria-hidden="true"></i></a>6.1.2 crossFade()</h5>
 <p>&#x52A8;&#x753B;&#x8FC7;&#x5EA6;&#x878D;&#x5408;&#x662F;&#x7528;&#x4E8E;&#x5728;&#x7ED9;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x5185;&#x4ECE;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x5E73;&#x6ED1;&#x8FC7;&#x6E21;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x52A8;&#x753B;&#x8DF3;&#x8F6C;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x5B8C;&#x5168;&#x4E0D;&#x540C;&#x7684;&#x52A8;&#x753B;&#x8017;&#x65F6;&#x5F88;&#x77ED;&#xFF0C;&#x90A3;&#x4E48;&#x8FC7;&#x6E21;&#x901A;&#x5E38;&#x7684;&#x8868;&#x73B0;&#x4EE4;&#x4EBA;&#x6EE1;&#x610F;&#x3002;</p>
 <p>&#x5148;&#x6765;&#x770B;&#x770B;Animator&#x52A8;&#x753B;&#x7EC4;&#x4EF6;&#x4E2D;<code>crossFade()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x5728;&#x5F53;&#x524D;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x548C;&#x76EE;&#x6807;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x878D;&#x5408;&#x8FC7;&#x6E21;&#x64AD;&#x653E;&#x3002;
      * @param    name &#x76EE;&#x6807;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x3002;
      * @param    transitionDuration &#x8FC7;&#x6E21;&#x65F6;&#x95F4;,&#x8BE5;&#x503C;&#x4E3A;&#x5F53;&#x524D;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x7684;&#x5F52;&#x4E00;&#x5316;&#x65F6;&#x95F4;&#xFF0C;&#x503C;&#x5728;0.0~1.0&#x4E4B;&#x95F4;&#x3002;
      * @param    layerIndex &#x5C42;&#x7D22;&#x5F15;&#x3002;
      * @param    normalizedTime &#x5F52;&#x4E00;&#x5316;&#x7684;&#x64AD;&#x653E;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#x3002;
-     */
-    crossFade(name: string, transitionDuration: number, layerIndex: number = 0, normalizedTime: number = Number.NEGATIVE_INFINITY)
-</code></pre><p>&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x8C03;&#x7528;&#x5982;&#x4E0B;</p>
-<pre class="language-"><code>//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x8FC7;&#x6E21;&#x878D;&#x5408;&#x5230;Run&#x52A8;&#x753B;&#x72B6;&#x6001;
-this.animator.crossFade(&quot;Run&quot;, 0.3);
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-4&#xFF0C;&#x5C06;&#x5F85;&#x673A;&#x52A8;&#x753B;&#x548C;&#x8DD1;&#x6B65;&#x52A8;&#x753B;&#x6DF7;&#x5408;&#x8D77;&#x6765;</p>
+     */</span>
+    <span class="token function">crossFade</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> transitionDuration<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> layerIndex<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> normalizedTime<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> Number<span class="token punctuation">.</span><span class="token constant">NEGATIVE_INFINITY</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x8C03;&#x7528;&#x5982;&#x4E0B;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x8FC7;&#x6E21;&#x878D;&#x5408;&#x5230;Run&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">crossFade</span><span class="token punctuation">(</span><span class="token string">&quot;Run&quot;</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-4&#xFF0C;&#x5C06;&#x5F85;&#x673A;&#x52A8;&#x753B;&#x548C;&#x8DD1;&#x6B65;&#x52A8;&#x753B;&#x6DF7;&#x5408;&#x8D77;&#x6765;</p>
 <p><img src="img/6-4.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-4&#xFF09; </p>
 <h5 id="613-&#x6682;&#x505C;&#x52A8;&#x753B;"><a name="613-&#x6682;&#x505C;&#x52A8;&#x753B;" class="anchor-navigation-ex-anchor" href="#613-&#x6682;&#x505C;&#x52A8;&#x753B;"><i class="fa fa-link" aria-hidden="true"></i></a>6.1.3 &#x6682;&#x505C;&#x52A8;&#x753B;</h5>
 <p>&#x64AD;&#x653E;&#x52A8;&#x753B;&#x8BF4;&#x5B8C;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x6765;&#x8BF4;&#x4E00;&#x4E0B;&#x6682;&#x505C;&#x52A8;&#x753B;&#x3002;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x52A8;&#x753B;&#x7684;&#x64AD;&#x653E;&#x901F;&#x5EA6;&#x63A7;&#x5236;&#x52A8;&#x753B;&#x7684;&#x6682;&#x505C;&#x4E0E;&#x64AD;&#x653E;&#xFF0C;&#x76F4;&#x63A5;&#x8BBE;&#x7F6E;&#x9700;&#x8981;&#x6682;&#x505C;&#x52A8;&#x753B;&#x7684;&#x64AD;&#x653E;&#x901F;&#x5EA6;&#x4E3A;0&#x5373;&#x53EF;&#xFF0C;&#x7EE7;&#x7EED;&#x64AD;&#x653E;&#x53EA;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x8BBE;&#x7F6E;&#x901F;&#x5EA6;&#x4E3A;1&#x3002;</p>
-<pre class="language-"><code>//&#x6682;&#x505C;&#x52A8;&#x753B;
-animator.speed = 0.0;
-//&#x64AD;&#x653E;&#x52A8;&#x753B;
-animator.speed = 1.0;
-//&#x4E00;&#x534A;&#x901F;&#x5EA6;&#x64AD;&#x653E;&#x52A8;&#x753B;
-animator.speed = 0.5;
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-5&#x6240;&#x793A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">//&#x6682;&#x505C;&#x52A8;&#x753B;</span>
+animator<span class="token punctuation">.</span>speed <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x64AD;&#x653E;&#x52A8;&#x753B;</span>
+animator<span class="token punctuation">.</span>speed <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x4E00;&#x534A;&#x901F;&#x5EA6;&#x64AD;&#x653E;&#x52A8;&#x753B;</span>
+animator<span class="token punctuation">.</span>speed <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-5&#x6240;&#x793A;</p>
 <p> <img src="img/6-5.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-5&#xFF09; </p>
 <h4 id="62-&#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;"><a name="62-&#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;" class="anchor-navigation-ex-anchor" href="#62-&#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;"><i class="fa fa-link" aria-hidden="true"></i></a>6.2 &#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;</h4>
 <p>&#x83B7;&#x53D6;&#x52A8;&#x753B;&#x64AD;&#x653E;&#x72B6;&#x6001;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x4F7F;&#x7528;Animator&#x7684; <code>animator.getControllerLayer(layerIndex)</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x83B7;&#x53D6;&#x63A7;&#x5236;&#x5668;&#x5C42;&#x3002;
-     */
-    getControllerLayer(layerInex: number = 0): AnimatorControllerLayer {
-        return this._controllerLayers[layerInex];
-    }
-</code></pre><p>&#x83B7;&#x5F97; <code>AnimatorControllerLayer</code> &#x540E;&#xFF0C;&#x518D;&#x4F7F;&#x7528; <code>getCurrentPlayState()</code> &#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+     */</span>
+    <span class="token function">getControllerLayer</span><span class="token punctuation">(</span>layerInex<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">:</span> AnimatorControllerLayer <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_controllerLayers<span class="token punctuation">[</span>layerInex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x83B7;&#x5F97; <code>AnimatorControllerLayer</code> &#x540E;&#xFF0C;&#x518D;&#x4F7F;&#x7528; <code>getCurrentPlayState()</code> &#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;&#x64AD;&#x653E;&#x72B6;&#x6001;&#x3002;
      * @return &#x52A8;&#x753B;&#x64AD;&#x653E;&#x72B6;&#x6001;&#x3002;
-     */
-    getCurrentPlayState(): AnimatorPlayState {
-        return this._playStateInfo!;
-    }
-</code></pre><p>&#x83B7;&#x5F97; <code>AnimatorPlayState</code> &#x540E;&#xFF0C;&#x6709;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+     */</span>
+    <span class="token function">getCurrentPlayState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> AnimatorPlayState <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_playStateInfo<span class="token operator">!</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x83B7;&#x5F97; <code>AnimatorPlayState</code> &#x540E;&#xFF0C;&#x6709;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x64AD;&#x653E;&#x72B6;&#x6001;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
     * &#x64AD;&#x653E;&#x72B6;&#x6001;&#x7684;&#x5F52;&#x4E00;&#x5316;&#x65F6;&#x95F4;,&#x6574;&#x6570;&#x4E3A;&#x5FAA;&#x73AF;&#x6B21;&#x6570;&#xFF0C;&#x5C0F;&#x6570;&#x4E3A;&#x5355;&#x6B21;&#x64AD;&#x653E;&#x65F6;&#x95F4;&#x3002;
-    */
-    get normalizedTime(): number {
-        return this._normalizedTime;
-    }
+    */</span>
+    <span class="token keyword">get</span> <span class="token function">normalizedTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_normalizedTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
     * &#x5F53;&#x524D;&#x52A8;&#x753B;&#x7684;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#xFF0C;&#x4EE5;&#x79D2;&#x4E3A;&#x5355;&#x4F4D;&#x3002;
-    */
-    get duration(): number {
-        return this._duration;
-    }
+    */</span>
+    <span class="token keyword">get</span> <span class="token function">duration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_duration<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
     * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#x3002;
-    */
-    get animatorState(): AnimatorState {
-        return this._currentState!;
-    }
-</code></pre><p>&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5229;&#x7528; <code>normalizedTime</code> &#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x67D0;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x662F;&#x5426;&#x64AD;&#x5B8C;&#xFF0C;&#x4F8B;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
-<pre class="language-"><code>const { regClass, property } = Laya;
+    */</span>
+    <span class="token keyword">get</span> <span class="token function">animatorState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> AnimatorState <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_currentState<span class="token operator">!</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5229;&#x7528; <code>normalizedTime</code> &#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x67D0;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x662F;&#x5426;&#x64AD;&#x5B8C;&#xFF0C;&#x4F8B;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">const</span> <span class="token punctuation">{</span> regClass<span class="token punctuation">,</span> property <span class="token punctuation">}</span> <span class="token operator">=</span> Laya<span class="token punctuation">;</span>
 
-@regClass()
-export class Main extends Laya.Script {
-    @property()
-    private label: Laya.Label;  
-    @property()
-    private target: Laya.Sprite3D; 
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">regClass</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token keyword">extends</span> <span class="token class-name">Laya</span><span class="token punctuation">.</span>Script <span class="token punctuation">{</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">property</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> label<span class="token operator">:</span> Laya<span class="token punctuation">.</span>Label<span class="token punctuation">;</span>  
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">property</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> target<span class="token operator">:</span> Laya<span class="token punctuation">.</span>Sprite3D<span class="token punctuation">;</span> 
 
-    private animator : Laya.Animator;
+    <span class="token keyword">private</span> animator <span class="token operator">:</span> Laya<span class="token punctuation">.</span>Animator<span class="token punctuation">;</span>
 
-    onStart() {
-        this.label.on( Laya.Event.CLICK, this, this.test );
-        //&#x83B7;&#x5F97;&#x72B6;&#x6001;&#x673A;
-        this.animator = this.target.getComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Laya.Animator</span><span class="token punctuation">&gt;</span></span>(Laya.Animator);
-    }
+    <span class="token function">onStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>label<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span> Laya<span class="token punctuation">.</span>Event<span class="token punctuation">.</span><span class="token constant">CLICK</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>test <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x83B7;&#x5F97;&#x72B6;&#x6001;&#x673A;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>animator <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">getComponent</span><span class="token generic class-name"><span class="token operator">&lt;</span>Laya<span class="token punctuation">.</span>Animator<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>Laya<span class="token punctuation">.</span>Animator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    //&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x673A;&#x7684;&#x8DD1;&#x52A8;&#x753B;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x878D;&#x5408;&#x65B9;&#x5F0F;
-    test(e: Laya.Event) 
-    {
-        //&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x8FC7;&#x6E21;&#x878D;&#x5408;&#x5230;Run&#x52A8;&#x753B;&#x72B6;&#x6001;
-        this.animator.crossFade(&quot;Run&quot;, 0.1);
-        //&#x7B49;&#x5F85;&#x52A8;&#x753B;&#x64AD;&#x653E;&#x5B8C;&#x6210;
-        Laya.timer.frameLoop(1,this,()=&gt;{
-            //&#x5982;&#x679C;&#x5F53;&#x524D;&#x64AD;&#x653E;state&#x5DF2;&#x7ECF;&#x64AD;&#x653E;&#x5B8C;&#x4E86;&#x4E00;&#x6B21;
-            if(this.animator.getControllerLayer(0).getCurrentPlayState().normalizedTime &gt;= 1){
-                //&#x56DE;&#x5230;&#x7AD9;&#x7ACB;&#x72B6;&#x6001;
-                this.animator.crossFade(&quot;Stand&quot;, 0.1);
-                Laya.timer.clearAll(this);
-            } 
-        });        
-    }
-}
-</code></pre><p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-6&#x6240;&#x793A;&#xFF1A;</p>
+    <span class="token comment">//&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x673A;&#x7684;&#x8DD1;&#x52A8;&#x753B;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x878D;&#x5408;&#x65B9;&#x5F0F;</span>
+    <span class="token function">test</span><span class="token punctuation">(</span>e<span class="token operator">:</span> Laya<span class="token punctuation">.</span>Event<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token comment">//&#x52A8;&#x753B;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x8FC7;&#x6E21;&#x878D;&#x5408;&#x5230;Run&#x52A8;&#x753B;&#x72B6;&#x6001;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">crossFade</span><span class="token punctuation">(</span><span class="token string">&quot;Run&quot;</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x7B49;&#x5F85;&#x52A8;&#x753B;&#x64AD;&#x653E;&#x5B8C;&#x6210;</span>
+        Laya<span class="token punctuation">.</span>timer<span class="token punctuation">.</span><span class="token function">frameLoop</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+            <span class="token comment">//&#x5982;&#x679C;&#x5F53;&#x524D;&#x64AD;&#x653E;state&#x5DF2;&#x7ECF;&#x64AD;&#x653E;&#x5B8C;&#x4E86;&#x4E00;&#x6B21;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">getControllerLayer</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCurrentPlayState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>normalizedTime <span class="token operator">&gt;=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment">//&#x56DE;&#x5230;&#x7AD9;&#x7ACB;&#x72B6;&#x6001;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>animator<span class="token punctuation">.</span><span class="token function">crossFade</span><span class="token punctuation">(</span><span class="token string">&quot;Stand&quot;</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Laya<span class="token punctuation">.</span>timer<span class="token punctuation">.</span><span class="token function">clearAll</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> 
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x770B;&#x770B;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-6&#x6240;&#x793A;&#xFF1A;</p>
 <p> <img src="img/6-6.gif" style="zoom:50%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-6&#xFF09; </p>
 <h4 id="63-&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x811A;&#x672C;"><a name="63-&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#63-&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>6.3 &#x4F7F;&#x7528;&#x72B6;&#x6001;&#x811A;&#x672C;</h4>
@@ -2847,41 +2864,42 @@ export class Main extends Laya.Script {
 <p>&#xFF08;&#x52A8;&#x56FE;6-8&#xFF09;</p>
 <h5 id="632-&#x811A;&#x672C;&#x4F7F;&#x7528;"><a name="632-&#x811A;&#x672C;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#632-&#x811A;&#x672C;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>6.3.2 &#x811A;&#x672C;&#x4F7F;&#x7528;</h5>
 <p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x521A;&#x521A;&#x521B;&#x5EFA;&#x7684;Idle&#x72B6;&#x6001;&#x7684;&#x811A;&#x672C;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x8D77;&#x540D;&#x4E3A;IdleStateScript&#xFF1A;</p>
-<pre class="language-"><code>const { regClass } = Laya;
-/**
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">const</span> <span class="token punctuation">{</span> regClass <span class="token punctuation">}</span> <span class="token operator">=</span> Laya<span class="token punctuation">;</span>
+<span class="token comment">/**
  * &#x7EE7;&#x627F;&#x81EA;AnimatorStateScript(&#x52A8;&#x753B;&#x72B6;&#x6001;&#x811A;&#x672C;)
  * @author ...
- */
- @regClass()
-export class IdleStateScript extends Laya.AnimatorStateScript {
+ */</span>
+ <span class="token decorator"><span class="token at operator">@</span><span class="token function">regClass</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">IdleStateScript</span> <span class="token keyword">extends</span> <span class="token class-name">Laya</span><span class="token punctuation">.</span>AnimatorStateScript <span class="token punctuation">{</span>
 
-    constructor() {
-        super();
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#x65F6;&#x6267;&#x884C;&#x3002;
-     */
-    onStateEnter(): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x5F00;&#x59CB;&#x64AD;&#x653E;&#x4E86;&quot;);
-    }
+     */</span>
+    <span class="token function">onStateEnter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x5F00;&#x59CB;&#x64AD;&#x653E;&#x4E86;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x8FD0;&#x884C;&#x4E2D;
      * @param normalizeTime 0-1&#x52A8;&#x753B;&#x64AD;&#x653E;&#x72B6;&#x6001;
-     */
-    onStateUpdate(normalizeTime: number): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E86;&quot;);
-    }
+     */</span>
+    <span class="token function">onStateUpdate</span><span class="token punctuation">(</span>normalizeTime<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E86;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
     * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x9000;&#x51FA;&#x65F6;&#x6267;&#x884C;&#x3002;
-    */
-    onStateExit(): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x9000;&#x51FA;&#x4E86;&quot;);
-    }
-}
-</code></pre><p>IdleStateScript&#x811A;&#x672C;&#x7EE7;&#x627F;&#x81EA;Laya.AnimatorStateScript&#xFF0C;&#x5177;&#x5907;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+    */</span>
+    <span class="token function">onStateExit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x9000;&#x51FA;&#x4E86;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>IdleStateScript&#x811A;&#x672C;&#x7EE7;&#x627F;&#x81EA;Laya.AnimatorStateScript&#xFF0C;&#x5177;&#x5907;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
 <ul>
 <li><p>onStateEnter&#xFF1A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#x65F6;&#x6267;&#x884C;</p>
 </li>
@@ -2895,35 +2913,36 @@ export class IdleStateScript extends Laya.AnimatorStateScript {
 <p>1&#xFF0C;&#x8FDB;&#x5165;&#x6216;&#x8005;&#x9000;&#x51FA;&#x67D0;&#x4E2A;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x65F6;&#x64AD;&#x653E;&#x58F0;&#x97F3;&#x3002;</p>
 <p>2&#xFF0C;&#x5728;&#x67D0;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x72B6;&#x6001;&#x4E0B;&#x6FC0;&#x6D3B;&#x67D0;&#x4E9B;&#x6548;&#x679C;&#x3002;</p>
 <p>&#x6211;&#x4EEC;&#x6765;&#x7B80;&#x5355;&#x52A0;&#x5165;&#x4E00;&#x4E9B;&#x4EE3;&#x7801;&#x6765;&#x770B;&#x6548;&#x679C;&#xFF1A;</p>
-<pre class="language-"><code>    /**
+<pre class="language-"><code class="lang-typescript">    <span class="token comment">/**
      * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#x65F6;&#x6267;&#x884C;&#x3002;
-     */
-    onStateEnter(): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x5F00;&#x59CB;&#x64AD;&#x653E;&#x4E86;&quot;);
-        Main.Text.text = &quot;&#x5F00;&#x59CB;&#x8DD1;&#x52A8;&#x753B;&quot;;
-    }
+     */</span>
+    <span class="token function">onStateEnter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x5F00;&#x59CB;&#x64AD;&#x653E;&#x4E86;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Main<span class="token punctuation">.</span>Text<span class="token punctuation">.</span>text <span class="token operator">=</span> <span class="token string">&quot;&#x5F00;&#x59CB;&#x8DD1;&#x52A8;&#x753B;&quot;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
      * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x8FD0;&#x884C;&#x4E2D;
      * @param normalizeTime 0-1&#x52A8;&#x753B;&#x64AD;&#x653E;&#x72B6;&#x6001;
-     */
-    onStateUpdate(normalizeTime: number): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E86;&#xFF1A;&quot;+normalizeTime);
-        if( normalizeTime &gt; 0.5 &amp;&amp; !this.isShow)
-        {
-            this.isShow = true;
-            Main.Text.text = &quot;&#x8DD1;&#x52A8;&#x753B;&#x4E00;&#x534A;&quot;;            
-        }
-    }
+     */</span>
+    <span class="token function">onStateUpdate</span><span class="token punctuation">(</span>normalizeTime<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E86;&#xFF1A;&quot;</span><span class="token operator">+</span>normalizeTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span> normalizeTime <span class="token operator">&gt;</span> <span class="token number">0.5</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>isShow<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>isShow <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            Main<span class="token punctuation">.</span>Text<span class="token punctuation">.</span>text <span class="token operator">=</span> <span class="token string">&quot;&#x8DD1;&#x52A8;&#x753B;&#x4E00;&#x534A;&quot;</span><span class="token punctuation">;</span>            
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment">/**
     * &#x52A8;&#x753B;&#x72B6;&#x6001;&#x9000;&#x51FA;&#x65F6;&#x6267;&#x884C;&#x3002;
-    */
-    onStateExit(): void {
-        console.log(&quot;&#x52A8;&#x753B;&#x9000;&#x51FA;&#x4E86;&quot;);
-        Main.Text.text = &quot;&#x9000;&#x51FA;&#x8DD1;&#x52A8;&#x753B;&quot;;
-    }
-</code></pre><p>&#x5B9E;&#x9645;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-9&#x6240;&#x793A;</p>
+    */</span>
+    <span class="token function">onStateExit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;&#x52A8;&#x753B;&#x9000;&#x51FA;&#x4E86;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Main<span class="token punctuation">.</span>Text<span class="token punctuation">.</span>text <span class="token operator">=</span> <span class="token string">&quot;&#x9000;&#x51FA;&#x8DD1;&#x52A8;&#x753B;&quot;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5B9E;&#x9645;&#x8FD0;&#x884C;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x52A8;&#x56FE;6-9&#x6240;&#x793A;</p>
 <p><img src="img/6-9.gif" style="zoom:40%;"> </p>
 <p>&#xFF08;&#x52A8;&#x56FE;6-9&#xFF09;</p>
 <h2 id="&#x4E03;&#x3001;&#x5B50;&#x72B6;&#x6001;&#x673A;"><a name="&#x4E03;&#x3001;&#x5B50;&#x72B6;&#x6001;&#x673A;" class="anchor-navigation-ex-anchor" href="#&#x4E03;&#x3001;&#x5B50;&#x72B6;&#x6001;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E03;&#x3001;&#x5B50;&#x72B6;&#x6001;&#x673A;</h2>
@@ -2953,7 +2972,7 @@ export class IdleStateScript extends Laya.AnimatorStateScript {
 <p> <img src="img/7-6.gif" style="zoom:50%;"></p>
 <p>&#xFF08;&#x52A8;&#x56FE;7-6&#xFF09;</p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2023-01-12 14:21:39
+2023-02-20 11:14:02
 </span></footer>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -2998,7 +3017,7 @@ export class IdleStateScript extends Laya.AnimatorStateScript {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"动画状态机详解","level":"1.3.3.2","depth":3,"next":{"title":"动画烘培详解","level":"1.3.3.3","depth":3,"path":"IDE/animationEditor/aniBake/readme.md","ref":"IDE/animationEditor/aniBake/readme.md","articles":[]},"previous":{"title":"时间轴动画编辑详解","level":"1.3.3.1","depth":3,"path":"IDE/animationEditor/timelineGUI/readme.md","ref":"IDE/animationEditor/timelineGUI/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"IDE/animationEditor/aniController/readme.md","mtime":"2023-01-12T06:21:39.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-17T12:28:13.133Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"动画状态机详解","level":"1.3.3.2","depth":3,"next":{"title":"动画烘培详解","level":"1.3.3.3","depth":3,"path":"IDE/animationEditor/aniBake/readme.md","ref":"IDE/animationEditor/aniBake/readme.md","articles":[]},"previous":{"title":"时间轴动画编辑详解","level":"1.3.3.1","depth":3,"path":"IDE/animationEditor/timelineGUI/readme.md","ref":"IDE/animationEditor/timelineGUI/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"IDE/animationEditor/aniController/readme.md","mtime":"2023-02-20T03:14:02.792Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-20T03:30:57.518Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
