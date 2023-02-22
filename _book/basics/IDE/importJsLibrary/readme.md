@@ -58,7 +58,7 @@ license：发行项目需要的证书（这里就不写了）
 
 看一下package.json里的内容：
 
-```
+```json
 {
   "name": "test",
   "version": "1.0.0",
@@ -80,7 +80,7 @@ license：发行项目需要的证书（这里就不写了）
 
 接下来在我们的代码中可以使用 import AstarFinder 了，示例代码如下：
 
-```
+```typescript
 import { AStarFinder } from "../node_modules/astar-typescript/dist/astar";
 
 
@@ -140,7 +140,7 @@ export class Main extends Laya.Script {
 
 ### 2.1 支持方式
 
-**导入为插**
+**导入为插件**
 
 首先将JS文件放置到项目的assets文件夹或src文件夹下，然后在属性设置里勾选“导入为插件”。如图2-1所示
 
@@ -148,7 +148,7 @@ export class Main extends Laya.Script {
 
 （图2-1）
 
-此时这个脚本会在预览、运行或者发布中会自动加载
+此时这个脚本会在预览、运行或者发布中会自动加载。
 
 **允许编辑器加载**
 

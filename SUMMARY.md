@@ -8,6 +8,7 @@
       * [TS语言基础](basics/language/readme.md)
       * [DevTools调试工具](basics/DevTools/readme.md)
       * [LayaTree调试工具](basics/LayaTree/readme.md)
+      * [VScode本地调试](basics/VsCode/readme.md)
 - 引擎基础
     - [IDE基础](basics/IDE/readme.md)
       * [自定义界面布局](basics/IDE/layouts/readme.md)
@@ -98,6 +99,7 @@
   - [动画编辑模块](IDE/animationEditor/readme.md)
       * [时间轴动画编辑详解](IDE/animationEditor/timelineGUI/readme.md)
       * [动画状态机详解](IDE/animationEditor/aniController/readme.md)
+      * [动画烘培详解](IDE/animationEditor/aniBake/readme.md)
   - [物理编辑模块](IDE/physicsEditor/readme.md)
     * [2D物理编辑](IDE/physicsEditor/physics2D/readme.md)
     * [3D物理编辑](IDE/physicsEditor/physics3D/readme.md)
@@ -116,6 +118,7 @@
     * [2.x引擎项目升级指南](basics/2.x-Upgrade/readme.md)
     - [2D进阶](2D/advanced/readme.md)
       * [文本进阶使用](2D/advanced/useText/readme.md)
+      * [使用二进制图片](2D/useBinaryImage/readme.md)
       * [TiledMap地图](2D/TiledMap/readme.md)
       * [2D性能优化](2D/performanceOptimization/readme.md)
     - [3D进阶](3D/advanced/readme.md)

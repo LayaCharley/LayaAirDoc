@@ -44,7 +44,7 @@ A*算法的工作原理是怎样的，在这里就不做介绍了，开发者可
 
 然后把 astar.js 放到项目的bin目录中，并在 index.html 里引入，如下所示
 
-```
+```typescript
 	<script type="text/javascript" src="astar.js"></script>
 ```
 
@@ -56,7 +56,7 @@ A*算法的工作原理是怎样的，在这里就不做介绍了，开发者可
 
 先来看一个最基本的A*代码示例
 
-```
+```typescript
 	var graph = new Graph([
 		[1,1,1,1],
 		[0,1,1,0],
@@ -94,7 +94,7 @@ A*算法的工作原理是怎样的，在这里就不做介绍了，开发者可
 
 通过下面代码，可以读取此图，并将颜色值放到数组中
 
-```
+```typescript
     /**
      * 通过图片数据计算得到AStart网格
      */
@@ -124,7 +124,7 @@ A*算法的工作原理是怎样的，在这里就不做介绍了，开发者可
 
 再通过下面的代码，可以初始化A*的地图数据
 
-```
+```typescript
 //读取地形图
 this.aStarMap = Loader.getTexture2D("res/threeDimen/scene/TerrainScene/Assets/AStarMap.png");
 //获得地图数据
@@ -142,7 +142,7 @@ this.opts.heuristic = (window as any).astar.heuristics.diagonal;
 
 每次鼠标点击地面时，通过鼠标事件发起获得最短路径的调用：
 
-```
+```typescript
 //设置鼠标弹起事件响应
 Laya.stage.on(Event.MOUSE_UP, this, function (): void {
     //起始和目标点
@@ -189,7 +189,7 @@ Laya.stage.on(Event.MOUSE_UP, this, function (): void {
 
 Laya引擎中，网格地形3D精灵类 `MeshTerrainSprite3D` 可以从网格创建一个 `TerrainMeshSprite3D` 实例，来读取高度图的属性。
 
-```
+```typescript
 	/**
 	 * 从网格创建一个TerrainMeshSprite3D实例、图片读取高度图属性。
 	 * @param mesh 网格。
@@ -216,7 +216,7 @@ Laya引擎中，网格地形3D精灵类 `MeshTerrainSprite3D` 可以从网格创
 
 在代码中，是这样使用的：
 
-```
+```typescript
 //读取高度图
 var heightMap = Loader.getTexture2D("res/threeDimen/scene/TerrainScene/Assets/HeightMap.png");
 //初始化MeshTerrainSprite3D
@@ -227,7 +227,7 @@ this.terrainSprite = MeshTerrainSprite3D.createFromMeshAndHeightMap((<Mesh>meshS
 
 ### 3.3 更新世界矩阵
 
-```
+```typescript
 //更新terrainSprite世界矩阵(为可行走区域世界矩阵)
 this.terrainSprite.transform.worldMatrix = meshSprite3D.transform.worldMatrix;
 ```
@@ -240,7 +240,7 @@ this.terrainSprite.transform.worldMatrix = meshSprite3D.transform.worldMatrix;
 
 通过地形x，z轴的坐标点，获得地图上的地块坐标点
 
-```
+```typescript
     /**
     * 得到整数的网格索引
     */
@@ -264,7 +264,7 @@ this.terrainSprite.transform.worldMatrix = meshSprite3D.transform.worldMatrix;
 
 A*算法的搜索最短路径时，是需要传入起始点和目标点坐标的，因此通过调用 getGridIndex 方法来获得地块坐标点
 
-```
+```typescript
 //调用getGridIndex方法，得到网格索引
 this.getGridIndex(this.path[this.curPathIndex % this.pointCount].x, this.path[this.curPathIndex++ % this.pointCount].z, this.startPoint);
 this.getGridIndex(this.path[this.nextPathIndex % this.pointCount].x, this.path[this.nextPathIndex++ % this.pointCount].z, this.endPoint);
@@ -279,7 +279,7 @@ var end = this.graph.grid[this.endPoint.x][this.endPoint.y];
 
 通过起始点和A*算法搜索到的最短路径，得到地形的真实坐标数组，用于角色的每一个行走世界坐标
 
-```
+```typescript
     /**
      * 得到世界坐标系下的真实坐标
      */
@@ -319,7 +319,7 @@ var end = this.graph.grid[this.endPoint.x][this.endPoint.y];
 
 在场景中放了几个立方体盒子作为角色的行走目标点，当点击鼠标后，角色会从当前目标点移动到下一个目标点，path数组用来存放所有目标点的坐标
 
-```
+```typescript
 private initPath(scene: Scene3D): void {
     for (var i: number = 0; i < this.pointCount; i++) {
     var str: string = "path" + i;
@@ -334,7 +334,7 @@ private initPath(scene: Scene3D): void {
 
 角色移动，实际上就是在间隔很短的时间内，改变角色的位置。在我们的示例中，是通过每40毫秒来循环检查角色行走路线，通过Tween来执行角色位置改变的
 
-```
+```typescript
     //开启定时重复执行
     Laya.timer.loop(40, this, this.loopfun);
 
@@ -373,7 +373,7 @@ private initPath(scene: Scene3D): void {
 
 
 
-```
+```typescript
 /**
  * Based upon https://github.com/bgrins/javascript-astar
  */

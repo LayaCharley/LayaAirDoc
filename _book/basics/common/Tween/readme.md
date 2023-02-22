@@ -62,7 +62,7 @@
 
 缓动类 `Tween` 提供了较多的方法，而我们常用的是两种，分别为`from()`与`to()`方法，这两个方法的参数设置完全一样，但效果有所不同，from是从缓动目标点向初始位置产生运动（从缓动目标位置来），to是从初始位置向缓动目标的位置产生运动（到缓动目标位置去），后面会结合实例详细说明，开发者可以先了解一下这两个方法的基础说明：
 
-```
+```typescript
     /**
      * 从props属性，缓动到当前状态。
      * @param	target 目标对象(即将更改属性值的对象)。
@@ -133,7 +133,7 @@ delay 是延迟执行的时间，稍后会通过实例中的延迟执行制作�
 
 `from()` ：
 
-```
+```typescript
     //创建缓动文本
     private createTween():void{
         //"LayaBox字符串总宽度"
@@ -176,7 +176,7 @@ delay 是延迟执行的时间，稍后会通过实例中的延迟执行制作�
 
 `to()` ：我们可以继续采用上面的实例，只是将 Tween.from 改变为 Tween.to
 
-```
+```typescript
 //对象letterText属性y从初始的y属性向缓动目标的y的100属性运动，缓动效果需要3000毫秒，缓类型采用elasticOut函数方式，延迟间隔1000毫秒执行。
 Laya.Tween.to( letterText , {y:100}, 3000, Laya.Ease.elasticOut, null, 1000 );
 ```
@@ -199,7 +199,7 @@ Laya.Tween.to( letterText , {y:100}, 3000, Laya.Ease.elasticOut, null, 1000 );
 
 继续延续之前的示例，修改代码如下。
 
-```
+```typescript
 //文本的初始y属性
 letterText.y = 100;
 //Laya.Tween.from(letterText,{y:100},3000,Laya.Ease.elasticOut,null,i*1000);//注释本行改为将Laya.Tween.from改变为Laya.Tween.to
@@ -226,7 +226,7 @@ Laya.Tween.to(letterText, { y : 300 }, 3000, Laya.Ease.elasticOut, null, i * 100
 
 动图3-4效果所修改代码如下：
 
-```
+```typescript
 //文本的初始y属性
 letterText.y = 100;
 //Laya.Tween.from(letterText,{y:100},3000,Laya.Ease.elasticOut,null,i*1000);//注释本行改为将Laya.Tween.from改变为Laya.Tween.to
@@ -245,7 +245,7 @@ Laya.Tween.to(letterText, { y : 300 }, 1000, Laya.Ease.elasticOut, null, i * 100
 
 动图3-5效果所修改代码如下：
 
-```
+```typescript
 //文本的初始y属性
 letterText.y = 100;
 //Laya.Tween.from(letterText,{y:100},3000,Laya.Ease.elasticOut,null,i*1000);//注释本行改为将Laya.Tween.from改变为Laya.Tween.to
@@ -260,13 +260,13 @@ Laya.Tween.to(letterText, { y : 300 }, 1000, Laya.Ease.bounceIn, null, i * 100);
 
 使用示例：
 
-```
+```typescript
 Laya.Tween.to(letterText, { y : 300 }, 1000, Laya.Ease.bounceIn, Laya.Handler.create(this,this.changeColor,[letterText]), i * 100);
 ```
 
 增加的 changeColor 方法如下
 
-```
+```typescript
     /**
      * 缓动完成后的回调方法
      * txt  缓动对象
@@ -293,7 +293,7 @@ complete（*完成回调*）参数，不仅可以在第五个参数中实现，�
 
 使用示例：
 
-```
+```typescript
 /**
 * 对象letterText属性y从100缓动到300的位置，每一帧都通过回调方法更新颜色
 * 用1000毫秒完成缓动效果
@@ -306,7 +306,7 @@ Laya.Tween.to(letterText, { y : 300, update: new Laya.Handler(this, this.updateC
 
 增加的 changeColor 方法如下
 
-```
+```typescript
     /**
      * 缓动进行时的回调更新方法
      * txt  缓动对象

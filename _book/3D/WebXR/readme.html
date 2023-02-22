@@ -291,6 +291,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.3.4" data-path="../../basics/VsCode/readme.html">
+            
+                <a href="../../basics/VsCode/readme.html">
+            
+                    
+                    VScode本地调试
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1593,6 +1606,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.3.3.3" data-path="../../IDE/animationEditor/aniBake/readme.html">
+            
+                <a href="../../IDE/animationEditor/aniBake/readme.html">
+            
+                    
+                    动画烘培详解
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1851,7 +1877,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2.2" data-path="../../2D/TiledMap/readme.html">
+        <li class="chapter " data-level="1.4.2.2" data-path="../../2D/useBinaryImage/readme.html">
+            
+                <a href="../../2D/useBinaryImage/readme.html">
+            
+                    
+                    使用二进制图片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="../../2D/TiledMap/readme.html">
             
                 <a href="../../2D/TiledMap/readme.html">
             
@@ -1864,7 +1903,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2.3" data-path="../../2D/performanceOptimization/readme.html">
+        <li class="chapter " data-level="1.4.2.4" data-path="../../2D/performanceOptimization/readme.html">
             
                 <a href="../../2D/performanceOptimization/readme.html">
             
@@ -2407,92 +2446,94 @@
 this.changeActionButton.visible = await WebXRExperienceHelper.supportXR(&quot;immersive-vr&quot;);
 </code></pre><p>immersive-vr&#x5C31;&#x662F;VR&#x6A21;&#x5F0F;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x662F;AR&#x6A21;&#x5F0F;&#xFF0C;&#x53C2;&#x6570;&#x6362;&#x6210;immersive-ar&#x5373;&#x53EF;&#x3002;&#x672C;&#x7BC7;&#x6587;&#x6863;&#x53EA;&#x4ECB;&#x7ECD;VR&#x6A21;&#x5F0F;&#x3002;</p>
 <p>&#x5982;&#x679C;&#x68C0;&#x6D4B;&#x5230;&#x652F;&#x6301;VR&#x73AF;&#x5883;&#xFF0C;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FDB;&#x5165;VR&#x6A21;&#x5F0F;&#xFF0C;&#x6216;&#x8005;&#x6FC0;&#x6D3B;&#x8FDB;&#x5165;VR&#x6A21;&#x5F0F;&#x7684;UI&#x6309;&#x94AE;&#xFF0C;&#x901A;&#x8FC7;&#x4FA6;&#x542C;&#x6309;&#x94AE;&#x7684;&#x70B9;&#x51FB;&#x6765;&#x8FDB;&#x5165;VR&#x6A21;&#x5F0F;&#x3002;</p>
-<pre class="language-"><code>/** &#x521D;&#x59CB;&#x5316;XR */
-async initXR(){
-  //&#x521B;&#x5EFA;&#x4E00;&#x4E2A;webXR&#x7684;&#x6444;&#x50CF;&#x673A;
-  let caInfo : WebXRCameraInfo = new WebXRCameraInfo();
-  //&#x8BBE;&#x7F6E;&#x8FDC;&#x88C1;&#x9762;
-  caInfo.depthFar = this.camera.farPlane;
-  //&#x8BBE;&#x7F6E;&#x8FD1;&#x88C1;&#x9762;
-  caInfo.depthNear = this.camera.nearPlane;
-  //&#x7533;&#x8BF7;XR&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x4F20;&#x5165;VR&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;
-  let webXRSessionManager = await WebXRExperienceHelper.enterXRAsync(&quot;imersive-vr&quot;,&quot;local&quot;,caInfo);
-  //&#x8BBE;&#x7F6E;WebXR&#x6444;&#x50CF;&#x673A;
-  WebXRExperienceHelper.setWebXRCamera(this.camera, webXRSessionManager);
-}
-</code></pre><p>&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;VR&#x7684;&#x663E;&#x793A;&#x4E86;&#x3002;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token comment">/** &#x521D;&#x59CB;&#x5316;XR */</span>
+<span class="token keyword">async</span> <span class="token function">initXR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment">//&#x521B;&#x5EFA;&#x4E00;&#x4E2A;webXR&#x7684;&#x6444;&#x50CF;&#x673A;</span>
+  <span class="token keyword">let</span> caInfo <span class="token operator">:</span> WebXRCameraInfo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebXRCameraInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;&#x8FDC;&#x88C1;&#x9762;</span>
+  caInfo<span class="token punctuation">.</span>depthFar <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span>farPlane<span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;&#x8FD1;&#x88C1;&#x9762;</span>
+  caInfo<span class="token punctuation">.</span>depthNear <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span>nearPlane<span class="token punctuation">;</span>
+  <span class="token comment">//&#x7533;&#x8BF7;XR&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x4F20;&#x5165;VR&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;</span>
+  <span class="token keyword">let</span> webXRSessionManager <span class="token operator">=</span> <span class="token keyword">await</span> WebXRExperienceHelper<span class="token punctuation">.</span><span class="token function">enterXRAsync</span><span class="token punctuation">(</span><span class="token string">&quot;imersive-vr&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;local&quot;</span><span class="token punctuation">,</span>caInfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;WebXR&#x6444;&#x50CF;&#x673A;</span>
+  WebXRExperienceHelper<span class="token punctuation">.</span><span class="token function">setWebXRCamera</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">,</span> webXRSessionManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;VR&#x7684;&#x663E;&#x793A;&#x4E86;&#x3002;</p>
 <h4 id="32-&#x5728;oculus&#x91CC;&#x663E;&#x793A;&#x4E0E;&#x4EA4;&#x4E92;"><a name="32-&#x5728;oculus&#x91CC;&#x663E;&#x793A;&#x4E0E;&#x4EA4;&#x4E92;" class="anchor-navigation-ex-anchor" href="#32-&#x5728;oculus&#x91CC;&#x663E;&#x793A;&#x4E0E;&#x4EA4;&#x4E92;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2 &#x5728;Oculus&#x91CC;&#x663E;&#x793A;&#x4E0E;&#x4EA4;&#x4E92;</h4>
 <h5 id="321-&#x4EE3;&#x7801;&#x90E8;&#x5206;"><a name="321-&#x4EE3;&#x7801;&#x90E8;&#x5206;" class="anchor-navigation-ex-anchor" href="#321-&#x4EE3;&#x7801;&#x90E8;&#x5206;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.1 &#x4EE3;&#x7801;&#x90E8;&#x5206;</h5>
 <p>&#x65E0;&#x8BBA;&#x662F;&#x624B;&#x673A;&#x6D4F;&#x89C8;&#x5668;&#x8FD8;&#x662F;Oculus VR&#x8BBE;&#x5907;&#xFF0C;&#x7531;&#x4E8E;&#x90FD;&#x662F;&#x57FA;&#x4E8E;WebXR&#x6807;&#x51C6;&#x7684;&#xFF0C;&#x4E0D;&#x7BA1;&#x662F;&#x5728;&#x54EA;&#x91CC;&#x663E;&#x793A;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x7684;&#x4EE3;&#x7801;&#x6D41;&#x7A0B;&#x4E0A;&#x90FD;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
 <p>&#x53EA;&#x662F;&#xFF0C;&#x76F8;&#x5BF9;&#x4E8E;&#x624B;&#x673A;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;Oculus&#x7B49;&#x4E13;&#x7528;&#x7684;VR&#x5934;&#x663E;&#x8BBE;&#x5907;&#xFF0C;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x5929;&#x7136;&#x7684;webXR&#x73AF;&#x5883;&#xFF08;&#x4E0D;&#x9700;&#x8981;&#x989D;&#x5916;&#x5B89;&#x88C5;XR&#x670D;&#x52A1;&#xFF09;&#xFF0C;&#x5728;&#x4EA4;&#x4E92;&#x64CD;&#x4F5C;&#x65B9;&#x9762;&#x4E5F;&#x975E;&#x5E38;&#x53CB;&#x597D;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x63A8;&#x8350;&#x7684;VR&#x5F00;&#x53D1;&#x4E0E;&#x4F53;&#x9A8C;&#x73AF;&#x5883;&#x3002;</p>
 <p>&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x5C0F;&#x8282;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x518D;&#x4ECB;&#x7ECD;VR&#x663E;&#x793A;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x76F4;&#x63A5;&#x4ECB;&#x7ECD;&#x4EA4;&#x4E92;&#x90E8;&#x5206;&#x5373;&#x53EF;&#x3002;</p>
-<pre class="language-"><code>/** &#x521D;&#x59CB;&#x5316;XR */
-async initXR(){
-  //&#x521B;&#x5EFA;&#x4E00;&#x4E2A;webXR&#x7684;&#x6444;&#x50CF;&#x673A;
-  let caInfo : WebXRCameraInfo = new WebXRCameraInfo();
-  //&#x8BBE;&#x7F6E;&#x8FDC;&#x88C1;&#x9762;
-  caInfo.depthFar = this.camera.farPlane;
-  //&#x8BBE;&#x7F6E;&#x8FD1;&#x88C1;&#x9762;
-  caInfo.depthNear = this.camera.nearPlane;
-  //&#x7533;&#x8BF7;XR&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x4F20;&#x5165;VR&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;
-  let webXRSessionManager = await WebXRExperienceHelper.enterXRAsync(&quot;imersive-vr&quot;,&quot;local&quot;,caInfo);
-  //&#x8BBE;&#x7F6E;WebXR&#x6444;&#x50CF;&#x673A;
-  let webXRCameraManager = WebXRExperienceHelper.setWebXRCamera(this.camera, webXRSessionManager);
-  //&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x91CC;&#x5F00;&#x59CB;&#x5BF9;VR&#x8FDB;&#x5165;&#x624B;&#x67C4;&#x8F93;&#x5165;&#x7684;&#x63A7;&#x5236;&#x4EA4;&#x4E92;
-  let webXRInput = WebXEExperienceHelper.setWebXRInput(webXRSessionManager, webXRCameraManager); 
-  this.bindMeshRender(webXRInput);
-}
-bindMeshRender(webXRInput:WebXRInputManager){
-        let rightControl = Laya.loader.getRes(&quot;res/OculusController/controller.gltf&quot;) as Sprite3D;
-        let leftControl = Laya.loader.getRes(&quot;res/OculusController/controller-left.gltf&quot;) as Sprite3D;
-        let pixelright = new PixelLineSprite3D(20,&quot;right&quot;);
-        let pixelleft = new PixelLineSprite3D(20,&quot;left&quot;);
-        this.scene.addChild(rightControl);
-        this.scene.addChild(leftControl);
-        this.scene.addChild(pixelright);
-        this.scene.addChild(pixelleft);
-        webXRInput.bindMeshNode(leftControl,WebXRInput.HANDNESS_LEFT);
-        webXRInput.bindMeshNode(rightControl,WebXRInput.HANDNESS_RIGHT);
-        webXRInput.bindRayNode(pixelleft,WebXRInput.HANDNESS_LEFT);
-        webXRInput.bindRayNode(pixelright,WebXRInput.HANDNESS_RIGHT);
-        //&#x83B7;&#x5F97;xrInput&#x7684;&#x5E27;&#x5FAA;&#x73AF;&#x65B9;&#x6848;
-        webXRInput.getController(WebXRInput.HANDNESS_RIGHT).on(WebXRInput.EVENT_FRAMEUPDATA_WEBXRINPUT,this,this.getRightInput);
-        webXRInput.getController(WebXRInput.HANDNESS_LEFT).on(WebXRInput.EVENT_FRAMEUPDATA_WEBXRINPUT,this,this.getLeftInput);
-        /**
+<pre class="language-"><code class="lang-typescript"><span class="token comment">/** &#x521D;&#x59CB;&#x5316;XR */</span>
+<span class="token keyword">async</span> <span class="token function">initXR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment">//&#x521B;&#x5EFA;&#x4E00;&#x4E2A;webXR&#x7684;&#x6444;&#x50CF;&#x673A;</span>
+  <span class="token keyword">let</span> caInfo <span class="token operator">:</span> WebXRCameraInfo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebXRCameraInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;&#x8FDC;&#x88C1;&#x9762;</span>
+  caInfo<span class="token punctuation">.</span>depthFar <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span>farPlane<span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;&#x8FD1;&#x88C1;&#x9762;</span>
+  caInfo<span class="token punctuation">.</span>depthNear <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span>nearPlane<span class="token punctuation">;</span>
+  <span class="token comment">//&#x7533;&#x8BF7;XR&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x4F20;&#x5165;VR&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;</span>
+  <span class="token keyword">let</span> webXRSessionManager <span class="token operator">=</span> <span class="token keyword">await</span> WebXRExperienceHelper<span class="token punctuation">.</span><span class="token function">enterXRAsync</span><span class="token punctuation">(</span><span class="token string">&quot;imersive-vr&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;local&quot;</span><span class="token punctuation">,</span>caInfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BBE;&#x7F6E;WebXR&#x6444;&#x50CF;&#x673A;</span>
+  <span class="token keyword">let</span> webXRCameraManager <span class="token operator">=</span> WebXRExperienceHelper<span class="token punctuation">.</span><span class="token function">setWebXRCamera</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">,</span> webXRSessionManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x91CC;&#x5F00;&#x59CB;&#x5BF9;VR&#x8FDB;&#x5165;&#x624B;&#x67C4;&#x8F93;&#x5165;&#x7684;&#x63A7;&#x5236;&#x4EA4;&#x4E92;</span>
+  <span class="token keyword">let</span> webXRInput <span class="token operator">=</span> WebXEExperienceHelper<span class="token punctuation">.</span><span class="token function">setWebXRInput</span><span class="token punctuation">(</span>webXRSessionManager<span class="token punctuation">,</span> webXRCameraManager<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">bindMeshRender</span><span class="token punctuation">(</span>webXRInput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">bindMeshRender</span><span class="token punctuation">(</span>webXRInput<span class="token operator">:</span>WebXRInputManager<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">let</span> rightControl <span class="token operator">=</span> Laya<span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token function">getRes</span><span class="token punctuation">(</span><span class="token string">&quot;res/OculusController/controller.gltf&quot;</span><span class="token punctuation">)</span> <span class="token keyword">as</span> Sprite3D<span class="token punctuation">;</span>
+        <span class="token keyword">let</span> leftControl <span class="token operator">=</span> Laya<span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token function">getRes</span><span class="token punctuation">(</span><span class="token string">&quot;res/OculusController/controller-left.gltf&quot;</span><span class="token punctuation">)</span> <span class="token keyword">as</span> Sprite3D<span class="token punctuation">;</span>
+        <span class="token keyword">let</span> pixelright <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PixelLineSprite3D</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">&quot;right&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> pixelleft <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PixelLineSprite3D</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">&quot;left&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scene<span class="token punctuation">.</span><span class="token function">addChild</span><span class="token punctuation">(</span>rightControl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scene<span class="token punctuation">.</span><span class="token function">addChild</span><span class="token punctuation">(</span>leftControl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scene<span class="token punctuation">.</span><span class="token function">addChild</span><span class="token punctuation">(</span>pixelright<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scene<span class="token punctuation">.</span><span class="token function">addChild</span><span class="token punctuation">(</span>pixelleft<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">bindMeshNode</span><span class="token punctuation">(</span>leftControl<span class="token punctuation">,</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_LEFT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">bindMeshNode</span><span class="token punctuation">(</span>rightControl<span class="token punctuation">,</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_RIGHT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">bindRayNode</span><span class="token punctuation">(</span>pixelleft<span class="token punctuation">,</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_LEFT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">bindRayNode</span><span class="token punctuation">(</span>pixelright<span class="token punctuation">,</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_RIGHT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x83B7;&#x5F97;xrInput&#x7684;&#x5E27;&#x5FAA;&#x73AF;&#x65B9;&#x6848;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">getController</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_RIGHT</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">EVENT_FRAMEUPDATA_WEBXRINPUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>getRightInput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        webXRInput<span class="token punctuation">.</span><span class="token function">getController</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_LEFT</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">EVENT_FRAMEUPDATA_WEBXRINPUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>getLeftInput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">/**
          * 0    &#x6273;&#x673A;
          * 1    &#x4FA7;&#x6273;&#x673A;
          * 3     &#x6447;&#x6746;&#x6309;&#x4E0B;
          * 4    X&#x3001;A&#x952E;
          * 5    Y&#x3001;B&#x952E;
-         */
-        // &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x76D1;&#x542C;
-        let leftXRInput = webXRInput.getController(WebXRInput.HANDNESS_LEFT);
-        // &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6309;&#x94AE;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;
-        leftXRInput.addButtonEvent(0,ButtonGamepad.EVENT_TOUCH_OUT,this,this.LeftbuttonEvent0);
-        // &#x6CE8;&#x610F;&#x540C;&#x4E00;&#x6309;&#x94AE;&#x7684;&#x4E0D;&#x540C;&#x89E6;&#x53D1;
-        leftXRInput.addButtonEvent(1,ButtonGamepad.EVENT_TOUCH_STAY,this,this.LeftbuttonEvent1);
-        leftXRInput.addButtonEvent(1,ButtonGamepad.EVENT_TOUCH_OUT,this,this.LeftbuttonEvent1_1);
-        leftXRInput.addButtonEvent(3,ButtonGamepad.EVENT_TOUCH_OUT,this,this.LeftbuttonEvent3);
-        leftXRInput.addButtonEvent(4,ButtonGamepad.EVENT_TOUCH_ENTER,this,this.LeftbuttonEvent4);
-        leftXRInput.addButtonEvent(5,ButtonGamepad.EVENT_TOUCH_OUT,this,this.LeftbuttonEvent5);
-        // &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6447;&#x6746;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;
-        leftXRInput.addAxisEvent(1,AxiGamepad.EVENT_OUTPUT,this,this.LeftAxisEvent);
-        // &#x53F3;&#x63A7;&#x5236;&#x5668;&#x76D1;&#x542C;
-        let rightXRInput = webXRInput.getController(WebXRInput.HANDNESS_RIGHT);
-        // &#x53F3;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6309;&#x94AE;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;
-        rightXRInput.addButtonEvent(0,ButtonGamepad.EVENT_PRESS_ENTER,this,this.RightbuttonEvent0);
-        rightXRInput.addButtonEvent(0,ButtonGamepad.EVENT_PRESS_VALUE, this, this.rightTriggerOn);
-        // &#x6CE8;&#x610F;&#x540C;&#x4E00;&#x6309;&#x94AE;&#x7684;&#x4E0D;&#x540C;&#x89E6;&#x53D1;
-        rightXRInput.addButtonEvent(1,ButtonGamepad.EVENT_PRESS_STAY,this,this.RightbuttonEvent1);
-        rightXRInput.addButtonEvent(1,ButtonGamepad.EVENT_PRESS_OUT,this,this.RightbuttonEvent1_1);
-        rightXRInput.addButtonEvent(3,ButtonGamepad.EVENT_PRESS_OUT,this,this.RightbuttonEvent3);
-        rightXRInput.addButtonEvent(4,ButtonGamepad.EVENT_PRESS_ENTER,this,this.RightbuttonEvent4);
-        rightXRInput.addButtonEvent(5,ButtonGamepad.EVENT_PRESS_OUT,this,this.RightbuttonEvent5);
-        // &#x53F3;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6447;&#x6746;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;
-        rightXRInput.addAxisEvent(1,AxiGamepad.EVENT_OUTPUT,this,this.RightAxisEvent);
-    }
-/** &#x7701;&#x7565;&#x7684;&#x4EE3;&#x7801;&#x8BF7;&#x524D;&#x5F80;&#x5B98;&#x7F51;&#x793A;&#x4F8B;&#x67E5;&#x770B; **/
-</code></pre><blockquote>
+         */</span>
+        <span class="token comment">// &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x76D1;&#x542C;</span>
+        <span class="token keyword">let</span> leftXRInput <span class="token operator">=</span> webXRInput<span class="token punctuation">.</span><span class="token function">getController</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_LEFT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6309;&#x94AE;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x6CE8;&#x610F;&#x540C;&#x4E00;&#x6309;&#x94AE;&#x7684;&#x4E0D;&#x540C;&#x89E6;&#x53D1;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_STAY</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent1_1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_ENTER</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_TOUCH_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftbuttonEvent5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x5DE6;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6447;&#x6746;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;</span>
+        leftXRInput<span class="token punctuation">.</span><span class="token function">addAxisEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>AxiGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_OUTPUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>LeftAxisEvent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x53F3;&#x63A7;&#x5236;&#x5668;&#x76D1;&#x542C;</span>
+        <span class="token keyword">let</span> rightXRInput <span class="token operator">=</span> webXRInput<span class="token punctuation">.</span><span class="token function">getController</span><span class="token punctuation">(</span>WebXRInput<span class="token punctuation">.</span><span class="token constant">HANDNESS_RIGHT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x53F3;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6309;&#x94AE;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_ENTER</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_VALUE</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>rightTriggerOn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x6CE8;&#x610F;&#x540C;&#x4E00;&#x6309;&#x94AE;&#x7684;&#x4E0D;&#x540C;&#x89E6;&#x53D1;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_STAY</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent1_1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_ENTER</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addButtonEvent</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span>ButtonGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_PRESS_OUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightbuttonEvent5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x53F3;&#x63A7;&#x5236;&#x5668;&#x7684;&#x6447;&#x6746;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;</span>
+        rightXRInput<span class="token punctuation">.</span><span class="token function">addAxisEvent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>AxiGamepad<span class="token punctuation">.</span><span class="token constant">EVENT_OUTPUT</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>RightAxisEvent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token comment">/** &#x7701;&#x7565;&#x7684;&#x4EE3;&#x7801;&#x8BF7;&#x524D;&#x5F80;&#x5B98;&#x7F51;&#x793A;&#x4F8B;&#x67E5;&#x770B; **/</span>
+</code></pre>
+<blockquote>
 <p>&#x4EE5;&#x4E0A;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x5168;&#x90E8;&#x4EE3;&#x7801;&#xFF0C;&#x5173;&#x4E8E;oculus&#x663E;&#x793A;&#x4E0E;&#x4EA4;&#x4E92;&#x7684;&#x5168;&#x90E8;&#x4EE3;&#x7801;&#x8BF7;&#x524D;&#x5F80;&#x5B98;&#x7F51;&#x793A;&#x4F8B;&#x4E2D;&#x67E5;&#x770B;&#x3002;</p>
 </blockquote>
 <h5 id="322-demo&#x6D4B;&#x8BD5;&#x63D0;&#x793A;"><a name="322-demo&#x6D4B;&#x8BD5;&#x63D0;&#x793A;" class="anchor-navigation-ex-anchor" href="#322-demo&#x6D4B;&#x8BD5;&#x63D0;&#x793A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.2 demo&#x6D4B;&#x8BD5;&#x63D0;&#x793A;</h5>
@@ -2528,7 +2569,7 @@ bindMeshRender(webXRInput:WebXRInputManager){
 <p>EVENT_TOUCH_OUT&#x4E0E;EVENT_PRESS_OUT: &#x5BF9;&#x5E94;&#x76D1;&#x542C;&#x4E3A;&#x5DE6;&#x53F3;&#x63A7;&#x5236;&#x5668;&#x7684;Y&#x3001;B&#x952E;&#xFF0C;&#x903B;&#x8F91;&#x533A;&#x522B;&#x4E3A;Y&#x952E;&#x8F7B;&#x89E6;&#x79BB;&#x5F00;&#x4E0E;B&#x952E;&#x6309;&#x4E0B;&#x79BB;&#x5F00;&#x3002;</p>
 <p>EVENT_PRESS_VALUE: &#x5BF9;&#x5E94;&#x76D1;&#x542C;&#x662F;&#x53F3;&#x6273;&#x673A;&#x8FD9;&#x7C7B;&#x8F93;&#x51FA;&#x7C7B;&#x578B;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x8303;&#x56F4;&#x7684;&#x4E8B;&#x4EF6;&#x3002;&#x903B;&#x8F91;&#x5B9E;&#x73B0;&#x4E3A;&#x6839;&#x636E;&#x6273;&#x673A;&#x7684;&#x6309;&#x538B;&#x529B;&#x5EA6;&#x6765;&#x8FD4;&#x56DE;&#x6D6E;&#x52A8;&#x7684;value&#x503C;&#x3002; </p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2023-01-03 15:42:12
+2023-02-20 11:11:44
 </span></footer>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -2573,7 +2614,7 @@ bindMeshRender(webXRInput:WebXRInputManager){
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"WebXR","level":"1.4.3.5","depth":3,"next":{"title":"3D寻路","level":"1.4.3.6","depth":3,"path":"3D/advanced/Astar/readme.md","ref":"3D/advanced/Astar/readme.md","articles":[]},"previous":{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/WebXR/readme.md","mtime":"2023-01-03T07:42:12.620Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-01T02:44:49.375Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"WebXR","level":"1.4.3.5","depth":3,"next":{"title":"3D寻路","level":"1.4.3.6","depth":3,"path":"3D/advanced/Astar/readme.md","ref":"3D/advanced/Astar/readme.md","articles":[]},"previous":{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/WebXR/readme.md","mtime":"2023-02-20T03:11:44.609Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T06:52:49.624Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -2620,10 +2661,6 @@ bindMeshRender(webXRInput:WebXRInputManager){
     
         
         <script src="../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
 

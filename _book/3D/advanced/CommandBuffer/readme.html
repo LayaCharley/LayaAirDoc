@@ -291,6 +291,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.3.4" data-path="../../../basics/VsCode/readme.html">
+            
+                <a href="../../../basics/VsCode/readme.html">
+            
+                    
+                    VScode本地调试
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1593,6 +1606,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.3.3.3" data-path="../../../IDE/animationEditor/aniBake/readme.html">
+            
+                <a href="../../../IDE/animationEditor/aniBake/readme.html">
+            
+                    
+                    动画烘培详解
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1851,7 +1877,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2.2" data-path="../../../2D/TiledMap/readme.html">
+        <li class="chapter " data-level="1.4.2.2" data-path="../../../2D/useBinaryImage/readme.html">
+            
+                <a href="../../../2D/useBinaryImage/readme.html">
+            
+                    
+                    使用二进制图片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="../../../2D/TiledMap/readme.html">
             
                 <a href="../../../2D/TiledMap/readme.html">
             
@@ -1864,7 +1903,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2.3" data-path="../../../2D/performanceOptimization/readme.html">
+        <li class="chapter " data-level="1.4.2.4" data-path="../../../2D/performanceOptimization/readme.html">
             
                 <a href="../../../2D/performanceOptimization/readme.html">
             
@@ -2379,16 +2418,21 @@
 <h3 id="2&#x4F7F;&#x7528;&#x6B65;&#x9AA4;"><a name="2&#x4F7F;&#x7528;&#x6B65;&#x9AA4;" class="anchor-navigation-ex-anchor" href="#2&#x4F7F;&#x7528;&#x6B65;&#x9AA4;"><i class="fa fa-link" aria-hidden="true"></i></a>2.&#x4F7F;&#x7528;&#x6B65;&#x9AA4;</h3>
 <h4 id="1&#x521B;&#x5EFA;&#x597D;commandbuffer&#x540E;&#xFF0C;&#x6DFB;&#x52A0;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7ED9;commandbuffer"><a name="1&#x521B;&#x5EFA;&#x597D;commandbuffer&#x540E;&#xFF0C;&#x6DFB;&#x52A0;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7ED9;commandbuffer" class="anchor-navigation-ex-anchor" href="#1&#x521B;&#x5EFA;&#x597D;commandbuffer&#x540E;&#xFF0C;&#x6DFB;&#x52A0;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7ED9;commandbuffer"><i class="fa fa-link" aria-hidden="true"></i></a>1.&#x521B;&#x5EFA;&#x597D;CommandBuffer&#x540E;&#xFF0C;&#x6DFB;&#x52A0;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7ED9;CommandBuffer</h4>
 <p>&#x6DFB;&#x52A0;&#x4EE3;&#x7801;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>var buf:CommandBuffer = new CommandBuffer();buf.setRenderTarget(renderTexture);buf.drawRender(renders[i],materials[i],0);
-</code></pre><h4 id="2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;"><a name="2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.&#x9700;&#x8981;&#x5C06;CBuffer&#x7ED1;&#x5B9A;&#x5230;Camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;Camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;</h4>
-<pre class="language-"><code>BeforeForwardOpaque = 0,//&#x5728;&#x6E32;&#x67D3;&#x975E;&#x900F;&#x660E;&#x7269;&#x4F53;&#x4E4B;&#x524D;BeforeSkyBox = 2,//&#x5728;&#x6E32;&#x67D3;&#x5929;&#x7A7A;&#x76D2;&#x4E4B;&#x524D;BeforeTransparent = 4,//&#x5728;&#x6E32;&#x67D3;&#x900F;&#x660E;&#x7269;&#x4F53;&#x4E4B;BeforeImageEffect = 6,//&#x5728;&#x540E;&#x671F;&#x5904;&#x7406;&#x4E4B;&#x524D;AfterEveryThing = 8,//&#x6240;&#x6709;&#x6E32;&#x67D3;&#x4E4B;&#x540E;
-</code></pre><p>&#x6DFB;&#x52A0;CommandBuffer&#x5230;&#x76F8;&#x673A;&#x4E8B;&#x4EF6;&#x7684;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>this.camera.addCommandBuffer(this.cameraEventFlag,this.commandBuffer);
-</code></pre><p>&#x5220;&#x9664;CommandBuffer&#x7684;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code>this.camera.removeCommandBuffer(this.cameraEventFlag,this.commandBuffer);
-</code></pre><p>CommandBuffer&#x662F;&#x4E00;&#x4E2A;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x96C6;&#xFF0C;&#x7EC4;&#x6210;&#x8FD9;&#x4E2A;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x96C6;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x7684;&#x72EC;&#x7ACB;&#x7684;&#x6E32;&#x67D3;&#x6307;&#x4EE4;</p>
-<pre class="language-"><code>setShaderData//&#x8BBE;&#x7F6E;shader&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;shader&#x4E2D;&#x7684;texture vector number&#x7B49; setGlobalShaderData//&#x8BBE;&#x7F6E;&#x5168;&#x5C40;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x6240;&#x6709;&#x7684;shaderblitScreenQuad//&#x901A;&#x8FC7;&#x5168;&#x5C4F;&#x56DB;&#x8FB9;&#x5F62;&#x5C06;&#x6E90;&#x7EB9;&#x7406;&#x6E32;&#x67D3;&#x5230;&#x76EE;&#x6807;&#x6E32;&#x67D3;&#x7EB9;&#x7406;&#x6307;&#x4EE4;&#x3002;blitScreenQuadByMaterial//&#x901A;&#x8FC7;&#x5168;&#x5C4F;&#x56DB;&#x8FB9;&#x5F62;&#x5C06;&#x6E90;&#x7EB9;&#x7406;&#x6E32;&#x67D3;&#x5230;&#x76EE;&#x6807;&#x6E32;&#x67D3;&#x7EB9;&#x7406;&#x6307;&#x4EE4;setRenderTarget//&#x8BBE;&#x7F6E;&#x6307;&#x4EE4;&#x6E32;&#x67D3;&#x76EE;&#x6807;&#xFF0C;&#x8C03;&#x7528;&#x540E;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x6E32;&#x67D3;&#x90FD;&#x4F1A;&#x6E32;&#x67D3;&#x5230;&#x65B9;&#x6CD5;&#x7ED1;&#x5B9A;&#x7684;&#x56FE;&#x7247;&#x4E0A;clearRenderTarget//&#x6E05;&#x7406;&#x7ED1;&#x5B9A;&#x7684;&#x6E32;&#x67D3;&#x7EB9;&#x7406;drawMesh//&#x6E32;&#x67D3;&#x4E00;&#x4E2A;MeshdrawRender//&#x6E32;&#x67D3;&#x4E00;&#x4E2A;Render
-</code></pre><p>&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x4E0D;&#x540C;&#x7684;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7136;&#x540E;&#x653E;&#x5165;&#x4E0D;&#x540C;&#x7684;&#x6E32;&#x67D3;&#x6D41;&#x7A0B;&#xFF0C;&#x4E0B;&#x9762;&#x5177;&#x4F53;&#x5206;&#x6790;&#x5B98;&#x65B9;&#x793A;&#x4F8B;&#x6765;&#x66F4;&#x597D;&#x7684;&#x7406;&#x89E3;&#x4E00;&#x4E0B;CommandBuffer&#x7684;&#x7528;&#x6CD5;&#x3002;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">var</span> buf<span class="token operator">:</span>CommandBuffer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CommandBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>buf<span class="token punctuation">.</span><span class="token function">setRenderTarget</span><span class="token punctuation">(</span>renderTexture<span class="token punctuation">)</span><span class="token punctuation">;</span>buf<span class="token punctuation">.</span><span class="token function">drawRender</span><span class="token punctuation">(</span>renders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>materials<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;"><a name="2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#2&#x9700;&#x8981;&#x5C06;cbuffer&#x7ED1;&#x5B9A;&#x5230;camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.&#x9700;&#x8981;&#x5C06;CBuffer&#x7ED1;&#x5B9A;&#x5230;Camera&#x7684;&#x6E32;&#x67D3;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;laya&#x652F;&#x6301;&#x7684;Camera&#x4E8B;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;</h4>
+<pre class="language-"><code class="lang-typescript">BeforeForwardOpaque <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token comment">//&#x5728;&#x6E32;&#x67D3;&#x975E;&#x900F;&#x660E;&#x7269;&#x4F53;&#x4E4B;&#x524D;BeforeSkyBox = 2,//&#x5728;&#x6E32;&#x67D3;&#x5929;&#x7A7A;&#x76D2;&#x4E4B;&#x524D;BeforeTransparent = 4,//&#x5728;&#x6E32;&#x67D3;&#x900F;&#x660E;&#x7269;&#x4F53;&#x4E4B;BeforeImageEffect = 6,//&#x5728;&#x540E;&#x671F;&#x5904;&#x7406;&#x4E4B;&#x524D;AfterEveryThing = 8,//&#x6240;&#x6709;&#x6E32;&#x67D3;&#x4E4B;&#x540E;</span>
+</code></pre>
+<p>&#x6DFB;&#x52A0;CommandBuffer&#x5230;&#x76F8;&#x673A;&#x4E8B;&#x4EF6;&#x7684;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span><span class="token function">addCommandBuffer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cameraEventFlag<span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>commandBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x5220;&#x9664;CommandBuffer&#x7684;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-typescript"><span class="token keyword">this</span><span class="token punctuation">.</span>camera<span class="token punctuation">.</span><span class="token function">removeCommandBuffer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cameraEventFlag<span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span>commandBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>CommandBuffer&#x662F;&#x4E00;&#x4E2A;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x96C6;&#xFF0C;&#x7EC4;&#x6210;&#x8FD9;&#x4E2A;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x96C6;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x7684;&#x72EC;&#x7ACB;&#x7684;&#x6E32;&#x67D3;&#x6307;&#x4EE4;</p>
+<pre class="language-"><code class="lang-typescript">setShaderData<span class="token comment">//&#x8BBE;&#x7F6E;shader&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;shader&#x4E2D;&#x7684;texture vector number&#x7B49; setGlobalShaderData//&#x8BBE;&#x7F6E;&#x5168;&#x5C40;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x6240;&#x6709;&#x7684;shaderblitScreenQuad//&#x901A;&#x8FC7;&#x5168;&#x5C4F;&#x56DB;&#x8FB9;&#x5F62;&#x5C06;&#x6E90;&#x7EB9;&#x7406;&#x6E32;&#x67D3;&#x5230;&#x76EE;&#x6807;&#x6E32;&#x67D3;&#x7EB9;&#x7406;&#x6307;&#x4EE4;&#x3002;blitScreenQuadByMaterial//&#x901A;&#x8FC7;&#x5168;&#x5C4F;&#x56DB;&#x8FB9;&#x5F62;&#x5C06;&#x6E90;&#x7EB9;&#x7406;&#x6E32;&#x67D3;&#x5230;&#x76EE;&#x6807;&#x6E32;&#x67D3;&#x7EB9;&#x7406;&#x6307;&#x4EE4;setRenderTarget//&#x8BBE;&#x7F6E;&#x6307;&#x4EE4;&#x6E32;&#x67D3;&#x76EE;&#x6807;&#xFF0C;&#x8C03;&#x7528;&#x540E;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x6E32;&#x67D3;&#x90FD;&#x4F1A;&#x6E32;&#x67D3;&#x5230;&#x65B9;&#x6CD5;&#x7ED1;&#x5B9A;&#x7684;&#x56FE;&#x7247;&#x4E0A;clearRenderTarget//&#x6E05;&#x7406;&#x7ED1;&#x5B9A;&#x7684;&#x6E32;&#x67D3;&#x7EB9;&#x7406;drawMesh//&#x6E32;&#x67D3;&#x4E00;&#x4E2A;MeshdrawRender//&#x6E32;&#x67D3;&#x4E00;&#x4E2A;Render</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x4E0D;&#x540C;&#x7684;&#x6E32;&#x67D3;&#x6307;&#x4EE4;&#x7136;&#x540E;&#x653E;&#x5165;&#x4E0D;&#x540C;&#x7684;&#x6E32;&#x67D3;&#x6D41;&#x7A0B;&#xFF0C;&#x4E0B;&#x9762;&#x5177;&#x4F53;&#x5206;&#x6790;&#x5B98;&#x65B9;&#x793A;&#x4F8B;&#x6765;&#x66F4;&#x597D;&#x7684;&#x7406;&#x89E3;&#x4E00;&#x4E0B;CommandBuffer&#x7684;&#x7528;&#x6CD5;&#x3002;</p>
 <h3 id="3&#x4F7F;&#x7528;&#x793A;&#x4F8B;"><a name="3&#x4F7F;&#x7528;&#x793A;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#3&#x4F7F;&#x7528;&#x793A;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.&#x4F7F;&#x7528;&#x793A;&#x4F8B;</h3>
 <h4 id="31blurryglass&#x793A;&#x4F8B;&#xFF08;&#x6BDB;&#x73BB;&#x7483;&#x793A;&#x4F8B;&#xFF09;"><a name="31blurryglass&#x793A;&#x4F8B;&#xFF08;&#x6BDB;&#x73BB;&#x7483;&#x793A;&#x4F8B;&#xFF09;" class="anchor-navigation-ex-anchor" href="#31blurryglass&#x793A;&#x4F8B;&#xFF08;&#x6BDB;&#x73BB;&#x7483;&#x793A;&#x4F8B;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.BlurryGlass&#x793A;&#x4F8B;&#xFF08;&#x6BDB;&#x73BB;&#x7483;&#x793A;&#x4F8B;&#xFF09;</h4>
 <h5 id="&#x6548;&#x679C;&#x56FE;"><a name="&#x6548;&#x679C;&#x56FE;" class="anchor-navigation-ex-anchor" href="#&#x6548;&#x679C;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6548;&#x679C;&#x56FE;</h5>
@@ -2510,7 +2554,7 @@ buf<span class="token punctuation">.</span><span class="token function">blitScre
   <span class="token punctuation">}</span>
 </code></pre>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2023-01-03 15:42:12
+2023-02-20 11:08:02
 </span></footer>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -2555,7 +2599,7 @@ buf<span class="token punctuation">.</span><span class="token function">blitScre
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CommandBuffer","level":"1.4.3.3","depth":3,"next":{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},"previous":{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/advanced/CommandBuffer/readme.md","mtime":"2023-01-03T07:42:12.758Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-01T02:44:49.375Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CommandBuffer","level":"1.4.3.3","depth":3,"next":{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},"previous":{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/advanced/CommandBuffer/readme.md","mtime":"2023-02-20T03:08:02.861Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T06:52:49.624Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -2602,10 +2646,6 @@ buf<span class="token punctuation">.</span><span class="token function">blitScre
     
         
         <script src="../../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
-        
-    
-        
-        <script src="../../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
 

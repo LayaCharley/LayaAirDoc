@@ -88,7 +88,7 @@ IDE 3.0版本，发布平台中有目前有八种选择选项，分别为：Web�
 
 我们看到web目录下会有一个 `resources` 目录，里面包括了 image 和 c1，同时我们发现还有两个json文件，实际上json文件中是资源属性信息，如下
 
-```
+```json
 {
   "sRGB": true,
   "wrapMode": 0,
@@ -323,7 +323,7 @@ png32为默认格式，此格式支持透明度和更多的颜色；png8，只�
 
 `.atlas`是LayaAirIDE特有的图集格式，仅用于图集，所以在加载`.atlas`时不需要填写类型，和加载普通的单图方式一样，更加方便，是推荐的图集加载方式。atlas方式加载图集的示例代码为：
 
-```
+```typescript
 //atlas方式图集使用示例
 Laya.loader.load("resources/atlas/Atlas_ui.atlas").then( 
 	()=>{} 
@@ -338,7 +338,7 @@ Laya.loader.load("resources/atlas/Atlas_ui.atlas").then(
 
 例如：现在我们将图3-5中原来的小图 `img_head2.png` 和  comp 目录下的 image.png 在项目中通过图集的方式显示出来，示例代码如下：
 
-```
+```typescript
         let resArr: Array<any> = [
 
             { url: "resources/atlas/Atlas.atlas", type: Laya.Loader.ATLAS },
@@ -373,3 +373,84 @@ Laya.loader.load("resources/atlas/Atlas_ui.atlas").then(
 
 
 此时，打包图集就介绍完了，开发者需要提前规划好图片的目录管理，可以根据功能划分，每个功能创建一个子文件夹，这样图集的尺寸能尽量控制在合理范围内，按功能划分的好处也是方便查找。开发者在使用过程中如果遇到问题，欢迎随时和我们交流。
+
+
+
+## 四、发布原生资源
+
+原生资源是指通过原生JS实现DOM元素加载的资源，在项目开发中通常会用到，因此有的开发者希望在index.html里写入一些实现DOM的JS代码来加载这些图片或者视频资源，在预览运行时，由于index.html在bin目录下，因此这些资源只能存放在bin目录下。如图4-1所示
+
+<img src="img/4-1.png" style="zoom:50%;" /> 
+
+（图4-1）
+
+> LayaAir 3.0.0 beta5 版本开始，会支持发布bin目录下原生资源的功能
+>
+
+在项目Web发布后，默认情况下，所有bin目录下的资源都会发布到web目录中，如图4-2所示
+
+<img src="img/4-2.png" style="zoom:50%;" /> 
+
+（图4-2）
+
+
+
+同时，LayaAir3.0 IDE也为开发者提供了排除资源规则，在这里添加规则可以指示打包器排除bin文件夹下的部分文件或文件夹，例如排除一个文件夹可以使用‘abc/**’等，如图4-3所示
+
+<img src="img/4-3.png" style="zoom:50%;" /> 
+
+（图4-3）
+
+
+
+点击发布后，上述bin文件夹下的原生资源都已经排除了，如图4-4所示
+
+<img src="img/4-4.png" style="zoom:50%;" /> 
+
+（图4-4）
+
+
+
+#### 推荐调用原生对象
+
+下面来讲讲用LayaAir调用原生对象的好处。
+
+我们来举一个例子 ，在bin目录下的index.html中加入一个img标签添加了一些样式，src指定为bin目录下的bg2.png，同时有点击图片隐藏图片的功能，如图4-5所示
+
+<img src="img/4-5.png" style="zoom:50%;" /> 
+
+（图4-5）
+
+发布后，这段DOM的代码也会一同发布到web目录下的index.html中，如图4-6所示
+
+<img src="img/4-6.png" style="zoom:50%;" /> 
+
+（图4-6）
+
+我们运行web目录下的index.html是没有问题的，但是bg2.png必须放在bin目录下，如果项目的开发中也可能会使用到这张图，也就是说assets目录下也会同样存放一张bg2.png，那么开发者就需要在两个地方维护同样的图，造成了一定的麻烦。因此我们推荐开发者使用LayaAir提供的调用原生对象的方式来处理，代码如下：
+
+```typescript
+//创建原生img对象
+let img:any = Laya.Browser.document.createElement("img");
+//设置样式
+img.style = "position:absolute;left:10;top:10;cursor:pointer;";
+//指定资源地址
+img.src = Laya.URL.postFormatURL(Laya.URL.formatURL("resources/bg2.png"));
+//设置img元素的属性
+img.setAttribute("onclick", "this.style.display=\'none\'");
+//添加到页面
+Laya.Browser.document.body.appendChild(img);
+```
+
+我们把bin目录下index.html中的DOM代码删掉，并且把bg2.png剪切到assets的resources目录下，再次发布
+
+这种情况下，web目录下的index.html没有任何DOM代码了，bg2.png也在resources目录下只有一份，同时运行效果也与之前一样！
+
+通过使用 **Laya.URL.postFormatURL(Laya.URL.formatURL("resources/bg2.png"));** 在IDE的预览时和发布后运行时，LayaAir引擎都会使用 resources/bg2.png 作为原生img的src的图片地址，开发者可以自己来试一试。
+
+到这里，通过LayaAir调用原生对象的方式就介绍完了，开发者可以根据自己的需求来使用。
+
+> 注意：beta5之前的老项目导入，需要手动删除bin里index.html，预览时会重新生成新的模板
+
+
+

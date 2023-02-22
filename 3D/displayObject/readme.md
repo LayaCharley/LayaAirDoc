@@ -111,7 +111,7 @@
 
 用 `createBox` 来举例，看下API是如何创建网格的：
 
-```
+```typescript
 /**
 * 创建Box网格。
 * @param long 半径
@@ -126,7 +126,7 @@ static createBox(long: number = 1, height: number = 1, width: number = 1): Mesh
 
 因此，可以通过代码创建不同类型的Mesh网格：
 
-```
+```typescript
 //正方体
 let box = Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5);
 //球体
@@ -151,7 +151,7 @@ let plane = Laya.PrimitiveMesh.createPlane(6, 6, 10, 1));
 
 构造方法如下：
 
-```
+```typescript
 /**
 * 创建一个 <code>MeshSprite3D</code> 实例。
 * @param mesh 网格,同时会加载网格所用默认材质。
@@ -169,7 +169,7 @@ constructor(mesh: Mesh = null, name: string = null) {
 
 最后，我们通过 `MeshSprite3D` 来创建并添加到场景中，代码如下：
 
-```
+```typescript
 //创建Box网络
 let boxMesh: Laya.Mesh = Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5);
 //创建MeshSprite3D网络
@@ -190,7 +190,7 @@ let box = this.scene.addChild( boxMeshSprite3D );
 
 使用 `Transform3D` 类，可以对3D基础对象做基础变换，代码示例如下：
 
-```
+```typescript
 //改变立方体的世界坐标
 cube.transform.position = new Laya.Vector3(0, 0, 0);
 //立方体的平移
@@ -207,7 +207,7 @@ cube.transform.setWorldLossyScale( new Laya.Vector3(2, 2, 2));
 
 通过对 `MeshRenderer` 组件的属性设置，可以给接收阴影的面片设置 Receive Shadow 和给产生阴影的立方体设置 Case Shadow 来创建阴影效果，代码示例如下：
 
-```
+```typescript
 //立方体产生阴影
 cube.meshRenderer.castShadow = true;
 //创建平面
@@ -222,7 +222,7 @@ plane.meshRenderer.receiveShadow = true;
 
 每个3D基础对象，都可以通过代码添加组件来实现高级的功能，通过对立方体添加3D物理组件 Rigidbody3D ，设置重力属性，最后添加碰撞盒，可以实现模拟自由落体的效果，代码示例如下：
 
-```
+```typescript
 //添加Rigidbody3D组件
 let rigidbody3D : Laya.Rigidbody3D = cube.addComponent(Laya.Rigidbody3D);
 //设置重力
@@ -239,7 +239,7 @@ rigidbody3D.colliderShape = boxShape;
 
 每个3D基础对象，都可以通过代码添加材质和纹理，代码示例如下：
 
-```
+```typescript
 //预加载纹理资源
 let resource: string = "layabox.png";
 Laya.loader.load(resource).then( ()=>{

@@ -12,7 +12,7 @@ LayaNative不仅支持把资源打包在assets目录下，还支持把资源打�
 在Android手机上建立目录/storage/emulated/0/Android/test/com.layabox.conch6，上传test.zip到这个目录下
 ### 4.修改代码中的扩展路径
 修改RuntimeProxy.java中的`getExpansionMainPath`函数，设置正确的zip路径。
-```   
+```   typescript
     public String getExpansionMainPath()
     {
         return "/storage/emulated/0/Android/test/com.layabox.conch6/test.zip";
@@ -24,7 +24,7 @@ LayaNative不仅支持把资源打包在assets目录下，还支持把资源打�
 ```
 ### 5.开启外部存储权限
 安卓6.0以上的机器可能不能读取外部存储，需要主动请求权限。请加上如下代码或者Google相关解决方案。
-```
+```typescript
     public static boolean isGrantExternalRW(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && activity.checkSelfPermission(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

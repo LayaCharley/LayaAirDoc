@@ -102,7 +102,7 @@ IDE中通过两种方式，可以在场景中添加内置骨骼动画组件
 
 代码示例：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()

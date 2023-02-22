@@ -138,7 +138,7 @@ LayaAir支持的模型后缀为fbx与gltf，支持导入的3D动画为**骨骼�
 
 如下代码，我们可以在任何场景下，加载girl预制体，添加到场景中，并用鼠标点击屏幕来切换动画
 
-```
+```typescript
 import { MainBase } from "./Main.generated";
 import KeyBoardManager = Laya.InputManager;
 import Keyboard = Laya.Keyboard;

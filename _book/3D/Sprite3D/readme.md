@@ -34,7 +34,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 图2-2中，任何一个节点都有名字，通过名字可以方便的来查找一个节点下是否存在某个名字的字节的，通常我们调用如下方法来获取 getChildByName("xxx")
 
-```
+```typescript
     /**
      * 根据子节点的名字，获取子节点对象。
      * @param	name 子节点的名字。
@@ -51,7 +51,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 当我们找到子节点时，也可以对节点做一些基础操作，比如删除掉自己方法 removeSelf()
 
-```
+```typescript
     /**
      * 从父容器删除自己，如已经被删除不会抛出异常。
      * @return 当前节点（ Node ）对象。
@@ -74,7 +74,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 图2-3中，任何节点，都可以通过勾选是否激活来作用于场景中，当不激活某个节点时，下面的所有字节的也会随着根节点处于不激活状态。当然我们也可以哦通过代码来控制
 
-```
+```typescript
     /**
      * 获取自身是否激活。
      *   @return	自身是否激活。
@@ -108,7 +108,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 当然也可以用代码来控制
 
-```
+```typescript
     /**
      * 是否为静态。
      */
@@ -142,7 +142,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 也可以通过代码来设置
 
-```
+```typescript
     /**
      * 蒙版层。
      */
@@ -182,7 +182,7 @@ Sprite3D 是3D的基本节点对象，就像Sprite是2D的基本节点对象一�
 
 通过代码，来做变换
 
-```
+```typescript
 //平移
 this.position1.setValue(-1.5, 0, 0.0);
 this.sprite3d.translate(this.position1);
@@ -217,7 +217,7 @@ this.layaMonkeyParent.transform.translate(new Laya.Vector3(-0.2, 0, 0);
 
 通过点击按钮，让子节点移动，可以看到父节点并没有移动
 
-```
+```typescript
 this.layaMonkeySon.transform.translate(new Laya.Vector3(-0.2, 0, 0);
 ```
 
@@ -227,7 +227,7 @@ this.layaMonkeySon.transform.translate(new Laya.Vector3(-0.2, 0, 0);
 
 关于克隆，LayaAir3D中提供了几种接口。比较常用的是`clone`方法
 
-```
+```typescript
     /**
      * 克隆。
      * @return	 克隆副本。
@@ -245,7 +245,7 @@ this.layaMonkeySon.transform.translate(new Laya.Vector3(-0.2, 0, 0);
 
 通过代码来克隆一个猴子
 
-```
+```typescript
 //克隆一个猴子
 let sp = this.layaMonkeyParent.clone() as Laya.Sprite3D;
 //设置克隆猴子的坐标
@@ -256,7 +256,7 @@ this.scene.addChild(sp);
 
 其次，这里详细讲解下Sprite3D中特有的克隆接口`instantiate`
 
-```
+```typescript
     /**
      * 创建精灵的克隆实例。
      * @param	original  原始精灵。
@@ -300,7 +300,7 @@ this.scene.addChild(sp);
 
 通过代码来instantiate克隆一个猴子
 
-```
+```typescript
 //sprite3d的instantiate克隆方法
 let layaMonkey_clone1 = Laya.Sprite3D.instantiate(this.layaMonkeyParent, this.scene, false, new Laya.Vector3(-2, 0, 0), new Laya.Quaternion(0, -90, 0));
 this.scene.addChild(layaMonkey_clone1);
@@ -320,7 +320,7 @@ LayaAir中，可以对任何3D对象添加`Component` 组件，如动图所示
 
 通过代码也可以添加组件，需要物体使用`addComponent`方法
 
-```
+```typescript
 //添加Rigidbody3D组件
 let rigidBody = this.layaMonkeyParent.addComponent(Laya.Rigidbody3D) as Laya.Rigidbody3D;
 //创建盒子形状碰撞器
@@ -357,7 +357,7 @@ rigidBody.gravity = new Laya.Vector3(0,-10,0);
 
 脚本的代码为：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -511,7 +511,7 @@ export class CameraMoveScript extends Laya.Script3D {
 
 也可以通过代码添加这些Mesh网格
 
-```
+```typescript
 //正方体
 var box = new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5));
 this.scene.addChild(box);

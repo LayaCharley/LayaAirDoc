@@ -52,7 +52,7 @@
 
 我们可以通过代码来处理，在Main Camera节点下添加CameraControll 脚本，随着主角的移动，摄像机的位置也同步移动，如下
 
-```
+```typescript
 export default class CameraControll extends Laya.Script {
     @property()
     public target: Laya.Sprite3D;
@@ -307,7 +307,7 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
 参照3D-RPG项目，我们加上一段代码，当鼠标点击屏幕时，会发射一条射线，这条射线碰到的点，会创建一个立方体。代码和效果如下所示
 
-```
+```typescript
 	//在CameraControll.ts类下的onStart()方法中，加入鼠标按下监听
 	//Laya.stage.on(Laya.Event.MOUSE_DOWN,this, this.onMouseDown);
 	
@@ -368,7 +368,7 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
 我们在CameraControll.ts类添加如下代码
 
-```
+```typescript
 	onMouseDown(e: Laya.Event) 
     {
         //清除所有图层
@@ -397,7 +397,7 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
 同样，我们在3D-RPG项目中，通过鼠标点击来切换所见区域，代码如下
 
-```
+```typescript
     //CameraControll.ts类脚本中，添加3个节点对象，把3个不同的房子建筑拖入到属性中
     @property()
     public target1: Laya.Sprite3D;
@@ -408,7 +408,7 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
     private _up = new Laya.Vector3(0, 1, 0);    
 ```
 
-```
+```typescript
 	//同样，添加鼠标事件，来修改摄像机对3个建筑的朝向
 	onMouseDown(e: Laya.Event) 
     {
@@ -438,12 +438,12 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
 我们一般不会手动设置屏幕的横纵比，在运行过程中会通过计算自动设置横纵比。但是在一些特殊的情况下需要对横纵比手动设置时，可以自己手动设置。如果需要重置横纵比，变回自动改变横纵比，只需要将这个值设置为0
 
-```
+```typescript
 //手动设置横纵比
 camera.aspectRatio = 2;
 ```
 
-```
+```typescript
 //重置
 camera.aspectRatio = 0;
 ```
@@ -462,7 +462,7 @@ camera.aspectRatio = 0;
 
 接下来，我们把Plane和renderTargetCamera添加到CameraControll.ts脚本中，并添加代码：
 
-```
+```typescript
         //选择渲染目标为纹理
         this.renderTargetCamera.renderTarget = Laya.RenderTexture.createFromPool(512, 512, Laya.RenderTargetFormat.R8G8B8A8, Laya.RenderTargetFormat.DEPTH_16, false, 1);
         //渲染顺序

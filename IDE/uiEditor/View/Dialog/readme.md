@@ -60,7 +60,7 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 ![](img/9.gif) 
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()

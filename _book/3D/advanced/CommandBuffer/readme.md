@@ -12,31 +12,31 @@ CommandBuffer是一个高阶的3D渲染功能，用来拓展LayaAir引擎渲染�
 
 添加代码接口如下：
 
-```
+```typescript
 var buf:CommandBuffer = new CommandBuffer();buf.setRenderTarget(renderTexture);buf.drawRender(renders[i],materials[i],0);
 ```
 
 #### 2.需要将CBuffer绑定到Camera的渲染事件中，目前laya支持的Camera事件如下：
 
-```
+```typescript
 BeforeForwardOpaque = 0,//在渲染非透明物体之前BeforeSkyBox = 2,//在渲染天空盒之前BeforeTransparent = 4,//在渲染透明物体之BeforeImageEffect = 6,//在后期处理之前AfterEveryThing = 8,//所有渲染之后
 ```
 
 添加CommandBuffer到相机事件的接口如下：
 
-```
+```typescript
 this.camera.addCommandBuffer(this.cameraEventFlag,this.commandBuffer);
 ```
 
 删除CommandBuffer的接口如下：
 
-```
+```typescript
 this.camera.removeCommandBuffer(this.cameraEventFlag,this.commandBuffer);
 ```
 
 CommandBuffer是一个渲染指令集，组成这个渲染指令集的是一个一个的独立的渲染指令
 
-```
+```typescript
 setShaderData//设置shader数据，可以设置shader中的texture vector number等 setGlobalShaderData//设置全局数据，可以用于所有的shaderblitScreenQuad//通过全屏四边形将源纹理渲染到目标渲染纹理指令。blitScreenQuadByMaterial//通过全屏四边形将源纹理渲染到目标渲染纹理指令setRenderTarget//设置指令渲染目标，调用后，所有的渲染都会渲染到方法绑定的图片上clearRenderTarget//清理绑定的渲染纹理drawMesh//渲染一个MeshdrawRender//渲染一个Render
 ```
 

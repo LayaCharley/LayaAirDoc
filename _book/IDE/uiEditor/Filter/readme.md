@@ -86,7 +86,7 @@ ColorFilter 是颜色滤镜，颜色滤镜是图像后期处理中非常重要�
 
 可以直接创建 ColorFilter 类实现
 
-```
+```typescript
 import { MainBase } from "./Main.generated";
 
 const { regClass, property } = Laya;
@@ -117,7 +117,7 @@ export class Main extends MainBase {
 
 也可以在IDE中添加 ColorFilter 后，通过组件获取
 
-```
+```typescript
 import { MainBase } from "./Main.generated";
 
 const { regClass, property } = Laya;
@@ -174,7 +174,7 @@ BlurFilter 是模糊滤镜，就是产生模糊的效果
 
 直接创建 BlurFilter 类的实现方式
 
-```
+```typescript
 var blurFilter: BlurFilter = new BlurFilter();
 //设置模糊强度
 blurFilter.strength = 5;
@@ -221,7 +221,7 @@ GlowFilter 是发光滤镜，就是创建放光效果或者阴影的效果，比
 
 直接创建 GlowFilter 类的实现方式
 
-```
+```typescript
 var glowFilter: GlowFilter = new GlowFilter("#ffff00", 10, 0, 0);
 ```
 

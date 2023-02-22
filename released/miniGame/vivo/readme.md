@@ -252,7 +252,7 @@ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws={IP}:5086/00010
 
 **在manifest.json中配置分包名与分包路径的字段**
 
-```
+```json
 {
   ...
   "subpackages": [
@@ -287,7 +287,7 @@ vivo小游戏官方提供了`qg.loadSubpackage()`API来触发分包的加载，�
 
 示例代码：
 
-```
+```typescript
 const loadTask = qg.loadSubpackage({
   name: 'package1',
   success: function(info) {
@@ -308,7 +308,7 @@ const loadTask = qg.loadSubpackage({
 
 示例代码如下：
 
-```
+```typescript
 loadTask.onProgressUpdate(res => {
   console.log('下载进度', res.progress)
   console.log('已经下载的数据长度', res.totalBytesWritten)

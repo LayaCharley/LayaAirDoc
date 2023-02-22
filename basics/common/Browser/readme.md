@@ -36,7 +36,7 @@ https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/overvie
 
 因此，要获得这些屏幕相关信息，`Laya.Browser` 类为我们提供了如下方法，我们来看下 `Laya.Browser` 相关API ：
 
-```
+```typescript
     /**
      * 浏览器窗口可视宽度。
      * 通过分析浏览器信息获得。浏览器多个属性值优先级为：window.innerWidth(包含滚动条宽度) > document.body.clientWidth(不包含滚动条宽度)，如果前者为0或为空，则选择后者。
@@ -133,7 +133,7 @@ LayaAir引擎中的物理宽高是通过逻辑宽高*`DPR`计算而来，`DPR` �
 
 `Laya.Browser` 也为我们封装了对这些对象的调用，看下API：
 
-```
+```typescript
     /**浏览器原生 window 对象的引用。*/
     static get window(): any {
         return Browser._window || Browser.__init__();
@@ -167,7 +167,7 @@ LayaAir引擎里可以通过 `Laya.Browser.document` 获取原生 document 对�
 
 同时 `Laya.Browser` 还提供了对于 Dom 节点元素的使用方法：
 
-```
+```typescript
     /**
      * 创建浏览器原生节点。
      * @param	type 节点类型。
@@ -203,7 +203,7 @@ LayaAir引擎里可以通过 `Laya.Browser.document` 获取原生 document 对�
 
 代码如下所示：
 
-```
+```typescript
 var iframe:any = Laya.Browser.document.createElement("iframe");
 iframe.style.position ="absolute";//设置布局定位。这个不能少。
 iframe.style.zIndex = 100;//设置层级
@@ -223,7 +223,7 @@ LayaAir引擎里可以通过 `Laya.Browser.window` 获取原生 window 对象。
 
 比如我们想在项目中使用 window.open(url) 打开另一个网页传输数据，示例代码如下：
 
-```
+```typescript
 //Get发送数据
 Laya.Browser.window.open(url?a=b&c=d);
 
@@ -244,7 +244,7 @@ LayaAir引擎里可以通过 `Laya.Browser.container` 获取画布容器。
 
 比如，我们可以让画布不显示，只显示 Dom 的页面：
 
-```
+```typescript
 Laya.Browser.container.style.display = "none";
 ```
 
@@ -254,7 +254,7 @@ Laya.Browser.container.style.display = "none";
 
 在开发跨平台的项目中，往往要处理不同平台的兼容性问题，不同的运行环境，会有不同的处理方式。`Laya.Browser` 类针对这些运行环境进行了判断，对我们开发者来说，判断运行环境，只直接调用 `Laya.Browser` 类的接口即可，目前为止，这些接口都可以使用
 
-```
+```typescript
     /** 表示是否在移动设备，包括IOS和安卓等设备内。*/
     static onMobile: boolean;
     /** 表示是否在 IOS 设备内。*/
@@ -315,7 +315,7 @@ Laya.Browser.container.style.display = "none";
 
 例如，我们可以这样在代码中判断：
 
-```
+```typescript
 //如果是微信小游戏
 if (Laya.Browser.onMiniGame) {
     var wx = Laya.Browser.window.wx;

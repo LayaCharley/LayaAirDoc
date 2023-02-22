@@ -44,7 +44,7 @@ HTTP协议即超文本传送协议(Hypertext Transfer Protocol )，是Web联网�
 
 #### 2.1.1 原生 XMLHttpRequest 对象
 
-```
+```typescript
     /**
      * 本对象所封装的原生 XMLHttpRequest 引用。
      */
@@ -112,7 +112,7 @@ abort()
 
 发送请求， 通常发送的请求是异步方式，其中send的参数类型如下：
 
-```
+```typescript
     /**
      * 发送 HTTP 请求。
      * @param	url				请求的地址。大多数浏览器实施了一个同源安全策略，并且要求这个 URL 与包含脚本的文本具有相同的主机名和端口。
@@ -133,7 +133,7 @@ abort()
 
 我们常用的基本就是进度事件，完成事件，错误事件等
 
-```
+```typescript
 /**
  * 请求进度改变时调度。
  * @eventType Event.PROGRESS
@@ -157,7 +157,7 @@ abort()
 
 laya引擎中用 `HttpRequest` 继承的是 `EventDispatcher`，具有事件派发的功能。加上本身具备发送请求的功能。我们写个简单的例子来看下用法：
 
-```
+```typescript
 class LayaSample {
     constructor() {
     
@@ -194,7 +194,7 @@ new LayaSample();
 
 上面这个示例我们发送了一个简单的请求，方式是get方式。用来获取一个远端的文件，格式为文本的格式。假如我们动态请求远端数据可以改成如下格式：
 
-```
+```typescript
 this.hr = new HttpRequest();
 this.hr.once(Event.PROGRESS, this, this.onHttpRequestProgress);
 this.hr.once(Event.COMPLETE, this, this.onHttpRequestComplete);
@@ -211,7 +211,7 @@ this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/api/getData?name=myname
 
 下面用post方法请求一个数据方式如下：
 
-```
+```typescript
 this.hr = new HttpRequest();
 this.hr.once(Event.PROGRESS, this, this.onHttpRequestProgress);
 this.hr.once(Event.COMPLETE, this, this.onHttpRequestComplete);
@@ -238,7 +238,7 @@ this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/api/getData', 'name=myn
 
 在开发过程中 `HttpRequest` 可能不能满足我们的需求，比如上传文件，比如设置超时时间，比如操作表单数据等等。扩展 `HttpRequest` 很简单，你继承`HttpRequest`，或者干脆自己重写 `HttpRequest` 这个类都可以，这个看开发者的需求，重写 `HttpRequest` 建议直接继承 `EventDispatcher`。重写就是重新包装 `XMLHttpRequest` 这个类。下面是一个简单的继承的示范：
 
-```
+```typescript
  class HttpRequestExtension extends Laya.HttpRequest {
      constructor() {
          super();
@@ -304,7 +304,7 @@ this.socket.send("hello world");//这是发送字符串的形式。
 
 - **发送二进制格式的数据：**
 
-```
+```typescript
 //写入一个字节
 this.byte.writeByte(1);
 //写入一个int16的数据
@@ -337,7 +337,7 @@ this.byte.clear();
 
 客户端从服务器接收到的数据都会派发到 Event.MESSAGE 监听函数中。receiveHandler的参数就是服务器发送回来的数据。可能是字符串，也可能是二进制ArrayBuffer。接收到的是字符串我们不用读，拿来直接用就可以。但是接收到的是二进制的话我们需要读取出来，转成我们需要的类型。
 
-```
+```typescript
  private receiveHandler(msg: any = null): void {
    ///接收到数据触发函数
    //.............这里我们假设收到的是二进制ArrayBuffer
@@ -359,7 +359,7 @@ this.byte.clear();
 
 我们常用的基本就是连接建立成功，接收到数据，连接被关闭，出现异常后调度等
 
-```
+```typescript
 /**
  * 连接建立成功后调度。
  * @eventType Event.OPEN
@@ -388,7 +388,7 @@ this.byte.clear();
 
 我们举一个简单的发送和接收数据的 WebSocket 代码示例：
 
-```
+```typescript
 	private connect(): void {
 	
 		//创建Socket对象
@@ -473,7 +473,7 @@ this.byte.clear();
 
   上面的三种方法都可以实例化一个Byte，根据参数的不同创建二进制数据。
 
-  ```
+  ```typescript
   //实例化一个二进制数组Byte
   var byte:Laya.Byte = new Laya.Byte();
   //或者传入一个类型化数组
@@ -488,7 +488,7 @@ this.byte.clear();
 
   写入指定的二进制缓冲数据。指定数据的偏移量和长度，如下：
 
-  ```
+  ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   var byte1:Laya.Byte = new Laya.Byte();
   byte1.writeFloat32(20.0);//写入一个四个字节的浮点数
@@ -537,14 +537,14 @@ this.byte.clear();
 
   **writeByte**(value:number):void在字节流中写入一个字节。	
 
-```
+```typescript
  var byte:Laya.Byte = new Laya.Byte(); 
  byte.writeByte(10);//0-255之间
 ```
 
 ​	  **writeFloat32**(value:number):void在当前字节偏移量位置处写入 Float32 值。范围是$\left[-2^{128}, 2^{127}\right]$，约为-3.4E38—3.4E+38。
 
-```
+```typescript
 var byte:Laya.Byte = new Laya.Byte();
 byte.writeFloat32(10.021);
 ```
@@ -553,14 +553,16 @@ byte.writeFloat32(10.021);
 
 ​	  **writeInt16**(value:number):void在当前字节偏移量位置处写入 Int16 值。范围-32768 到 +32767之间。	
 
-```
+```typescript
 var byte:Laya.Byte = new Laya.Byte();
 byte.writeInt16(120);
 ```
 
 ​	  **writeInt32**(value:number):void在当前字节偏移量位置处写入 Int32 值。-2,147,483,648 到 +2,147,483,647 之间的有符号整数。
 
- 	 **writeUint16**(value:number):void在当前字节偏移量位置处写入 Uint16 值。
+```typescript
+ **writeUint16**(value:number):void在当前字节偏移量位置处写入 Uint16 值。
+```
 
 ​	  **writeUint32**(value:number):void在当前字节偏移量位置处写入 Uint32 值。
 
@@ -574,7 +576,7 @@ byte.writeInt16(120);
 
 - **clear**():void清除数据。
 
-  ```
+  ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   byte.writeInt16(120);
   byte.pos =0;//读取位置归零。
@@ -584,7 +586,7 @@ byte.writeInt16(120);
 
 - **getSystemEndian()**:string[static] 获取系统的字节存储顺序。
 
-  ```
+  ```typescript
   console.log(Laya.Byte.getSystemEndian());//打印系统的字节顺序
   ```
 
@@ -598,7 +600,7 @@ byte.writeInt16(120);
 
 - **[pos]** : number当前读取到的位置。
 
-  ```
+  ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   byte.writeInt16(120);
   byte.pos =0;//读取位置归零。
@@ -608,14 +610,14 @@ byte.writeInt16(120);
 
 - **endian** : string字节顺序。
 
-  ```
+  ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   byte.endian = Laya.Byte.BIG_ENDIAN;//设置为大端；
   ```
 
 - **bytesAvailable** : number[read-only] 可从字节流的当前位置到末尾读取的数据的字节数。
 
-  ```
+  ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   byte.writeFloat32(20.0);
   byte.writeInt16(16);
@@ -630,7 +632,7 @@ byte.writeInt16(120);
 
 下面我们通过一个完整的代码来演示下这个类的应用，比如网络连接中，我们接收和发送网络消息。
 
-```
+```typescript
 var msg:any ={name:"xxx",age:18,weight:65.5,height:175};
 var byte:Laya.Byte = new Laya.Byte();
 //实例化byte数组
@@ -645,7 +647,7 @@ byte.writeInt16(msg.height);
 
 输出看下结果：
 
-```
+```typescript
 //设置pos为0 开始从头开始按照写入的顺序读取读取
 byte.pos = 0;
 console.log(byte.getUTFString());
@@ -684,7 +686,7 @@ ProtocolBuffer 作为网络通信的协议格式，是现在一种非常流行�
 
 这里简单的给出一个例子，是一个非常简单的请求的message格式
 
-```
+```typescript
 // awesome.proto
 package awesomepackage;
 
@@ -709,7 +711,7 @@ message AwesomeMessage {
 
 我们可以从 https://github.com/protobufjs/protobuf.js 下载最新 `protobuf` 类库，并放到项目的bin目录中，同时在index.html 中引用到 protobuf.js
 
-```
+```typescript
 	<script type="text/javascript" src="protobuf.js"></script>
 ```
 
@@ -719,7 +721,7 @@ message AwesomeMessage {
 
 `protobuf` 类库，通过 load 方法来加载协议文件
 
-```
+```typescript
 /**
  * Loads one or multiple .proto or preprocessed .json files into a common root namespace and calls the callback.
  * @param {string|string[]} filename One or multiple files to load
@@ -766,7 +768,7 @@ function load(filename, root, callback) {
 
 ### 4.5 代码示例
 
-```
+```typescript
     onAwake(): void {
     
 		var resPath: string = "assets/res/protobuf/awesome.proto";

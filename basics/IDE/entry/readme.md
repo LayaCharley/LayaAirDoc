@@ -90,7 +90,7 @@
 
 当添加 Main 脚本后，可以在Main的 `onStart` 方法中加入项目初始化代码：
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
@@ -176,7 +176,7 @@ Runtime 是Scene2D场景运行时的逻辑类，Runtime脚本与自定义脚本�
 
 使用IDE开发项目，Laya.init入口是屏蔽的。如果开发者需要在Laya.Init之前执行一些逻辑处理，可以使用以下方法。选择一个Typescript文件，例如Main.ts，在代码中加入：
 
-```Go
+```typescript
 Laya.LayaEnv.beforeInit = function(config: Laya.IStageConfig) {
     //这个方法会在Laya.init前调用
     console.log("before init");

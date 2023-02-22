@@ -270,7 +270,7 @@ https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/devel
 
 **在manifest.json中配置分包名与分包路径的字段**
 
-```
+```json
 {
   ...
   "subpackages": [
@@ -302,7 +302,7 @@ subpackages里，可以有多个name与root，每一组代表一个分包，单�
 
 OPPO小游戏官方提供了qg.loadSubpackage(Object object) API 来触发分包的下载，调用 qg.loadSubpackage 后，将触发分包的下载与加载，在加载完成后，通过 qg.loadSubpackage 的 success 回调来通知加载完成。示例代码如下：
 
-```
+```typescript
 const loadTaskA = qg.loadSubpackage({
         name: 'sub1Name',
         success: function (data) {
@@ -317,7 +317,7 @@ const loadTaskA = qg.loadSubpackage({
 
 加载成功的同时，qg.loadSubpackage 会返回一个 `LoadSubpackageTask`，可以通过 `LoadSubpackageTask` 获取获取分包加载状态。示例代码如下：
 
-```
+```typescript
 loadTaskA.onProgressUpdate(res => {
                 console.log('sub1Name 下载进度', res.progress)
                 console.log('sub1Name 已经下载的数据长度', res.totalBytesWritten)

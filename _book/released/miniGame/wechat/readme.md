@@ -170,7 +170,7 @@ Laya.URL.basePath = "https://XXXX.com";//请把XXXX换成自己的真实网址�
 
 所以，引擎针对使用`URL.basePath`之后，如何再次使用本地加载，进行了**特殊目录和文件的处理**，也就是本地包白名单机制。如下例所示：
 
-```
+```json
 MiniAdpter.nativefiles =  [
     "wxlocal",
     "res/atlas/houzi.atlas",
@@ -214,7 +214,7 @@ MiniAdpter.nativefiles =  [
 
 当不打算使用自动缓存功能，或者在自动缓存模式下，缓存json等自动缓存并不缓存的文件内容时，可以使用downLoadFile方法，去下载目标文件并缓存到本地。
 
-```
+```typescript
 /**
 * 下载文件 
 * @param fileUrl 文件地址(全路径)
@@ -233,7 +233,7 @@ MiniAdpter.minClearSize属性即可。
 
 如果要删除指定的缓存文件或全部缓存文件时，可以使用remove或removeAll方法。
 
-```
+```typescript
 /**
 * 删除指定缓存文件
 * @param fileUrl文件路径(绝对地址)
@@ -242,7 +242,7 @@ MiniAdpter.minClearSize属性即可。
 public static function remove(fileUrl:String,callBack:Handler):void {}
 ```
 
-```
+```typescript
 /**
 * 清空缓存空间全部文件内容 
 */  

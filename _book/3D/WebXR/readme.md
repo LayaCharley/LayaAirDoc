@@ -75,7 +75,7 @@ immersive-vr就是VR模式的参数，如果是AR模式，参数换成immersive-
 
 如果检测到支持VR环境，那就可以直接进入VR模式，或者激活进入VR模式的UI按钮，通过侦听按钮的点击来进入VR模式。
 
-```
+```typescript
 /** 初始化XR */
 async initXR(){
   //创建一个webXR的摄像机
@@ -105,7 +105,7 @@ async initXR(){
 
 所以，在这个小节里，我们不再介绍VR显示的部分，直接介绍交互部分即可。
 
-```
+```typescript
 /** 初始化XR */
 async initXR(){
   //创建一个webXR的摄像机
