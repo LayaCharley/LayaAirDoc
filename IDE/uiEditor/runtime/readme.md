@@ -28,7 +28,7 @@
 
 （图1-2）
 
-所以，通常我们把每一套不同功能的UI，用场景（Scene）来规划，把能复用的功能性UI，用预制体（Prefab）来规划 
+所以，通常我们把每一套不同功能的UI，用场景（Scene）来规划，把能复用的功能性UI，用预制体（Prefab）来规划 。
 
 
 
@@ -60,7 +60,7 @@ UI继承类就是 Runtime 类，可以对场景和预制体内部所有UI组件�
 
 ### 2.1 IDE中创建Runtime类
 
-我们以新建一个2D空的项目为例，在默认给定的 Scene 场景中添加一些UI组件，比如有一个背景图，两个Button，如果2-1所示
+我们以新建一个2D空的项目为例，在默认给定的 Scene 场景中添加一些UI组件，比如有一个背景图，两个Button，如图2-1所示
 
 <img src="img/2-1.png" alt="image-20221229154348393" style="zoom:50%;" />
 
@@ -104,7 +104,7 @@ Runtime 属性中需要我们来选择一个 Script 脚本，如动图2-2所示�
 
 （图2-5） 
 
-通过这样操作，UI组件和代码就自动关联了
+通过这样操作，UI组件和代码就自动关联了。
 
 
 
@@ -116,7 +116,7 @@ Runtime 属性中需要我们来选择一个 Script 脚本，如动图2-2所示�
 
 （动图2-6） 
 
-修改为继承 `ScriptBase` 的同时，代码编辑器会自动添加 `import { ScriptBase } from "./Script.generated";` 导入代码
+修改为继承 `ScriptBase` 的同时，代码编辑器会自动添加 `import { ScriptBase } from "./Script.generated";` 导入代码。
 
 
 
