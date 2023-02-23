@@ -16,7 +16,11 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 
 （动图2）
 
-如果我们想将Dialog作为根节点使用，可以在项目面板鼠标右键单击assets，找到Create，点击Prefab 2D，右键单击View，点击Change Type点击UI，点击Dialog即可创建完毕如图3、动图4所示
+Dialog的弹窗效果需要将它作为根节点使用，可以在项目面板鼠标右键单击assets，找到Create，点击Prefab 2D，右键单击View，点击Change Type点击UI，点击Dialog即可创建完毕，如图3、动图4所示。创建完毕之后，需要用代码将Dialog与所需要用到该Dialog的场景管关联起来，以下代码块为例。
+
+```
+Laya.Scene.open("Prefab2D.lh", false, { "title": "弹窗的标题", "text": "弹窗的具体文本……" });
+```
 
 ![](img/3.png) 
 
@@ -53,6 +57,22 @@ Dialog组件可以通过IDE的可视化操作直接进行创建，步骤为右�
 ### 2.2 Is Modal属性
 
 因为Dialog是弹窗，所以要设置弹窗的下层级是否可以进行点击，默认情况下是可以点击的，如果不想开启可自行关闭，关闭后即为不可点击状态（即不可穿透）。
+
+### 2.3 Is Show Effect 属性
+
+在开启**Is Show Effect** 属性后，就可以实现Dialog组件的弹窗效果了，下面我们来展示下它的弹窗效果，如动图7所示。
+
+![](img/7.gif) 
+
+（动图7）
+
+### 2.4 Is Popup Center属性
+
+在开启 **Is Popup Center** 属性后，我们的弹窗就会居中显示，来看下效果，如动图8所示。
+
+![](img/8.gif) 
+
+（动图8）
 
 ## 3、代码创建Dialog组件
 
