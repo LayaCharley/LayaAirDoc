@@ -4,7 +4,7 @@ Panel是一个带有裁剪功能的面板容器类，常用来设置元素的显
 
 ### 一、通过LayaAirIDE创建Panel组件
 
-**1.1以拖拽的形式将Panel组件拖拽到页面编辑区**
+**1.1 以拖拽的形式将Panel组件拖拽到页面编辑区**
 
 从IDE资源管理右侧组件面板的UI文件夹中，将Panel组件拖拽到UI页面中。如动图1所示：
 
@@ -22,15 +22,7 @@ Panel是一个带有裁剪功能的面板容器类，常用来设置元素的显
 
 
 
-**1.2将显示元素直接转为Panel容器**
-
-在UI界面上准备一张图片，右键单击该图片调出设置面板，点击change Type，点击UI转为Panel容器。如图1-1所示：
-
-![1-1](img\1-1.png) 
-
-(图1-1)
-
-**1.3添加滚动条显示**
+**1.2 添加滚动条显示**
 
 Panel组件还可以设置滚动条；**除list组件外，Panel是唯一一个可以设置滚动条的容器组件**。在此我们可以对Panel设置一个滚动条看下效果。为Panel设置滚动条，如图3所示：
 
@@ -38,23 +30,11 @@ Panel组件还可以设置滚动条；**除list组件外，Panel是唯一一个�
 
 （图3）
 
-Ctrl+F12（或F12）导出UI界面，在代码中预加载资源并实例化该UI界面。最终显示效果如动图4所示：
-
-![4](img\4.gif) 
-
-(图4)
-
 
 
 ## 二、通过代码创建Panel组件
 
 panel组件除了可以直接在UI界面中可视化的操作之外，在代码中实现出上面的效果也是很简单的。
-
-用代码实现的效果如动图5所示：
-
-![5](img\5.gif) 
-
-(图5)
 
 **示例代码：**
 
@@ -80,7 +60,6 @@ export class UI_Panel extends Laya.Script {
 	private setup(): void {
 		var panel: Laya.Panel = new Laya.Panel();
 		panel.hScrollBarSkin = "resources/res/ui/hscroll.png";
-		panel.hScrollBar.hide = true;
 		panel.size(600, 275);
 
 		this.owner.addChild(panel);

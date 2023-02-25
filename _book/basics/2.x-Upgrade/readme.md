@@ -11,7 +11,7 @@
 
 示例：
 
-```TypeScript
+```typeScript
 var url = "xxx.png";
 var type = Laya.Loader.IMAGE;
 Laya.loader.load(url).then((res)=> {
@@ -26,7 +26,7 @@ Laya.loader.load(url, type).then((res)=> {
 
 ### 1.2 加载多个资源（用数组）
 
-```TypeScript
+```typescript
 var url1 = "xxx.png";
 var url2 = "xxxxx.png";
 var type1 = Laya.Loader.IMAGE;
@@ -44,7 +44,7 @@ Laya.loader.load([{ url:url1, type: type1 }, { url:url2, type: type2 }]).then((r
 
 ### 1.3 加载多个文件（组合）
 
-```TypeScript
+```typeScript
 let tasks:Array<Promise<any>> = [];
 tasks.push(Laya.loader.load(url));
 tasks.push(Laya.loader.load(url2));
@@ -58,7 +58,7 @@ Promise.all(tasks).then((res:Array<any>)=> {
 
 同一个资源地址，无论是加载Texture还是Texture2D，他们在内存中都只有一份，但可以获取不同类型。
 
-```TypeScript
+```typescript
 Laya.loader.load("1.png").then((res)=> { /* res是Texture */ });
 Laya.loader.load("1.png", Loader.Texture2D).then((res)=> { /* res是Texture2D */ });
 
@@ -69,7 +69,7 @@ Laya.Loader.getTexture2D("1.png"); //res是Texture2D
 
 ### 1.5 加载HTMLImage
 
-```TypeScript
+```typescript
 Laya.loader.fetch("1.png", Laya.Loader.IMAGE).then((res)=> { /* res是HTMLImage */ });
 ```
 
@@ -79,7 +79,7 @@ Laya.loader.fetch("1.png", Laya.Loader.IMAGE).then((res)=> { /* res是HTMLImage 
 
 ### 1.6 使用Options。
 
-```TypeScript
+```typescript
 Laya.loader.load(url, { group:xx, piority:1 }); //priority不限制0-5。为任意整数，数字越大优先级越高。
 ```
 
@@ -89,7 +89,7 @@ Laya.loader.load(url, { group:xx, piority:1 }); //priority不限制0-5。为任�
 
 但不会自动创建节点。缓存的也不是节点。
 
-```TypeScript
+```typescript
 Laya.loader.load("1.lh").then(res=> { 
     /* 注意res不是节点类型！ 类型也不必关心，只需要知道它有一个create方法实例化节点树。*/
         let node = res.create();
@@ -112,7 +112,7 @@ Laya.loader.load("1.lh").then(res=> {
 
 编写一个类实现IResourceLoader接口，例如一个最简单的实现：
 
-```TypeScript
+```typescript
 class MyLoader {
     load(task:ILoadTask) {
         return task.loader.fetch(task.url, "json", task.createCallback()).then(data=> {
@@ -129,7 +129,7 @@ class MyLoader {
 
 然后使用Loader.registerLoader注册这个类。例如
 
-```TypeScript
+```typescript
 Loader.registerLoader(["xyz"], YourLoader);
 ```
 

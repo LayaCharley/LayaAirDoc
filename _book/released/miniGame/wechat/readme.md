@@ -131,7 +131,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 比如示例中引用的就是本地路径，
 
-```
+```typescript
 Laya.Texture2D.load("res/layabox.png");
 ```
 
@@ -155,7 +155,7 @@ Laya.Texture2D.load("res/layabox.png");
 
 例如：
 
-```
+```typescript
 material.diffuseTexture = Laya.Texture2D.load("res/layabox.png");
 box.meshRender.material = material;
 Laya.URL.basePath = "https://XXXX.com";//请把XXXX换成自己的真实网址；

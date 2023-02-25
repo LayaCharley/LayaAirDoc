@@ -323,6 +323,8 @@ fetch的加载限定为以下类型：
 
 在使用的时候，第二个参数那里填写对应的类型标识字符串即可。
 
+更多fetch加载代码示例请参考[《使用二进制图片》](https://layaair.layabox.com/3.x/doc/2D/useBinaryImage/readme.html)文档
+
 > **Tips**​
 >
 > 除非是明确理解fetch的使用用途，否则不推荐开发者使用。
