@@ -143,7 +143,7 @@
 
 当然我们也可以通过代码来加载和指定天空盒
 
-```
+```typescript
 var skyRenderer = this.scene.skyRenderer;
 //加载相机天空盒材质
 Laya.Material.load("sky2.lmat", Laya.Handler.create(null, function(mat: any) {
@@ -263,7 +263,7 @@ Laya.SkyBox材质是支持6张可以无缝相接的贴图，但是需要先创�
 
 我们也可以通过代码来修改当前场景的环境光
 
-```
+```typescript
 //设置场景环境光
 scene.ambientColor = new Laya.Color(0,0,0,0);
 ```
@@ -394,7 +394,7 @@ scene.ambientColor = new Laya.Color(0,0,0,0);
 
 ### 5.2 代码使用
 
-```
+```typescript
 //雾化代码
 this.scene.enableFog = true;
 //设置雾化的颜色
@@ -619,7 +619,7 @@ this.scene.fogRange = 40;
 
 示例代码如下：
 
-```
+```typescript
 //打开指定的场景，同时显示Scene2D和Scene3D
 Laya.Scene.open("scene/Game.ls",true, null, Laya.Handler.create(this, this.onLoaded), Laya.Handler.create(this, this.onLoading));
 
@@ -634,7 +634,7 @@ Laya.Scene.destroy("scene/Login.ls")
 
 示例代码如下：
 
-```
+```typescript
 //用Laya.Scene3D的方式加载
 Laya.Scene3D.load('scene/Game.ls', Laya.Handler.create(null, function (res:any){
 	Laya.stage.addChild(res);
