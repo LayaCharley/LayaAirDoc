@@ -26,7 +26,7 @@ List 组件的脚本接口请参考 [List API](https://layaair2.ldc2.layabox.com
 #### 2.添加列表项。
 
 列表项可以是 Box 对象或 View（页面） 或其它自定义页面对象。此处以Box 对象为例。
-**a.** 点击Scene2D节点，用鼠标右键打开菜单，选择UI，点击Box，完成Box的添加，调整好Box的高度为30
+**a.** 点击List节点，用鼠标右键打开菜单，选择UI，点击Box，完成Box的添加，调整好Box的高度为30
 **b.** 从资源面板里选择拖入一个 Label 组件，拖入到层级中Box的节点下，设置一下 Label 的显示相关属性使它更好看一些。
 
 ![图片0.png](img/2.png)
@@ -35,9 +35,11 @@ List 组件的脚本接口请参考 [List API](https://layaair2.ldc2.layabox.com
 
 
 
-#### 3.指定 List 的列表渲染项
+#### 3.指定 List 的列表item模板
 
-LayaAir3.0与2.0的区别是已经去掉了renderType属性，对于List组件来说，List组件下第一个节点就默认作为列表渲染项，如图3所示，Box节点就是列表渲染项
+LayaAir3.0与2.0的区别是已经去掉了renderType属性，方式做了改变
+
+在3.0中，List组件下的属性Item模板，可以指定List的列表item模板。因此我们将List节点下的Box节点拖入到List的Item模板属性中，如图3所示
 
 ![图片0.png](img/3.png) 
 

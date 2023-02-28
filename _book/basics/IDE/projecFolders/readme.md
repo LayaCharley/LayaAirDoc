@@ -6,7 +6,7 @@
 
 LayaAir IDE创建的项目工程，由五个可见目录与几个根目录的文件构成，效果如图1所示。
 
-<img src="img/1.png" style="zoom:67%;" />  
+<img src="img/1.png" style="zoom:150%;" /> 
 
 （图1）
 
@@ -74,7 +74,7 @@ src里源码目录，如图2-2所示。
 
 由于LayaAir项目的推荐编码环境是vscode，所以在创建项目的时候，在.vscode里创建 了settings.json，如图3-1所示：
 
-![](img/3-1.png)  
+<img src="img/3-1.png" style="zoom:150%;" />  
 
 （图3-1）
 
@@ -94,7 +94,7 @@ bin目录内，开发者通常也不需要去管。在开发的过程中，asset
 
 bin目录内仅是测试运行的index.html首页的入口，以及IDE内置的代码入口。如图3-2所示：
 
-<img src="img/3-2.png" style="zoom:80%;" /> 
+  <img src="img/3-2.png" style="zoom: 150%;" />
 
 (图3-2)
 
@@ -106,9 +106,9 @@ bin目录内仅是测试运行的index.html首页的入口，以及IDE内置的�
 
 ### 3.3、项目库目录libs
 
-libs目录里存放的是引擎库的声名文件，如图3-3所示，通常不需要动。
+engine目录里存放的是引擎库的声名文件，如图3-3所示，通常不需要动。
 
-<img src="img/3-3.png" style="zoom:80%;" /> 
+<img src="img/3-3.png" style="zoom: 150%;" /> 
 
 （图3-3）
 
