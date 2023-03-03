@@ -91,7 +91,9 @@
 
 **运行示例效果:**
 ​	![5](gif/4.gif)
-​	(图11)通过代码创建HScrollBar
+​	(图11)
+
+通过代码创建HScrollBar
 
 ​	HScrollBar的其他属性也可以通过代码来设置，下述示例演示了如何通过代码创建的HScrollBar，有兴趣的读者可以自己通过代码设置HScrollBar，创建出符合自己需要的HScrollBar。
 
