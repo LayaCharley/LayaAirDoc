@@ -34,7 +34,7 @@ const { regClass } = Laya;
 
 @regClass()
 export class MyScript extends Laya.Script {
-    @property()
+    @property(Animal)
     animal : Animal;
 }
 //Animal.ts
@@ -42,7 +42,7 @@ const { regClass } = Laya;
 
 @regClass()
 export default class Animal {
-    @property()
+    @property(Number)
     weight : number;
 }
 ```
@@ -64,10 +64,27 @@ const { regClass, property } = Laya;
 
 @regClass()
 class Animal {
-    @property()
+    @property(Number)
     weight : number;
 }
 ```
+
+使用规则：
+
+1. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( { type:XXX, serializable: false });
+2. 属性名字是下划线开头的不会显示给用户编辑。如果属性名不是以下划线开头，也想显示给用户编辑，可以：@property( { type:XXX, "private" : true }); 如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false }); 
+3. 装饰器的参数一般为一个属性类型。可以使用的基本类型有：
+   1. Number 或 "number"
+   2. String 或 "string"
+   3. Boolean 或 "boolean"
+   4. 标记了regClass的类
+   5. LayaAir引擎里的大部分类型，比如Laya.Camera
+   6. 枚举类型
+   7. Int8Array/Uint8Array/Int16Array/Uint16Array/Int32Array/Uint32Array/Float32Array
+   8. "int"
+   9. "uint"
+   10. "text"
+   11. "any"
 
 
 
@@ -75,9 +92,19 @@ class Animal {
 
 比如下面的脚本类：
 
-<img src="images/1-1.png" alt="image-20221101102208573" style="zoom:50%;" /> 
+```typescript
+const { regClass, property } = Laya;
 
-（图1-1）
+@regClass()
+export class TrailRender extends BaseScript {
+
+    @property(Laya.Camera)
+    private camera: Laya.Camera;  
+    @property(Laya.Scene3D)
+    private scene: Laya.Scene3D;
+    @property(Laya.DirectionLight)
+    private directionLight: Laya.DirectionLight;
+```
 
 其中：
 
@@ -89,27 +116,31 @@ const { regClass, property } = Laya;
 
 ```typescript
 @regClass()
-export class Main extends Laya.Script
+export class TrailRender extends Laya.Script
 ```
 
 在自定义脚本类的上一行，加入@regClass()
 
 ```typescript
-@property()
-private btn_1: Laya.Button; 
+@property(Laya.Camera)
+private camera: Laya.Camera;  
+@property(Laya.Scene3D)
+private scene: Laya.Scene3D;
+@property(Laya.DirectionLight)
+private directionLight: Laya.DirectionLight;
 ```
 
-在自定义属性的上一行，加入@property()，则可以在IDE暴露此属性，如图1-2所示
+在自定义属性的上一行，加入@property()，则可以在IDE暴露此属性，如图1-1所示
 
-<img src="images/1-2.png" alt="image-20221101103355334" style="zoom: 50%;" /> 
+<img src="images/1-1.png" alt="image-20221101103355334" style="zoom: 50%;" /> 
+
+（图1-1）
+
+此时可以拖拽场景中的相对应的节点到属性中，如图1-2所示
+
+<img src="images/1-2.png" alt="image-20221101103614591" style="zoom:50%;" /> 
 
 （图1-2）
-
-此时可以拖拽场景中的相对应的节点到属性中，如图1-3所示
-
-<img src="images/1-3.png" alt="image-20221101103614591" style="zoom:67%;" /> 
-
-（图1-3）
 
 
 
@@ -525,75 +556,88 @@ export class Main extends Laya.Script {
 
 ## 六、其它property属性规则
 
-1，如果属性只需要暴露给用户编辑，不需要序列化保存：@property( { serializable: false });
+如果是数组类型，则使用中括号包含元素类型，例如 [ Number ]；
 
-2，如果属性只需要序列化保存，不需要暴露给用户编辑，那么属性名可以使用下划线开头，也可以：@property( { "private" : true });
+如果是字典类型，则使用中括号包含固定的字符串"Record"以及元素类型，例如["Record", String];
 
-3，属性类型是以下类型时能自动识别：
-
-- number
-- string
-- boolean
-- 标记了regClass的类
-- LayaAir引擎里的大部分类型
-
-不属于以上的，包括数组、字典、枚举等，则需要额外设置type属性。例如
+下面举一些例子说明：
 
 ```typescript
-@property()
-a : string; //自动识别
+@property(String)
+a : string;
 
-@property()
-b : Laya.Vector3; //自动识别
+@property(Laya.Vector3)
+b : Laya.Vector3;
 
-@property()
-c : Animal; //沿用上个例子，Animal已经被regClass，自动识别
+@property(Animal)
+c : Animal; //沿用上个例子，Animal已经被regClass
 
 enum TestEnum {
     A,
     B,
     C
 };
-@property({ type : TestEnum })
-d : TestEnum; //Enum无法自动识别，需要自己指定type
+@property(TestEnum)
+d : TestEnum; //枚举类型，会显示为下拉框供用户选择
 
-@property({ type : [Number]})
-e : number[]; //数组无法自动识别，请注意type的格式，用中括号包含数组元素类型
+enum StringEnum {
+    A = "a",
+    B = "b",
+    C = "c"
+};
+@property({ type: StringEnum })
+e : StringEnum; //对于字符串形式的枚举，不能使用@property(StringEnum),必须用集合里的type参数指定
 
-@property({ type: ["Record", String]})
-f : Record<string, string>; //字典无法识别，请注意type的格式，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
+@property([Number])
+f : number[]; //数组，用中括号包含数组元素类型
 
-@property({ type : "any" })
-g : any; //any类型只会被序列化，不能显示和编辑。
+@property(["Record", String])
+g : Record<string, string>; //字典，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
+
+@property("any")
+h : any; //any类型只会被序列化，不能显示和编辑。
+
+@property("int")
+i : number; //int等价于 { type: Number, fractionDigits: 0 }
+
+@property("uint")
+j : number; //uint等价于 { type: Number, fractionDigits: 0 , min: 0 }
+
+@property("text")
+k : string; //text等价于 { type: string, multiline: true }
 ```
 
-property除了设置属性类型和序列化开关外，还有丰富的样式控制。下面举一些例子，更多内容可参考装饰器注释。
+property的参数也可以是一个描述属性详细属性的集合。可以实现丰富的样式控制。下面举一些例子，更多内容可参考装饰器注释。
 
 ```typescript
+//设置标题
+@property({ type: String, caption: "速度" })
+a : velecity : string;
+
 //显示为下拉框
-@property({ enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
-a : number;
+@property({ type: Number, enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
+b : number;
 
 //控制数字输入的精度和范围
-@property({ range:[0,1], fractionDigits: 3 })
-b : number
+@property({ type: Number, range:[0,1], factionDigits: 3 })
+c : number
 
 //文本显示为多行输入
-@property({ multiline: true })
-c : string;
+@property({ type: String, multiline: true })
+d : string;
 
 //显示为颜色输入（如果类型是Laya.Color，则不需要这样定义，如果是字符串类型，则需要）
-@property({ inspector: "color" })
-d: string;
+@property({ type: String, inspector: "color" })
+e: string;
 
 //当属性改变时，调用名称为onChangeTest的函数
-@property({ onChange: "onChangeTest"})
-e: boolean;
+@property({ type: Boolean, onChange: "onChangeTest"})
+f: boolean;
 ```
 
 运行效果动图
 
-<img src="images/6-2.gif" style="zoom:50%;" /> 
+<img src="images/6-1.gif" style="zoom:50%;" /> 
 
 代码示例：
 
@@ -610,51 +654,74 @@ enum TestEnum {
     C
 };
 
+enum StringEnum {
+    A = "a",
+    B = "b",
+    C = "c"
+};
+
 @regClass()
 export class Property extends Laya.Script {
 
-    @property()
-    a : string; //自动识别
-
-    @property()
-    b : Laya.Vector3; //自动识别
-
-    @property()
-    c : Animal; //沿用上个例子，Animal已经被regClass，自动识别
-
-    @property({ type : TestEnum })
-    d : TestEnum; //Enum无法自动识别，需要自己指定type
-
-    @property({ type : [Number]})
-    e : number[]; //数组无法自动识别，请注意type的格式，用中括号包含数组元素类型
-
-    @property({ type: ["Record", String]})
-    f : Record<string, string>; //字典无法识别，请注意type的格式，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
-
-    @property({ type : "any" })
-    g : any; //any类型只会被序列化，不能显示和编辑。
-
-
-    @property({ enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
-    h : number;
-
-    @property({ range:[0, 1], fractionDigits: 3 })
-    i : number;
+    @property(String)
+    a : string;
     
+    @property(Laya.Vector3)
+    b : Laya.Vector3;
+    
+    @property(Animal)
+    c : Animal; //沿用上个例子，Animal已经被regClass
+    
+    @property(TestEnum)
+    d : TestEnum; //枚举类型，会显示为下拉框供用户选择
+
+    @property({ type: StringEnum })
+    e : StringEnum; //对于字符串形式的枚举，不能使用@property(StringEnum),必须用集合里的type参数指定
+    
+    @property([Number])
+    f : number[]; //数组，用中括号包含数组元素类型
+    
+    @property(["Record", String])
+    g : Record<string, string>; //字典，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
+    
+    @property("any")
+    h : any; //any类型只会被序列化，不能显示和编辑。
+    
+    @property("int")
+    i : number; //int等价于 { type: Number, fractionDigits: 0 }
+    
+    @property("uint")
+    j : number; //uint等价于 { type: Number, fractionDigits: 0 , min: 0 }
+    
+    @property("text")
+    k : string; //text等价于 { type: string, multiline: true }
+
+    //设置标题
+    @property({ type: String, caption: "速度" })
+    l : string;
+
+    //显示为下拉框
+    @property({ type: Number, enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
+    m : number;
+
+    //控制数字输入的精度和范围
+    @property({ type: Number, range:[0,1], factionDigits: 3 })
+    n : number
+
     //文本显示为多行输入
-    @property({ multiline: true })
-    j : string;
-    
+    @property({ type: String, multiline: true })
+    o : string;
+
     //显示为颜色输入（如果类型是Laya.Color，则不需要这样定义，如果是字符串类型，则需要）
-    @property({ inspector: "color" })
-    k: string;
-    
+    @property({ type: String, inspector: "color" })
+    p: string;
+
     //当属性改变时，调用名称为onChangeTest的函数
-    @property({ onChange: "onChangeTest"})
-    l: boolean;
+    @property({ type: Boolean, onChange: "onChangeTest"})
+    q: boolean;
 
     onChangeTest() {
-        console.log("onChangeTest ");
+        console.log("onChangeTest");
     }
 }
 ```
@@ -665,7 +732,7 @@ const { regClass, property } = Laya;
 
 @regClass()
 export default class Animal {
-    @property()
+    @property(Number)
     weight : number;
 }
 
