@@ -2,7 +2,9 @@
 
 LayaAir2.0开始，支持自定义脚本到编辑器，方便扩展已有组件的功能。自定义脚本继承自Laya.Script类，定了组件的事件和自身生命周期方法，不需要再自己绑定事件即可快速实现逻辑。任何组件都可以使用同一自定义脚本来实现相同的功能，比如不同页面上需要对相同的组件实现同一功能。
 
-另外不同的页面在使用同一脚本时，可以给同一个属性指定不同的组件，可通过把属性暴露给IDE，在IDE上指定不同的组件。
+另外不同的页面在使用同一脚本时，可以给同一个属性指定不同的组件，可通过把属性暴露给IDE，在IDE上指定不同的节点或者组件。如图1-1所示
+
+<img src="images/1-1.png" style="zoom:50%;" /> 
 
 
 
@@ -16,7 +18,7 @@ LayaAir2.0开始，支持自定义脚本到编辑器，方便扩展已有组件�
 
 ### 1.1 regClass
 
-所有开发者编写的Laya.Script都需要使用这个装饰器才能被IDE识别。例如
+所有开发者编写的 Laya.Script 都需要使用这个装饰器才能被IDE识别。
 
 ```typescript
 const { regClass } = Laya;
@@ -71,14 +73,14 @@ class Animal {
 
 使用规则：
 
-1. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( { type:XXX, serializable: false });
+1. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( Laya.Sprite3D ) 或者 @property( { type:XXX, serializable: false });
 2. 属性名字是下划线开头的不会显示给用户编辑。如果属性名不是以下划线开头，也想显示给用户编辑，可以：@property( { type:XXX, "private" : true }); 如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false }); 
 3. 装饰器的参数一般为一个属性类型。可以使用的基本类型有：
    1. Number 或 "number"
    2. String 或 "string"
    3. Boolean 或 "boolean"
    4. 标记了regClass的类
-   5. LayaAir引擎里的大部分类型，比如Laya.Camera
+   5. LayaAir引擎里的大部分类型，比如 Laya.Vector3，Laya.Sprite3D，Laya.Camera
    6. 枚举类型
    7. Int8Array/Uint8Array/Int16Array/Uint16Array/Int32Array/Uint32Array/Float32Array
    8. "int"
@@ -96,14 +98,63 @@ class Animal {
 const { regClass, property } = Laya;
 
 @regClass()
-export class TrailRender extends BaseScript {
+export class Main extends Laya.Script {
 
-    @property(Laya.Camera)
+    @property(Laya.Camera) //Camera组件类型
     private camera: Laya.Camera;  
-    @property(Laya.Scene3D)
-    private scene: Laya.Scene3D;
-    @property(Laya.DirectionLight)
-    private directionLight: Laya.DirectionLight;
+
+    @property(Laya.Scene3D) //Scene3D组件类型
+    private scene3D: Laya.Scene3D;
+
+    @property(Laya.DirectionLightCom) //DirectionLight组件类型
+    private directionLight: Laya.DirectionLightCom;
+
+    @property(Laya.Sprite3D) //Sprite3D节点类型
+    private cube: Laya.Sprite3D;  
+
+    @property(Laya.Sprite3D) //Sprite3D节点类型
+    private prefab: Laya.Scene3D;
+
+    @property(Laya.Prefab) //加载 Prefab 拿到的对象
+    private prefabFromResource: Laya.Prefab;    
+
+    @property(Laya.ShurikenParticleRenderer) //ShurikenParticleRenderer组件类型
+    private particle3D: Laya.ShurikenParticleRenderer;  
+    
+    @property(Laya.Sprite) //节点类型
+    private scnen2D: Laya.Sprite; 
+
+    @property(Laya.Box) //拿到 Box 组件
+    private box: Laya.Box; 
+
+    @property(Laya.List) //拿到 List 组件
+    private list: Laya.List; 
+
+    @property(Laya.Image) //拿到 Image 组件
+    private image: Laya.Image; 
+
+    @property(Laya.Label) //拿到 Label 组件
+    private label: Laya.Label; 
+
+    @property(Laya.Button) //拿到 Button 组件
+    private button: Laya.Button; 
+
+    @property(Laya.Sprite) //拿到 Sprite 组件
+    private sprite: Laya.Sprite; 
+
+    @property(Laya.Animation) //拿到 Animation 组件
+    private anmation: Laya.Animation; 
+    
+    @property(Laya.Sprite) //节点类型
+    private spine: Laya.Sprite;     
+       
+    @property(String) //string类型
+    private a : string;
+    
+    @property(Laya.Vector3) //Laya.Vector3类型
+    private b : Laya.Vector3;    
+
+}
 ```
 
 其中：
@@ -116,31 +167,121 @@ const { regClass, property } = Laya;
 
 ```typescript
 @regClass()
-export class TrailRender extends Laya.Script
+export class Main extends Laya.Script
 ```
 
 在自定义脚本类的上一行，加入@regClass()
 
 ```typescript
-@property(Laya.Camera)
-private camera: Laya.Camera;  
-@property(Laya.Scene3D)
-private scene: Laya.Scene3D;
-@property(Laya.DirectionLight)
-private directionLight: Laya.DirectionLight;
+@property(Laya.Sprite3D) //Sprite3D节点类型
+private cube: Laya.Sprite3D;  
 ```
 
-在自定义属性的上一行，加入@property()，则可以在IDE暴露此属性，如图1-1所示
-
-<img src="images/1-1.png" alt="image-20221101103355334" style="zoom: 50%;" /> 
-
-（图1-1）
-
-此时可以拖拽场景中的相对应的节点到属性中，如图1-2所示
+在自定义属性的上一行，加入@property()，则可以在IDE暴露此属性，并拖入对应的节点或者组件，如图1-2所示
 
 <img src="images/1-2.png" alt="image-20221101103614591" style="zoom:50%;" /> 
 
 （图1-2）
+
+
+
+### 1.4 代码如何使用属性
+
+例如我们创建一个Prefab3D预制体，在默认Sprite3D节点下添加一个特效Particle3D组件，在Sprite3D节点上添加MyParticle.ts脚本。
+
+<img src="images/1-3.png" style="zoom:50%;" /> 
+
+（图1-3） 
+
+<img src="images/1-4.png" style="zoom:50%;" /> 
+
+（图1-4）  
+
+我们希望通过MyParticle.ts脚本来修改粒子特效的transform属性和粒子系统属性simulationSpeed，在MyParticle.ts脚本中可以使用如下方式：
+
+**1，节点类型方式**
+
+```typescript
+    @property(Laya.Sprite3D) //节点类型
+    public p3d: Laya.Sprite3D;
+
+    onAwake(): void {
+
+        this.p3d.transform.localPosition = new Laya.Vector3(0,5,5);
+        let p3dRenderer = this.p3d.getComponent(Laya.ShurikenParticleRenderer);
+        p3dRenderer.particleSystem.simulationSpeed = 10;
+    }
+```
+
+通过暴露@property(Laya.Sprite3D)节点类型属性，来拖入particle节点，可以获得particle节点对象。transform可以直接修改，而simulationSpeed属性则通过getComponent(Laya.ShurikenParticleRenderer).particleSystem的方式获取
+
+
+
+**2，组件类型方式**
+
+```typescript
+    @property(Laya.ShurikenParticleRenderer) //组件类型
+    public p3dRenderer: Laya.ShurikenParticleRenderer;
+
+    onAwake(): void {
+
+        (this.p3dRenderer.owner as Laya.Sprite3D).transform.localPosition = new Laya.Vector3(0,5,5);
+        this.p3dRenderer.particleSystem.simulationSpeed = 10;
+    }
+```
+
+通过暴露@property(Laya.ShurikenParticleRenderer)组件类型属性，来拖入particle节点，可以获得particle的ShurikenParticleRenderer组件。transform可以通过(this.p3dRenderer.owner as Laya.Sprite3D)修改，而simulationSpeed属性则通过this.p3dRenderer.particleSystem的方式获取
+
+
+
+**3，不支持的类型**
+
+```typescript
+    @property(Laya.ShuriKenParticle3D) //不支持的类型
+    public p3d: Laya.ShuriKenParticle3D;
+
+    onAwake(): void {
+
+        this.p3d.transform.localPosition = new Laya.Vector3(0,5,5);
+        this.p3d.particleSystem.simulationSpeed = 10;
+    }
+```
+
+不能通过直接使用Laya.ShuriKenParticle3D作为属性类型，IDE无法识别，只有节点和组件类型可以识别
+
+报错信息：*[Game] Uncaught (in promise) TypeError: Cannot set properties of undefined (setting 'simulationSpeed')*
+
+```typescript
+    @property(Laya.Sprit3D)
+    public p3d: Laya.ShuriKenParticle3D; //无法转换成Laya.ShuriKenParticle3D
+
+    onAwake(): void {
+
+        this.p3d.transform.localPosition = new Laya.Vector3(0,5,5);
+        this.p3d.particleSystem.simulationSpeed = 10;
+    }
+```
+
+上述方式也不行，IDE虽然标识了属性是Sprite3D节点，但是也无法转换为Laya.ShuriKenParticle3D对象
+
+报错信息：*[Game] Uncaught (in promise) TypeError: Cannot set properties of undefined (setting 'simulationSpeed')*
+
+
+
+### 1.5 Prefab类型属性
+
+当使用Laya.Prefab作为属性时，例如
+
+```typescript
+@property(Laya.Prefab) //加载 Prefab 的对象
+private prefabFromResource: Laya.Prefab;    
+```
+
+此时，需要从assets目录下，拖入prefab资源，运行时会直接获取到加载实例化后的prefab，如图1-5所示
+
+<img src="images/1-5.png" style="zoom:50%;" /> 
+
+（图1-5）
 
 
 
@@ -348,9 +489,9 @@ import Event = Laya.Event;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property()
+    @property(Laya.Button)
     private btn_1: Button;  
-    @property()
+    @property(Laya.Sprite3D)
     private p_1 : Sprite3D;                
 
     private particleList: Array<Sprite3D> = [];
