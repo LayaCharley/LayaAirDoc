@@ -121,8 +121,8 @@ export class Main extends Laya.Script {
     @property(Laya.ShurikenParticleRenderer) //ShurikenParticleRenderer组件类型
     private particle3D: Laya.ShurikenParticleRenderer;  
     
-    @property(Laya.Sprite) //节点类型
-    private scnen2D: Laya.Sprite; 
+    @property(Laya.Node) //节点类型
+    private scnen2D: Laya.Node; 
 
     @property(Laya.Box) //拿到 Box 组件
     private box: Laya.Box; 

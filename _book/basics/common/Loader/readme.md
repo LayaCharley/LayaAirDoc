@@ -1,3 +1,7 @@
+
+
+
+
 # LayaAir引擎的资源加载方法详解
 
 > Author: Charley   
@@ -84,8 +88,8 @@ export class LoaderDemo extends Laya.Script {
 | 引擎全局变量            | 类型标识字符串 | 类型说明                                                     |
 | ----------------------- | -------------- | ------------------------------------------------------------ |
 | Laya.Loader.TEXT        | text           | 文本类型                                                     |
-| Laya.Loader.JSON        | json           | JSON 类型                                                    |
-| Laya.Loader.XML         | xml            | XML 类型                                                     |
+| Laya.Loader.JSON        | json           | JSON类型                                                     |
+| Laya.Loader.XML         | xml            | XML类型                                                      |
 | Laya.Loader.BUFFER      | arraybuffer    | 二进制类型                                                   |
 | Laya.Loader.IMAGE       | image          | 纹理类型                                                     |
 | Laya.Loader.SOUND       | sound          | 声音类型                                                     |
@@ -98,7 +102,7 @@ export class LoaderDemo extends Laya.Script {
 | Laya.Loader.MATERIAL    | MATERIAL       | Material资源                                                 |
 | Laya.Loader.TEXTURE2D   | TEXTURE2D      | Texture2D资源                                                |
 | Laya.Loader.TEXTURECUBE | TEXTURE2D      | TextureCube资源                                              |
-| Laya.Loader.SPINE       | SPINE          | Spine 资源                                                   |
+| Laya.Loader.SPINE       | SPINE          | Spine资源                                                    |
 
 
 
@@ -274,9 +278,9 @@ export class LoaderDemo extends Laya.Script {
 
 引擎提供的`load()`方法加载资源，可能会在解析后做一些封装。
 
-比如我们用的`load()`方法去加载一个json数据，需要在data里才能取到json文件里的数据。
+比如我们用`load()`方法加载一个json数据，需要在data里才能取到json文件里的数据。
 
-用于对比的`load()`方法示例如下：
+使用`load()`方法，示例如下：
 
 ```typescript
 onEnable(): void {
@@ -293,7 +297,7 @@ onEnable(): void {
 
 而我们使用`fetch()`方法，则可以直接取到json文件里的数据。但需要注意的是，采用fetch加载的资源不会缓存，只能在加载完成的回调里使用，无法通过getRes读取加载缓存。
 
-`fetch()`方法使用示例如下：
+使用`fetch()`方法，示例如下：
 
 ```typescript
 onEnable(): void {
@@ -328,3 +332,93 @@ fetch的加载限定为以下类型：
 > **Tips**​
 >
 > 除非是明确理解fetch的使用用途，否则不推荐开发者使用。
+
+
+
+## 四、Option参数
+
+当使用`load()`方法或者`fetch()`方法加载资源时，可以使用到Option参数，例如代码：
+
+```typescript
+//创建Option
+let option:any = {};
+option.blob = this.imgBlob;
+//通过传递blob对象获得HTMLImageElement
+Laya.loader.fetch("" ,"image", null, option).then((res)=>{
+});
+```
+
+通过Option参数指定`fetch()`方法，传递blob对象获得HTMLImageElement
+
+目前支持的Option参数：
+
+```typescript
+export interface ILoadOptions {
+    type?: string; //资源类型。比如：Loader.IMAGE。
+    priority?: number; //(default = 0)加载的优先级，数字越大优先级越高，优先级高的优先加载。
+    group?: string; //分组，方便对资源进行管理。
+    cache?: boolean; //是否缓存
+    noRetry?: boolean; //是否重新尝试加载
+    silent?: boolean; //是否提示加载失败
+    useWorkerLoader?: boolean; //(default = false)是否使用worker加载（只针对IMAGE类型和ATLAS类型，并且浏览器支持的情况下生效）
+    constructParams?: TextureConstructParams; //图片属性，参考如下
+    propertyParams?: TexturePropertyParams; //纹理属性，参考如下
+    blob?: ArrayBuffer; //传递blob对象获得HTMLImageElement
+    noMetaFile?: boolean; //是否不去下载Meta(json)文件
+    [key: string]: any;
+}
+    
+TextureConstructParams {
+    width?: number,
+    height?: number,
+    format?: TextureFormat,
+    mipmap?: boolean,
+    canRead?: boolean,
+    sRGB?: boolean,
+}
+    
+TexturePropertyParams {
+    wrapModeU?: number,
+    wrapModeV?: number,
+    filterMode?: FilterMode,
+    anisoLevel?: number,
+    premultiplyAlpha?: boolean,
+    hdrEncodeFormat?: HDREncodeFormat,
+}
+```
+
+
+
+## 五、如何不下载json文件（option { noMetaFile: true}）
+
+当发布web后，在release/web目录下的资源中可以看到，每个图片资源对应一个json文件，如图5-1所示
+
+<img src="img/5-1.png" alt="image-20230310112809985" style="zoom:50%;" /> 
+
+（图5-1） 
+
+此json文件会记录IDE中设置的图片属性，如图5-2所示
+
+<img src="img/5-2.png" alt="image-20230310113253733" style="zoom:50%;" /> 
+
+（图5-2） 
+
+当LayaAir3.0引擎加载图片xxx.png时，先去加载xxx.png.json文件，来获取IDE中设置的图片信息
+
+如果这些图片不是发布出来的，比如说服务器上的一些散图资源，那么就不存在json文件，当使用 `load()`或者`fetch()`方法加载图片时，会发现找不到json文件而提示错误信息：
+
+**GET https://xxxx/xxx.png.json 404 (Not Found)**
+
+虽然无法获取json信息，但是LayaAir3.0引擎会使用默认属性
+
+如果我们希望不去下载这些json文件，可以使用如下方式：
+
+```typescript
+//创建Option
+let option:any = {};
+option.noMetaFile = true;//不去下载json
+Laya.loader.load("http://xxxx/xxx.png",option).then((res)=>{
+});  
+```
+
+这样，load资源的时候传option { noMetaFile: true}就不会去下载json文件
