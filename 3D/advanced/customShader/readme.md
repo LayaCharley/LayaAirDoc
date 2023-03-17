@@ -146,7 +146,7 @@ Shader3D End
 
 Uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性有些不同。首先，uniform是全局的(Global)。全局意味着uniform变量必须在每个着色器程序对象中都是独一无二的，而且它可以被着色器程序的任意着色器在任意阶段访问。第二，无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置或更新。
 
-UniformMap则是存储这样一堆Uniform变量的数据结构，通过组合的形式更直观的让开发者了解到在Shader中所使用到的Uniform变量。UniformMap中
+UniformMap则是存储这样一堆Uniform变量的数据结构，通过组合的形式更直观的让开发者了解到在Shader中所使用到的Uniform变量。
 
 #### 3.1 Uniform常见变量类型
 
