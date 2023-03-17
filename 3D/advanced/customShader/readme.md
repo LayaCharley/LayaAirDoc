@@ -46,7 +46,7 @@ LayaAir引擎中的shader主要是围绕着.shader文件为核心，在引擎核
 
 LayaAir引擎中的Shader的应用主要体现在对不同物体的材质效果表达，通过对不同shader的选择，物体的材质随之改变形成了各不相同的效果
 
-LayaAir引擎内置的默认Shader有：BlinnPhong，Effect，Unlit，PBR，PBRSpecular，Particle，Trail，SkyBox，SkyPanoramic，SkyProcedural，ExtendTerrain，WaterParimary
+LayaAir引擎内置的默认Shader有：BlinnPhong，Effect，Unlit，PBR，PBRSpecular，Particle，Trail，SkyBox，SkyPanoramic，SkyProcedural。
 ## 2.如何自定义Shader
 ### 2.1 Mesh中常见的属性
 > polygon这个词来自希腊语，由poly(很多)和gnow(角)组成，根据定义，多边形是指以线段为界的封闭平面图形
