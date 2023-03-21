@@ -46,7 +46,7 @@ LayaAir引擎中的shader主要是围绕着.shader文件为核心，在引擎核
 
 LayaAir引擎中的Shader的应用主要体现在对不同物体的材质效果表达，通过对不同shader的选择，物体的材质随之改变形成了各不相同的效果
 
-LayaAir引擎内置的默认Shader有：BlinnPhong，Effect，Unlit，PBR，PBRSpecular，Particle，Trail，SkyBox，SkyPanoramic，SkyProcedural，ExtendTerrain，WaterParimary
+LayaAir引擎内置的默认Shader有：BlinnPhong，Effect，Unlit，PBR，PBRSpecular，Particle，Trail，SkyBox，SkyPanoramic，SkyProcedural。
 ## 2.如何自定义Shader
 ### 2.1 Mesh中常见的属性
 > polygon这个词来自希腊语，由poly(很多)和gnow(角)组成，根据定义，多边形是指以线段为界的封闭平面图形
@@ -146,7 +146,7 @@ Shader3D End
 
 Uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性有些不同。首先，uniform是全局的(Global)。全局意味着uniform变量必须在每个着色器程序对象中都是独一无二的，而且它可以被着色器程序的任意着色器在任意阶段访问。第二，无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置或更新。
 
-UniformMap则是存储这样一堆Uniform变量的数据结构，通过组合的形式更直观的让开发者了解到在Shader中所使用到的Uniform变量。UniformMap中
+UniformMap则是存储这样一堆Uniform变量的数据结构，通过组合的形式更直观的让开发者了解到在Shader中所使用到的Uniform变量。
 
 #### 3.1 Uniform常见变量类型
 
