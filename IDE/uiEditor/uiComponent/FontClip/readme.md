@@ -2,6 +2,10 @@
 
 FontClip组件本质上是对位图从方向上进行等比切割，FontClip继承于Clip。
 
+[FontClip API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.FontClip
+
+
+
 ## 1、创建Fontclip
 
 创建Fontclip非常简单，通过IDE的可视化操作，只需要用鼠标就可以实现。右键单击Scence2D，找到UI，点击FontClip即可创建成功。如图一所示。

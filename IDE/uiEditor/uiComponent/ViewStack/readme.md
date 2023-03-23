@@ -8,15 +8,17 @@
 
 ViewStack组件主要用于多页面视图切换。它包含多个子页面，但默认只显示一个，可以通过子页面索引进行显示切换。一般情况我们用它与Tab标签组合制作标签切换页面。如动图1所示。
 
-![动图1.gif](img/1.gif)<br/>（动图1） 
+![动图1.gif](img/1.gif) 
+
+（动图1） 
 
 ### 1.2 ViewStack组件的资源（skin）规范
 
-ViewStack组件是通过`Ctrl+B`转换而来的容器类组件，没有独立的组件资源规范。本例中直接采用的是image组件资源，在实际的游戏开发中，可以根据实际开发需求使用各种UI组件。
+ViewStack组件是容器类组件，没有独立的组件资源规范。本例中直接采用的是image组件资源，在实际的游戏开发中，可以根据实际开发需求使用各种UI组件。
 
 ### 1.3 ViewStack组件的API介绍
 
-​	ViewStack 组件的API使用请参考 [http://layaair.ldc.layabox.com/api/index.html?category=Core&class=laya.ui.ViewStack](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.ViewStack)。
+[ViewStack API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ViewStack
 
 
 
@@ -32,19 +34,25 @@ ViewStack组件是通过`Ctrl+B`转换而来的容器类组件，没有独立的
 
 弹出框的页面背景通常会采用九宫格，这里我们先将背景的九宫格属性设置好。如动图2-1所示。
 
-![(动图2-1](img/2-1.gif) <br />(动图2-1)
+![(动图2-1](img/2-1.gif) 
+
+(动图2-1)
 
 #### 2.1.3 创建页面背景
 
 将刚刚设置过九宫格的背景图拖拽到场景编辑器中。如动图2-2所示。
 
-![(动图2-2](img/2-2.gif) <br />(动图2-2)
+![(动图2-2](img/2-2.gif) 
+
+(动图2-2)
 
 #### 2.1.4 创建ViewStack页面
 
-将页面中涉及的UI基础组件拖拽到ui文件的`场景编辑器`，然后快捷键`Ctrl+B`转换成`ViewStack`容器组件。如动图3-1所示。
+将页面中涉及的UI基础组件拖拽到ui文件的`场景编辑器`。如动图3-1所示。
 
-![(动图3-1](img/3-1.gif) <br /> (动图3-1)
+![(动图3-1](img/3-1.gif) 
+
+ (动图3-1)
 
 
 
@@ -52,23 +60,25 @@ ViewStack组件是通过`Ctrl+B`转换而来的容器类组件，没有独立的
 
 ViewStack子页面name属性的命名规则为item0、item1、item2.....”如果有更多页面以此类推，如动图3-2所示，不按此规则增加name属性，生成的ViewStack组件为无效组件，不能正常运行。
 
-![(动图3-2](img/3-2.gif) <br /> (动图3-2)
+![(动图3-2](img/3-2.gif)  
 
-**Tips**：*name属性那里字符必须为item,不能改为其它。当修改完退出ViewStack子页面后，默认只显示item0时为正常，否则ViewStack组件没有生效。*
+(动图3-2)
+
+**Tips**：*Dectare Var属性那里字符必须为item,不能改为其它。当修改完退出ViewStack子页面后，默认只显示item0时为正常，否则ViewStack组件没有生效。*
 
 
 
 #### 2.1.6 调整页面的UI布局
 
-​	设置好name属性后，可以双击进入veiwStack组件内，先把子页面的UI布局调整好。本例中，我们仅将不同页面用到的资源大小、位置调整好，并让三个子页面居中对齐。效果如图3-3所示。
+设置好Dectare Var属性后，可以双击进入veiwStack组件内，先把子页面的UI布局调整好。本例中，我们仅将不同页面用到的资源大小、位置调整好，并让三个子页面居中对齐。效果如图3-3所示。
 
-​        ![图片3-3](img/3-3.png)<br/> （图3-3）
+![](img/3-3.png) 
 
-
+（图3-3）
 
 ### 2.2   设置ViewStack的页面索引selectedIndex
 
-​	ViewStack组件默认显示name属性为item0的图片，因为控制默认索引的属性selectedIndex默认值为0。我们可以通过调整selectedIndex属性值来改变ViewStack组件的默认显示页面。效果如动图4所示。
+ViewStack组件默认显示name属性为item0的图片，因为控制默认索引的属性selectedIndex默认值为0。我们可以通过调整selectedIndex属性值来改变ViewStack组件的默认显示页面。效果如动图4所示。
 
 ![动图4](img/4.gif)<br/>（动图4）
 

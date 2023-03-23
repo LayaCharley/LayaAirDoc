@@ -32,7 +32,7 @@ HSlider与VSlider组件都是Slider组件的子类，它们分别表示横向滑
 
 ### 1.3 HSlider组件的API介绍
 
-HSlider的API介绍请参考 [http://layaair.ldc.layabox.com/api/index.html?category=Core&class=laya.ui.HSlider](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.HSlider)。
+[HSlider API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.HSlider
 
 
 

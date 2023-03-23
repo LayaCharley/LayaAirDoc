@@ -2,6 +2,10 @@
 
 Panel是一个带有裁剪功能的面板容器类，常用来设置元素的显示区域。可以直接将要显示的元素添加到Panel容器中，Panel的宽高就是元素将要显示的宽高。
 
+[Panel API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Panel
+
+
+
 ### 一、通过LayaAirIDE创建Panel组件
 
 **1.1 以拖拽的形式将Panel组件拖拽到页面编辑区**

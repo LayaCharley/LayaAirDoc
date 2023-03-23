@@ -7,15 +7,15 @@
 ### 1.1 RadioGroup组件的作用
 
 RadioGroup是单选框按钮组，按钮组之内的组件选项互相排斥，用户每次只能选择一个单选框（Radio）组件。如动图1所示。
-![图片4.png](img/1.gif)<br/>
+![图片4.png](img/1.gif) 
 
- （动图1）
+（动图1）
 
 ### 1.2 RadioGroup组件的皮肤（skin）规范
 
 RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命名，在皮肤设计规范方面，是竖向等分的两态图或三态图，如图2所示。
 
-![图2](img/2.png) <br />
+![图2](img/2.png) 
 
 (图2)三态RadioGroup皮肤
 
@@ -23,8 +23,9 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 
 ### 1.3 RadioGroup组件的API介绍
 
-  RadioGroup 的API介绍请参考 [ http://layaair.ldc.layabox.com/api/index.html?category=Core&class=laya.ui.RadioGroup](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.RadioGroup)。
 
+
+[RadioGroup API]: https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.RadioGroup
 
 
 
@@ -34,7 +35,7 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 
 ​        点击选择资源管理器里的 RadioGroup 组件资源，拖拽到场景编辑器，即在页面中成功的创建了一个 RadioGroup  组件。如动图3所示。
 
-​      ![动图3](img/3.gif) <br/>
+​      ![动图3](img/3.gif) 
 
  （动图3）
 
@@ -44,7 +45,7 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 
    如动图3中所示，默认的单选框组中只有两个单选框。如想增加单选框，只需在labels属性中增加新的标签即可，修改标签内容也在该属性中设置，操作如动图4-1所示。
 
-  ![动图4-1](img/4-1.gif) <br />
+  ![动图4-1](img/4-1.gif) 
 
  （动图4-1）
 
@@ -54,7 +55,7 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 
  RadioGroup 默认是水平布局（*horizontal*），通过更改direction属性，实现垂直布局（*vertical*）。设置间距可以通过space属性实现。如图4-2所示。
 
-![动图4-2](img/4-2.png) <br />
+![动图4-2](img/4-2.png) 
 
 （图4-2）
 
@@ -65,7 +66,7 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 selectedIndex属性是用于改变单选框组的索引值，默认不设置时，不勾选任何选项，如果要设置RadioGroup的默认勾选，可以设置selectedIndex的属性值，0为第1个单选框，1为第2个单选框……以此类推。
 
 假设我们将属性值设置为0时，运行效果如动图4-3所示。
-![动图4-3](img/4-3.gif) <br />
+![动图4-3](img/4-3.gif) 
 
  （动图4-3）
 
@@ -82,7 +83,7 @@ selectedIndex属性是用于改变单选框组的索引值，默认不设置时�
 
 ​	我们用两张不同的`radio单选框`美术资源来组成`自定义RadioGroup组件`，资源如 图5 所示。
 
-​        ![图片5.png](img/5.png)<br/>
+​        ![图片5.png](img/5.png) 
 
 ​    （图5 ）
 
@@ -98,11 +99,11 @@ selectedIndex属性是用于改变单选框组的索引值，默认不设置时�
 
 当设置完label属性的文本、label标签的字体颜色、大小、位置关系等，以及调整好位置后，效果如 图6、图7 所示。
 
-​        ![图片6.png](img/6.png)<br/>
+​        ![图片6.png](img/6.png) 
 
 ​    （图6）
 
-​        ![图片7.png](img/7.png)<br/>
+​        ![图片7.png](img/7.png) 
 
 ​    （图7）
 
@@ -114,7 +115,7 @@ selectedIndex属性是用于改变单选框组的索引值，默认不设置时�
 
 ​	当修改好子项属性后，全选组件右键单击调出设置面板，点击change Type点击UI，选择转换成RadioGroup容器类型，如图8所示。
 
-​        ![图片8.png](img/8.png)<br/>
+​        ![图片8.png](img/8.png) 
 
 ​    （图8）
 
@@ -122,7 +123,7 @@ selectedIndex属性是用于改变单选框组的索引值，默认不设置时�
 
 转换成功后，调整默认选择的索引selectedIndex为0（第一个Radio），如图9所示，单选框间距space、方向direction可以不调节，在场景编辑器中通过鼠标调整也可以。
 
-![图片9.png](img/9.png)<br/>
+![图片9.png](img/9.png) 
 
 （图9）
 
