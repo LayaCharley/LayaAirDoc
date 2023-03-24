@@ -4,6 +4,10 @@ HBox其本质是容器类组件，所有的容器类组件都继承自Box，HBox
 
 HBox是常用于水平布局的容器组件，相较于Box它增加了绝对布局的功能。 
 
+[HBox API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.HBox
+
+
+
 ## 1、HBox组件创建
 
 通过IDE的可视化操作可以直接在层级面板对HBox进行创建，步骤为鼠标右键单击Scence2D，找到UI，点击HBox即可完成创建，如图1所示。

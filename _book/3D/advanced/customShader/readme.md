@@ -158,7 +158,7 @@ Uniform变量的常见类型：Texture2D，Color，Vector2，Vector3，Vector4�
 
 `Vector2` 向量2类型，多用于2D的坐标位置表示，常用于UV坐标和屏幕坐标
 
-`Vector3`向量3类型，最常用的3D坐标位置表示，三个分量xyz表达3D空间中的具体为位置
+`Vector3`向量3类型，最常用的3D坐标位置表示，三个分量xyz表达3D空间中的具体位置
 
 `Vector4` 向量4类型，多用于齐次化3D空间的坐标位置表示
 
@@ -371,7 +371,7 @@ Shader3D End
 
 `SupportReflectionProbe` ReflectionProbe开关
 
-当场景中存在探针是，将开关启用为True，当场景中不存在探针时，将开关启用为False
+当场景中存在探针时，将开关启用为True，当场景中不存在探针时，将开关启用为False
 
 ```typescript
 Shader3D Start

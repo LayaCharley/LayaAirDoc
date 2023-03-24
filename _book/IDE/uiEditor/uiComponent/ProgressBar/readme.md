@@ -8,21 +8,21 @@
 
 ​        ProgressBar 经常被用于显示游戏中某个操作的进度，例如加载资源的进度、角色经验或血量的进度。
 ​        点击选择资源面板里的 ProgressBar 组件，拖放到页面编辑区，即可添加 ProgressBar 组件到页面上。
-​        ProgressBar 的脚本接口参考 [ProgressBar API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.VSlider)。
+​        ProgressBar 的脚本接口参考 [ProgressBar API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ProgressBar)。
 
 ​        ProgressBar 组件的资源示例：
 
-​        ![图片0.png](img/1.png)<br/>
+​        ![图片0.png](img/1.png) 
 
 ​    （图1）
 
-​        ![图片0.png](img/2.png)<br/>
+​        ![图片0.png](img/2.png) 
 
 ​    （图2）
 
 ​        设置 ProgressBar 组件的属性 value 的值为 0.3 后，显示效果如下所示：
 
-​        ![图片0.png](img/3.png)<br/>
+​        ![图片0.png](img/3.png) 
 
 ​    （图3）
 
@@ -30,7 +30,7 @@
 
 ### 1.2 ProgressBar 组件的常用属性
 
-​        ![图片0.png](img/4.png)<br/>
+​        ![图片0.png](img/4.png) 
 
 ​    （图4）
 
@@ -49,7 +49,7 @@
 ​	在我们进行书写代码的时候，免不了通过代码控制UI，创建UI_ProgressBar类，在代码中导入`laya.ui.ProgressBar`的包，并通过代码设定ProgressBar相关的属性。
 
 **运行示例效果:**
-​	![5](gif/1.gif)<br/>
+​	![5](gif/1.gif) 
 
 ​	(图5)通过代码创建ProgressBar
 

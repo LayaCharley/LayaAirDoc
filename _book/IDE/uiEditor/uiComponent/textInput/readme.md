@@ -2,7 +2,7 @@
 
 ## 1、TextInputAPI参数
 
-​        文本输入框是游戏中经常会用到的一个UI组件，任何时候需要输入的时候都要使用到textInput这个类，我们先看一下TextInput这个类的API。
+文本输入框是游戏中经常会用到的一个UI组件，任何时候需要输入的时候都要使用到textInput这个类，我们先看一下TextInput这个类的API。
 
 | laya.ui.textInput中所有的API参数 |                                                              |           |
 | -------------------------------- | ------------------------------------------------------------ | :-------: |
@@ -97,6 +97,6 @@ export class UI_Input extends Laya.Script {
 
 运行结果：
 
-![2](img/2.png)</br>
+![2](img/2.png) 
 
  （图2）

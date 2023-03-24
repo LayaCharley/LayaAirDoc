@@ -4,16 +4,19 @@
 
 ## 一、通过LayaAirIDE创建VScrollBar 组件
 
-### 1.1 创建VScrollBar 
+### 1.1 创建VScrollBar
 
- 
+ VScrollBar 组件是一个垂直方向滚动条组件。
 
-​        VScrollBar 组件是一个垂直方向滚动条组件。
-​        当数据太多以至于显示区域无法容纳时，最终用户可以使用 VScrollBar 组件控制所显示的数据部分。
-​        滚动条由四部分组成：一个轨道图、一个滑块按钮和两个箭头按钮。
-​        点击选择资源面板里的 VScrollBar 组件，拖放到页面编辑区，即可添加 VScrollBar 组件到页面上。
-​        VScrollBar 组件的脚本接口请参考 [VScrollBar API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.VScrollBar)。
-​        VScrollBar 组件的图像资源示例：
+当数据太多以至于显示区域无法容纳时，最终用户可以使用 VScrollBar 组件控制所显示的数据部分。
+
+ 滚动条由四部分组成：一个轨道图、一个滑块按钮和两个箭头按钮。
+
+ 点击选择资源面板里的 VScrollBar 组件，拖放到页面编辑区，即可添加 VScrollBar 组件到页面上。
+
+VScrollBar 组件的脚本接口请参考 [VScrollBar API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VScrollBar)。
+
+ VScrollBar 组件的图像资源示例：
 
 ​        ![图片0.png](img/1.png)
 
@@ -30,8 +33,6 @@
 ​        ![图片0.png](img/4.png)
 
 ​    （图4）
-
- 
 
 ​        VScrollBar 拖放到编辑器区后，显示效果：
 
@@ -103,7 +104,7 @@
 
 
 
-​	VScrollBar 的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建的VScrollBar ，有兴趣的读者可以自己通过代码设置VScrollBar ，创建出符合自己需要的滚动条。
+VScrollBar 的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建的VScrollBar ，有兴趣的读者可以自己通过代码设置VScrollBar ，创建出符合自己需要的滚动条。
 
 **示例代码：**
 

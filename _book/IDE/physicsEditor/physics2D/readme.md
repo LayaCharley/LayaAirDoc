@@ -301,7 +301,7 @@ label属性的默认值是当前碰撞体的种类名，在LayaAirIDE 创建的2
 
 ##### 适配宽高大小 `fitsize`
 
-![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/5-2.png)
+![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/5-2.png) 
 
 （图5-2）
 
@@ -321,7 +321,7 @@ label属性的默认值是当前碰撞体的种类名，在LayaAirIDE 创建的2
 
 ##### 适配半径大小`fitsize`
 
-![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/6-2.png)
+![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/6-2.png) 
 
 （图6-2）
 
@@ -431,17 +431,21 @@ LayaAir引擎封装了10种关节组件，可在IDE中直接添加使用，如�
 
 至于两个刚体之间，谁是绑定或被绑定（otherBody）的关系，要综合实际业务逻辑考虑。仅是为了体现两者的约束关系，那谁是绑定者，并没有什么区别。
 
-##### 另一个锚点 `otherAnchor`、自身锚点 `selfAnchor`
+##### 另一个锚点 `otherbody`、自身锚点 `selfbody`
 
-每一个刚体都有一个刚体锚点，默认是在自身刚体的左上角（自身`(0,0)`坐标），使用距离关节后，当选中距离关节，场景编辑面板中会出现一红一绿两个圆点，绿色圆点为自身锚点selfAnchor，红色锚点为otherBody绑定的另一个刚体锚点。如果开发者没有手动进行指定，则是绑定到IDE默认创建的另一个刚体初始坐标`(0,0)`。效果如下图9-2所示。
+每一个刚体都有一个刚体锚点，默认是在自身刚体的左上角（自身`(0,0)`坐标），使用距离关节后，当选中距离关节，场景编辑面板中会出现一红一绿两个圆点，绿色圆点为自身锚点selfbody，红色锚点为otherBody绑定的另一个刚体锚点。如果开发者没有手动进行指定，则是绑定到IDE默认创建的另一个刚体初始坐标`(0,0)`。效果如下图9-2所示（图中的线是方便开发者观看用脚本挂载到Scene2D上实现的，下面是代码。红点和绿点也是方便开发者观看用截图工具的画笔画出来的引擎中并无红绿点）。
 
-![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/9-2.png)
+```
+Laya.PhysicsDebugDraw.enable();
+```
+
+![img](img/9-2.png)                                                                                                                                                                                                                                                                                   
 
 （图9-2）
 
 通常我们会指定锚点位置，例如钟摆的示例，如下图9-3所示。
 
-![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/9-3.png)
+![img](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/9-3.png) 
 
 （图9-3）
 
@@ -892,7 +896,7 @@ LayaAir引擎封装了10种关节组件，可在IDE中直接添加使用，如�
 
 刚体移动范围约束`enableLimit`
 
-![23-2](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/23-2.png)
+![23-2](https://official.layabox.com/laya_data/LayaAir_TS/IDE/Use_IDE/box2d/img/23-2.png) 
 
 （图23-1）
 

@@ -4,6 +4,10 @@
 
 VBox是容器类组件，继承自Box，VBox是常用于垂直布局的容器组件，对比Box它增加了绝对布局的功能。
 
+[VBox API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VBox
+
+
+
 ## 1、VBox组件创建
 
 通过IDE的可视化操作可以直接在层级面板对VBox进行创建，步骤为鼠标右键单击Scence2D，找到UI，点击VBox即可完成创建，如图1所示。

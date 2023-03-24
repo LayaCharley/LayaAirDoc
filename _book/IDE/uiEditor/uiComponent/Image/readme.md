@@ -9,25 +9,25 @@
 Image 是 UI 里最常见的显示图像的组件，用来显示位图图像。可以设置 Image 组件的 skin 属性来改变 Image 组件呈现的图像。Image 组件支持九宫格数据设定，用于实现图像放大后图像显示不失真的效果。
 
 点击资源面板里的 Image 组件，拖放到页面编辑区，即可添加 Image组件到页面上。单击选中 Image ，可以在属性面板里设置 Image 的常用属性的值。
-​        Image 组件的脚本接口请参考 [Image API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.Image)。
+        Image 组件的脚本接口请参考 [Image API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Image)。
 
  **Image 组件的资源示例：**
 
-​        ![图片0.png](img/1.png)<br/>
+​        ![图片0.png](img/1.png) 
 
 ​    （图1）
 
 **Image 组件拖放到编辑区后显示效果：**
 
-![图片0.png](img/2.png) <br/>
+![图片0.png](img/2.png) 
 
 (图2)    
 
 ### 1.2 Image 组件的常用属性
 
-​        ![图片0.png](img/3.png) <br/>
+![图片0.png](img/3.png) 
 
-​     （图3）
+（图3）
 
 | **属性** | **功能说明**                           |
 | -------- | -------------------------------------- |
@@ -42,7 +42,7 @@ Image 是 UI 里最常见的显示图像的组件，用来显示位图图像。�
 在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Image`类，通过代码设定Image相关的属性。
 
 **运行示例效果:**
-​	![5](img/4.png)<br/>
+​	![5](img/4.png) 
 
 ​	(图4)通过代码创建Image
 
