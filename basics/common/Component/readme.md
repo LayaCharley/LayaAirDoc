@@ -74,7 +74,7 @@ class Animal {
 使用规则：
 
 1. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( Laya.Sprite3D ) 或者 @property( { type:XXX, serializable: false });
-2. 属性名字是下划线开头的不会显示给用户编辑。如果属性名不是以下划线开头，也想显示给用户编辑，可以：@property( { type:XXX, "private" : true }); 如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false }); 
+2. 属性名字是下划线开头的不会显示给用户编辑。如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false }); 
 3. 装饰器的参数一般为一个属性类型。可以使用的基本类型有：
    1. Number 或 "number"
    2. String 或 "string"
@@ -100,59 +100,50 @@ const { regClass, property } = Laya;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property(Laya.Camera) //Camera组件类型
+    @property({ type:Laya.Camera }) //Camera组件类型
     private camera: Laya.Camera;  
 
-    @property(Laya.Scene3D) //Scene3D组件类型
+    @property({ type:Laya.Scene3D }) //Scene3D组件类型
     private scene3D: Laya.Scene3D;
 
-    @property(Laya.DirectionLightCom) //DirectionLight组件类型
+    @property({ type:Laya.DirectionLightCom }) //DirectionLight组件类型
     private directionLight: Laya.DirectionLightCom;
 
-    @property(Laya.Sprite3D) //Sprite3D节点类型
+    @property({ type:Laya.Sprite3D }) //Sprite3D节点类型
     private cube: Laya.Sprite3D;  
 
-    @property(Laya.Sprite3D) //Sprite3D节点类型
-    private prefab: Laya.Scene3D;
-
-    @property(Laya.Prefab) //加载 Prefab 拿到的对象
+    @property({ type:Laya.Prefab }) //加载 Prefab 拿到的对象
     private prefabFromResource: Laya.Prefab;    
 
-    @property(Laya.ShurikenParticleRenderer) //ShurikenParticleRenderer组件类型
+    @property({ type:Laya.ShurikenParticleRenderer }) //ShurikenParticleRenderer组件类型
     private particle3D: Laya.ShurikenParticleRenderer;  
     
-    @property(Laya.Node) //节点类型
+    @property({ type:Laya.Node }) //节点类型
     private scnen2D: Laya.Node; 
 
-    @property(Laya.Box) //拿到 Box 组件
+    @property({ type:Laya.Box }) //拿到 Box 组件
     private box: Laya.Box; 
 
-    @property(Laya.List) //拿到 List 组件
+    @property({ type:Laya.List }) //拿到 List 组件
     private list: Laya.List; 
 
-    @property(Laya.Image) //拿到 Image 组件
+    @property({ type:Laya.Image }) //拿到 Image 组件
     private image: Laya.Image; 
 
-    @property(Laya.Label) //拿到 Label 组件
+    @property({ type:Laya.Label }) //拿到 Label 组件
     private label: Laya.Label; 
 
-    @property(Laya.Button) //拿到 Button 组件
+    @property({ type:Laya.Button }) //拿到 Button 组件
     private button: Laya.Button; 
 
-    @property(Laya.Sprite) //拿到 Sprite 组件
+    @property({ type:Laya.Sprite }) //拿到 Sprite 组件
     private sprite: Laya.Sprite; 
 
-    @property(Laya.Animation) //拿到 Animation 组件
+    @property({ type:Laya.Animation }) //拿到 Animation 组件
     private anmation: Laya.Animation; 
     
-    @property(Laya.Sprite) //节点类型
-    private spine: Laya.Sprite;     
-       
-    @property(String) //string类型
-    private a : string;
-    
-    @property(Laya.Vector3) //Laya.Vector3类型
-    private b : Laya.Vector3;    
+    @property({ type:Laya.Vector3 }) //Laya.Vector3类型
+    private vector3 : Laya.Vector3;
 
 }
 ```
