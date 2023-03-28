@@ -6,9 +6,9 @@
 
 ### 1.1 Tab组件的作用
 
-​        Tab 组件用于定义选项卡按钮组，例如多页面切换显示。如动图1所示。
+ Tab 组件用于定义选项卡按钮组，例如多页面切换显示。如动图1所示。
 
-![动图1](img/1.gif) <br/>
+![动图1](img/1.gif) 
 
 （动图1）
 
@@ -16,7 +16,7 @@
 
 Tab组件的皮肤是以`tab`或以`tab_`为前缀进行命名，在皮肤设计规范方面，是竖向等分的两态图或三态图，如图2所示。
 
-![图2](img/2.png) <br />
+![图2](img/2.png) 
 
  (图2)三态Tab皮肤
 
@@ -24,7 +24,9 @@ Tab组件的皮肤是以`tab`或以`tab_`为前缀进行命名，在皮肤设计
 
 ### 1.3 Tab 组件的API介绍
 
-Tab 组件的API介绍请参考  [http://layaair.ldc.layabox.com/api/index.html?category=Core&class=laya.ui.Tab](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.Tab)
+
+
+[Tab API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Tab
 
 
 
@@ -32,9 +34,9 @@ Tab 组件的API介绍请参考  [http://layaair.ldc.layabox.com/api/index.html?
 
 ### 2.1 创建Tab        
 
-​        点击选择`资源管理器`里的 Tab 组件资源，拖拽到场景编辑器，即在页面中成功的创建了一个 Tab组件。如动图3所示。
+ 点击选择`资源管理器`里的 Tab 组件资源，拖拽到场景编辑器，即在页面中成功的创建了一个 Tab组件。如动图3所示。
 
-![](img/3.gif) <br/>
+![](img/3.gif) 
 
 （动图3）
 
@@ -42,7 +44,7 @@ Tab 组件的API介绍请参考  [http://layaair.ldc.layabox.com/api/index.html?
 
  如动图3中所示，默认的Tab组件中只有两个标签。如想增加标签，只需在labels属性中增加新的标签即可，修改标签中的文本内容也在该属性中设置，操作如动图4-1所示。
 
-![动图4-1](img/4-1.gif) <br />
+![动图4-1](img/4-1.gif) 
 
 (动图4-1)
 

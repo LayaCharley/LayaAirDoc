@@ -244,10 +244,15 @@ UI继承类（Runtime）与自定义脚本类似，不同的是 Runtime 的父�
      */
     onClosed(type: string = null): void {
     }
+
+    /**场景打开完成后，调用此方法（如果有弹出动画，则在动画完成后执行）*/
+    onOpened(param: any): void{
+    }
 ```
 
-> **注意：对比我们可以发现，Runtime 是没有 onStart，onUpdate 等方法的**
-
+> **注意1：对比我们可以发现，Runtime 是没有 onStart，onUpdate 等方法的。**
+>
+> **注意2：onOpened方法是只有Runtime有，而Script没有的。**
 
 
 ### 3.3 不同的使用UI组件方式

@@ -9,8 +9,8 @@
  Clip 组件可用于显示位图切片动画。Clip 可以将一张图片，按横向分隔数量 ClipX、竖向分隔数量 ClipY，或横向分割每个切片的宽度 ClipWidth、竖向分割每个切片的高度 ClipHeight，从左向右，从上到下，分割组合为一个切片动画。
 
  Clip 组件可以用来播放切片动画，和显示切片动画的某一帧图片。
-​        点击资源面板里的 Clip 组件，拖放到页面编辑区，即可添加 Tab 组件到页面上。
-Clip 的脚本接口参考[Clip API](https://layaair2.ldc2.layabox.com/api2/Chinese/index.html?version=2.9.0beta&type=2D&category=UI&class=laya.ui.Clip)
+        点击资源面板里的 Clip 组件，拖放到页面编辑区，即可添加 Tab 组件到页面上。
+Clip 的脚本接口参考[Clip API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Clip)
 
 Clip 组件的资源示例：
 
@@ -56,15 +56,15 @@ Clip 组件的资源示例：
 
 ##  二、通过代码创建Clip组件
 
- 	在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Clip`类，通过代码设定Clip相关的属性。
+在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Clip`类，通过代码设定Clip相关的属性。
 
 **运行示例效果:**
 
-​	![1](gif/1.gif)<br/>
+​	![1](gif/1.gif) 
 
 ​	(图5)通过代码创建计数器
 
-​	![1](img/5.png)<br/>
+​	![1](img/5.png) 
 
 ​	(图6)
 
