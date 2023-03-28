@@ -10,16 +10,21 @@ Animation组件是节点动画组件，可以方便的创建图集动画多帧�
 
 （动图1）
 
+
+
+[Animation API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=display&class=laya.display.Animation
+
+
+
 ### 1.2 Animation组件的常用属性
 
-| 属性          | 功能说明                                                    |
-| ------------- | ----------------------------------------------------------- |
-| images        | 添加动画图集                                                |
-| interval      | 动画播放间隔，单位为毫秒，默认值为50毫秒。                  |
-| autoplay      | 动画图集是否自动播放，默认为false。                         |
-| autoanimation | 默认播放的动画名称。                                        |
-| index         | 播放位置。                                                  |
-| wrapmode      | 播放类型：默认为0是正序播放，1为倒序播放，2为pingpong播放。 |
+| 属性     | 功能说明                                                     |
+| -------- | ------------------------------------------------------------ |
+| images   | 添加动画图集                                                 |
+| interval | 动画播放间隔，单位为毫秒，默认值为50毫秒。                   |
+| autoplay | 动画图集是否自动播放，默认为false。如果设置为true，则动画被创建并添加到舞台后自动播放。 |
+| index    | 播放位置。                                                   |
+| wrapmode | 播放类型：默认为0是正序播放，1为倒序播放，2为pingpong播放。  |
 
 ## 2、通过LayaAirIDE创建Animation 组件
 
@@ -33,23 +38,21 @@ Animation不是UI组件。所以在创建Animation的时候，需要先从`小�
 
 
 
-### 2.2 通过source属性去接收动画数据源
+### 2.2 接收动画数据源
 
-接收动画数据源现在有两种方式，一种是在代码中引入，source属性在代码中使用方法为将打为图集的.atlas文件放入source属性中。
+接收动画数据源现在有两种方式，第一种方法是Images，可以摁住键盘 **↓** 方向键快速选择图片，也可以单击图片进行添加，如图3-1所示。
 
-```typescript
- Animation.source = "resources/UI/role/frameAni/role.atlas";
-```
+![](img/3-1.png) 
 
-第二种方法是在IDE中通过可视化操作直接设置，可以摁住键盘**↓**方向键快速选择图片，也可以单击图片进行添加，如图3所示。另外IDE中不支持直接拖入图集方式
+（图3-1）
 
-![](img/3.png) 
+第二种方法更为简单快捷，直接将打好的图集放入Source属性中即可，如图3-2所示。
 
-（图3）
+![](img/3-2.png) 
 
-> Tips：开发者不要在代码和IDE中同时设置source属性和images属性，会导致播放出来的动画第一帧是IDE中images属性设置的第一帧动画，最后运行结果还是代码中所设置的属性的执行结果。
+（图3-2）
 
-
+两种方法都可以实现接收动画数据源的效果。
 
 ### 2.3 控制动画的播放模式（wrapMode）
 
