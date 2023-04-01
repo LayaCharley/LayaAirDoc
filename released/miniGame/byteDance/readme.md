@@ -14,18 +14,18 @@
 
 **链接如下：**
 
-https://microapp.bytedance.com/docs/zh-CN/mini-game/guide/mini-game
+https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/introduction/
 
 **下载并安装字节开发者工具**
 
 字节开发者工具主要用于小游戏产品的预览与调试、真机测试、上传提交等。是小游戏开发的必备工具。
 
 **开发工具下载地址**：
-https://microapp.bytedance.com/docs/zh-CN/mini-game/develop/developer-instrument/developer-instrument-update-and-download/
+https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/developer-instrument/developer-instrument-update-and-download
 
 **字节小游戏API地址**：
 
-https://microapp.bytedance.com/docs/zh-CN/mini-game/develop/api/mini-game/bytedance-mini-game
+https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/mini-game/bytedance-mini-game
 
 
 
