@@ -132,6 +132,7 @@
       * [3D性能优化](3D/advanced/performanceOptimization/readme.md)
       * [WebXR](3D/WebXR/readme.md)
       * [3D寻路](3D/advanced/Astar/readme.md)
+      * [Unity资源导出插件](3D/advanced/Unity/readme.md)
 - 项目发布
     * [Web发布](released/web/readme.md)
     - [小游戏发布](released/miniGame/readme.md)
