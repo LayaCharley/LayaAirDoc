@@ -125,4 +125,42 @@ https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/s
 
 （图3-5）
 
+## 四、分包加载
 
+可以通过以下步骤进行分包加载，如图4所示。
+
+![](img/4.png) （图4）
+
+字节跳动小游戏通过[tt.loadSubpackage](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/tt-loadSubpackage)来触发分包的下载，调用[tt.loadSubpackage](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/tt-loadSubpackage)后，将触发分包的下载与加载（如果分包指定的是一个目录，则自动加载目录下的 game.js, 如果分包指定的是一个 js 文件，则自动加载该 js 文件），在加载完成后，通过[tt.loadSubpackage](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/tt-loadSubpackage)的 success 回调来通知加载完成。
+
+同时，[tt.loadSubpackage](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/tt-loadSubpackage)会返回一个[LoadSubpackageTask](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/LoadSubpackageTask)，可以通过[LoadSubpackageTask](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/LoadSubpackageTask)获取当前下载进度。
+
+示例代码：
+
+```js
+if (Laya.Browser.onTTMiniGame) {
+            // tiktok
+            //@ts-ignore
+            const loadTask = tt.loadSubpackage({
+                name: 'packge1', // name 可以填 name 或者 root
+                success: function (res: any) {
+                    // 分包加载成功后通过 success 回调
+                    console.log("分包加载成功");
+
+                },
+                fail: function (res: any) {
+                    // 分包加载失败通过 fail 回调
+                    console.log("分包加载失败");
+                }
+            })
+
+            loadTask.onProgressUpdate((res: any) => {
+                console.log('下载进度', res.progress)
+                console.log('已经下载的数据长度', res.totalBytesWritten)
+                console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+            })
+
+        }
+```
+
+将脚本挂载到场景上即可。
