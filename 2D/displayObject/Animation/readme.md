@@ -135,7 +135,7 @@ const { regClass, property } = Laya;
 export class UI_Animation extends Laya.Script {
     //declare owner : Laya.Sprite3D;
 
-    @property()
+    @property( { type : String } )
     public text: string = "";
 
     constructor() {

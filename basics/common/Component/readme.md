@@ -32,19 +32,21 @@ export class MyScript extends Laya.Script {
 
 ```typescript
 //MyScript.ts
-const { regClass } = Laya;
+const { regClass, property } = Laya;
+
+import Animal from "./Animal";
 
 @regClass()
-export class MyScript extends Laya.Script {
-    @property(Animal)
+export class MyScript extends Laya.Script  {
+    @property({ type : Animal })
     animal : Animal;
 }
 //Animal.ts
-const { regClass } = Laya;
+const { regClass, property } = Laya;
 
 @regClass()
 export default class Animal {
-    @property(Number)
+    @property({ type : Number })
     weight : number;
 }
 ```
@@ -66,15 +68,34 @@ const { regClass, property } = Laya;
 
 @regClass()
 class Animal {
-    @property(Number)
+    @property({ type : Number })
     weight : number;
 }
 ```
+>@property(Number)是简写，推荐使用如上的标准写法，以下介绍时也将采用标准写法。
 
+property也可以用在getter上。如果只有getter，那这个属性是只读的，在编辑器上只显示，不能编辑；如果getter和setter都有，只需要将property装饰器用在getter上，属性即可读写。
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+class Animal {
+    private _weight: number = 0;
+    
+    @property( { type : Number } )
+    get weight() : number {
+        return this._weight;
+    }
+    
+    set weight(value: number) {
+        this._weight = value;
+    }
+}
+```
 使用规则：
 
-1. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( Laya.Sprite3D ) 或者 @property( { type:XXX, serializable: false });
-2. 属性名字是下划线开头的不会显示给用户编辑。如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false }); 
+1. 属性名字是下划线开头的不会显示给用户编辑。如果属性名是以下划线开头，但也想显示给用户编辑，可以：@property( { type:XXX, "private" : false });
+2. 如果属性只需要暴露给用户编辑，不需要序列化保存：@property( { type:XXX, serializable: false });
 3. 装饰器的参数一般为一个属性类型。可以使用的基本类型有：
    1. Number 或 "number"
    2. String 或 "string"
@@ -92,7 +113,7 @@ class Animal {
 
 ### 1.3 代码示例
 
-比如下面的脚本类：
+**1，一般用法示例，比如下面的脚本类：**
 
 ```typescript
 const { regClass, property } = Laya;
@@ -100,51 +121,53 @@ const { regClass, property } = Laya;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property({ type:Laya.Camera }) //Camera组件类型
+    @property( { type:Laya.Camera } ) //Camera组件类型
     private camera: Laya.Camera;  
 
-    @property({ type:Laya.Scene3D }) //Scene3D组件类型
+    @property( { type:Laya.Scene3D } ) //Scene3D组件类型
     private scene3D: Laya.Scene3D;
 
-    @property({ type:Laya.DirectionLightCom }) //DirectionLight组件类型
+    @property( { type:Laya.DirectionLightCom } ) //DirectionLight组件类型
     private directionLight: Laya.DirectionLightCom;
 
-    @property({ type:Laya.Sprite3D }) //Sprite3D节点类型
+    @property( { type:Laya.Sprite3D } ) //Sprite3D节点类型
     private cube: Laya.Sprite3D;  
 
-    @property({ type:Laya.Prefab }) //加载 Prefab 拿到的对象
+    @property( { type:Laya.Prefab } ) //加载 Prefab 拿到的对象
     private prefabFromResource: Laya.Prefab;    
 
-    @property({ type:Laya.ShurikenParticleRenderer }) //ShurikenParticleRenderer组件类型
+    @property( { type:Laya.ShurikenParticleRenderer } ) //ShurikenParticleRenderer组件类型
     private particle3D: Laya.ShurikenParticleRenderer;  
     
-    @property({ type:Laya.Node }) //节点类型
+    @property( { type:Laya.Node } ) //节点类型
     private scnen2D: Laya.Node; 
 
-    @property({ type:Laya.Box }) //拿到 Box 组件
+    @property( { type:Laya.Box } ) //拿到 Box 组件
     private box: Laya.Box; 
 
-    @property({ type:Laya.List }) //拿到 List 组件
+    @property( { type:Laya.List } ) //拿到 List 组件
     private list: Laya.List; 
 
-    @property({ type:Laya.Image }) //拿到 Image 组件
+    @property( { type:Laya.Image } ) //拿到 Image 组件
     private image: Laya.Image; 
 
-    @property({ type:Laya.Label }) //拿到 Label 组件
+    @property( { type:Laya.Label } ) //拿到 Label 组件
     private label: Laya.Label; 
 
-    @property({ type:Laya.Button }) //拿到 Button 组件
+    @property( { type:Laya.Button } ) //拿到 Button 组件
     private button: Laya.Button; 
 
-    @property({ type:Laya.Sprite }) //拿到 Sprite 组件
+    @property( { type:Laya.Sprite } ) //拿到 Sprite 组件
     private sprite: Laya.Sprite; 
 
-    @property({ type:Laya.Animation }) //拿到 Animation 组件
+    @property( { type:Laya.Animation } ) //拿到 Animation 组件
     private anmation: Laya.Animation; 
     
-    @property({ type:Laya.Vector3 }) //Laya.Vector3类型
+    @property( { type:Laya.Vector3 } ) //Laya.Vector3类型
     private vector3 : Laya.Vector3;
 
+    @property( { type:"string" } )  //string类型
+    private string : string;
 }
 ```
 
@@ -164,8 +187,8 @@ export class Main extends Laya.Script
 在自定义脚本类的上一行，加入@regClass()
 
 ```typescript
-@property(Laya.Sprite3D) //Sprite3D节点类型
-private cube: Laya.Sprite3D;  
+@property( { type :Laya.Sprite3D } ) //Sprite3D节点类型
+private cube: Laya.Sprite3D;
 ```
 
 在自定义属性的上一行，加入@property()，则可以在IDE暴露此属性，并拖入对应的节点或者组件，如图1-2所示
@@ -174,6 +197,94 @@ private cube: Laya.Sprite3D;
 
 （图1-2）
 
+
+**2，属性名字是下划线开头的不会显示给用户编辑，例如以下代码：**
+
+```typescript
+@property({ type: "number" })
+_velocity: number = 0;
+```
+>此时，velocity前是下划线，即使添加了装饰器也不能暴露在IDE中。
+
+```typescript
+@property({ type: "number", private: false })
+_velocity: number = 0;
+```
+>这样就又暴露在IDE中了。
+
+如果将private: false改为private: true，就可以让出现在IDE里的属性给隐藏掉。将此特点结合getter和setter，就可以对隐藏的属性进行读写。
+```typescript
+@property({ type: "number", private: true })
+velocity_1: number = 0;
+@property({ type: "number" })
+get velocity1() {
+    return this.velocity_1;
+}
+set velocity1(value: number) {
+    this.velocity_1 = value;
+}
+```
+>velocity_1本来暴露在IDE中，但private: true使其隐藏了，此时可以用getter和setter实现属性的读写。
+
+**3，属性只暴露给用户编辑，不序列化保存。**
+
+序列化保存的意义：在调试阶段，每次运行程序，仅仅是生成数据结构就要花很长的时间，花费的代价是非常大的。如果已经确定生成数据结构的算法不会变或不常变，那么就可以通过序列化将生成的数据结构数据存储到场景文件(文件后缀名为.ls)，下次重新运行程序时只需要从场景文件中读取该对象的数据即可，所花费时间也就读一个文件的时间，节省了编译时间。所以，一般建议在编程时，要进行序列化保存，这里只是更直观的展示序列化保存的意义。
+
+例如以下代码：
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class Main extends Laya.Script {
+    @property({ type: "string" })
+    _velocity: string = "";
+    @property({ type: "string" , serializable: false})
+    get velocity() {
+        return this._velocity + "米/每小时";
+    }
+    set velocity(value: string) {
+        this._velocity = value;
+    }
+    
+    onStart() {
+        console.log(this._velocity); 
+    }
+}
+```
+以上代码通过serializable: false没有进行序列化保存，若在IDE暴露的Velocity中输入"6米/每小时"，保存后，场景文件scene.ls中会保存以下信息：
+```typescript
+"_velocity": "6"
+```
+这存储的是_velocity的值。此时，IDE的运行结果，即打印的值为：6。
+
+如果_velocity不用装饰器：
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class Main extends Laya.Script {
+    _velocity: string = "";
+    @property({ type: "string" })
+    get velocity() {
+        return this._velocity + "米/每小时";
+    }
+    set velocity(value: string) {
+        this._velocity = value;
+    }
+
+    onStart() {
+        console.log(this._velocity); 
+    }
+}
+```
+
+以上代码进行了序列化保存，若在IDE暴露的Velocity中输入"6米/每小时"，保存后，场景文件scene.ls中会保存以下信息：
+
+```typescript
+"velocity": "6米/每小时"
+```
+
+这存储的是velocity()的return结果。此时，IDE的运行结果，即打印的值为：6米/每小时。
 
 
 ### 1.4 代码如何使用属性
@@ -193,7 +304,7 @@ private cube: Laya.Sprite3D;
 **1，节点类型方式**
 
 ```typescript
-    @property(Laya.Sprite3D) //节点类型
+    @property( { type :Laya.Sprite3D } ) //节点类型
     public p3d: Laya.Sprite3D;
 
     onAwake(): void {
@@ -204,14 +315,14 @@ private cube: Laya.Sprite3D;
     }
 ```
 
-通过暴露@property(Laya.Sprite3D)节点类型属性，来拖入particle节点，可以获得particle节点对象。transform可以直接修改，而simulationSpeed属性则通过getComponent(Laya.ShurikenParticleRenderer).particleSystem的方式获取
+通过暴露@property( { type :Laya.Sprite3D } )节点类型属性，来拖入particle节点，可以获得particle节点对象。transform可以直接修改，而simulationSpeed属性则通过getComponent(Laya.ShurikenParticleRenderer).particleSystem的方式获取
 
 
 
 **2，组件类型方式**
 
 ```typescript
-    @property(Laya.ShurikenParticleRenderer) //组件类型
+    @property( { type : Laya.ShurikenParticleRenderer } ) //组件类型
     public p3dRenderer: Laya.ShurikenParticleRenderer;
 
     onAwake(): void {
@@ -221,14 +332,14 @@ private cube: Laya.Sprite3D;
     }
 ```
 
-通过暴露@property(Laya.ShurikenParticleRenderer)组件类型属性，来拖入particle节点，可以获得particle的ShurikenParticleRenderer组件。transform可以通过(this.p3dRenderer.owner as Laya.Sprite3D)修改，而simulationSpeed属性则通过this.p3dRenderer.particleSystem的方式获取
+通过暴露@property( { type : Laya.ShurikenParticleRenderer } )组件类型属性，来拖入particle节点，可以获得particle的ShurikenParticleRenderer组件。transform可以通过(this.p3dRenderer.owner as Laya.Sprite3D)修改，而simulationSpeed属性则通过this.p3dRenderer.particleSystem的方式获取
 
 
 
 **3，不支持的类型**
 
 ```typescript
-    @property(Laya.ShuriKenParticle3D) //不支持的类型
+    @property( { type : Laya.ShuriKenParticle3D } ) //不支持的类型
     public p3d: Laya.ShuriKenParticle3D;
 
     onAwake(): void {
@@ -240,10 +351,9 @@ private cube: Laya.Sprite3D;
 
 不能通过直接使用Laya.ShuriKenParticle3D作为属性类型，IDE无法识别，只有节点和组件类型可以识别
 
-报错信息：*[Game] Uncaught (in promise) TypeError: Cannot set properties of undefined (setting 'simulationSpeed')*
 
 ```typescript
-    @property(Laya.Sprit3D)
+    @property( { type : Laya.Sprite3D } )
     public p3d: Laya.ShuriKenParticle3D; //无法转换成Laya.ShuriKenParticle3D
 
     onAwake(): void {
@@ -264,7 +374,7 @@ private cube: Laya.Sprite3D;
 当使用Laya.Prefab作为属性时，例如
 
 ```typescript
-@property(Laya.Prefab) //加载 Prefab 的对象
+@property( { type : Laya.Prefab } ) //加载 Prefab 的对象
 private prefabFromResource: Laya.Prefab;    
 ```
 
@@ -480,9 +590,9 @@ import Event = Laya.Event;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property(Laya.Button)
+    @property( { type : Laya.Button } )
     private btn_1: Button;  
-    @property(Laya.Sprite3D)
+    @property( { type : Laya.Sprite3D } )
     private p_1 : Sprite3D;                
 
     private particleList: Array<Sprite3D> = [];
@@ -537,7 +647,7 @@ const { regClass, property } = Laya;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property()
+    @property( { type : Laya.Sprite3D } )
     cube : Laya.Sprite3D;
 
     private rotation: Laya.Vector3 = new Laya.Vector3(0, 0.01, 0);
@@ -695,13 +805,13 @@ export class Main extends Laya.Script {
 下面举一些例子说明：
 
 ```typescript
-@property(String)
+@property( { type : String } )
 a : string;
 
-@property(Laya.Vector3)
+@property( { type : Laya.Vector3 } )
 b : Laya.Vector3;
 
-@property(Animal)
+@property( { type : Animal } )
 c : Animal; //沿用上个例子，Animal已经被regClass
 
 enum TestEnum {
@@ -709,7 +819,7 @@ enum TestEnum {
     B,
     C
 };
-@property(TestEnum)
+@property( { type : TestEnum } )
 d : TestEnum; //枚举类型，会显示为下拉框供用户选择
 
 enum StringEnum {
@@ -717,34 +827,34 @@ enum StringEnum {
     B = "b",
     C = "c"
 };
-@property({ type: StringEnum })
-e : StringEnum; //对于字符串形式的枚举，不能使用@property(StringEnum),必须用集合里的type参数指定
+@property( { type: StringEnum } )
+e : StringEnum; //对于字符串形式的枚举，不能使用简写@property(StringEnum),必须用集合里的type参数指定
 
-@property([Number])
+@property( { type : [Number] } )
 f : number[]; //数组，用中括号包含数组元素类型
 
-@property(["Record", String])
+@property( { type : ["Record", String] } )
 g : Record<string, string>; //字典，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
 
-@property("any")
+@property( { type : "any" } )
 h : any; //any类型只会被序列化，不能显示和编辑。
 
-@property("int")
+@property( { type : "int" } )
 i : number; //int等价于 { type: Number, fractionDigits: 0 }
 
-@property("uint")
+@property( { type : "uint" } )
 j : number; //uint等价于 { type: Number, fractionDigits: 0 , min: 0 }
 
-@property("text")
-k : string; //text等价于 { type: string, multiline: true }
+@property( { type : "text" } )
+k : string; //text等价于 { type: String, multiline: true }
 ```
 
 property的参数也可以是一个描述属性详细属性的集合。可以实现丰富的样式控制。下面举一些例子，更多内容可参考装饰器注释。
 
 ```typescript
 //设置标题
-@property({ type: String, caption: "速度" })
-a : velecity : string;
+@property({ type: String, caption: "速度", tips: "设置速度" })
+a : string;
 
 //显示为下拉框
 @property({ type: Number, enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
@@ -795,41 +905,41 @@ enum StringEnum {
 @regClass()
 export class Property extends Laya.Script {
 
-    @property(String)
+    @property( { type : String } )
     a : string;
     
-    @property(Laya.Vector3)
+    @property( { type : Laya.Vector3 } )
     b : Laya.Vector3;
     
-    @property(Animal)
+    @property( { type : Animal } )
     c : Animal; //沿用上个例子，Animal已经被regClass
     
-    @property(TestEnum)
+    @property( { type : TestEnum } )
     d : TestEnum; //枚举类型，会显示为下拉框供用户选择
 
     @property({ type: StringEnum })
     e : StringEnum; //对于字符串形式的枚举，不能使用@property(StringEnum),必须用集合里的type参数指定
     
-    @property([Number])
+    @property( { type : [Number] } )
     f : number[]; //数组，用中括号包含数组元素类型
     
-    @property(["Record", String])
+    @property( { type : ["Record", String] } )
     g : Record<string, string>; //字典，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
     
-    @property("any")
+    @property( { type : "any" } )
     h : any; //any类型只会被序列化，不能显示和编辑。
     
-    @property("int")
+    @property( { type : "int" } )
     i : number; //int等价于 { type: Number, fractionDigits: 0 }
     
-    @property("uint")
+    @property( { type : "uint" } )
     j : number; //uint等价于 { type: Number, fractionDigits: 0 , min: 0 }
     
-    @property("text")
+    @property( { type : "text" } )
     k : string; //text等价于 { type: string, multiline: true }
 
     //设置标题
-    @property({ type: String, caption: "速度" })
+    @property({ type: String, caption: "速度", tips: "设置速度" })
     l : string;
 
     //显示为下拉框
@@ -864,7 +974,7 @@ const { regClass, property } = Laya;
 
 @regClass()
 export default class Animal {
-    @property(Number)
+    @property( { type : Number } )
     weight : number;
 }
 
