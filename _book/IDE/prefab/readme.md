@@ -189,7 +189,7 @@ const { regClass, property } = Laya;
 export class ScriptA extends Laya.Script {
     //declare owner : Laya.Sprite3D;
 
-    @property()
+    @property( { type: Laya.Box } )
     private box: Laya.Box;
 
     constructor() {
@@ -249,10 +249,10 @@ const { regClass, property } = Laya;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property()
-    private camera: camera;  
-    @property()
-    private scene: Scene3D;
+    @property( { type : Laya.Camera } )
+    private camera: Laya.Camera;  
+    @property( { type : Laya.Scene3D } )
+    private scene: Laya.Scene3D;
 
     onStart() {
         console.log("Game start");
