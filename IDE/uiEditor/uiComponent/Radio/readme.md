@@ -50,14 +50,14 @@ Radio与RadioGroup不同的是Radio并不能通过修改lable属性来增加单�
 
 （动图5）
 
-```
+```typescript
 const { regClass, property } = Laya;
 
 @regClass()
 export class UI_Radio extends Laya.Script {
     //declare owner : Laya.Sprite3D;
 
-    @property()
+    @property( { type : String } )
     public text: string = "";
 
     constructor() {

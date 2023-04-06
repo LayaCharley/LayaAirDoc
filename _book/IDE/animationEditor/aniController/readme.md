@@ -706,9 +706,9 @@ const { regClass, property } = Laya;
 
 @regClass()
 export class Main extends Laya.Script {
-    @property()
+    @property( { type: Laya.Label } )
     private label: Laya.Label;  
-    @property()
+    @property( { type: Laya.Sprite3D } )
     private target: Laya.Sprite3D; 
 
     private animator : Laya.Animator;

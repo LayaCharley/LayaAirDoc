@@ -300,7 +300,7 @@ const { regClass, property } = Laya;
 @regClass()
 export class Script extends Laya.Script {
     //属性上面有了@property()，才会被识别为IDE里可暴露的属性，每一个属性只要需要暴露，上面就都需要加上@property()。
-    @property()
+    @property( { type : String } )
     public text: string = "";
 
     constructor() {

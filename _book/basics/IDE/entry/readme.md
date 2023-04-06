@@ -96,8 +96,8 @@ const { regClass, property } = Laya;
 @regClass()
 export class Main extends Laya.Script {
 
-    @property()
-    private img: Laya.Image;      
+    @property({ type:Laya.Image })
+    img: Laya.Image;      
 
     onStart() {
         console.log("Game start");

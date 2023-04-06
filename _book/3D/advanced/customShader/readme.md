@@ -395,9 +395,9 @@ Shader3D End
 
 | 描述                       | 通道                               |
 | :------------------------- | :--------------------------------- |
-| 顶点在投影空间下的位置     | VertexMesh.MESH_POSITION0          |
-| 顶点在视图坐标系下的法向量 | VertexMesh.MESH_NORMAL0            |
-| 切向量                     | VertexMesh.MESH_TANGENT0           |
+| 顶点在模型空间下的位置     | VertexMesh.MESH_POSITION0          |
+| 顶点在模型空间下的法向量 | VertexMesh.MESH_NORMAL0            |
+| 模型空间的切向量                     | VertexMesh.MESH_TANGENT0           |
 | 第一个uv坐标               | VertexMesh.MESH_TEXTURECOORDINATE0 |
 | 第二个uv坐标               | VertexMesh.MESH_TEXTURECOORDINATE1 |
 | 骨骼权重                   | VertexMesh.MESH_BLENDWEIGHT0       |
@@ -434,13 +434,13 @@ GLSL的变量类型跟uniformMap存在部分重合的内容，LayaAir引擎的Sh
 
 ### 6.1 **常见的变量类型**
 
-| 变量类型             | 说明                         | Cocos Effect 中的默认值                          |
+| 变量类型             | 说明                         | LayaAir 中的默认值                          |
 | :------------------- | :--------------------------- | :----------------------------------------------- |
 | bool                 | 布尔型标量数据类型           | false                                            |
 | float/vec2/vec3/vec4 | 包含 1，2，3，4 个浮点型向量 | 0/[0, 0]/[0, 0, 0]/[0, 0, 0, 0]                  |
 | sampler2D            | 表示 2D 纹理                 | “white”                                          |
-| samplerCube          | 表示立方体纹理               | **default-cube**                                 |
-| mat4                 | 表示 4x4 的矩阵              | [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] |
+| samplerCube          | 表示立方体纹理               |                                                   |
+| mat4                 | 表示 4x4 的矩阵              |                                                  |
 
 ### **6.2 常见的向量类型**
 

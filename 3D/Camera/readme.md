@@ -53,8 +53,11 @@
 我们可以通过代码来处理，在Main Camera节点下添加CameraControll 脚本，随着主角的移动，摄像机的位置也同步移动，如下
 
 ```typescript
+const { regClass, property } = Laya;
+
+@regClass()
 export default class CameraControll extends Laya.Script {
-    @property()
+    @property( { type: Laya.Sprite3D } )
     public target: Laya.Sprite3D;
     private camera: Laya.Camera;
     public distanceUp: number = 0.5;//相机与目标的竖直高度参数
@@ -75,27 +78,28 @@ export default class CameraControll extends Laya.Script {
         this.curpos = new Laya.Vector3();
     }
 
-
-
     /**
-     * 通过此脚本来获得摄像机
+     * 第一次执行update之前执行，只会执行一次
+     * 此方法为虚方法，使用时重写覆盖即可
      */
     onStart(): void {
-        this.camera = this.owner as Laya.Camera;elatpos = new Laya.Vector3();
+        this.camera = this.owner as Laya.Camera;
+        if (this.target) {
+            this.target.transform.position.cloneTo(this.curpos);
+            this.delatpos = new Laya.Vector3();
+        }
     }
 
-
     /**
-     * 每帧更新时执行，通过主角的位置来修改摄像机的位置
+     * 每帧更新时执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
+     * 此方法为虚方法，使用时重写覆盖即可
      */
     onUpdate(): void {
         if (!this.target || !this.camera) return;
         this.target.transform.position.vsub(this.curpos, this.delatpos);
         this.camera.transform.position.vadd(this.delatpos, this.delatpos);
         this.camera.transform.position = this.delatpos;
-
         this.target.transform.position.cloneTo(this.curpos);
-
     }
 
 }
@@ -399,11 +403,11 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
 ```typescript
     //CameraControll.ts类脚本中，添加3个节点对象，把3个不同的房子建筑拖入到属性中
-    @property()
+    @property( { type: Laya.Sprite3D } )
     public target1: Laya.Sprite3D;
-    @property()
+    @property({ type: Laya.Sprite3D })
     public target2: Laya.Sprite3D;
-    @property()
+    @property({ type: Laya.Sprite3D })
     public target3: Laya.Sprite3D;   
     private _up = new Laya.Vector3(0, 1, 0);    
 ```
