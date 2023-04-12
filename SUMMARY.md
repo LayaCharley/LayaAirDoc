@@ -52,7 +52,7 @@
       - [UI组件详解](IDE/uiEditor/uiComponent/readme.md)
         * [图像组件](IDE/uiEditor/uiComponent/Image/readme.md)
         * [显示文本组件](IDE/uiEditor/uiComponent/Label/readme.md)
-        - [输入文本组件](IDE/uiEditor/uiComponent/textInput/readme.md)
+        - [输入文本组件](IDE/uiEditor/uiComponent/TextInput/readme.md)
           * [多行输入文本组件](IDE/uiEditor/uiComponent/TextArea/readme.md)
         - [位图切片组件](IDE/uiEditor/uiComponent/Clip/readme.md)
           * [字体切片组件](IDE/uiEditor/uiComponent/FontClip/readme.md)
