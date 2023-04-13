@@ -92,9 +92,9 @@
 
  （图12）   
 
-<img src="../../../AppData/Roaming/Typora/typora-user-images/image-20221103151725963.png" alt="image-20221103151725963" style="zoom:50%;" /> 
+ ![](images/13.png) 
 
- （图13）    
+（图13）
 
 建议在一个模块功能销毁之前，清理定时器或者清除所有的定时器
 
