@@ -3,6 +3,10 @@
 ## 一、关于插件
 采用Unity插件方案的主要原因，主要是为了支持开发者在Unity资源商城中购买的资源可以无感的迁移到LayaAir IDE中进行相关的开发工作，Unity资源商城拥有一定数量的精美且高质量的美术资源，采用Untiy资源导出插件能将这些精美的美术资源迁移到LayaAir引擎的IDE中进行开发，对一些小而美的团队来说无疑是一种无形的帮助，更可以让有Unity经验的优质开发者可以更低学习成本进入HTML5和小游戏产业中来。
 
+插件的下载地址：https://github.com/layabox/LayaAir3.0UnityPlugin/releases
+
+![](img/2023-04-13-14-19-15.png)
+>直接下载Unity的资源包即可。
 
 
 ## 二、导入LayaAir的Unity插件
@@ -272,26 +276,20 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 对于模型的材质，这里我们介绍一下常见支持的材质类型。
 
-| **Build in 管线**                      |                                              |
-| -------------------------------------- | -------------------------------------------- |
-|                                        | Standard 材质                                |
-|                                        | Ulit Color/Texture/Cut Out/ Transparent 材质 |
-|                                        |                                              |
-| **URP 管线**                           |                                              |
-|                                        | URP Lit材质                                  |
-|                                        | URP Ulit材质                                 |
-|                                        |                                              |
-| **天空盒**                             |                                              |
-|                                        | Procedural 程序化天空盒                      |
-|                                        | 6  Sideed                                    |
-|                                        | Panoramic 全景图                             |
-|                                        |                                              |
-| **旧版着色器（只做兼容考虑, 不建议）** |                                              |
-|                                        | Diffuse Fast                                 |
-|                                        | Diffuse                                      |
-|                                        | Diffuse Detail                               |
-|                                        | Bumped Diffuse                               |
-|                                        | Bumped Specular                              |
+|              **分类**              |                   **材质**                   |
+| :--------------------------------: | :------------------------------------------: |
+|           Build in 管线            |                Standard 材质                 |
+|                                    | Ulit Color/Texture/Cut Out/ Transparent 材质 |
+|              URP 管线              |                 URP Lit材质                  |
+|                                    |                 URP Ulit材质                 |
+|               天空盒               |           Procedural 程序化天空盒            |
+|                                    |                   6 Sideed                   |
+|                                    |               Panoramic 全景图               |
+| 旧版着色器（只做兼容考虑, 不建议） |                 Diffuse Fast                 |
+|                                    |                   Diffuse                    |
+|                                    |                Diffuse Detail                |
+|                                    |                Bumped Diffuse                |
+|                                    |               Bumped Specular                |
 
 > 除了上述提供的材质Shader外，Unity里的其他材质，都不能在LayaAir引擎中使用。
 
@@ -367,7 +365,8 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 导出之后只需在IDE中打开其中的`.ls`文件，即可加载场景。
 
-打开场景后，看到的可能并不是我们想要的效果，还需要选中场景后点击`烘培`按钮。完成之后就是我们想要的效果了。
+打开场景后，导出的场景并不具有环境光sh信息，需要找到在Scene3D层级下的烘焙开关，点击`烘培`，对当前场景的环境光sh数据进行预计算，
+这样烘焙完成后的效果就是我们想要的效果了。
 
 ![](img/2023-04-01-15-02-55.png)
 
