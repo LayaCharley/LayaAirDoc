@@ -272,26 +272,20 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 对于模型的材质，这里我们介绍一下常见支持的材质类型。
 
-| **Build in 管线**                      |                                              |
-| -------------------------------------- | -------------------------------------------- |
-|                                        | Standard 材质                                |
-|                                        | Ulit Color/Texture/Cut Out/ Transparent 材质 |
-|                                        |                                              |
-| **URP 管线**                           |                                              |
-|                                        | URP Lit材质                                  |
-|                                        | URP Ulit材质                                 |
-|                                        |                                              |
-| **天空盒**                             |                                              |
-|                                        | Procedural 程序化天空盒                      |
-|                                        | 6  Sideed                                    |
-|                                        | Panoramic 全景图                             |
-|                                        |                                              |
-| **旧版着色器（只做兼容考虑, 不建议）** |                                              |
-|                                        | Diffuse Fast                                 |
-|                                        | Diffuse                                      |
-|                                        | Diffuse Detail                               |
-|                                        | Bumped Diffuse                               |
-|                                        | Bumped Specular                              |
+|              **分类**              |                   **材质**                   |
+| :--------------------------------: | :------------------------------------------: |
+|           Build in 管线            |                Standard 材质                 |
+|                                    | Ulit Color/Texture/Cut Out/ Transparent 材质 |
+|              URP 管线              |                 URP Lit材质                  |
+|                                    |                 URP Ulit材质                 |
+|               天空盒               |           Procedural 程序化天空盒            |
+|                                    |                   6 Sideed                   |
+|                                    |               Panoramic 全景图               |
+| 旧版着色器（只做兼容考虑, 不建议） |                 Diffuse Fast                 |
+|                                    |                   Diffuse                    |
+|                                    |                Diffuse Detail                |
+|                                    |                Bumped Diffuse                |
+|                                    |               Bumped Specular                |
 
 > 除了上述提供的材质Shader外，Unity里的其他材质，都不能在LayaAir引擎中使用。
 
@@ -367,7 +361,8 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 导出之后只需在IDE中打开其中的`.ls`文件，即可加载场景。
 
-打开场景后，看到的可能并不是我们想要的效果，还需要选中场景后点击`烘培`按钮。完成之后就是我们想要的效果了。
+打开场景后，导出的场景并不具有环境光sh信息，需要找到在Scene3D层级下的烘焙开关，点击`烘培`，对当前场景的环境光sh数据进行预计算，
+这样烘焙完成后的效果就是我们想要的效果了。
 
 ![](img/2023-04-01-15-02-55.png)
 
