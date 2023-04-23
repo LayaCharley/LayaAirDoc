@@ -10,7 +10,7 @@
 - **UI组件脚本和自定义组件脚本的区别**
 - **UI组件脚本和自定义组件脚本混合使用的高级用法**
 
-本篇之前已经介绍了所有的[UI小部件](https://layaair.layabox.com/3.x/doc/IDE/uiEditor/widgets/readme.html)，并且在[《ECS组件系统》](https://layaair.layabox.com/3.x/doc/basics/common/Component/readme.html)中讲解了自定义的组件脚本管理UI小部件的方式。其实还有一种UI管理方式，就是之前在[《项目入口说明》](https://layaair.layabox.com/3.x/doc/basics/IDE/entry/readme.html)中和自定义组件脚本一起介绍的**UI组件脚本**，虽然已经告诉大家它在IDE中创建的方式，但是并没有介绍在哪种情况下使用这种方式，所以我们先来聊一聊2D开发UI过程中会遇到的情况，再引入UI组件脚本的深入讲解。
+本篇之前已经介绍了所有的[UI小部件](../widgets/readme.md)，并且在[《ECS组件系统》](../../../basics/common/Component/readme.md)中讲解了自定义的组件脚本管理UI小部件的方式。其实还有一种UI管理方式，就是之前在[《项目入口说明》](../../../basics/IDE/entry/readme.md)中和自定义组件脚本一起介绍的**UI组件脚本**，虽然已经告诉大家它在IDE中创建的方式，但是并没有介绍在哪种情况下使用这种方式，所以我们先来聊一聊2D开发UI过程中会遇到的情况，再引入UI组件脚本的深入讲解。
 
 
 
@@ -48,39 +48,65 @@
 
 ## 二、UI继承类
 
-UI组件脚本只能添加在Scene2D节点或2D预制体根节点的“属性设置”面板上的Runtime入口。如果添加在Scene2D上，它的父类就继承于Laya.Scene；如果添加在2D预制体的根节点，它的父类就继承于UI小部件的类（根据2D预制体根节点的节点类型而定）。因此，UI组件脚本就是**UI继承类**，也叫做 Runtime 类，可以对场景或预制体内部所有UI组件进行方便的管理。
+UI组件脚本只能添加在Scene2D节点或2D预制体根节点的属性设置面板上的Runtime入口。如果添加在Scene2D上，它的父类就继承于Laya.Scene；如果添加在2D预制体的根节点，它的父类就继承于UI小部件的类（根据2D预制体根节点的节点类型而定）。因此，UI组件脚本就是**UI继承类**，也叫做 Runtime 类，可以对场景或预制体内部所有UI组件进行方便的管理。
 
-在[《项目入口说明》](https://layaair.layabox.com/3.x/doc/basics/IDE/entry/readme.html)中已经介绍了IDE中创建UI组件脚本，下面介绍它的使用。
+在[《项目入口说明》](../../../basics/IDE/entry/readme.md)中已经介绍了IDE中创建UI组件脚本，下面介绍它的使用。
 
 
 
-### 2.1 勾选UI组件声明
+### 2.1 IDE自动生成代码
 
-在UI组件脚本中管理UI组件，需要先关联UI组件。
-
-新建一个场景，创建一个UI组件脚本，并在场景中先添加几个UI组件（如图2-1）。
+如图2-1所示，创建UI组件脚本以后，除了生成`RuntimeScript.ts`之外，在项目工程中看到还多了一个 `RuntimeScript.generated.ts`。
 
 ![2-1](img/2-1.png)
 
 （图2-1）
 
-要想管理这几个UI组件，需要对这些组件勾选 `定义变量` 选项，如动图2-2所示。
+图2-2展示了`RuntimeScript.ts`默认生成的代码，其类名RuntimeScript就是创建时的文件名，它在生成时自动继承于RuntimeScriptBase 类。
 
-![2-2](img/2-2.gif)
+![2-2](img/2-2.png)
 
-（动图2-2）
+（图2-2）
 
-勾选 `定义变量` 选项后，**保存场景**，此时IDE会自动识别出组件的声明有变化，再看 `RuntimeScript.generated.ts` 代码（如图2-3），多了几个属性，正是对应于刚刚勾选的组件。
+图2-3展示了`RuntimeScript.generated.ts`默认生成的代码，这个类的名字为RuntimeScriptBase ，它继承了“Laya.Scene”，说明它是有场景管理能力的。
 
-![2-3](img/2-3.png) 
+![2-3](img/2-3.png)
 
-（图2-3） 
+（图2-3）
+
+> **注意：请不要修改这个代码，随着我们开发过程中不断添加新的UI组件、删除UI组件，这个代码会自动更新。**
+>
+> 这个类是以runtime类名字xxx为基础进行命名，命名后的文件名就是xxx.generated.ts，类名为xxxBase。
+
+
+
+### 2.2 勾选UI组件声明
+
+在UI组件脚本中管理UI组件，需要先关联UI组件。
+
+新建一个场景，创建一个UI组件脚本，并在场景中先添加几个UI组件（如图2-4）。
+
+![2-4](img/2-4.png)
+
+（图2-4）
+
+要想管理这几个UI组件，需要对这些组件勾选 `定义变量` 选项，如动图2-5所示。
+
+![2-5](img/2-5.gif)
+
+（动图2-5）
+
+勾选 `定义变量` 选项后，**保存场景**，此时IDE会自动识别出组件的声明有变化，再看 `RuntimeScript.generated.ts` 代码（如图2-6），多了几个属性，正是对应于刚刚勾选的组件。
+
+ ![2-6](img/2-6.png)
+
+（图2-6） 
 
 通过这样操作，UI组件和代码就自动关联了。
 
 
 
-### 2.2 代码中使用UI组件
+### 2.3 代码中使用UI组件
 
 此时，我们可以在UI组件脚本中，使用此场景中已经勾选过的UI组件，直接使用`this.`即可使用。例如下面的代码：
 
@@ -94,11 +120,11 @@ UI组件脚本只能添加在Scene2D节点或2D预制体根节点的“属性设
     }
 ```
 
-运行此场景来看看效果，如动图2-4所示。
+运行此场景来看看效果，如动图2-7所示。
 
-![2-4](img/2-4.gif)
+![2-7](img/2-7.gif)
 
-（动图2-4） 
+（动图2-7） 
 
 UI组件脚本就已经介绍完了，再复杂的UI都可以通过勾选组件声明，让IDE自动创建关联关系，提供给 Runtime 类来使用。不需要像自定义组件脚本的方式建立关联关系，因此**UI组件脚本在管理场景方面会更加方便**。
 
@@ -194,7 +220,7 @@ UI组件脚本如果添加在Scene2D上，它的父类就继承于Laya.Scene（�
 
 ### 4.1 简单用法
 
-在上述示例中（图2-1），已经在Scene场景中创建好了UI组件脚本，而后添加的代码如图4-1所示。
+在上述示例中（图2-4），已经在Scene场景中创建好了UI组件脚本，而后添加的代码如图4-1所示。
 
 ![4-1](img/4-1.png)
 
@@ -236,7 +262,7 @@ export class NewScript extends Laya.Script {
 
 > ui 属性直接从脚本中通过 `this.owner.scene as RuntimeScript` 这句代码拿到了Runtime对象，那么Runtime下的UI组件也就可以直接获取了（this.ui.）。
 
-将图4-1添加的“Button添加鼠标事件”代码注释后，运行项目，效果依然是动图2-4所展示的效果。说明以上这段代码的运行效果与图4-1所示代码的运行效果是一致的。通过UI组件脚本和自定义组件脚本的混合使用，开发者可以在自定义组件脚本中方便的使用UI组件了。
+将图4-1添加的“Button添加鼠标事件”代码注释后，运行项目，效果依然是动图2-7所展示的效果。说明以上这段代码的运行效果与图4-1所示代码的运行效果是一致的。通过UI组件脚本和自定义组件脚本的混合使用，开发者可以在自定义组件脚本中方便的使用UI组件了。
 
 
 
@@ -258,7 +284,7 @@ export class NewScript extends Laya.Script {
 
 （动图4-4）
 
-接下来，我们需要把Button_Scene中的Button1，Button2，Button3都勾选`定义变量`属性，然后保存场景。这个操作和动图2-2类似，就不再详细介绍了。
+接下来，我们需要把Button_Scene中的Button1，Button2，Button3都勾选`定义变量`属性，然后保存场景。这个操作和动图2-5类似，就不再详细介绍了。
 
 最后，我们还需要给Button_Scene再添加一个自定义的组件脚本，命名为“ButtonScript.ts”，如图4-5所示。
 
@@ -272,7 +298,7 @@ export class NewScript extends Laya.Script {
 
 在上述操作后，两个场景都有UI组件脚本和自定义组件脚本了，那么如何做统一处理呢？我们发现Runtime类是用来关联UI组件的，因为它们都是继承于各自生成的脚本（RuntimeScript继承于RuntimeScriptBase、ButtonRuntime继承于ButtonRuntimeBase），就不能再统一继承某个类了。
 
-而自定义的组件脚本类（NewScript、ButtonScript）都继承自Laya.Script，那么我们再多继承一层，让NewScript和ButtonScript都继承自一个新的类“Main”（这个类就是创建项目时默认生成的Main.ts），Main类再继承自Laya.Script（图4-6），从而实现统一处理的目的。
+而自定义的组件脚本类（NewScript、ButtonScript）都继承自Laya.Script，那么我们再多继承一层，可以让NewScript和ButtonScript都继承自一个新的类“Main”（这个类就是创建项目时默认生成的Main.ts），Main类再继承自Laya.Script（图4-6），从而实现统一处理的目的。
 
 ![4-6](img/4-6.png)
 
