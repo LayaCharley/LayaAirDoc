@@ -20,7 +20,7 @@
       * [IDE快捷键与鼠标交互操作大全](basics/IDE/shortcutKeyCombinations/readme.md)
     - [引擎通用基础](basics/common/readme.md)
       * [引擎基础概念](basics/common/terms/readme.md)
-      * [ECS组件系统](basics/common/Component/readme.md)
+      * [实体组件系统](basics/common/Component/readme.md)
       * [资源加载](basics/common/Loader/readme.md)
       * [场景管理](basics/common/Scene/readme.md)
       * [节点管理](basics/common/Node/readme.md)
