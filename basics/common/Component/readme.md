@@ -8,7 +8,7 @@ ECS是Entity-Component-System（实体-组件-系统）的简写，这是一种�
 
 LayaAir的ECS，将场景中每一个有着唯一ID的显示对象节点都被看做一个个的实体。每一个实体都可以为其添加一个或多个不同的组件系统脚本。
 
-在这里，组件系统是组件与系统两个组成部分，组件只包含数据，不包含逻辑，游戏对象的逻辑行为由系统控制，所以系统是实体的逻辑控制部分，组件是系统与外界的数据接口部分。LayaAir通过装饰器将接口暴露在IDE中，方便开发者直观的传入数据。引擎为组件系统提供的生命周期方法与的事件方法可以作为系统逻辑控制的入口。
+在这里，组件系统是组件与系统两个组成部分，组件只包含数据，不包含逻辑，游戏对象的逻辑行为由系统控制，所以系统是实体的逻辑控制部分，组件是系统与外界的数据接口部分。LayaAir通过装饰器将接口暴露在IDE中，方便开发者直观的传入数据。引擎为组件系统提供的生命周期方法与事件方法可以作为系统逻辑控制的入口。
 
 开发者通过继承引擎的组件脚本类`Laya.Script`，可以实现组件系统脚本的完整功能，**我们通常将组件系统脚本简称为组件脚本**。然后通过IDE或者代码的方式添加到实体上，实现完整的ECS功能。
 
@@ -18,141 +18,171 @@ LayaAir的ECS，将场景中每一个有着唯一ID的显示对象节点都被�
 
 ## 二、组件脚本的内置方法
 
-继承引擎的组件脚本类`Laya.Script`之后，就可以直接使用引擎为组件脚本内置的生命周期方法与事件方法，这些方法可以用于组件脚本逻辑的执行入口。如下图所示：
+继承引擎的组件脚本类`Laya.Script`之后，就可以直接使用引擎为组件脚本提供内置的生命周期方法与事件方法，这些方法可以用于组件脚本逻辑的执行入口。如下图所示：
 
-![]()
+![2-1](images/2-1.png)
+
+（图2-1）组件脚本的生命周期方法
+
+
 
 ### 2.1 组件的生命周期方法
 
 生命周期方法是指在物体的创建、销毁、激活、禁用等过程中，会自动调用的方法。当使用自定义的组件脚本时，可以实现如下生命周期方法，方便快速开发业务逻辑。可以在每个方法中打印一条日志，方便开发者进行测试。
 
+| 名称         | 条件                                                         |
+| ------------ | ------------------------------------------------------------ |
+| onAdded      | 被添加到节点后调用，和Awake不同的是即使节点未激活onAdded也会调用 |
+| onReset      | 重置组件参数到默认值，如果实现了这个函数，则组件会被重置并且自动回收到对象池，方便下次复用。如果没有重置，则不进行回收复用 |
+| onAwake      | 组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次 |
+| onEnable     | 组件被启用后执行，比如节点被添加到舞台后                     |
+| onStart      | 第一次执行onUpdate之前执行，只会执行一次                     |
+| onUpdate     | 每帧更新时执行，尽量不要在这里写大循环逻辑或者使用getComponent方法 |
+| onLateUpdate | 每帧更新时执行，在onUpdate之后执行，尽量不要在这里写大循环逻辑或者使用getComponent方法 |
+| onPreRender  | 渲染之前执行                                                 |
+| onPostRender | 渲染之后执行                                                 |
+| onDisable    | 组件被禁用时执行，比如从节点从舞台移除后                     |
+| onDestroy    | 手动调用节点销毁时执行                                       |
+
+在代码中的使用如下：
+
 ```typescript
-    /**
-     * 被添加到节点后调用，和Awake不同的是即使节点未激活onAdded也会调用。
-     */
+	//被添加到节点后调用，和Awake不同的是即使节点未激活onAdded也会调用
     onAdded(): void {
         console.log("Game onAdded");
     }
 
-    /**
-     * 重置组件参数到默认值，如果实现了这个函数，则组件会被重置并且自动回收到对象池，方便下次复用
-     * 如果没有重置，则不进行回收复用
-     */
-    onReset(): void{
+    //重置组件参数到默认值，如果实现了这个函数，则组件会被重置并且自动回收到对象池，方便下次复用。如果没有重置，则不进行回收复用
+    onReset(): void {
         console.log("Game onReset");
     }
 
-    /**
-     * 组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次
-     */
+    //组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次
     onAwake(): void {
         console.log("Game onAwake");
     }
 
-    /**
-     * 组件被启用后执行，比如节点被添加到舞台后
-     */
+    //组件被启用后执行，比如节点被添加到舞台后
     onEnable(): void {
         console.log("Game onEnable");
     }
 
-    /**
-     * 第一次执行update之前执行，只会执行一次
-     */
-    onStart?(): void {
+    //第一次执行update之前执行，只会执行一次
+    onStart(): void {
         console.log("Game onStart");
     }
 
-    /**
-     * 每帧更新时执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
-     */
-     onUpdate(): void{
+    //每帧更新时执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
+    onUpdate(): void {
         console.log("Game onUpdate");
     }
 
-    /**
-     * 每帧更新时执行，在update之后执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
-     */
-   onLateUpdate(): void{
+    //每帧更新时执行，在update之后执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
+    onLateUpdate(): void {
         console.log("Game onLateUpdate");
     }
 
-    /**
-     * 渲染之前执行
-     */
-    onPreRender(): void{
+    //渲染之前执行
+    onPreRender(): void {
         console.log("Game onPreRender");
     }
 
-    /**
-     * 渲染之后执行
-     */
-    onPostRender(): void{
+    //渲染之后执行
+    onPostRender(): void {
         console.log("Game onPostRender");
     }
 
-    /**
-     * 组件被禁用时执行，比如从节点从舞台移除后
-     */
+    //组件被禁用时执行，比如从节点从舞台移除后
     onDisable(): void {
         console.log("Game onDisable");
     }
 
-    /**
-     * 手动调用节点销毁时执行
-     */
+    //手动调用节点销毁时执行
     onDestroy(): void {
         console.log("Game onDestroy");
     }
 ```
 
+下面以“2D入门示例”中的一个子弹脚本`Bullet.ts`为例，讲解生命周期方法，以下是此脚本文件的代码：
 
+```typescript
+const { regClass, property } = Laya;
+/**
+ * 子弹脚本，实现子弹飞行逻辑及对象池回收机制
+ */
+ @regClass()
+export default class Bullet extends Laya.Script {
+    constructor() { super(); }
+
+    onEnable(): void {
+        //设置初始速度
+        let rig: Laya.RigidBody = this.owner.getComponent(Laya.RigidBody);
+        rig.setVelocity({ x: 0, y: -10 });
+    }
+
+    onTriggerEnter(other: any, self: any, contact: any): void {
+        //如果被碰到，则移除子弹
+        this.owner.removeSelf();
+    }
+
+    onUpdate(): void {
+        //如果子弹超出屏幕，则移除子弹
+        if ((this.owner as Laya.Sprite).y < -10) {
+            this.owner.removeSelf();
+        }
+    }
+
+    onDisable(): void {
+        //子弹被移除时，回收子弹到对象池，方便下次复用，减少对象创建开销
+        Laya.Pool.recover("bullet", this.owner);
+    }
+}
+```
+
+在游戏中，将子弹添加到舞台上时，每次添加到舞台都得有初速度，但如果将onEnable()换成onAwake()，那么这个初速度就会失效。onUpdate()是每帧执行一次，子弹超出屏幕，则移除子弹，此处的 if 条件判断是每一帧都会判断一次。onDisable()是节点从舞台移除后触发，当子弹超出屏幕被移除时，就触发这个方法，这里是回收子弹到对象池了。
+
+
+
+### 2.2 组件的事件方法
 
 事件方法是指在某些特定的情况下，会根据条件自动触发的方法，例如碰撞事件只有在物体发生碰撞时才会触发。当使用自定义的组件脚本时，可以实现如下事件方法，方便快速开发业务逻辑。
 
-**1，物理事件**
+#### 2.2.1 物理事件
+
+| 名称             | 条件           |
+| ---------------- | -------------- |
+| onTriggerEnter   | 开始触发时执行 |
+| onTriggerStay    | 持续触发时执行 |
+| onTriggerExit    | 结束触发时执行 |
+| onCollisionEnter | 开始碰撞时执行 |
+| onCollisionStay  | 持续碰撞时执行 |
+| onCollisionExit  | 结束碰撞时执行 |
+
+在代码中的使用如下：
 
 ```typescript
-    /**
-     * 开始碰撞时执行
-     */
-    onTriggerEnter(other: Laya.PhysicsComponent | Laya.ColliderBase, self?: Laya.ColliderBase, contact?: any): void {
+	//开始触发时执行
+     onTriggerEnter(other: Laya.PhysicsComponent | Laya.ColliderBase, self?: Laya.ColliderBase, contact?: any): void {
     }
 
-    /**
-     * 持续碰撞时执行
-     */
+    //持续触发时执行
     onTriggerStay(other: Laya.PhysicsComponent | Laya.ColliderBase, self?: Laya.ColliderBase, contact?: any): void {
     }
 
-    /**
-     * 结束碰撞时执行
-     */
+    //结束触发时执行
     onTriggerExit(other: Laya.PhysicsComponent | Laya.ColliderBase, self?: Laya.ColliderBase, contact?: any): void {     
     }
 
-    /**
-     * 开始碰撞时执行
-     */
+    //开始碰撞时执行
     onCollisionEnter(collision: Laya.Collision): void {
     }
 
-    /**
-     * 持续碰撞时执行
-     */
+    //持续碰撞时执行
     onCollisionStay(collision: Laya.Collision): void {
     }
 
-    /**
-     * 结束碰撞时执行
-     */
+    //结束碰撞时执行
     onCollisionExit(collision: Laya.Collision): void {
-    }
-
-    /**
-     * 关节破坏时执行此方法
-     */
-    onJointBreak(): void {
     }
 ```
 
@@ -175,89 +205,81 @@ LayaAir的ECS，将场景中每一个有着唯一ID的显示对象节点都被�
 	}
 ```
 
-如动图2-1所示，开始碰撞时执行onTriggerEnter，小球和立方体进入碰撞，小球变为绿色；持续碰撞时执行onTriggerStay，打印日志“peng”；碰撞离开后执行onTriggerExit，小球变为原来的颜色，立方体变为白色。
+如动图2-2所示，开始碰撞时执行onTriggerEnter，小球和立方体进入碰撞，小球变为绿色；持续碰撞时执行onTriggerStay，打印日志“peng”；碰撞离开后执行onTriggerExit，小球变为原来的颜色，立方体变为白色。
 
-![2-1](images/2-1.gif)
+![2-2](images/2-2.gif)
 
-（动图2-1）
+（动图2-2）
 
 
 
-**2，鼠标事件**
+#### 2.2.2 鼠标事件
+
+| 名称               | 条件                                               |
+| ------------------ | -------------------------------------------------- |
+| onMouseDown        | 鼠标按下时执行                                     |
+| onMouseUp          | 鼠标抬起时执行                                     |
+| onRightMouseDown   | 鼠标右键或中键按下时执行                           |
+| onRightMouseUp     | 鼠标右键或中键抬起时执行                           |
+| onMouseMove        | 鼠标在节点上移动时执行                             |
+| onMouseOver        | 鼠标进入节点时执行                                 |
+| onMouseOut         | 鼠标离开节点时执行                                 |
+| onMouseDrag        | 鼠标按住一个物体后，拖拽时执行                     |
+| onMouseDragEnd     | 鼠标按住一个物体，拖拽一定距离，释放鼠标按键后执行 |
+| onMouseClick       | 鼠标点击时执行                                     |
+| onMouseDoubleClick | 鼠标双击时执行                                     |
+| onMouseRightClick  | 鼠标右键点击时执行                                 |
+
+在代码中的使用如下：
 
 ```typescript
-    /**
-     * 鼠标按下时执行
-     */
+	//鼠标按下时执行
     onMouseDown(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标抬起时执行
-     */
+    //鼠标抬起时执行
     onMouseUp(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标右键或中键按下时执行
-     */
+    //鼠标右键或中键按下时执行
     onRightMouseDown(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标右键或中键抬起时执行
-     */
+    //鼠标右键或中键抬起时执行
     onRightMouseUp(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标在节点上移动时执行
-     */
+    //鼠标在节点上移动时执行
     onMouseMove(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标进入节点时执行
-     */
+    //鼠标进入节点时执行
     onMouseOver(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标离开节点时执行
-     */
+    //鼠标离开节点时执行
     onMouseOut(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标按住一个物体后，拖拽时执行
-     */
+    //鼠标按住一个物体后，拖拽时执行
     onMouseDrag(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标按住一个物体，拖拽一定距离，释放鼠标按键后执行
-     */
+    //鼠标按住一个物体，拖拽一定距离，释放鼠标按键后执行
     onMouseDragEnd(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标点击时执行
-     */
+    //鼠标点击时执行
     onMouseClick(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标双击时执行
-     */
+    //鼠标双击时执行
     onMouseDoubleClick(evt: Laya.Event): void {
     }
 
-    /**
-     * 鼠标右键点击时执行
-     */
+    //鼠标右键点击时执行
     onMouseRightClick(evt: Laya.Event): void {
     }
-    
 ```
 
 下面以onMouseDown和onMouseUp为例，在自定义的组件脚本“Script.ts”中加入以下代码：
@@ -282,51 +304,45 @@ export class Script extends Laya.Script {
 }
 ```
 
-如图2-2所示，将组件脚本添加到Scene2D的属性面板后，先不勾选 Mouse Through，因为如果勾选它，Scene2D下鼠标事件将不会响应。如果是一个3D场景，它会传递到Scene3D中。
+如图2-3所示，将组件脚本添加到Scene2D的属性面板后，先不勾选 Mouse Through，因为如果勾选它，Scene2D下鼠标事件将不会响应。如果是一个3D场景，它会传递到Scene3D中。
 
-![2-2](images/2-2.png)
+![2-3](images/2-3.png)
 
-（图2-2）
+（图2-3）
 
-运行项目，如动图2-3所示，当鼠标按下时执行onMouseDown，打印“onMouseDown”；松开鼠标，鼠标弹起时执行onMouseUp，打印“onMouseUp”。
+运行项目，如动图2-4所示，当鼠标按下时执行onMouseDown，打印“onMouseDown”；松开鼠标，鼠标弹起时执行onMouseUp，打印“onMouseUp”。
 
-![2-3](images/2-3.gif)
+![2-4](images/2-4.gif)
 
-（动图2-3）
+（动图2-4）
 
 
 
-**3，键盘事件**
+#### 2.2.3 键盘事件
+
+| 名称       | 条件                   |
+| ---------- | ---------------------- |
+| onKeyDown  | 键盘按下时执行         |
+| onKeyPress | 键盘产生一个字符时执行 |
+| onKeyUp    | 键盘抬起时执行         |
+
+在代码中的使用如下：
 
 ```typescript
-    /**
-     * 键盘按下时执行
-     */
-    onKeyDown(evt: Laya.Event): void {
+	//键盘按下时执行
+     onKeyDown(evt: Laya.Event): void {
     }
 
-    /**
-     * 键盘产生一个字符时执行
-     */
+    //键盘产生一个字符时执行
     onKeyPress(evt: Laya.Event): void {
     }
 
-    /**
-     * 键盘抬起时执行
-     */
+    //键盘抬起时执行
     onKeyUp(evt: Laya.Event): void {
     }
 ```
 
 > 注意：onKeyPress是产生一个字符时执行，例如字母“a”、“b”，“c”等。像上、下、左、右键，F1、 F2等不是字符输入的按键，就不会执行此方法。
-
-
-
-
-
-
-
-
 
 
 
@@ -346,17 +362,17 @@ export class Script extends Laya.Script {
 }
 ```
 
-只有使用了上述的这个装饰器标识，开发者自定义的组件脚本才会被IDE识别为组件，可以被节点（实体）的`属性面板 -> 增加组件 -> 自定义组件脚本`所添加。如动图1-1所示。
+如动图3-1所示，只有使用了上述的这个装饰器标识，开发者自定义的组件脚本才会被IDE识别为组件，可以被节点（实体）的`属性设置面板 -> 增加组件 -> 自定义组件脚本`所添加。
 
-![1-1](小孟：这里放一个点开自定义组件脚本的动图效果)
+![3-1](images/3-1.gif)
 
-（动图1-1）
+（动图3-1）
 
-> [!Tip]
->
-> 一个TS文件只能有一个类使用@regClass() 
+> 一个TS文件只能有一个类使用@regClass() 。
 >
 > 标记了@regClass()的类，在IDE环境内都会被编译，但最终发布时，如果这个类没有被其他类引用，也没有被添加到节点上，或者所在的预制体/场景没有发布，则这个类会被裁剪。
+
+
 
 ### 3.2 组件属性的识别`@property()`
 
@@ -388,6 +404,8 @@ export class NewScript1 extends Laya.Script {
 
 > 如果简写方式有语法警告，请用新版本IDE，并通过IDE的`开发者 -> 更新引擎d.ts文件`功能来解决，或者使用标准写法来解决。
 
+
+
 #### 3.2.2 属性访问器的装饰器使用
 
 有的时候，开发者会通过属性访问器(getter)和属性设置器(setter)来控制属性的读写行为。
@@ -415,13 +433,15 @@ class Animal {
     }
 }
 ```
+
+
 #### 3.2.3 是否序列化保存
 
-通过装饰器定义为组件属性后，默认状态下，属性名与值都会被序列化保存到组件被添加的场景文件或预制体文件里。例如，scene.ls里添加完自定义组件，通过vscode打开这个scene.ls，可以找到序列化保存后的组件属性名称与值，效果如图1-2所示。
+通过装饰器定义为组件属性后，默认状态下，属性名与值都会被序列化保存到组件被添加的场景文件或预制体文件里。例如，scene.ls里添加完自定义组件，通过vscode打开这个scene.ls，可以找到序列化保存后的组件属性名称与值，效果如动图3-2所示。
 
-（这里配个图）
+![3-2](images/3-2.gif)
 
-![]()
+（动图3-2）
 
 序列化保存后，不仅方便在IDE中直观查看与编辑组件属性值。在运行阶段，也可以直接使用序列化存储的值，对于结构复杂的数据，直接使用序列化的值还可以节省数据结构生成带来的开销。所以，有些时候，即便是不需要在属性面板上显示与编辑，也可以通过装饰器设置为组件属性，将值序列化存储在场景或预制体文件中。
 
@@ -451,6 +471,8 @@ export class Main extends Laya.Script {
 }
 ```
 
+
+
 #### 3.2.4 组件属性是否在IDE中显示
 
 在默认情况下，装饰器属性规则只会对非下划线的类属性标记为IDE的组件属性。
@@ -459,7 +481,7 @@ export class Main extends Laya.Script {
 
 > 带下划线的属性如果没有序列化保存到场景文件的需求，那就不必使用装饰器了。
 
-假如，开发者想对有下划线的属性，也要显示到IDE上，也可以做到。将修饰器属性标识的传入对象中，设置参数private为false即可。、
+假如，开发者想对有下划线的属性，也要显示到IDE上，也可以做到。将修饰器属性标识的传入对象中，设置参数private为false即可。
 
 示例代码如下：
 
@@ -489,20 +511,22 @@ export class Main extends Laya.Script {
     }
     
     onStart() {
-        console.log(this._radian); 
+        console.log(this.radian); 
     }
 }
 ```
 
+
+
 #### 3.2.5 装饰器属性标识的类型
 
-装饰器属性标识的类型支持引擎对象类型（例如：Laya.Vector3、Laya.Sprite3D、Laya.Camera、等）、自定义的对象类型（需要标记`＠regClass()`）、以及TS语言的基本类型。
+装饰器属性标识的类型支持引擎对象类型（例如：Laya.Vector3、Laya.Sprite3D、Laya.Camera等）、自定义的对象类型（需要标记`＠regClass()`）、以及TS语言的基本类型。
 
-**引擎对象类型**的理解比较简单，暴露组件属性之后，直接传入对应类型的值就可以。例如Laya.Sprite3D就只能传入3D节点，2D节点或试图拖入资源都是禁止的。
+##### 3.2.5.1 引擎对象类型
+
+引擎对象类型的理解比较简单，暴露组件属性之后，直接传入对应类型的值就可以。例如Laya.Sprite3D就只能传入3D节点，试图拖入2D节点或拖入资源都是禁止的。
 
 常用的引擎对象类型使用示例如下：
-
-> (小孟：除了测试用法，比如组件类型等，每一个不同类型的类型，要加上获取的使用示例，相同的给一个就行，比如节点的。也再想想还有没有其它常用的，实在想不到就算了，一定要保障示例可用。)，改完删除
 
 ```typescript
 const { regClass, property } = Laya;
@@ -557,7 +581,17 @@ export class Main extends Laya.Script {
 }
 ```
 
-**自定义对象类型**，就是设置一个自定义的引入对象。按该对象的装饰器属性标识来暴露组件属性。
+如动图3-3所示，将场景中已经添加好的Image拖入到@property暴露的Image属性入口中，这样就获取到了此节点，然后可以在脚本中使用代码控制Image的属性了（参考4.1节）。
+
+![3-3](images/3-3.gif)
+
+（动图3-3）
+
+
+
+##### 3.2.5.2 自定义对象类型
+
+自定义对象类型，就是设置一个自定义的引入对象。按该对象的装饰器属性标识来暴露组件属性。
 
 例如，下面这两个TS代码：
 
@@ -587,7 +621,11 @@ export default class Animal {
 
 组件脚本MyScript中引用了Animal对象 ，并将装饰器属性标识的类型设置为Animal，尽管Animal不是继承于Laya.Script的组件脚本，但由于被组件脚本MyScript所引用并暴露给IDE，所以Animal类定义之前也需要标记`＠regClass()`，该类下使用了`@property()`标识的属性，也可以出现在IDE属性面板中。
 
-最后就是常用的**TS语言基本类型**，不过需要注意的是，基本类型需要使用字符串的方式来描述，只有数字、字符串、布尔类型，可以用其对象类型来标记。
+
+
+##### 3.2.5.3 TS语言基本类型
+
+最后就是常用的TS语言基本类型，不过需要注意的是，基本类型需要使用字符串的方式来描述，只有数字、字符串、布尔类型，可以用其对象类型来标记。
 
 | 类型               | 类型书写示范                                                 | 类型说明                                            |
 | ------------------ | ------------------------------------------------------------ | --------------------------------------------------- |
@@ -598,13 +636,14 @@ export default class Animal {
 | 正整数类型         | "uint"                                                       | 等价于 { type: Number, fractionDigits: 0 , min: 0 } |
 | 多行字符串文本类型 | "text"                                                       | 等价于 { type: string, multiline: true }            |
 | 任意类型           | "any"                                                        | 类型只会被序列化，不能显示和编辑。                  |
-| 类型化数组类型     | Int8Array、Uint8Array、<br />Int16Array、Uint16Array、<br />Int32Array、Uint32Array、Float32Array、<br />Float64Array | 支持8种类型化数组类型                               |
+| 类型化数组类型     | Int8Array、Uint8Array、<br />Int16Array、Uint16Array、<br />Int32Array、Uint32Array、Float32Array | 支持7种类型化数组类型                               |
 | 数组类型           | ["number"]、["string"]                                       | 用中括号包含数组元素类型，                          |
 
-使用示例代码如下：(补充上上面表格的示例代码)
+使用示例代码如下：
 
 ```typescript
-const { regClass } = Laya;
+const { regClass, property } = Laya;
+
 //枚举
 enum TestEnum {
     A,
@@ -618,13 +657,18 @@ enum Direction {
     Left = 'LEFT',
     Right = 'RIGHT'
 };
+
 @regClass()
 export class Script extends Laya.Script {
+
+    @property(Number)//数字类型，等价于{ type : "number" }
+    num : number;
+
     @property(String)//单行字符串文本类型，等价于 { type: "string"}
 	str : string;
-    
-    @property("any")//注意：any类型只会被序列化，不能显示和编辑。
-	a : any; 
+
+    @property(Boolean)//布尔值类型，等价于 { type: "boolean"}
+	bool : boolean;
 
 	@property("int")//整数类型，等价于 { type: Number, fractionDigits: 0 }
 	int : number; 
@@ -632,17 +676,20 @@ export class Script extends Laya.Script {
     @property("uint") //正整数类型，等价于 { type: Number, fractionDigits: 0 , min: 0 }
     uint : number; 
 
-    @property("text")//多行字符串文本类型，等价于 { type: string, multiline: true }
+    @property("text")//多行字符串文本类型，等价于 { type: String, multiline: true }
     text : string; 
+
+    @property("any")//any类型只会被序列化，不能显示和编辑。
+	a : any; 
     
-    @property(Int8Array)//类型化数组类型,除了Int8Array，还支持Uint8Array、Int16Array、Uint16Array、Int32Array、Uint32Array、Float32Array、Float64Array，使用方式都类似
+    @property(Int8Array)//类型化数组类型,除了Int8Array，还支持Uint8Array、Int16Array、Uint16Array、Int32Array、Uint32Array、Float32Array，使用方式都类似
     i8a: Int8Array;
         
     @property({ type: ["number"] })//数组类型，用中括号包含数组元素类型
     arr1: number[];
 
     @property({ type: ["string"] })//数组类型，用中括号包含数组元素类型
-    arr2: Array<string>;
+    arr2: string[];
     
     //普通的枚举类型（可以类型简写），会显示为下拉框供用户选择
     @property(TestEnum)
@@ -652,17 +699,20 @@ export class Script extends Laya.Script {
     @property({ type: Direction })
     direc: Direction;
     
-    //字典类型，需要用数组参数来设置类型，下面示例中的Record类型需要放到字符串内作为数组参数的第一个元素，数组参数的第二个元素是字典输入值的类型，用于决定属性面板的输入控件类型。
+    //字典类型，需要用数组参数来设置类型，下面示例中的Record类型需要放到字符串内作为数组参数的第一个元素，数组参数的第二个元素是字典输入值的类型，用于决定属性面板的输入控件类型
     @property({ type: ["Record", Number] })
     dict: Record<string, number>; 
+
 }
 ```
 
+示例效果如动图3-4所示：
+
+![3-4](images/3-4.gif)
+
+（动图3-4）
 
 
-示例效果如动图xxx所示：（动图，只演示几个不常见的复杂类型，例如字典，枚举，其它的，显示在面板上，能看到即可）
-
-![]()
 
 #### 3.2.6 组件属性值的输入控件
 
@@ -670,184 +720,218 @@ IDE内置了number（数字输入）、string（字符串输入）、boolean（�
 
 通常情况下，IDE会根据组件属性类型自动选择对应的属性值输入控件。
 
-但在某些情况下，也需要强制指定输入控件。例如，数据类型是Vector4，但其实它表达的是颜色，用默认编辑Vector4的控件不适合，需要在这里设置组件属性标识的参数inspector为“color”。示例代码如下：
+但在某些情况下，也需要强制指定输入控件。例如，数据类型是string，但其实它表达的是颜色，用默认编辑string的控件不适合，需要在这里设置组件属性标识的参数inspector为“color”。示例代码如下：
 
-    @property({ type: String, inspector: "color"})
-    color: string;
-效果如动图XXX所示
+```typescript
+//显示为颜色输入（如果类型是Laya.Color，则不需要这样定义，如果是字符串类型，则需要）
+@property({ type: String, inspector: "color"})
+color: string;
+```
+> 注意：按照以上方法得到的颜色，是2D组件的颜色值，例如：rgba(217, 232, 0, 1) 
 
-![]()
+效果如动图3-5所示：
 
-(动图XXX)
+![3-5](images/3-5.gif)
+
+（动图3-5）
 
 如果inspector参数为null，则不会为属性构造属性输入控件，这与hidden参数设置为true不同。hidden为true是创建但不可见，inspector为null则是完全不创建。
 
+
+
 #### 3.2.7 组件属性分类与排序
 
-组件的属性默认会统一显示在以组件脚本名称的属性分类栏目下，效果如图XXX所示
+组件的属性默认会统一显示在以组件脚本名称的属性分类栏目下，效果如图3-6所示：
 
-![]()
+![3-6](images/3-6.png)
+
+（图3-6）
 
 如果开发者想对组件内的某些属性进行归类，可以通过装饰器属性标识的对象参数catalog来实现，示例代码如下：
 
 ```typescript
+    @property({ type : "number" })
+    a : number;
+
+    @property({ type: "string"})
+    b : string;
+
+    @property({ type: "boolean",catalog:"adv"})
+    c : boolean;
+
     @property({ type: String, inspector: "color" ,catalog:"adv"})
     d: string;
 ```
 
-通过上面的代码可以看出，当为多个属性设置相同的catalog名称，就会按catalog名称进行分类。效果如图xxx所示：
+通过上面的代码可以看出，当为多个属性（c和d）设置相同的catalog名称（“adv”），就会按catalog名称进行分类。效果如图3-7所示：
 
-![]()
+![3-7](images/3-7.png)
 
-如果我们想给这个分类再起个中文别名，可以通过参数catalogCaption来实现，示例代码如下：
+（图3-7）
+
+如果我们想给这个分类再起个中文别名，可以通过参数catalogCaption来实现，示例代码如下（更改上述示例的d属性）：
 
 ```typescript
     @property({ type: String, inspector: "color" ,catalog:"adv", catalogCaption:"高级组件"})
     d: string;
 ```
 
-效果如图xxx所示：
+效果如图3-8所示：
 
-![]()
+![3-8](images/3-8.png)
 
-在面对多个组件属性分类的时候，我们还可以通过参数catalogOrder对栏目的显示顺序自定义排序，示例代码如下：
+（图3-8）
+
+在面对多个组件属性分类的时候，我们还可以通过参数catalogOrder对栏目的显示顺序自定义排序。数值越小显示在前面，不提供则按属性出现的顺序。示例代码如下：
 
 ```typescript
-       //显示为颜色输入（如果类型是Laya.Color，则不需要这样定义，如果是字符串类型，则需要）
-    @property({ type: String, inspector: "color" ,catalog:"adv", catalogCaption:"高级组件2",catalogOrder:2})
+	@property({ type : "number", catalog:"bb", catalogOrder:1 })
+    a : number;
+
+    @property({ type: "string"})
+    b : string;
+
+    @property({ type: "boolean", catalog:"adv"})
+    c : boolean;
+
+    @property({ type: String, inspector: "color", catalog:"adv", catalogCaption:"高级组件", catalogOrder:0})
     d: string;
-
-    @property({ type: _Int8Array, private: false ,catalog:"adv"})
-    _Int8Array: Int8Array;
-
-    //普通的枚举类型（可以类型简写），会显示为下拉框供用户选择
-    @property(TestEnum)
-    enum: TestEnum;
-
-    //重要提醒：字符串形式的枚举，不能使用类型简写，如：@property(Direction)。必须下面带type参数指定的标准写法
-    @property({ type: Direction,catalog:"bb"})
-    direc: Direction;
-
-    //装饰器属性的标准写法，适用于IDE的需要显示Tips或属性的中文别名等完整功能需求
-    @property({ type: String, caption: "IDE显示用的别名", tips: "这是一个文本对象，只能输入文本哦",catalog:"bb" , catalogCaption:"高级组件",catalogOrder:1})
-    public text1: string = "";
 ```
 
-效果如图xxx所示：
+效果如图3-9所示：
 
-![]()
+![3-9](images/3-9.png)
+
+（图3-9）
 
 >  属性分类名称catalogCaption与属性分类排序catalogOrder，在任意一个catalog相同名称的属性里配置即可，无需所有的属性都配置一次。
 
+
+
 #### 3.2.8 装饰器属性标识参数总结
 
-上文介绍了常用装饰器属性标识的参数作用，这里我们概述总结一下全部的参数。
+上文介绍了常用装饰器属性标识的参数作用（加粗为上文出现过的），这里我们概述总结一下全部的参数。
 
-| 参数名         | 参数使用示例                                             | 说明                                                         |
-| -------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| type           | type: "string"                                           | 组件属性可输入值的类型，参照上文的介绍。                     |
-| caption        | caption: "角度"                                          | 组件属性的别名，常用于中文，可以不设置，默认会用组件属性名   |
-| tips           | tips: "这是一个文本对象，只能输入文本哦"                 | 组件属性的Tips说明，用于进一步描述该属性的作用等用途         |
-| private        | private：false                                           | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
-| serializable   | serializable： false                                     | 控制组件属性是否序列化保存，true：序列化保存，false：不序列化保存 |
-| enumSource     | enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] | 组件属性以下拉框的形式来展示与输入值。                       |
-| inspector      | inspector: "color"                                       | 属性值输入控件，内置有：number,string,boolean,color,vec2,vec3,vec4,asset。 |
-| range          | range: [0, 5]                                            | 数字类型时，组件属性在一个范围内以滑动杆的方式显示与输入值。 |
-| step           | step: 0.5                                                | 数字类型时，在输入框的鼠标滑动或滚轮滚动的最小更改精度值。   |
-| fractionDigits | fractionDigits: 3                                        | 数字类型时，属性值的小数点后保留几位。                       |
-| multiline      | multiline: true                                          | 字符串类型时，是否为多行输入，true：是，false：不是。        |
-| onChange       | onChange: "onChangeTest"                                 | 当属性改变时，调用名称为onChangeTest的函数。函数需要在当前组件类上定义 |
+| 参数名               | 参数使用示例                                             | 说明                                                         |
+| -------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| name                 | name: "abc"                                              | 一般不需要设定                                               |
+| **type**             | type: "string"                                           | 组件属性可输入值的类型，参照上文的介绍                       |
+| **caption**          | caption: "角度"                                          | 组件属性的别名，常用中文，可以不设置，默认会用组件属性名     |
+| **tips**             | tips: "这是一个文本对象，只能输入文本哦"                 | 组件属性的Tips说明，用于进一步描述该属性的作用等用途         |
+| **catalog**          | catalog:"adv"                                            | 为多个属性设置相同的值，可以将它们显示在同一个栏目内         |
+| **catalogCaption**   | catalogCaption:"高级组件"                                | 属性分类栏目的别名，不提供则直接使用栏目名称                 |
+| **catalogOrder**     | catalogOrder:0                                           | 栏目的显示顺序，数值越小显示在前面。不提供则按属性出现的顺序 |
+| **inspector**        | inspector: "color"                                       | 属性值输入控件，内置有：number,string,boolean,color,vec2,vec3,vec4,asset |
+| hidden               |                                                          |                                                              |
+| readonly             |                                                          |                                                              |
+| validator            |                                                          |                                                              |
+| **serializable**     | serializable： false                                     | 控制组件属性是否序列化保存，true：序列化保存，false：不序列化保存 |
+| **multiline**        | multiline: true                                          | 字符串类型时，是否为多行输入，true：是，false：不是          |
+| password             | password: true                                           | 是否密码输入，true：是，false：不是。密码输入会隐藏输入的内容 |
+| submitOnTyping       |                                                          |                                                              |
+| prompt               | prompt: "文本提示信息"                                   | 在输入文本前，文本框内会有一个提示信息                       |
+| enumSource           | enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] | 组件属性以下拉框的形式来展示与输入值                         |
+| reverseBool          | reverseBool: true                                        | 反转布尔值，当属性值为true时，多选框显示为不勾选             |
+| nullable             | nullable: true                                           | 是否允许null值，默认为true                                   |
+| **min**              | min: 0                                                   | 数字类型时，数字的最小值                                     |
+| max                  | max: 10                                                  | 数字类型时，数字的最大值                                     |
+| range                | range: [0, 5]                                            | 数字类型时，组件属性在一个范围内以滑动杆的方式显示与输入值   |
+| step                 | step: 0.5                                                | 数字类型时，在输入框的鼠标滑动或滚轮滚动的最小更改精度值     |
+| **fractionDigits**   | fractionDigits: 3                                        | 数字类型时，属性值的小数点后保留几位                         |
+| percentage           | percentage: true                                         | 将range参数设置为[0,1]时，可以让percentage为true，显示为百分比 |
+| fixedLength          | fixedLength: true                                        | 数组类型时，固定数组长度，不允许修改                         |
+| arrayActions         | arrayActions: ["delete", "move"]                         | 数组类型时，可限制数组可以进行的操作。如果不提供，表示数组允许所有操作，如果提供，则只允许列出的操作。提供的类型有："append"，"insert" ，"delete" ，"move" |
+| elementProps         |                                                          |                                                              |
+| showAlpha            | showAlpha: false                                         | 颜色类型时，表示是否提供透明度a值的修改。true表示提供，false表示不提供 |
+| defaultColor         |                                                          |                                                              |
+| colorNullable        | colorNullable: true                                      | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
+| hideHeader           |                                                          |                                                              |
+| createObjectMenu     |                                                          |                                                              |
+| assetTypeFilter      | assetTypeFilter: "Image"                                 | 资源类型时，设置加载的资源类型                               |
+| useAssetPath         | useAssetPath: true                                       | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
+| allowInternalAssets  |                                                          |                                                              |
+| position             |                                                          |                                                              |
+| **private**          | private：false                                           | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
+| addIndent            | addIndent:1                                              | 增加缩进，单位是层级，注意不是像素                           |
+| allowMultipleObjects |                                                          |                                                              |
+| hideInDeriveType     |                                                          |                                                              |
+| onChange             | onChange: "onChangeTest"                                 | 当属性改变时，调用名称为onChangeTest的函数。函数需要在当前组件类上定义 |
+| options              |                                                          |                                                              |
 
-> 表格与代码都要继续补充，打开引擎源码，查看Decorators.ts的PropertyDescriptor接口说明
-
-代码示例如下：
+代码示例如下（只列出上文没有介绍过的）：
 
 ```typescript
-const { regClass, property} = Laya;
+	//隐藏控制
+    @property({ type: String, hidden: true })
+    hide: string;
 
-import Animal from "./Animal"
+	//只读控制
+    @property({ type: String, readonly: true })
+    read: string = "hello";
 
-enum TestEnum {
-    A,
-    B,
-    C
-};
+	//密码输入
+    @property({ type: String, password: true })
+    password: string;
 
-enum StringEnum {
-    A = "a",
-    B = "b",
-    C = "c"
-};
+	//输入文本的提示信息
+    @property({ type: "text", prompt: "文本提示信息" })
+    prompt: string;
 
-@regClass()
-export class Property extends Laya.Script {
-
-    @property( { type : String } )
-    a : string;
-    
-    @property( { type : Laya.Vector3 } )
-    b : Laya.Vector3;
-    
-    @property( { type : Animal } )
-    c : Animal; //沿用上个例子，Animal已经被regClass
-    
-    @property( { type : TestEnum } )
-    d : TestEnum; //枚举类型，会显示为下拉框供用户选择
-
-    @property({ type: StringEnum })
-    e : StringEnum; //对于字符串形式的枚举，不能使用@property(StringEnum),必须用集合里的type参数指定
-    
-    @property( { type : [Number] } )
-    f : number[]; //数组，用中括号包含数组元素类型
-    
-    @property( { type : ["Record", String] } )
-    g : Record<string, string>; //字典，中括号里第一个元素固定是字符串Record，第二个元素是字典value类型。
-    
-    @property( { type : "any" } )
-    h : any; //any类型只会被序列化，不能显示和编辑。
-    
-    @property( { type : "int" } )
-    i : number; //int等价于 { type: Number, fractionDigits: 0 }
-    
-    @property( { type : "uint" } )
-    j : number; //uint等价于 { type: Number, fractionDigits: 0 , min: 0 }
-    
-    @property( { type : "text" } )
-    k : string; //text等价于 { type: string, multiline: true }
-
-    //设置标题
-    @property({ type: String, caption: "速度", tips: "设置速度" })
-    l : string;
-
-    //显示为下拉框
+	//显示为下拉框
     @property({ type: Number, enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
-    m : number;
+    enumsource: number;
 
-    //控制数字输入的精度和范围
-    @property({ type: Number, range:[0,1], factionDigits: 3 })
-    n : number
+	//反转布尔值
+    @property({ type: "boolean", reverseBool: true })
+	reverseboolean : boolean;
+	
+	//允许null值
+    @property({ type: String, nullable: true })
+    nullable: string;
 
-    //文本显示为多行输入
-    @property({ type: String, multiline: true })
-    o : string;
-    
-        //显示为下拉框
-    @property({ type: Number, enumSource: [{name:"Yes", value:1}, {name:"No",value:0}] })
-    m : number;
+	//控制数字输入的精度和范围
+    @property({ type: Number, range:[0,5], step: 0.5, factionDigits: 3 })
+    range : number;
 
-    //显示为颜色输入（如果类型是Laya.Color，则不需要这样定义，如果是字符串类型，则需要）
-    @property({ type: String, inspector: "color" })
-    p: string;
-    
+	//显示为百分比
+    @property({ type: Number, range:[0,1], percentage: true })
+    percent : number;
+
+	//固定数组长度
+    @property({ type: ["number"], fixedLength: true })
+    arr1: number[];
+
+	//数组允许的操作
+    @property({ type: ["number"], arrayActions: ["delete", "move"] })
+    arr2: number[];
+
+	//不提供透明度a值的修改
+    @property({ type: Laya.Color, showAlpha: false })
+    color1: Laya.Color;
+
+	//显示一个checkbox决定颜色是否为null
+    @property({ type: Laya.Color, colorNullable: true })
+    color3: Laya.Color;
+
+	//加载Image资源类型，设置资源路径格式
+    @property({ type: String, inspector: "asset", assetTypeFilter: "Image", useAssetPath: true })
+    resource: string;
+
+	//增加缩进，单位是层级
+    @property({ type: String, addIndent:1 })
+    indent1: string;
+    @property({ type: String, addIndent:2 })
+    indent2: string;
+
     //当属性改变时，调用名称为onChangeTest的函数
     @property({ type: Boolean, onChange: "onChangeTest"})
-    q: boolean;
-
+    change: boolean;
     onChangeTest() {
         console.log("onChangeTest");
     }
-}
 ```
+
+
 
 ### 3.3 IDE中执行生命周期方法`@runInEditor`
 
@@ -857,7 +941,7 @@ export class Property extends Laya.Script {
 const { regClass, property, runInEditor } = Laya;
 
 @regClass() @runInEditor     //重点看这里，要放到类之前，@regClass()与@runInEditor谁先谁后都可以。
-export class NewScript2 extends Laya.Script {
+export class NewScript extends Laya.Script {
     @property({ type: Laya.Sprite3D })
     sp3: Laya.Sprite3D;
 
@@ -873,27 +957,41 @@ export class NewScript2 extends Laya.Script {
 
 除非有特别的需求，我们并不建议这样做，一方面是因为静态物体更有利于IDE内进行编辑。另一方面是因为场景编辑器为了性能优化，帧率刷新要比正常运行慢很多，因此效果会与正常运行有明显差异。
 
+
+
 ### 3.4 加入IDE的组件列表`@classInfo()`
 
-开发者的自定义组件默认都位于XXXX的下面，如图XXX所示。
+开发者的自定义组件脚本默认都位于`属性设置`面板的`增加组件->自定义组件脚本`的下面，如动图3-10所示。
 
+![3-10](images/3-10.gif)
 
+（动图3-10）
 
-如果我们想在这个组件列表中，将该组件加入自己定义的组件列表分类中，可以使用装饰器标识`@regClass()`示例代码如下所示：
+如果我们想在这个`组件列表`中，将该组件加入自己定义的组件列表分类中，可以使用装饰器标识`@classInfo()`,示例代码如下所示：
 
 ```typescript
+const { regClass, property, classInfo } = Laya;
+
+@regClass()
 @classInfo( {
     menu : "MyScript",
     caption : "Main",
 })
-这里要用完整代码
+export class Main extends Laya.Script {
+
+    onStart() {
+        console.log("Game start");
+    }
+}
 ```
 
-然后我们保存代码，回到IDE，会发现自定义的分类已出现在组件列表中。如动图XX所示。
+然后我们保存代码，回到IDE，会发现自定义的分类已出现在组件列表中。如动图3-11所示。
 
-<img src="images/5-2.gif" style="zoom:50%;" /> 
+![3-11](images/3-11.gif)
 
-（动图5-2）
+（动图3-11）
+
+
 
 ## 四、代码中使用属性
 
@@ -905,11 +1003,79 @@ export class NewScript2 extends Laya.Script {
 
 LayaAir分为2D节点与3D节点类型，当设置为2D节点Laya.Sprite时，不能将3D节点作为其属性值。当设置为3D节点Laya.Sprite3D时，不能将2D节点作为其属性值。
 
-#### 4.1.2 2D节点的使用
+#### 4.1.1 2D节点的使用
 
-#### 4.1.3 3D节点的基础使用
+首先，如动图4-1所示，将场景中已经添加好的2D节点Sprite拖入到@property暴露的属性入口中，这样就获取到了此节点。
 
-#### 4.1.4 3D节点的进阶使用
+![4-1](images/4-1.gif)
+
+（动图4-1）
+
+然后就可以在脚本中使用代码改变节点的属性了，例如，给Sprite添加纹理等，示例代码如下所示：
+
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class NewScript extends Laya.Script {
+
+    @property({ type : Laya.Sprite})
+    public spr: Laya.Sprite;
+    
+    onAwake(): void {
+        this.spr.size(512, 313); //设置Sprite大小
+        this.spr.loadImage("atlas/comp/image.png"); //添加纹理
+    }
+
+}
+```
+
+效果如图4-2所示：
+
+![4-2](images/4-2.png)
+
+（图4-2）
+
+
+
+#### 4.1.2 3D节点的基础使用
+
+首先，如动图4-3所示，将场景中已经添加好的3D节点Cube拖入到@property暴露的属性入口中，这样就获取到了此节点。
+
+![4-3](images/4-3.gif)
+
+（动图4-3）
+
+然后就可以在脚本中使用代码改变节点的属性了，例如，可以让Cube绕自身旋转，示例代码如下所示：
+
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class NewScript extends Laya.Script {
+
+    @property({ type : Laya.Sprite3D})
+    public cube: Laya.Sprite3D;
+
+    private rotation: Laya.Vector3 = new Laya.Vector3(0, 0.01, 0);
+
+    onStart() {
+        Laya.timer.frameLoop(1, this, ()=> {
+            this.cube.transform.rotate(this.rotation, false);
+        });
+    }
+}
+```
+
+效果如动图4-4所示：
+
+![4-4](images/4-4.gif)
+
+（动图4-4）
+
+
+
+#### 4.1.3 3D节点的进阶使用
 
 ```typescript
     @property( { type :Laya.Sprite3D } ) //节点类型
@@ -942,36 +1108,9 @@ LayaAir分为2D节点与3D节点类型，当设置为2D节点Laya.Sprite时，�
 
 通过暴露@property( { type : Laya.ShurikenParticleRenderer } )组件类型属性，来拖入particle节点，可以获得particle的ShurikenParticleRenderer组件。transform可以通过(this.p3dRenderer.owner as Laya.Sprite3D)修改，而simulationSpeed属性则通过this.p3dRenderer.particleSystem的方式获取。
 
-#### 下面这个，不需要专门讲，前面有讲正确的用法，最多是tips说明里一下，或者在前文的代码里，把错误的用法说一下，给注释掉。提一下不能怎么用就好。
-
-```typescript
-    @property( { type : Laya.ShuriKenParticle3D } ) //不支持的类型
-    public p3d: Laya.ShuriKenParticle3D;
-
-    onAwake(): void {
-
-        this.p3d.transform.localPosition = new Laya.Vector3(0,5,5);
-        this.p3d.particleSystem.simulationSpeed = 10;
-    }
-```
-
-不能通过直接使用Laya.ShuriKenParticle3D作为属性类型，IDE无法识别，只有节点和组件类型可以识别。
-
-
-```typescript
-    @property( { type : Laya.Sprite3D } )
-    public p3d: Laya.ShuriKenParticle3D; //无法转换成Laya.ShuriKenParticle3D
-
-    onAwake(): void {
-
-        this.p3d.transform.localPosition = new Laya.Vector3(0,5,5);
-        this.p3d.particleSystem.simulationSpeed = 10;
-    }
-```
-
-上述方式也不行，IDE虽然标识了属性是Sprite3D节点，但是也无法转换为Laya.ShuriKenParticle3D对象。
-
-报错信息：*[Game] Uncaught (in promise) TypeError: Cannot set properties of undefined (setting 'simulationSpeed')*
+> 不能通过直接使用Laya.ShuriKenParticle3D作为属性类型，因为IDE无法识别，只有节点和组件类型可以识别。
+>
+> 就算将type类型设置为Laya.Sprite3D，这样IDE虽然标识了属性是Sprite3D节点，但也无法转换为Laya.ShuriKenParticle3D对象。
 
 
 
@@ -984,13 +1123,11 @@ LayaAir分为2D节点与3D节点类型，当设置为2D节点Laya.Sprite时，�
 private prefabFromResource: Laya.Prefab;    
 ```
 
-此时，需要从assets目录下，拖入prefab资源，运行时会直接获取到加载实例化后的prefab（如图1-5）。
+此时，需要按动图4-5所示，从assets目录下，拖入prefab资源。运行时会直接获取到加载实例化后的prefab。
 
-<img src="images/1-5.png" style="zoom:50%;" /> 
+![4-5](images/4-5.gif)
 
-（图1-5）
-
-再想想还有没有其它常用的类型，但又不太好理解的。也可以列出来。
+（动图4-5）
 
 
 
