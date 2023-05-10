@@ -86,7 +86,7 @@
         * [内置骨骼动画](IDE/uiEditor/uiComponent/skeleton/sk/readme.md)
     * [绘制图形](IDE/uiEditor/graphics/readme.md)
     * [UI滤镜效果](IDE/uiEditor/Filter/readme.md)
-    * [UI继承类](IDE/uiEditor/runtime/readme.md)
+    * [UI运行时](IDE/uiEditor/runtime/readme.md)
     * [混合使用3D](IDE/uiEditor/use3D/readme.md)
     * [压缩纹理](IDE/uiEditor/textureCompress/readme.md)    
     * [使用3DUI](IDE/uiEditor/3DUI/readme.md)        
@@ -131,7 +131,6 @@
       * [CommandBuffer](3D/advanced/CommandBuffer/readme.md)
       * [3D性能优化](3D/advanced/performanceOptimization/readme.md)
       * [WebXR](3D/WebXR/readme.md)
-      * [3D寻路](3D/advanced/Astar/readme.md)
       * [Unity资源导出插件](3D/advanced/Unity/readme.md)
 - 项目发布
     * [Web发布](released/web/readme.md)
