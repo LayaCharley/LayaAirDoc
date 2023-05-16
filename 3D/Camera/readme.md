@@ -71,7 +71,7 @@ export default class CameraControll extends Laya.Script {
     }
 
     /**
-     * 组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
      * 此方法为虚方法，使用时重写覆盖即可
      */
     onAwake(): void {
