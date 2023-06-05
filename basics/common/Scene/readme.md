@@ -44,7 +44,7 @@ LayaAir3.0继续延用2.0开发思路为组件化，脚本化，场景管理开�
 
 - 对于只需要2D场景时，可以点击Scene3D，点击鼠标右键选择删除，那么剩下的场景就是一个单纯的Scene2D场景，如图1-5所示
 
-<img src="images/1-5.png" style="zoom:50%;" /> 
+<img src="images/1-5.png" style="zoom:50%;" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
 （图1-5）
 

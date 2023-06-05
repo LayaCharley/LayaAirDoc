@@ -18,7 +18,7 @@
 | restrict : String                | 限制输入的字符                                               | TextInput |
 | sizeGrid : String                | 当前实例的背景图(AutoBitmap)实例的有效缩放网格数据。数据格式："上边距，右边距，下边距，左边距，是否重复填充（值为0：不重复填充，1：重复填充）"，以逗号分隔。例如："4,4,4,4,1" | TextInput |
 | skin : String                    | 对象的皮肤地址，以字符串表示。如果资源未加载，则先加载资源，加载完成后应用于此对象。注意：资源加载完成后，会自动缓存至资源库中。 | TextInput |
-| type : String                    | 输入框类型为Input静态常量之一。平台兼容性参见http:/www.w3school.com.cn/html5/html_5_form_input_ types_asp。 | TextInput |
+| type : String                    | 输入框类型为Input静态常量之一。                              | TextInput |
 | width : Number                   | [override]表示显示对象的宽度，以像素为单位。注：当值为0时，宽度为自适应大小。 | TextInput |
 
 ## 2、TextInput相关属性：

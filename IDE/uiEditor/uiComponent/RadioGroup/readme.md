@@ -66,9 +66,10 @@ RadioGroup组件的皮肤是以`RadioGroup`或以`RadioGroup_`为前缀进行命
 selectedIndex属性是用于改变单选框组的索引值，默认不设置时，不勾选任何选项，如果要设置RadioGroup的默认勾选，可以设置selectedIndex的属性值，0为第1个单选框，1为第2个单选框……以此类推。
 
 假设我们将属性值设置为0时，运行效果如动图4-3所示。
-![动图4-3](img/4-3.gif) 
 
- （动图4-3）
+![](img/4-3.gif) 
+
+(图4-3)
 
 
 

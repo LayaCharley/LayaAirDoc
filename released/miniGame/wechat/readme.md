@@ -143,7 +143,87 @@ Laya.Texture2D.load("res/layabox.png");
 
 所以，我们的**项目要是大于4M后，怎么处理呢？**
 
-一种方案是分包，从小游戏基础库的2.0版本开始，可以通过配置分包，达到8M。
+### 4.1 分包
+
+一种方案是分包，
+
+> 微信小游戏分包限制：
+>
+> - 整个小游戏所有主包+分包大小不超过 20M
+> - 主包不超过 4M
+> - 单个普通分包不限制大小
+> - 单个独立分包不超过 4M
+>
+> 请参考微信小游戏[官方文档](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html)。
+
+下面来介绍LayaAir IDE给微信小游戏分包的方法，开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。
+
+如图4-1所示，在构建发布中，开启分包后，选择要分包的文件夹，即可完成分包。
+
+<img src="img/4-1.png" alt="4-1" style="zoom:80%;" />
+
+（图4-1）
+
+与Web分包不同的是，小游戏分包不可以使用远程包，另一个就是代码引用的资源的方法不同。在web平台中，使用`loadPackage`方法加载包的参数有三个，而小游戏分包需要使用两个参数的重载方式，两个参数的重载方式不仅仅用于微信小游戏，别的小游戏平台也同样适用。下面给出一段代码加载分包的示例代码：
+
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class Script extends Laya.Script {
+    //declare owner : Laya.Sprite3D;
+
+    @property({ type: Laya.Scene3D })
+    scene3d: Laya.Scene3D;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+        //小游戏加载分包
+        Laya.loader.loadPackage("sub1", this.printProgress).then(() => {
+            Laya.loader.load("sub1/Cube.lh").then((res: Laya.PrefabImpl) => {
+                let sp3: Laya.Sprite3D = res.create() as Laya.Sprite3D;
+                this.scene3d.addChild(sp3);
+            });
+        })
+
+        Laya.loader.loadPackage("sub2", this.printProgress).then(() => {
+            Laya.loader.load("sub2/Sphere.lh").then((res: any) => {
+                let sp3 = res.create();
+                this.scene3d.addChild(sp3);
+            });
+        })
+    }
+
+    printProgress(res: any) {
+        console.log("加载进度" + JSON.stringify(res));
+    }
+
+}
+```
+
+下面重点介绍一下`printProgress`打印的内容，在微信开发者工具打开并编译我们导出的项目后，会打印如下日志：
+
+![4-2](img/4-2.png)
+
+（图4-2）
+
+这是wx.loadSubpackage返回的一个 [LoadSubpackageTask](https://developers.weixin.qq.com/minigame/dev/api/base/subpackage/LoadSubpackageTask.html)，可以通过它获取当前下载进度。这三个参数的意义是：
+
+`progress`：下载进度；
+
+`totalBytesWritten`：已经下载的数据长度；
+
+`totalBytesExpectedToWrite`：预期需要下载的数据总长度。
+
+
+
+### 4.2 网络动态加载
 
 另一种方案就是网络动态加载，
 
