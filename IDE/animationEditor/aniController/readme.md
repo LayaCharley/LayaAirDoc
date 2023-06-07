@@ -788,17 +788,31 @@ export class Main extends Laya.Script {
 
 ```typescript
 const { regClass } = Laya;
+interface AnimatorPlayScriptInfo {
+    animator: Laya.Animator | Laya.Animator2D;
+    layerindex: number;
+    playState: Laya.AnimatorState | Laya.AnimatorState2D;
+}
 /**
  * 继承自AnimatorStateScript(动画状态脚本)
  * @author ...
  */
  @regClass()
 export class AnimationScript extends Laya.AnimatorStateScript {
+    /**动画的状态信息 */
+    playStateInfo: AnimatorPlayScriptInfo = { animator: null, layerindex: -1, playState: null };
 
+    /**@internal */
+    setPlayScriptInfo(animator: Laya.Animator | Laya.Animator2D, layerindex: number, playstate: Laya.AnimatorState | Laya.AnimatorState2D) {
+        this.playStateInfo.animator = animator;
+        this.playStateInfo.layerindex = layerindex;
+        this.playStateInfo.playState = playstate;
+    }
     constructor() {
         super();
 
     }
+
 
     /**
      * 动画状态开始时执行。
@@ -825,31 +839,68 @@ export class AnimationScript extends Laya.AnimatorStateScript {
 }
 ```
 
-IdleStateScript脚本继承自Laya.AnimatorStateScript，具备三个方法：
-
-- onStateEnter：动画状态开始时执行
-
-- onStateUpdate：动画状态运行中，方法中可以获得当前状态执行的时间长度 normalizeTime
-
-- onStateExit：动画状态退出时执行
-
-我们可以通过重写这几个方法，来实现动画状态改变时执行自己的逻辑。
-
-例如：
-
-1，进入或者退出某个动画状态时播放声音。
-
-2，在某个特定的状态下激活某些效果。
-
-我们来简单加入一些代码来看效果：
+AnimationScript脚本继承自Laya.AnimatorStateScript，`setPlayScriptInfo`是一个生命周期函数，可通过该函数获取当前脚本的动画组件、动画状态机层级、动画状态机。
 
 ```typescript
+ /**说明
+     * setPlayScriptInfo为生命周期函数，如果想获得动画状态机的信息，必须要调用。
+     * @param animator 当前脚本的动画组件
+     * @param layerindex 当前脚本所处的动画状态机层级
+     * @param playState  当前脚本的动画状态机
+     */
+     setPlayScriptInfo(animator: Laya.Animator | Laya.Animator2D, layerindex: number, playstate: Laya.AnimatorState | Laya.AnimatorState2D) {
+         this.playStateInfo.animator = animator;
+         this.playStateInfo.layerindex = layerindex;
+         this.playStateInfo.playState = playstate;
+     }
+```
+
+此脚本还具备三个方法：
+
+- onStateEnter：动画状态开始时执行；
+
+- onStateUpdate：动画状态运行中，方法中可以获得当前状态执行的时间长度 normalizeTime；
+
+- onStateExit：动画状态退出时执行；
+
+我们可以通过重写这几个方法，来实现动画状态改变时执行自己的逻辑。简单加入一些代码来看效果：
+
+```typescript
+const { regClass } = Laya;
+interface AnimatorPlayScriptInfo {
+    animator: Laya.Animator | Laya.Animator2D;
+    layerindex: number;
+    playState: Laya.AnimatorState | Laya.AnimatorState2D;
+}
+
+/**
+ * 继承自AnimatorStateScript(动画状态脚本)
+ * @author ...
+ */
+@regClass()
+export class AnimationScript extends Laya.AnimatorStateScript {
+    /**动画的状态信息 */
+    playStateInfo: AnimatorPlayScriptInfo = { animator: null, layerindex: -1, playState: null };
+
+    private isShow: boolean = false;
+    private _label: Laya.Label;
+    /**@internal */
+    setPlayScriptInfo(animator: Laya.Animator | Laya.Animator2D, layerindex: number, playstate: Laya.AnimatorState | Laya.AnimatorState2D) {
+        this.playStateInfo.animator = animator;
+        this.playStateInfo.layerindex = layerindex;
+        this.playStateInfo.playState = playstate;
+        this._label = animator.owner.scene.parent.getChildByName("root").getChildByName("Scene2D").getChildByName("Label");
+    }
+    constructor() {
+        super();
+    }
+
     /**
      * 动画状态开始时执行。
      */
     onStateEnter(): void {
         console.log("动画开始播放了");
-        Main.Text.text = "开始跑动画";
+        this._label.text = "开始跑动画";
     }
 
     /**
@@ -857,11 +908,10 @@ IdleStateScript脚本继承自Laya.AnimatorStateScript，具备三个方法：
      * @param normalizeTime 0-1动画播放状态
      */
     onStateUpdate(normalizeTime: number): void {
-        console.log("动画状态更新了："+normalizeTime);
-        if( normalizeTime > 0.5 && !this.isShow)
-        {
+        console.log("动画状态更新了：" + normalizeTime);
+        if (normalizeTime > 0.5 && !this.isShow) {
             this.isShow = true;
-            Main.Text.text = "跑动画一半";            
+            this._label.text = "跑动画一半";
         }
     }
 
@@ -870,8 +920,10 @@ IdleStateScript脚本继承自Laya.AnimatorStateScript，具备三个方法：
     */
     onStateExit(): void {
         console.log("动画退出了");
-        Main.Text.text = "退出跑动画";
+        this._label.text = "退出跑动画";
     }
+
+}
 ```
 
 实际运行效果，如动图6-9所示
