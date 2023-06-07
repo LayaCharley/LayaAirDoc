@@ -4,7 +4,7 @@
 
 [TextArea API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.TextArea
 
- SS
+ 
 
 ## 1、创建TextArea组件
 

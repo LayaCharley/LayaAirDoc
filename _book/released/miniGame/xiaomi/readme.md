@@ -4,13 +4,9 @@
 
 ## 一、概述
 
-推荐要看一看小米快游戏官方的文档，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看小米官方文档肯定没错。
+推荐要看一看小米快游戏[官方的文档](https://dev.mi.com/distribute/doc/details?pId=1450)，LayaAir引擎的文档更多的是引擎相关的。
 
-**链接如下：**
-
-https://dev.mi.com/distribute/doc/details?pId=1450
-
-小米快游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中配置好相关参数，然后直接在LayaAirIDE内一键发布成功（生成一个rpk的包）。至于调试方式，则是通过小米手机里安装一个apk调试环境，在apk里选择打开rpk的文件，然后通过chrome在PC上用数据线连接手机进行调试。
+小米快游戏中没有可视化开发调试工具，所以只能是LayaAir IDE中配置好相关参数，然后直接在LayaAir IDE内一键发布成功（生成一个rpk的包）。至于调试方式，则是通过小米手机里安装一个apk调试环境，在apk里选择打开rpk的文件，然后通过Chrome浏览器在PC上用数据线连接手机进行调试。
 
 
 
@@ -20,17 +16,17 @@ https://dev.mi.com/distribute/doc/details?pId=1450
 
 ### 2.1 选择目标平台
 
-点击构建项目，在弹出的构建项目界面里，选择发布平台为小米快游戏。如图2-1所示
+点击构建发布，在弹出的构建项目界面里，选择发布平台为小米快游戏。如图2-1所示，
 
-<img src="img/2-1.png" style="zoom:50%;" /> 
+ ![2-1](img/2-1.png)
 
 （图2-1）
 
-下面我们来介绍一下这些功能参数的填写
+下面我们来介绍一下这些功能参数的填写：
 
 **1、游戏名称**
 
-一般都填写中文汉字，英文也可以。用于应用商店、桌面图标、弹窗等游戏入口处。一个好的名字是游戏能不能吸量的重要元素。OPPO是10个汉字以内就可以。我们的建议是都不要超过6个汉字，游戏名太长没什么好处。
+一般都填写中文汉字，英文也可以。用于应用商店、桌面图标、弹窗等游戏入口处。一个好的名字是游戏能不能吸量的重要元素。我们的建议是都不要超过6个汉字，游戏名太长没什么好处。
 
 **2、游戏包名**
 
@@ -66,17 +62,7 @@ https://dev.mi.com/distribute/doc/details?pId=1450
 
 ②对于个人开发者，可以多个项目使用一个正式签名。只需要生成一次即可。
 
-如果已经release签名了，将签名文件放到Laya项目 sign/release 文件夹下
-
-**9、设置分包**
-
-让开发者在开发完成后，能够按照分包配置将需要分包的文件夹内的 js 或者某个 js， 打包签名生成 .rpk 文件；将项目中分包之外的其他文件打包成主包；再将整个包打成 .rpk 文件。
-
-> 小米快游戏分包加载包大小的限制
->
-> - 整个小游戏所有分包大小之和不超过 16 M
-> - 单个分包大小无限制
-> - 加上主包 4M，最终的 rpk 包大小不超过 20M
+如果已经release签名了，将签名文件放到Laya项目 sign/release 文件夹下。
 
 
 
@@ -84,9 +70,9 @@ https://dev.mi.com/distribute/doc/details?pId=1450
 
 点击版本发布，由于在发布前会检查rpk发布环境（用于生成rpk包），如果没有发布环境的，则会开始下载。
 
-发布后的目录结构如图2-2所示
+发布后的目录结构如图2-2所示： 
 
-<img src="img/2-2.png" style="zoom:50%;" /> 
+<img src="img/2-2.png" alt="2-2" style="zoom:80%;" />
 
 （图2-2）
 
@@ -116,23 +102,17 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 1、小米品牌的手机（注意必须是MIUI 8.5或以上版本）。
 
-2、下载安装小米的测试APP，下载页面：https://dev.mi.com/console/doc/detail?pId=1738
+2、下载安装小米的测试APP，进入[下载页面](https://dev.mi.com/distribute/doc/details?pId=1100)后，找到第三步，直接按提示下载即可。
 
-进入页面后，下拉找到第3步，**调试自测**那一栏里，直接按提示下载即可。
+3、PC电脑的Chrome浏览器与手机数据连接线。
 
-3、PC电脑的chrome浏览器与手机数据连接线。
+4、安装node.js环境，详细步骤在[《搭建基础开发环境》](../../../basics/developmentEnvironment/download/readme.md)中有介绍。
 
-4、安装nodejs 环境 [node官网：https://nodejs.org/en/]
+5、安装ADB。
 
-就是下载安装，比较简单，也不细介绍。能在命令行里调起npm命令就算是成功了。
-
-5、安装ADB
-
-建议安装ADB，因为有些时候，因为授权或者别的莫名其怪的原因。会导致无法正常启动chrome联真机调试。所以安装ADB 可以验证和有助于手机与PC电脑的连接授权。如果确保无USB调试授权问题的，也可以不装。
-
-[ ADB官网下载: http://adbshell.com/downloads ]
-
-简单提示一下，下载 ADB Kits，下载后的压缩包，建议解压放到一个路径简单一些的目录（如: `D:\adb`）。要记得添加环境变量（不知如何添加环境变量的可自行百度）。
+> 建议安装[ADB](https://adbshell.com/downloads)，因为有些时候，因为授权或者别的莫名其怪的原因。会导致无法正常启动Chrome联真机调试。所以安装ADB 可以验证手机与PC电脑的连接授权。如果确保无USB调试授权问题的，也可以不装。
+>
+> 简单提示一下，下载 ADB Kits，下载后的压缩包，建议解压放到一个路径简单的目录（如: `D:\adb`）。要记得添加环境变量（不知如何添加环境变量的可自行百度）。
 
 
 
@@ -140,7 +120,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 #### 3.2.1 安装并进入快应用调试器
 
-要启动电脑PC的chrome调试环境，我们要先安装好小米快游戏的调试APP（快应用调试器），如图3-1所示。然后点击进入。
+先在手机上安装好小米快游戏的调试APP（快应用调试器），如图3-1所示。然后点击进入。
 
 <img src="img/3-1.png" alt="图3" style="zoom:67%;" /> 
 
@@ -148,13 +128,13 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 #### 3.2.2 在快应用调试器界面扫码安装小米快游戏的rpk包
 
-进入快应用调试器之后，我们可以看到如图3-2所示的APP操作界面。
+进入快应用调试器之后，我们可以看到如图3-2所示的APP操作界面。 
 
-<img src="img/3-2.png" alt="图4" style="zoom: 67%;" /> 
+<img src="img/3-2.png" alt="3-2" style="zoom: 33%;" />
 
 (图3-2)
 
-把发布目录下/dist目录内的rpk包传到手机里，通过点`本地安装`按钮来安装。
+可以扫码安装，或者连接USB数据线把发布目录下/dist目录内的rpk包传到手机里，通过点`本地安装`按钮来安装。
 
 #### 3.2.3 保持物理线路连接以及授权
 
@@ -162,7 +142,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 ##### 相关操作如下：
 
-1、先用手机连接线将手机与PC保持物理上的连接。打开手机的开发者模式，且打开Usb调试。
+1、先用手机连接线将手机与PC保持物理上的连接。打开手机的开发者模式，且打开USB调试。
 
 此时，我们要关注手机端，是否出现如图3-3所示的提示，如果有，则点 确定 允许调试。
 
@@ -172,7 +152,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 2、验证授权。
 
-当USB调试模式授权成功之后，我们输入adb devices，应该如图3-4所示。
+当USB调试模式授权成功之后，我们在PC端打开cmd窗口，输入adb devices，应该如图3-4所示。
 
 ![图5-2](img/3-4.png) 
 
@@ -182,94 +162,43 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 #### 4.4 启动chrome调试环境
 
-小米快游戏在PC上没有工具的开发调试环境，是通过USB联接到手机设备，然后在PC命令行模式下，通过 `npm run debug` 命令调起Chrome调试器（前提要保障PC是已安装了chrome浏览器的）来联调手机真机环境的rpk包，如图3-5所示。
+小米快游戏在PC上没有工具的开发调试环境，是通过USB联接到手机设备，然后在PC命令行模式下，通过 `npm run debug` 命令调起Chrome调试器（前提要保障PC是已安装了Chrome浏览器的）来联调手机真机环境的rpk包，如图3-5所示。当我们能看到`Debugger URL opened in Chrome.`这个提示的时候，说明chrome已被成功调起。
 
 ![图6](img/3-5.png) 
 
 (图3-5)
 
-当我们能看到`Debugger URL opened in Chrome.`这个提示的时候，说明chrome已被成功调起，并与真机中的画面保持一致。如图3-6所示。真机中的各种操作，会完全同步到PC这个chrome里，我们就按chrome的调试方式来调试小米快游戏项目即可。
+或者在Chrome浏览器中输入`chrome://inspect/#devices`，进入后找到连接的手机选项，点击`inspect`，如图3-6所示：
 
-![图7](img/3-6.png)
+<img src="img/3-6.png" alt="3-6" style="zoom:67%;" />
 
-(图3-6)
+（图3-6）
 
-至此，小米快游戏从发布到启动chrome调试的完整流程已介绍完。
+操作完成后，如图3-7所示，就可以按Chrome的调试方式来调试小米快游戏项目。
+
+![3-7](img/3-7.png)
+
+(图3-7)
+
+至此，小米快游戏从发布到启动Chrome调试的完整流程已介绍完。
 
 
 
 ## 四、小米快游戏分包
 
-**在manifest.json中配置分包名与分包路径的字段**
+开发者在开发完成后，能够将需要分包的文件夹进行分包，项目中分包之外的其他文件打包成主包。
 
-```json
-“subpackages”: [             //分包配置
-       {
-           "name" : "sub1Name", //子包名称
-           "root" : "sub1/"     //可以指定一个目录
-       }，
-       {
-           "name" : "sub2Name", //子包名称
-           "root" : "sub2.js"   //也可以指定一个 js 文件
-       }
-]
-```
+> 小米快游戏分包加载包大小的限制
+>
+> - 整个小游戏的所有分包总和不超过 10M；
+> - 单个分包/基础包大小不能超过 5M；
+> - 整体压缩包（包含原整包和所有分包；）不超过20M。
 
-这个manifest.json是通过IDE的发布功能自动生成的，打开IDE的构建发布可以看到设置分包选项，如图4-1所示
+如图4-1所示，点击开启分包后，选择要进行分包的文件夹即可。
 
-<img src="img/4-1.png" style="zoom:50%;" /> 
+![4-1](img/4-1.png)
 
 （图4-1）
 
-subpackages里，可以有多个name与root，每一组代表一个分包，单个分包
+> 分包加载的API等，可参考[小米官方文档](https://dev.mi.com/distribute/doc/details?pId=1112)。
 
-分包路径可以指定一个目录，根目录下的 main.js 会作为入口文件，目录下所有资源将会统一打包
-
-**这里设置的分包文件（夹）要与oppogame目录下的文件（夹）对应，这里设置只是自动生成manifest.json里的配置信息，并不会去创建文件夹和文件。一定要手动创建文件与文件夹**
-
-**小米快游戏的分包加载示例代码**
-
-小米快游戏官方提供了qg.loadSubpackage(Object object) API 来触发分包的下载，调用 qg.loadSubpackage 后，将触发分包的下载与加载，在加载完成后，通过 qg.loadSubpackage 的 success 回调来通知加载完成。示例代码如下：
-
-```typescript
-const loadTaskA = qg.loadSubpackage({
-
-    name: 'sub1Name',
-    success: function (data) {
-    	console.info('加载分包 sub1Name 成功')
-    },
-    fail: function (err) {
-                  console.info('加载分包 sub1Name 失败', err)
-    }
-})
-```
-
-加载成功的同时，qg.loadSubpackage 会返回一个 `LoadSubpackageTask`，可以通过 `LoadSubpackageTask` 获取获取分包加载状态。示例代码如下：
-
-```typescript
-oadTaskA.onProgressUpdate(res => {
-
-    console.log('sub1Name 下载进度', res.progress)
-
-    console.log('sub1Name 已经下载的数据长度', res.totalBytesWritten)
-
-    console.log('sub1Name 预期需要下载的数据总长度',                res.totalBytesExpectedToWrite)
-
-}
-```
-
-**分包要点**
-
-基础库版本
-
-**注意！开发者调试的时候需要调试器和平台都是1.6.0.0及以上，否则跟着本文操作，使用的是不支持分包的版本，调试就会出问题。**
-
-调试器和平台下载地址：
-
-https://dev.mi.com/console/doc/detail?pId=1738
-
-如图：
-
-![图2](img/4-2.png) 
-
-（图4-2）

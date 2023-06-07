@@ -92,7 +92,7 @@ self.addEventListener('message', function (e) {
 
 ### Laya中应用
 
-在Laya2.0中内部封装了worker，解决加载解码图片卡顿现象，开发者可以打开开关，也可以自定义worker，解决项目中耗费cpu的地方，下面我们分别来介绍下。
+在LayaAir3.0中内部封装了worker，解决加载解码图片卡顿现象，开发者可以打开开关，也可以自定义worker，解决项目中耗费cpu的地方，下面我们分别来介绍下。
 
 新建一个项目，为了方便显示，我们新建一个ui项目。简单的调用接口如下：
 
