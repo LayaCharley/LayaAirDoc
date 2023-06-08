@@ -2607,300 +2607,73 @@ Shader3D End
 <span class="token punctuation">}</span>
 shader3D End
 </code></pre>
-<h4 id="32-&#x5F15;&#x64CE;&#x5185;&#x7F6E;uniform"><a name="32-&#x5F15;&#x64CE;&#x5185;&#x7F6E;uniform" class="anchor-navigation-ex-anchor" href="#32-&#x5F15;&#x64CE;&#x5185;&#x7F6E;uniform"><i class="fa fa-link" aria-hidden="true"></i></a>3.2 &#x5F15;&#x64CE;&#x5185;&#x7F6E;Uniform</h4>
-<p>&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x4F1A;&#x5217;&#x51FA;&#x5F15;&#x64CE;&#x5185;&#x7F6E;&#x7684;&#x9010;&#x7CBE;&#x7075;&#xFF0C;&#x9010;&#x76F8;&#x673A;&#x4E0E;&#x9010;&#x573A;&#x666F;&#x63D0;&#x4EA4;&#x7684; uniform&#x53D8;&#x91CF;&#x3002;</p>
-<p><strong>&#x9010;&#x7CBE;&#x7075;(PERIOD_SPRITE)</strong></p>
+<h4 id="32-&#x5F15;&#x64CE;&#x5E38;&#x89C1;&#x5185;&#x7F6E;uniform"><a name="32-&#x5F15;&#x64CE;&#x5E38;&#x89C1;&#x5185;&#x7F6E;uniform" class="anchor-navigation-ex-anchor" href="#32-&#x5F15;&#x64CE;&#x5E38;&#x89C1;&#x5185;&#x7F6E;uniform"><i class="fa fa-link" aria-hidden="true"></i></a>3.2 &#x5F15;&#x64CE;&#x5E38;&#x89C1;&#x5185;&#x7F6E;Uniform</h4>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x4EE5;&#x4E0B;&#x5217;&#x4E3E;&#x7684;Uniform&#x53D8;&#x91CF;&#x4EC5;&#x4E3A;&#x5F15;&#x64CE;&#x5E38;&#x7528;&#x7684;Uniform&#x53D8;&#x91CF;&#xFF0C;&#x5176;&#x4F59;&#x5F15;&#x64CE;&#x6D89;&#x53CA;&#x5230;&#x7684;Uniform&#x53D8;&#x91CF;&#x4E3A;&#x9AD8;&#x9636;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5728;&#x672C;&#x6587;&#x4E2D;&#x4E0D;&#x4F1A;&#x505A;&#x8BE6;&#x7EC6;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x5728;&#x5F15;&#x64CE;&#x4E2D;&#x7684;xx.glsl&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x76F8;&#x5BF9;&#x5E94;&#x7684;Uniform&#x53D8;&#x91CF;&#xFF0C;&#x5728;&#x6B64;&#x7BC7;&#x5E45;&#x4EC5;&#x4ECB;&#x7ECD;&#x5728;&#x5E38;&#x7528;&#x7684;Shader&#x7F16;&#x5199;&#x4E2D;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x9AD8;&#x9891;&#x7684;Uniform&#x53D8;&#x91CF;&#x3002;</p>
+</blockquote>
 <table>
 <thead>
 <tr>
 <th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
 <th style="text-align:left">&#x63CF;&#x8FF0;</th>
+<th>&#x6240;&#x5C5E;GLSL&#x6587;&#x4EF6;(&#x9AD8;&#x9636;&#x64CD;&#x4F5C;&#x4E0D;&#x63A8;&#x8350;&#x76F4;&#x63A5;&#x4F7F;&#x7528;)</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">u_MvpMatrix</td>
-<td style="text-align:left">MVP&#x77E9;&#x9635;</td>
-</tr>
 <tr>
 <td style="text-align:left">u_WorldMat</td>
 <td style="text-align:left">&#x4E16;&#x754C;&#x77E9;&#x9635;</td>
+<td>Sprite3D.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_LightMap</td>
-<td style="text-align:left">&#x5149;&#x7167;&#x8D34;&#x56FE;</td>
+<td style="text-align:left">u_ProjectionParams(near,   far,  invert,  1 / far)</td>
+<td style="text-align:left">&#x6295;&#x5F71;&#x53C2;&#x6570;</td>
+<td>Camera.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_LightmapScaleOffset</td>
-<td style="text-align:left">&#x5149;&#x7167;&#x8D34;&#x56FE;&#x7F29;&#x653E;&#x548C;&#x504F;&#x79FB;</td>
+<td style="text-align:left">u_Viewport(x,   y,   width,   height)</td>
+<td style="text-align:left">&#x89C6;&#x53E3;</td>
+<td>Camera.glsl</td>
 </tr>
-</tbody>
-</table>
-<p><strong>&#x9010;&#x76F8;&#x673A;(PERIOD_CAMERA)</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left">u_CameraDirection</td>
-<td style="text-align:left">&#x6444;&#x5F71;&#x673A;&#x65B9;&#x5411;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_CameraPos</td>
-<td style="text-align:left">&#x6444;&#x5F71;&#x673A;&#x4F4D;&#x7F6E;</td>
+<td style="text-align:left">&#x76F8;&#x673A;&#x65B9;&#x5411;</td>
+<td>Camera.glsl</td>
 </tr>
 <tr>
 <td style="text-align:left">u_CameraUp</td>
-<td style="text-align:left">&#x6444;&#x5F71;&#x673A;Up&#x5411;&#x91CF;</td>
+<td style="text-align:left">&#x76F8;&#x673A;&#x4E0A;&#x671D;&#x5411;</td>
+<td>Camera.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_Projection</td>
-<td style="text-align:left">&#x6295;&#x5F71;&#x77E9;&#x9635;</td>
+<td style="text-align:left">u_CameraPos</td>
+<td style="text-align:left">&#x76F8;&#x673A;&#x4F4D;&#x7F6E;</td>
+<td>Camera.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_ProjectionParams</td>
-<td style="text-align:left">&#x6295;&#x5F71;&#x53C2;&#x6570;</td>
+<td style="text-align:left">u_ZBufferParams&#xFF1A;<br>1.0 - far / near,   far / near,   (near - far) / (near * far),   1 / near</td>
+<td style="text-align:left">Zbuffer&#x53C2;&#x6570;</td>
+<td>Camera.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_View</td>
-<td style="text-align:left">&#x89C6;&#x56FE;&#x77E9;&#x9635;</td>
+<td style="text-align:left">u_CameraDepthTexture</td>
+<td style="text-align:left">&#x6DF1;&#x5EA6;&#x7EB9;&#x7406;</td>
+<td>Camera.glsl</td>
 </tr>
-<tr>
-<td style="text-align:left">u_Viewport</td>
-<td style="text-align:left">&#x6444;&#x5F71;&#x673A;&#x89C6;&#x53E3;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_ViewProjection</td>
-<td style="text-align:left">&#x89C6;&#x56FE;&#x77E9;&#x9635;x&#x6295;&#x5F71;&#x77E9;&#x9635;</td>
-</tr>
-</tbody>
-</table>
-<p><strong>&#x9010;&#x573A;&#x666F;(PERIOD_SCENE)</strong></p>
-<blockquote>
-<p>&#x4E8B;&#x4EF6;&#x76F8;&#x5173;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left">u_Time</td>
-<td style="text-align:left">&#x7CFB;&#x7EDF;&#x65F6;&#x95F4;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x53CD;&#x5C04;&#x76F8;&#x5173;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_ReflectIntensity</td>
-<td style="text-align:left">&#x53CD;&#x5C04;&#x5F3A;&#x5EA6;</td>
+<td style="text-align:left">&#x65F6;&#x95F4;</td>
+<td>Scene.glsl</td>
 </tr>
 <tr>
-<td style="text-align:left">u_ReflectTexture</td>
-<td style="text-align:left">&#x53CD;&#x5C04;&#x8D34;&#x56FE;</td>
+<td style="text-align:left">u_FogParams(Start, range, Density, &#x7F3A;&#x7701;)</td>
+<td style="text-align:left">&#x96FE;&#x6548;&#x53C2;&#x6570;</td>
+<td>Scene.glsl</td>
 </tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x9634;&#x5F71;&#x76F8;&#x5173;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_ShadowBias</td>
-<td style="text-align:left">&#x9634;&#x5F71;&#x8D34;&#x56FE;&#x57FA;&#x4E8E;&#x6DF1;&#x5EA6;&#x7684;&#x504F;&#x79FB;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_ShadowMapSizey</td>
-<td style="text-align:left">&#x9634;&#x5F71;&#x8D34;&#x56FE;&#x7684;&#x5C3A;&#x5BF8;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_ShadowMap</td>
-<td style="text-align:left">&#x5E73;&#x884C;&#x5149;&#x9634;&#x5F71;&#x8D34;&#x56FE;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SpotShadowMap</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x706F;&#x7684;&#x9634;&#x5F71;&#x8D34;&#x56FE;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x573A;&#x666F;&#x96FE;&#x5316;&#x76F8;&#x5173;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left">u_FogColor</td>
-<td style="text-align:left">&#x96FE;&#x5316;&#x989C;&#x8272;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_FogRange</td>
-<td style="text-align:left">&#x96FE;&#x5316;&#x8303;&#x56F4;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_FogStart</td>
-<td style="text-align:left">&#x96FE;&#x5316;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x706F;&#x5149;&#x76F8;&#x5173;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_DirationLightCount</td>
-<td style="text-align:left">&#x5E73;&#x884C;&#x5149;&#x6570;&#x91CF;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_LightBuffer</td>
-<td style="text-align:left">&#x706F;&#x5149;&#x7F13;&#x5B58;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_AmbientColor</td>
-<td style="text-align:left">&#x73AF;&#x5883;&#x5149;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_LightClusterBuffer</td>
-<td style="text-align:left">&#x805A;&#x7C7B;&#x7EB9;&#x7406;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SunLight.direction</td>
-<td style="text-align:left">&#x592A;&#x9633;&#x5149;&#x65B9;&#x5411;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SunLight.color</td>
-<td style="text-align:left">&#x592A;&#x9633;&#x5149;&#x989C;&#x8272;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_AmbientSHAr&#x2026;</td>
-<td style="text-align:left">&#x7403;&#x8C10;&#x5149;&#x7167;&#x76F8;&#x5173;&#x7684;uniform&#xFF0C;&#x4E00;&#x5171;7&#x4E2A;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_ReflectionProbe</td>
-<td style="text-align:left">&#x53CD;&#x5C04;&#x63A2;&#x9488;(&#x6682;&#x672A;&#x652F;&#x6301;)</td>
-</tr>
-<tr>
-<td style="text-align:left">u_ReflectCubeHDRParams</td>
-<td style="text-align:left">&#x53CD;&#x5C04;&#x8D34;&#x56FE;HDR&#x76F8;&#x5173;&#x4FE1;&#x606F;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x5E73;&#x884C;&#x5149;&#x76F8;&#x5173;&#xFF08;&#x8001;&#x7248;&#x672C;&#xFF0C;&#x9010;&#x6B65;&#x4F1A;&#x53BB;&#x9664;&#xFF09;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_DirectionLight.color</td>
-<td style="text-align:left">&#x5E73;&#x884C;&#x5149;&#x7684;&#x989C;&#x8272;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_DirectionLight.direction</td>
-<td style="text-align:left">&#x5E73;&#x884C;&#x5149;&#x7684;&#x65B9;&#x5411;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_DirationLightCount</td>
-<td style="text-align:left">&#x5E73;&#x884C;&#x5149;&#x7684;&#x6570;&#x91CF;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x70B9;&#x5149;&#x76F8;&#x5173;&#xFF08;&#x8001;&#x7248;&#x672C;&#xFF0C;&#x9010;&#x6B65;&#x4F1A;&#x53BB;&#x9664;&#xFF09;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_PointLight.color</td>
-<td style="text-align:left">&#x70B9;&#x5149;&#x7684;&#x989C;&#x8272;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_PointLight.position</td>
-<td style="text-align:left">&#x70B9;&#x5149;&#x7684;&#x4F4D;&#x7F6E;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_PointLight.range</td>
-<td style="text-align:left">&#x70B9;&#x5149;&#x7684;&#x8303;&#x56F4;</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>&#x805A;&#x5149;&#x76F8;&#x5173;&#xFF08;&#x8001;&#x7248;&#x672C;&#xFF0C;&#x9010;&#x6B65;&#x4F1A;&#x53BB;&#x9664;&#xFF09;</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">&#x53D8;&#x91CF;&#x540D;</th>
-<th style="text-align:left">&#x63CF;&#x8FF0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">u_SpotLight.color</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x7684;&#x989C;&#x8272;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SpotLight.direction</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x7684;&#x65B9;&#x5411;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SpotLight.range</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x7684;&#x8303;&#x56F4;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SpotLight.spot</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x7684;&#x89D2;&#x5EA6;</td>
-</tr>
-<tr>
-<td style="text-align:left">u_SpotLight.position</td>
-<td style="text-align:left">&#x805A;&#x5149;&#x7684;&#x4F4D;&#x7F6E;</td>
+<td style="text-align:left">&#x96FE;&#x6548;&#x989C;&#x8272;</td>
+<td>Scene.glsl</td>
 </tr>
 </tbody>
 </table>
@@ -3268,7 +3041,7 @@ GLSL  End
 <p>&#x56FE;a-4</p>
 <p>&#x5728;&#x5F15;&#x64CE;&#x5185;&#x90E8;Shader&#x7684;RenderMode&#x4F1A;&#x548C;&#x6750;&#x8D28;&#x4E0A;&#x7684;RenderMode&#x505A;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#xFF0C;&#x4E00;&#x822C;&#x662F;&#x4EE5;&#x6750;&#x8D28;&#x4E0A;&#x7684;RenderMode&#x4E3A;&#x4E3B;&#x3002;</p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9;Layabox 2022 all right reserved&#xFF0C;powered by <a href="https://layaAir.layabox.com/" target="_blank">LayaAir</a> Engine</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2023-05-10 14:56:16
+2023-06-08 14:46:45
 </span></footer>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -3313,7 +3086,7 @@ GLSL  End
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"自定义Shader","level":"1.4.3.1","depth":3,"next":{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},"previous":{"title":"3D进阶","level":"1.4.3","depth":2,"path":"3D/advanced/readme.md","ref":"3D/advanced/readme.md","articles":[{"title":"自定义Shader","level":"1.4.3.1","depth":3,"path":"3D/advanced/customShader/readme.md","ref":"3D/advanced/customShader/readme.md","articles":[]},{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},{"title":"CommandBuffer","level":"1.4.3.3","depth":3,"path":"3D/advanced/CommandBuffer/readme.md","ref":"3D/advanced/CommandBuffer/readme.md","articles":[]},{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},{"title":"WebXR","level":"1.4.3.5","depth":3,"path":"3D/WebXR/readme.md","ref":"3D/WebXR/readme.md","articles":[]},{"title":"3D寻路","level":"1.4.3.6","depth":3,"path":"3D/advanced/Astar/readme.md","ref":"3D/advanced/Astar/readme.md","articles":[]},{"title":"Unity资源导出插件","level":"1.4.3.7","depth":3,"path":"3D/advanced/Unity/readme.md","ref":"3D/advanced/Unity/readme.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"livereload":{},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/advanced/customShader/readme.md","mtime":"2023-05-10T06:56:16.059Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-07T12:49:38.031Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"自定义Shader","level":"1.4.3.1","depth":3,"next":{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},"previous":{"title":"3D进阶","level":"1.4.3","depth":2,"path":"3D/advanced/readme.md","ref":"3D/advanced/readme.md","articles":[{"title":"自定义Shader","level":"1.4.3.1","depth":3,"path":"3D/advanced/customShader/readme.md","ref":"3D/advanced/customShader/readme.md","articles":[]},{"title":"后处理","level":"1.4.3.2","depth":3,"path":"3D/advanced/PostProcessing/readme.md","ref":"3D/advanced/PostProcessing/readme.md","articles":[]},{"title":"CommandBuffer","level":"1.4.3.3","depth":3,"path":"3D/advanced/CommandBuffer/readme.md","ref":"3D/advanced/CommandBuffer/readme.md","articles":[]},{"title":"3D性能优化","level":"1.4.3.4","depth":3,"path":"3D/advanced/performanceOptimization/readme.md","ref":"3D/advanced/performanceOptimization/readme.md","articles":[]},{"title":"WebXR","level":"1.4.3.5","depth":3,"path":"3D/WebXR/readme.md","ref":"3D/WebXR/readme.md","articles":[]},{"title":"3D寻路","level":"1.4.3.6","depth":3,"path":"3D/advanced/Astar/readme.md","ref":"3D/advanced/Astar/readme.md","articles":[]},{"title":"Unity资源导出插件","level":"1.4.3.7","depth":3,"path":"3D/advanced/Unity/readme.md","ref":"3D/advanced/Unity/readme.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small","sidebar-style","anchor-navigation-ex","-lunr","-search","-sharing","search-pro","versions-select","-favicon","favicon-absolute","fontsettings","prism","splitter","code","flexible-alerts","auto-scroll-table","popup","tbfed-pagefooter","-theme-hqbook"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"","title":""},"tbfed-pagefooter":{"copyright":"Copyright ©Layabox 2022","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"splitter":{},"search-pro":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"versions-select":{"type":"branches"},"favicon-absolute":{"appleTouchIconMore":{},"appleTouchIconPrecomposed152":"./style/layabox-152.png","appleTouchIconPrecomposedMore":{},"favicon":"./style/favicon-32.ico","bookmark":"./style/favicon-32.ico"},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":false,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"expandable-chapters-small":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"versions":{"options":[{"value":"https://layaAir.layabox.com/3.x/doc/","text":"v3.0.0"}]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","style":{"website":"style/website.css"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LayaAir3.0文档 · LAYABOX","gitbook":"*"},"file":{"path":"3D/advanced/customShader/readme.md","mtime":"2023-06-08T06:46:45.886Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-08T08:02:20.207Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3360,10 +3133,6 @@ GLSL  End
     
         
         <script src="../../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
-        
-    
-        
-        <script src="../../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
 
