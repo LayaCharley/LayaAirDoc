@@ -844,6 +844,7 @@ color: string;
 | showAlpha          | showAlpha: false                                             | 颜色类型时，表示是否提供透明度a值的修改。true表示提供，false表示不提供 |
 | defaultColor       | defaultColor: "rgba(217, 232, 0, 1)"                         | 颜色类型时，定义一个非null时的默认颜色值                     |
 | colorNullable      | colorNullable: true                                          | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
+| isAsset            | isAsset: true                                                | 说明此属性是引用一个资源                                     |
 | assetTypeFilter    | assetTypeFilter: "Image"                                     | 资源类型时，设置加载的资源类型                               |
 | useAssetPath       | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
 | **private**        | private：false                                               | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
@@ -924,7 +925,7 @@ color: string;
     color3: Laya.Color;
 
 	//加载Image资源类型，设置资源路径格式
-    @property({ type: String, inspector: "asset", assetTypeFilter: "Image", useAssetPath: true })
+    @property({ type: String, isAsset: true, assetTypeFilter: "Image", useAssetPath: true })
     resource: string;
 
 	//增加缩进，单位是层级
