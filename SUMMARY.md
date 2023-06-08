@@ -8,7 +8,6 @@
       * [TS语言基础](basics/language/readme.md)
       * [DevTools调试工具](basics/DevTools/readme.md)
       * [LayaTree调试工具](basics/LayaTree/readme.md)
-      * [VScode本地调试](basics/VsCode/readme.md)
 - 引擎基础
     - [IDE基础](basics/IDE/readme.md)
       * [自定义界面布局](basics/IDE/layouts/readme.md)
@@ -47,7 +46,6 @@
       - [2D基础显示对象](2D/displayObject/readme.md)
         * [精灵](2D/displayObject/Sprite/readme.md)
         * [动画节点](2D/displayObject/Animation/readme.md)
-        * [HTML文本](2D/displayObject/HTMLDivElement/readme.md)
         * [基础文本](2D/displayObject/Text/readme.md)
       - [UI组件详解](IDE/uiEditor/uiComponent/readme.md)
         * [图像组件](IDE/uiEditor/uiComponent/Image/readme.md)
