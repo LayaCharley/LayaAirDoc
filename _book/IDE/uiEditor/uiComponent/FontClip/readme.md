@@ -8,7 +8,7 @@ FontClip组件本质上是对位图从方向上进行等比切割，FontClip继�
 
 ## 1、创建Fontclip
 
-创建Fontclip非常简单，通过IDE的可视化操作，只需要用鼠标就可以实现。右键单击Scence2D，找到UI，点击FontClip即可创建成功。如图一所示。
+创建Fontclip非常简单，通过IDE的可视化操作，只需要用鼠标就可以实现。右键单击Scence2D，找到UI，点击FontClip即可创建成功。如图1所示。
 
 ![](img/1.png) 
 

@@ -812,50 +812,44 @@ color: string;
 
 上文介绍了常用装饰器属性标识的参数作用（加粗为上文出现过的），这里我们概述总结一下全部的参数。
 
-| 参数名               | 参数使用示例                                                 | 说明                                                         |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| name                 | name: "abc"                                                  | 一般不需要设定                                               |
-| **type**             | type: "string"                                               | 组件属性可输入值的类型，参照上文的介绍                       |
-| **caption**          | caption: "角度"                                              | 组件属性的别名，常用中文，可以不设置，默认会用组件属性名     |
-| **tips**             | tips: "这是一个文本对象，只能输入文本哦"                     | 组件属性的Tips说明，用于进一步描述该属性的作用等用途         |
-| **catalog**          | catalog:"adv"                                                | 为多个属性设置相同的值，可以将它们显示在同一个栏目内         |
-| **catalogCaption**   | catalogCaption:"高级组件"                                    | 属性分类栏目的别名，不提供则直接使用栏目名称                 |
-| **catalogOrder**     | catalogOrder:0                                               | 栏目的显示顺序，数值越小显示在前面。不提供则按属性出现的顺序 |
-| **inspector**        | inspector: "color"                                           | 属性值输入控件，内置有：number,string,boolean,color,vec2,vec3,vec4,asset |
-| hidden               | hidden: "!data.a"                                            | true隐藏，false显示。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
-| readonly             | readonly: "data.b"                                           | true表示只读。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
-| validator            | validator: "if (value == data.text1) return '不能与text1值相同' " | 可以使用表达式，将表达式放到字符串里。例如示例中，若在IDE中输入的值和text1的值相等，就会显示”不能与text1值相同“ |
-| **serializable**     | serializable： false                                         | 控制组件属性是否序列化保存，true：序列化保存，false：不序列化保存 |
-| **multiline**        | multiline: true                                              | 字符串类型时，是否为多行输入，true：是，false：不是          |
-| password             | password: true                                               | 是否密码输入，true：是，false：不是。密码输入会隐藏输入的内容 |
-| submitOnTyping       | submitOnTyping: false                                        | 如果设置为true，那么每次输入一个字符，就会提交一次。如果设置为false，那么只有当输入完成后，并且点击其它地方，让文本输入框失去焦点时，才会提交一次。 |
-| prompt               | prompt: "文本提示信息"                                       | 在输入文本前，文本框内会有一个提示信息                       |
-| enumSource           | enumSource: [{name:"Yes", value:1}, {name:"No",value:0}]     | 组件属性以下拉框的形式来展示与输入值                         |
-| reverseBool          | reverseBool: true                                            | 反转布尔值，当属性值为true时，多选框显示为不勾选             |
-| nullable             | nullable: true                                               | 是否允许null值，默认为true                                   |
-| **min**              | min: 0                                                       | 数字类型时，数字的最小值                                     |
-| max                  | max: 10                                                      | 数字类型时，数字的最大值                                     |
-| range                | range: [0, 5]                                                | 数字类型时，组件属性在一个范围内以滑动杆的方式显示与输入值   |
-| step                 | step: 0.5                                                    | 数字类型时，在输入框的鼠标滑动或滚轮滚动的最小更改精度值     |
-| **fractionDigits**   | fractionDigits: 3                                            | 数字类型时，属性值的小数点后保留几位                         |
-| percentage           | percentage: true                                             | 将range参数设置为[0,1]时，可以让percentage为true，显示为百分比 |
-| fixedLength          | fixedLength: true                                            | 数组类型时，固定数组长度，不允许修改                         |
-| arrayActions         | arrayActions: ["delete", "move"]                             | 数组类型时，可限制数组可以进行的操作。如果不提供，表示数组允许所有操作，如果提供，则只允许列出的操作。提供的类型有："append"，"insert" ，"delete" ，"move" |
-| elementProps         |                                                              |                                                              |
-| showAlpha            | showAlpha: false                                             | 颜色类型时，表示是否提供透明度a值的修改。true表示提供，false表示不提供 |
-| defaultColor         | defaultColor: "rgba(217, 232, 0, 1)"                         | 颜色类型时，定义一个非null时的默认颜色值                     |
-| colorNullable        | colorNullable: true                                          | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
-| hideHeader           |                                                              |                                                              |
-| createObjectMenu     |                                                              |                                                              |
-| assetTypeFilter      | assetTypeFilter: "Image"                                     | 资源类型时，设置加载的资源类型                               |
-| useAssetPath         | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
-| allowInternalAssets  |                                                              |                                                              |
-| position             |                                                              |                                                              |
-| **private**          | private：false                                               | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
-| addIndent            | addIndent:1                                                  | 增加缩进，单位是层级，注意不是像素                           |
-| allowMultipleObjects |                                                              |                                                              |
-| hideInDeriveType     |                                                              |                                                              |
-| onChange             | onChange: "onChangeTest"                                     | 当属性改变时，调用名称为onChangeTest的函数。函数需要在当前组件类上定义 |
+| 参数名             | 参数使用示例                                                 | 说明                                                         |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| name               | name: "abc"                                                  | 一般不需要设定                                               |
+| **type**           | type: "string"                                               | 组件属性可输入值的类型，参照上文的介绍                       |
+| **caption**        | caption: "角度"                                              | 组件属性的别名，常用中文，可以不设置，默认会用组件属性名     |
+| **tips**           | tips: "这是一个文本对象，只能输入文本哦"                     | 组件属性的Tips说明，用于进一步描述该属性的作用等用途         |
+| **catalog**        | catalog:"adv"                                                | 为多个属性设置相同的值，可以将它们显示在同一个栏目内         |
+| **catalogCaption** | catalogCaption:"高级组件"                                    | 属性分类栏目的别名，不提供则直接使用栏目名称                 |
+| **catalogOrder**   | catalogOrder:0                                               | 栏目的显示顺序，数值越小显示在前面。不提供则按属性出现的顺序 |
+| **inspector**      | inspector: "color"                                           | 属性值输入控件，内置有：number,string,boolean,color,vec2,vec3,vec4,asset |
+| hidden             | hidden: "!data.a"                                            | true隐藏，false显示。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
+| readonly           | readonly: "data.b"                                           | true表示只读。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
+| validator          | validator: "if (value == data.text1) return '不能与text1值相同' " | 可以使用表达式，将表达式放到字符串里。例如示例中，若在IDE中输入的值和text1的值相等，就会显示”不能与text1值相同“ |
+| **serializable**   | serializable： false                                         | 控制组件属性是否序列化保存，true：序列化保存，false：不序列化保存 |
+| **multiline**      | multiline: true                                              | 字符串类型时，是否为多行输入，true：是，false：不是          |
+| password           | password: true                                               | 是否密码输入，true：是，false：不是。密码输入会隐藏输入的内容 |
+| submitOnTyping     | submitOnTyping: false                                        | 如果设置为true，那么每次输入一个字符，就会提交一次。如果设置为false，那么只有当输入完成后，并且点击其它地方，让文本输入框失去焦点时，才会提交一次。 |
+| prompt             | prompt: "文本提示信息"                                       | 在输入文本前，文本框内会有一个提示信息                       |
+| enumSource         | enumSource: [{name:"Yes", value:1}, {name:"No",value:0}]     | 组件属性以下拉框的形式来展示与输入值                         |
+| reverseBool        | reverseBool: true                                            | 反转布尔值，当属性值为true时，多选框显示为不勾选             |
+| nullable           | nullable: true                                               | 是否允许null值，默认为true                                   |
+| **min**            | min: 0                                                       | 数字类型时，数字的最小值                                     |
+| max                | max: 10                                                      | 数字类型时，数字的最大值                                     |
+| range              | range: [0, 5]                                                | 数字类型时，组件属性在一个范围内以滑动杆的方式显示与输入值   |
+| step               | step: 0.5                                                    | 数字类型时，在输入框的鼠标滑动或滚轮滚动的最小更改精度值     |
+| **fractionDigits** | fractionDigits: 3                                            | 数字类型时，属性值的小数点后保留几位                         |
+| percentage         | percentage: true                                             | 将range参数设置为[0,1]时，可以让percentage为true，显示为百分比 |
+| fixedLength        | fixedLength: true                                            | 数组类型时，固定数组长度，不允许修改                         |
+| arrayActions       | arrayActions: ["delete", "move"]                             | 数组类型时，可限制数组可以进行的操作。如果不提供，表示数组允许所有操作，如果提供，则只允许列出的操作。提供的类型有："append"，"insert" ，"delete" ，"move" |
+| showAlpha          | showAlpha: false                                             | 颜色类型时，表示是否提供透明度a值的修改。true表示提供，false表示不提供 |
+| defaultColor       | defaultColor: "rgba(217, 232, 0, 1)"                         | 颜色类型时，定义一个非null时的默认颜色值                     |
+| colorNullable      | colorNullable: true                                          | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
+| isAsset            | isAsset: true                                                | 说明此属性是引用一个资源                                     |
+| assetTypeFilter    | assetTypeFilter: "Image"                                     | 资源类型时，设置加载的资源类型                               |
+| useAssetPath       | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
+| **private**        | private：false                                               | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
+| addIndent          | addIndent:1                                                  | 增加缩进，单位是层级，注意不是像素                           |
+| onChange           | onChange: "onChangeTest"                                     | 当属性改变时，调用名称为onChangeTest的函数。函数需要在当前组件类上定义 |
 
 代码示例如下（只列出上文没有介绍过的）：
 
@@ -931,7 +925,7 @@ color: string;
     color3: Laya.Color;
 
 	//加载Image资源类型，设置资源路径格式
-    @property({ type: String, inspector: "asset", assetTypeFilter: "Image", useAssetPath: true })
+    @property({ type: String, isAsset: true, assetTypeFilter: "Image", useAssetPath: true })
     resource: string;
 
 	//增加缩进，单位是层级

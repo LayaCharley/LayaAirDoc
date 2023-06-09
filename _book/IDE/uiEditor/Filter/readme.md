@@ -14,7 +14,7 @@ LayaAir 引擎提供了颜色滤镜、发光(或阴影)滤镜、模糊滤镜三�
 
 在LayaAir 3.0中，除了Sprite 对象以外，你可以将滤镜应用于任何显示对象，通常我们对Image组件使用最多。如动图1.1所示，我们来看看如何在Image上使用滤镜
 
-<img src="C:\Users\ZhangZhe\Desktop\文档\UI滤镜效果\img\1-1.gif" style="zoom:50%;" />
+![](img/1-1.gif) 
 
 （动图1-1）
 

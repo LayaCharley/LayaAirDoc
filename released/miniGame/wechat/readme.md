@@ -213,7 +213,11 @@ export class Script extends Laya.Script {
 
 （图4-2）
 
-这是wx.loadSubpackage返回的一个 [LoadSubpackageTask](https://developers.weixin.qq.com/minigame/dev/api/base/subpackage/LoadSubpackageTask.html)，可以通过它获取当前下载进度。这三个参数的意义是：
+ [wx.loadSubpackage()](https://developers.weixin.qq.com/minigame/dev/api/base/subpackage/wx.loadSubpackage.html) 返回的一个 [LoadSubpackageTask](https://developers.weixin.qq.com/minigame/dev/api/base/subpackage/LoadSubpackageTask.html)，可以通过它获取当前下载进度。
+
+> 参考微信小游戏[官方文档](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html)。
+
+打印的参数的意义分别是：
 
 `progress`：下载进度；
 
