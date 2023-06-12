@@ -194,60 +194,9 @@ FontClip组件是LayaAir基于等份切割原理将完整的位图切分成一�
 >
 > 开发者也可以通过外部工具制作完成后，再导入使用。这里推荐一个开源工具：https://snowb.org/，在线即可制作。
 
-### 三、HTML文本组件
+### 三、HTML、UBB、模板
 
-HTML文本是用于图文混排的文本组件，组件名为HTMLDivElement。该组件通常用于聊天室等动态文本场景需求，所以引擎也是采单字符提交图集的模式，与Graphics的文本绘制有些类似，但又不太一样，因为绘制采用的是系统字，并支持常见的HTML标签。
-
-目前引擎支持的常见HTML标签如下：
-
-| 标签名   | 标签说明                                                     |
-| -------- | ------------------------------------------------------------ |
-| `div`    | div容器标签，例如：`<div> 文本的最外层，可以通过style设置HTML文本的宽高 </div>` |
-| `span`   | 行内元素标签，例如：`<span> 多个span之间不会自动换行，除非是达到了宽度限制</span>` |
-| `h`      | h1 到 h6是标题标签，例如：`<h1>h1最大</h1>` …… `<h6>h6最小</h6>` |
-| `p`      | 段落标签，例如：`<p>多个p标签之间会自动换行，每个完整的p标签是一个单独的段落</p>` |
-| `br`     | 换行标签，例如：`<span>要</span>换行<br />`                  |
-| `&nbsp;` | 空格标签，例如： `&nbsp;&nbsp;`                              |
-| `style`  | 样式标签，例如：`<div style='width:880px;height:100px;font-family:SimSun;'><span style='font-weight:bold;font-size:70px;'>HTML文本</span></div></style>` |
-| `img`    | 图片标签，例如：`<img src='res/laya.png' width='50' height='50'></img>` |
-| `color`  | 文本颜色标签，例如：`<span color='#e3d26a'>颜色</span>`      |
-
-具体到style标签的属性支持如下：
-
-| style标签属性示例              | 属性说明                    |
-| ------------------------------ | --------------------------- |
-| `italic:true｜false;`          | 是否是斜体                  |
-| `bold:true｜false;`            | 是否是粗体                  |
-| `letter-spacing:10px;`         | 字间距                      |
-| `font-family:宋体;`            | 字体                        |
-| `font-size:20px;`              | 字体大小                    |
-| `font-weight:bold;`            | 字体是否是粗体，功能同bold  |
-| `color:#ff0000;`               | 字体颜色                    |
-| `stroke:2px;`                  | 字体描边宽度                |
-| `strokeColor:#ff0000;`         | 字体描边颜色                |
-| `padding:10px 10px 20px 20px;` | 边缘的距离(上右下左)        |
-| `line-height:100px;`           | 行高（仅div中使用）         |
-| `align:left｜right｜center`    | 水平对齐方式（仅div中使用） |
-| `background-color:#ff0000;`    | 背景颜色（仅div中使用）     |
-| `border-color:#ff0000;`        | 边框颜色（仅div中使用）     |
-| `width:100px;`                 | 宽度（仅div中使用）         |
-| `height:100px;`                | 高度（仅div中使用）         |
-
-下面的代码是运用的示例代码，
-
-```html
-<div style='width:880px;height:600px;color:#ff0000;font-size:50px;font-family:SimSun;vertical-align:bottom;line-height:100px;border-color:#ff0000;'>
-    <span color='#e3d26a' style='font-weight:bold;'>使</span>用<br/>
-    <span style='color:#FFFFFF;font-size:70px;stroke:2px;italic:true;'>HTMLDivElement</span>&nbsp;&nbsp;组件
-    <span color='#6ad2e3'>创建的</span><br/> 
-    <img src='res/laya.png' width='50' height='50'></img><span color='#d26ae3'>HTML文本</span>
-    <p style='height:350px; bold:true;letter-spacing:20px;'>P标签，不需要br也会自动换新一行</p>
-</div>
-```
-
- 当我们将以上代码复制到HTMLDivElement组件的innerHTML属性里，运行效果如下图所示。
-
-![](img/3-1-1.png) 
+在所有的文本相关的UI组件上使用HTML标签，并且可以与其它的UBB标签、文本模板、普通文本混合使用，开发者只需设置对应的syntax属性即可，支持的语法与使用方式请参考文档[《基础文本》](../../displayObject/Text/readme.md)。
 
 ### 四、可输入文本组件
 
