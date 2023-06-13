@@ -1,74 +1,107 @@
-# Label 组件参考
+# 显示文本组件(Label)
 
 
 
-## 一、通过LayaAirIDE创建Label组件
+## 一、通过LayaAir IDE创建Label组件
+
+Label 组件用来显示一段文字。Label 组件的脚本接口请参考 [Label API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Label)。
 
 ###     1.1 创建Label
 
-​        Label 组件用来显示一段文字，文字可以是系统字体或者 BMFont 字体。
+如图1-1所示，可以在`层级`窗口中右键进行创建，也可以从`小部件`窗口中拖拽添加。
 
-​        点击资源面板里的 Label 组件，拖放到页面编辑区，即可添加 Label 组件到页面上。
-​        Label 组件的脚本接口请参考 [Label API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Label)。
+<img src="img/1-1.png" alt="1-1" style="zoom:67%;" />
 
-​        Label 组件的资源示例：
+（图1-1）
 
-​        ![图片0.png](img/1.png)
+Label组件拖放到编辑区后，设置 text 属性的值为 LayaAir IDE 后的显示效果如下：
 
-​    （图1）
+![1-2](img/1-2.png)
 
-​        Label组件拖放到编辑区后，设置 text 属性的值为 LayaAir IDE 后的显示效果如下：
-
-​        ![图片0.png](img/2.png)
-
-​    （图2）
-
- 
+（图1-2）
 
 ###  1.2 Label 属性
 
-​        ![图片0.png](img/3.png)
+<img src="img/1-3.png" alt="1-3" style="zoom:67%;" />
 
-​    （图3）
-
- 
+（图1-3）
 
 | **属性**       | 功能说明                                                     |
 | -------------- | ------------------------------------------------------------ |
-| text           | 文本内容字符串。                                             |
-| align          | 文本的对齐方式。                                             |
-| color          | 文本的颜色值。默认为黑色。                                   |
-| bgColor        | 文本背景颜色。                                               |
-| font           | 文本的字体名称。                                             |
-| fontSize       | 文本的字体大小。                                             |
-| style          | 文本是否为粗体字显示。                                       |
-| italic         | 文本是否显示为斜体。                                         |
-| wordWrap       | 文本是否换行，默认为false，不可自动换行。                    |
-| stroke         | 文本的描边宽度。                                             |
-| strokeColor    | 文本的描边颜色。                                             |
-| leading        | 文本的垂直行间距。                                           |
-| padding        | 文本的边距。                                                 |
-| overflow       | 文本超出文本域后的行为。visible：不进行任何裁剪。hidden：不显示超出文本域后的字符。scroll：不显示文本域外的字符像素，并且支持scroll接口。 |
-| bordercolor    | 文本边框颜色。                                               |
-| underlinecolor | 下划线颜色。                                                 |
+| text           | 文本的实际内容                                               |
+| font           | 文本的字体名称，例如：`Microsoft YaHei`，这里可以手动输入常用的字体，还可以是[位图字体](../../advanced/useText/readme.md) |
+| fontSize       | 文本字体大小，例如： `50`，直接填写正整数                    |
+| color          | 文本的颜色，可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
+| fit content    | 勾选后，Label边框可以根据文字大小和数量，自适应调整大小      |
+| style          | “**B**”(bold)是否为粗体，“***I***”(italic)是否为斜体，“<u>**U**</u>”是否有下划线 |
+| syntax         | [多样式混排](../../../../2D/displayObject/Text/readme.md)，支持部分HTML语法和UBB语法。还可以勾选模板，能够在字符串中使用变量 |
+| align          | 对齐方式，水平对齐(align)分别是left（居左对齐）、center（居中对齐）、right（居右对齐）;垂直对齐(valign)分别是top（居顶对齐）、middle（居中对齐）、bottom（居底对齐） |
+| bgColor        | 背景颜色，勾选后可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
+| bordercolor    | 文本边框颜色，勾选后可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
+| overflow       | 文本溢出处理，共有三种模式。visible（默认模式）：不进行任何裁切。hidden:不显示超出文本域的字符。scroll:不显示文本域外的字符像素，并且支持scroll接口 |
+| wordWrap       | 是否自动换行，布尔值选项，默认为`false`，选择`true`可以开启自动换行 |
+| leading        | 垂直行间距，当开启自动换行时，文本内容多行时有效。间距以像素为单位，输入正整数即可 |
+| padding        | 文本边距，以像素为单位，由4个整数值组成。“U”表示距上边框的距离、”R“表示距右边框的距离、”D“表示距下边框的距离、”L”表示距左边框的距离 |
+| underlinecolor | 下划线颜色，可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
+| stroke         | 描边宽度，范围为0~100                                        |
+| strokeColor    | 文本的描边颜色，可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
 
  
 
+### 1.3 脚本控制Label
+
+在Scene2D的属性设置面板中，增加一个自定义组件脚本。然后，将Label拖入到其暴露的属性入口中。下面给出一个示例代码，实现脚本控制Label：
+
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class LabelControl extends Laya.Script {
+    //declare owner : Laya.Sprite3D;
+
+    @property( { type : Laya.Label } )
+    public lab: Laya.Label;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+        this.lab.pos(Laya.stage.width >> 1, Laya.stage.height >> 1); //位置
+        this.lab.size(500, 30); //大小
+        this.lab.pivot(this.lab.width/2, this.lab.height/2); //轴心点
+        this.lab.text = "大家好，欢迎大家来到LayaAir IDE"; //文本内容
+        this.lab.font = "宋体"; //字体
+        this.lab.fontSize = 50; //字体大小
+        this.lab.color = "#ff0000"; //字体颜色
+        this.lab.bold = true; //加粗
+        this.lab.italic = true; //斜体
+        this.lab.underline = true; //下划线
+        this.lab.underlineColor = "#ff0000"; //下划线颜色
+        this.lab.stroke = 5; //描边宽度
+        this.lab.strokeColor = "#000000" ; //描边颜色
+        this.lab.wordWrap = true; //自动换行
+        this.lab.leading = 10; //垂直行间距
+        this.lab.align = "left"; //水平对齐方式
+        this.lab.valign = "top"; //垂直对齐方式
+        this.lab.overflow = "visible"; //文本溢出
+        // this.lab.fitContent = true; //自适应大小
+
+        this.lab.bgColor = "#19a4f1"; //背景颜色
+        this.lab.borderColor = "#f6ff03" //边框颜色
+    }
+
+}
+```
+
+
+
 ## 二、通过代码创建Label组件
 
-在我们进行书写代码的时候，免不了通过代码控制UI，创建`UI_Label`类，通过代码设定Label相关的属性。
-
-**运行示例效果:**
-
-​	![5](img/4.png)
-
-​    (图5)
-
-通过代码创建Label
-
-Label的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建不同皮肤（样式）的Label，有兴趣的读者可以自己通过代码设置Label，创建出符合自己需要的文字效果。
-
-更多的文字效果可以去查看2D基础篇中的文本部分。
+在进行项目开发的时候，有时不想让Label一开始就在舞台上，而是在要用的时候才添加，这就要通过代码来创建了。在Scene2D的属性设置面板中，增加一个自定义组件脚本，创建`UI_Label`类，通过代码创建Label，它的其他属性也可以通过代码来设置。下述示例代码演示了如何通过代码创建不同皮肤（样式）的Label，开发者可以自己通过代码设置Label，创建出符合自己需要的文字效果。
 
 **示例代码：**
 
@@ -77,7 +110,6 @@ const { regClass, property } = Laya;
 const Label = Laya.Label;
 @regClass()
 export class UI_Label extends Laya.Script {
-
 
     constructor() {
         super();
@@ -117,8 +149,13 @@ export class UI_Label extends Laya.Script {
 
 		return label;
 	}
+}
 ```
 
+**效果预览：**
 
+![2-1](img/2-1.png)
+
+（图2-1）
 
  	
