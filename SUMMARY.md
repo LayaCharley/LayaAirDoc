@@ -86,7 +86,7 @@
     * [UI滤镜效果](IDE/uiEditor/Filter/readme.md)
     * [UI运行时](IDE/uiEditor/runtime/readme.md)
     * [混合使用3D](IDE/uiEditor/use3D/readme.md)
-    * [压缩纹理](IDE/uiEditor/textureCompress/readme.md)    
+    * [纹理压缩](IDE/uiEditor/textureCompress/readme.md)    
     * [使用3DUI](IDE/uiEditor/3DUI/readme.md)        
   - [3D场景编辑模块](IDE/sceneEditor/readme.md)
     * [3D场景编辑基础交互](IDE/sceneEditor/basic/readme.md)
