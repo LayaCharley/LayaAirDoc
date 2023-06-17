@@ -4,17 +4,9 @@
 
 ## 一、概述
 
-推荐要看一看vivo小游戏官方的文档，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看vivo官方文档肯定没错。
+推荐要看一看vivo小游戏官方的[文档](https://minigame.vivo.com.cn/documents/#/guide/)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看vivo官方文档肯定没错。
 
-**链接如下：**
-
-https://minigame.vivo.com.cn/documents/#/guide/
-
-vivo小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中配置好相关参数，然后直接在LayaAirIDE内一键发布成功（生成一个rpk的包）。至于调试方式，则是通过vivo手机里安装一个apk调试环境，在apk里选择打开rpk的文件，然后通过chrome在PC上用数据线连接手机进行调试。
-
-**vivo小游戏调试器下载地址**：
-https://minigame.vivo.com.cn/documents/#/download/debugger
-
+vivo小游戏中没有可视化开发调试工具，所以只能是在LayaAir IDE中配置好相关参数，然后直接在LayaAir IDE内一键发布成功（生成一个rpk的包）。至于调试方式，则是通过vivo手机里安装一个apk调试环境（[vivo小游戏调试器](https://minigame.vivo.com.cn/documents/#/download/debugger)），在apk里选择打开rpk的文件，然后通过Chrome在PC上用数据线连接手机进行调试。
 
 
 ## 二、发布为vivo小游戏
@@ -23,13 +15,13 @@ https://minigame.vivo.com.cn/documents/#/download/debugger
 
 ### 2.1 选择目标平台
 
-点击构建项目，在弹出的构建项目界面里，选择发布平台为vivo小游戏。如图2-1所示
+点击构建发布，在弹出的构建发布界面里，选择目标平台为vivo小游戏。如图2-1所示：
 
-<img src="img/2-1.png" style="zoom:50%;" /> 
+<img src="img/2-1.png" alt="2-1" style="zoom:80%;" />
 
 （图2-1）
 
-下面我们来介绍一下这些功能参数的填写
+下面介绍一下这些功能参数的填写：
 
 **1、游戏名称**
 
@@ -53,11 +45,11 @@ https://minigame.vivo.com.cn/documents/#/download/debugger
 
 **6、最小平台号**
 
-vivo目前在官网 **最低版本建议填写 `1090`**
+vivo目前在官网支持的最小平台版本号可以点击[这里](https://minigame.vivo.com.cn/documents/#/lesson/game/configuration?id=%e6%94%af%e6%8c%81%e7%9a%84%e6%9c%80%e5%b0%8f%e5%b9%b3%e5%8f%b0%e7%89%88%e6%9c%ac%e5%8f%b7)查看。
 
 **7、日志等级**
 
-七种日志等级，先级从高到底依次为OFF、ERROR、WARN、INFO、DEBUG、TRACE、ALL，可以方便地知道当前程序的运行状态。
+七种日志等级，先级从高到底依次为OFF、ERROR、WARN、INFO、LOG、DEBUG、TRACE，可以方便地知道当前程序的运行状态。
 
 **8、是否使用正式版签名**
 
@@ -69,26 +61,7 @@ vivo目前在官网 **最低版本建议填写 `1090`**
 
 ②对于个人开发者，可以多个项目使用一个正式签名。只需要生成一次即可。
 
-如果已经release签名了，将签名文件放到Laya项目 sign/release 文件夹下
-
-**9、设置分包**
-
-让开发者在开发完成后，能够按照分包配置将需要分包的文件夹内的 js 或者某个 js， 打包签名生成 .rpk 文件；将项目中分包之外的其他文件打包成主包；再将整个包打成 .rpk 文件。
-
-分包加载的能力首先依赖于编译时工具，根据开发者在manifest.json中配置的subpackages规则，将项目打包成多个分包。这些分包的大小是有限制的，目前vivo小游戏的分包大小有如下限制：
-
-```json
-<分包大小限制20M：主包限制4m + 分包大小16M>
-com.application.demo.rpk整体压缩包(包名+.rpk) 
-------------- com.application.demo.rpk 原整包(包名+.rpk) (兼容老版本引擎的原整包=分包主包+分包A+分包B)
-------------- main.rpk 分包主包(main+.rpk) （4M）
-------------- pkgA.rpk pkgA分包(子包名+.rpk) (A+B 16M)
-------------- pkgB.rpk pkgB分包(子包名+.rpk)
-```
-
-**目前打出来的包体体积会比之前的大是正常的，为了兼容把原先的整包也打进去了**
-
-> **注意：分包名称不要使用main，这个是主包固定使用的名称**
+如果已经release签名了，将签名文件放到Laya项目 sign/release 文件夹下。
 
 
 
@@ -96,31 +69,31 @@ com.application.demo.rpk整体压缩包(包名+.rpk)
 
 点击版本发布，由于在发布前会检查rpk发布环境（用于生成rpk包），如果没有发布环境的，则会开始下载。
 
-发布后的目录结构如图2-2和图2-3所示
+发布后的目录结构如图2-3所示，图2-2是`build`文件夹下的目录。
 
-<img src="img/2-2.png" style="zoom:50%;" /> 
+ ![2-2](img/2-2.png)
 
 （图2-2）
 
-<img src="img/2-3.png" style="zoom:50%;" /> 
+ ![2-3](img/2-3.png)
 
 （图2-3）
 
-`engine` 目录下的**`js` 项目文件 与 `libs` 引擎库目录**
+`engine`：
 
-项目代码和类库
+js项目文件与libs引擎库目录，是项目代码和类库。
 
-**`resources` 资源目录 与 Scene.js、atlas、image**
+`resources`：
 
-`resources` 资源目录和资源文件，小游戏由于初始包的限制，建议将初始包的内容在规划好，最好能放到统一的目录下，便于初始包的剥离。
+资源目录和资源文件，小游戏由于初始包的限制，建议将初始包的内容在规划好，最好能放到统一的目录下，便于初始包的剥离。
 
-**`game.js` vivo小游戏的入口文件**
+`game.js`：
 
-游戏项目入口JS文件与适配库JS等都是在这里进行引入。IDE创建项目的时候已生成好，一般情况下，这里不需要动。
+vivo小游戏的入口文件，游戏项目入口JS文件与适配库JS等都是在这里进行引入。IDE创建项目的时候已生成好，一般情况下，这里不需要动。
 
-**`manifest.json`  小游戏的项目配置文件**
+`manifest.json`： 
 
-文件里包括了小游戏项目的一些信息，如果想修改，可以直接在这里面编辑。
+小游戏的项目配置文件，文件里包括了小游戏项目的一些信息，如果想修改，可以直接在这里面编辑。
 
 
 
@@ -172,7 +145,7 @@ ADB可以用于授权，以及发布推送等，可以前往ADB的官网下载�
 
 （图3-1）
 
-#### 3.2 在快应用调试器界面扫码安装vivo小游戏的rpk包
+#### 3.2.2 在快应用调试器界面扫码安装vivo小游戏的rpk包
 
 进入快应用调试器之后，我们可以看到如图3-2所示的APP操作界面。
 
@@ -186,7 +159,7 @@ ADB可以用于授权，以及发布推送等，可以前往ADB的官网下载�
 
 对于比较有相关经验的开发者，确保USB手机连接线物理线路是已连接状态，并且USB调试授权也没问题的，可以跳过本步骤。
 
-##### 相关操作如下：
+相关操作如下：
 
 1、先用手机连接线将手机与PC保持物理上的连接。
 
@@ -212,7 +185,7 @@ ADB可以用于授权，以及发布推送等，可以前往ADB的官网下载�
 
 总之，在这个环节里，我们要保障PC是有权限调试这个手机设备的。
 
-#### 3.4 启动chrome调试环境
+#### 3.2.4 启动chrome调试环境
 
 之前扫码安装后，会自动进入刚刚安装的游戏或者DEMO。
 
@@ -250,69 +223,74 @@ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws={IP}:5086/00010
 
 ## 四、vivo小游戏分包
 
-**在manifest.json中配置分包名与分包路径的字段**
+开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。可以通过以下步骤进行分包加载，如图4-1所示，点击构建发布后，勾选开启分包，然后选择要进行分包的文件夹即可，注意小游戏不可以使用远程包，IDE自动加载分包需要在发布时勾选分包的“启动时自动加载”选项。
 
-```json
-{
-  ...
-  "subpackages": [
-    {
-      "name": "package1",
-      "root": "package1/" // 可以指定一个目录，目录根目录下的 game.js 会作为入口文件
-    }, {
-      "name": "package2",
-      // !!! 注意文件名称只允许出现一个点，不要写成这种 package2.min.js 可能会造成报错
-      "root": "package2.js" // 也可以指定一个 JS 文件  
-    }
-  ]
-  ...
-}
-```
-
-这个manifest.json是通过IDE的发布功能自动生成的，打开IDE的构建发布可以看到设置分包选项，如图4-1所示
-
-<img src="img/4-1.png" style="zoom:50%;" /> 
+<img src="img/4-1.png" alt="4-1" style="zoom:80%;" />
 
 （图4-1）
 
-subpackages里，可以有多个name与root，每一组代表一个分包，单个分包
+将“sub1”、“sub2”设置为分包的资源文件夹后，manifest.json里会自动生成配置信息。分包加载的能力首先依赖于编译时工具，根据开发者在manifest.json中配置的subpackages规则，将项目打包成多个分包。这些分包的大小是有限制的，目前vivo小游戏的分包大小有如下限制：
 
-分包路径可以指定一个目录，根目录下的 main.js 会作为入口文件，目录下所有资源将会统一打包
+```json
+<分包大小限制20M：主包限制4m + 分包大小16M>
+com.application.demo.rpk整体压缩包(包名+.rpk) 
+------------- com.application.demo.rpk 原整包(包名+.rpk) (兼容老版本引擎的原整包=分包主包+分包A+分包B)
+------------- main.rpk 分包主包(main+.rpk) （4M）
+------------- pkgA.rpk pkgA分包(子包名+.rpk) (A+B 16M)
+------------- pkgB.rpk pkgB分包(子包名+.rpk)
+```
 
-**这里设置的分包文件（夹）要与vivogame目录下的文件（夹）对应，这里设置只是自动生成manifest.json里的配置信息，并不会去创建文件夹和文件。一定要手动创建文件与文件夹**
+> 参考vivo小游戏[分包加载](https://minigame.vivo.com.cn/documents/#/lesson/base/subpackage)。
 
-**vivo小游戏的分包加载示例代码**
+如果是代码引用资源，加载代码示例如下：
+
+```json
+const { regClass, property } = Laya;
+
+@regClass()
+export class Script extends Laya.Script {
+    //declare owner : Laya.Sprite3D;
+
+    @property({ type: Laya.Scene3D })
+    scene3d: Laya.Scene3D;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+        //小游戏加载分包
+        Laya.loader.loadPackage("sub1", this.printProgress).then(() => {
+            Laya.loader.load("sub1/Cube.lh").then((res: Laya.PrefabImpl) => {
+                let sp3: Laya.Sprite3D = res.create() as Laya.Sprite3D;
+                this.scene3d.addChild(sp3);
+            });
+        })
+
+        Laya.loader.loadPackage("sub2", this.printProgress).then(() => {
+            Laya.loader.load("sub2/Sphere.lh").then((res: any) => {
+                let sp3 = res.create();
+                this.scene3d.addChild(sp3);
+            });
+        })
+    }
+
+    printProgress(res: any) {
+        console.log("加载进度" + JSON.stringify(res));
+    }
+}
+```
+
+这里介绍一下`printProgress`打印的内容，在小游戏调试器平台打我们导出的项目后，连接vivo官网提供的调试地址会打印如下日志：
+
+![4-2](img/4-2.png)
+
+（图4-2）
 
 vivo小游戏官方提供了`qg.loadSubpackage()`API来触发分包的加载，调用`qg.loadSubpackage()`在加载完成后，通过`qg.loadSubpackage()`的成功回调来通知加载完成。
 
-示例代码：
-
-```typescript
-const loadTask = qg.loadSubpackage({
-  name: 'package1',
-  success: function(info) {
-    // 分包加载成功后通过 success 回调
-  },
-  fail: function(info) {
-    // 分包加载失败通过 fail 回调
-  },
-  complete: function(){
-    // 不关分包加载成功还是失败都会执行此回调
-  }
-})
-
-
-```
-
 同时，`qg.loadSubpackage()`会返回一个 LoadSubpackageTask ，可以通过 LoadSubpackageTask 获取当前下载进度。
-
-示例代码如下：
-
-```typescript
-loadTask.onProgressUpdate(res => {
-  console.log('下载进度', res.progress)
-  console.log('已经下载的数据长度', res.totalBytesWritten)
-  console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
-})
-```
 
