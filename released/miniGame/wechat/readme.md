@@ -4,28 +4,17 @@
 
 ## 一、概述
 
-微信小游戏的运行环境并不是浏览器，也不能在浏览器中运行，而是运行于微信APP中的Runtime。尽管微信小游戏的接口兼容大部分Canvas和Webgl，具有即点即玩，无需下载安装的HTML5特性。显然，从严格的定义来讲，微信小游戏不是标准的HTML5游戏。
+微信小游戏的运行环境并不是浏览器，也不能在浏览器中运行，而是运行于微信APP中的Runtime。尽管微信小游戏的接口兼容大部分Canvas和Webgl，具有即点即玩，无需下载安装的HTML5特性。但从严格的定义来讲，微信小游戏不是标准的HTML5游戏。
 
-强烈推荐要看一看微信小游戏官方的文档，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看微信官方文档肯定没错。
-
-**链接如下：**
-
-https://developers.weixin.qq.com/minigame/dev/index.html
+强烈推荐要看一看微信小游戏官方的[文档](https://developers.weixin.qq.com/minigame/dev/index.html)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看微信官方文档肯定没错。
 
 **下载并安装微信开发者工具**
 
-微信开发者工具主要用于小游戏产品的预览与调试、真机测试、上传提交等。是小游戏开发的必备工具。
+[微信开发者工具](https://developers.weixin.qq.com/minigame/dev/devtools/download.html)主要用于小游戏产品的预览与调试、真机测试、上传提交等。是小游戏开发的必备工具。
 
-**开发工具下载地址**：
-https://developers.weixin.qq.com/minigame/dev/devtools/download.html
-
-如果是采用微信官方API开发的话，还是要有一些要注意的，比如不支持DOM与BOM、小游戏只能有一个画布、不支持Eval、不支持XML等等……
+如果是采用微信小游戏官方[API](https://developers.weixin.qq.com/minigame/dev/api/)开发的话，还是要有一些要注意的，比如不支持DOM与BOM、小游戏只能有一个画布、不支持Eval、不支持XML等等……
 
 但是，对于LayaAir引擎的开发者来讲，不用刻意去了解到底有哪些差异，照正常的LayaAir引擎开发规则去开发就可以了。
-
-**微信小游戏API地址**：
-
-https://developers.weixin.qq.com/minigame/dev/api/
 
 
 
@@ -35,17 +24,19 @@ https://developers.weixin.qq.com/minigame/dev/api/
 
 ### 2.1 选择目标平台
 
-点击构建项目，在弹出的构建项目界面里，选择发布平台为微信小游戏。如图2-1所示
+点击构建发布，在弹出的界面里，选择发布平台为微信小游戏。如图2-1所示：
 
-<img src="img/2-1.png" style="zoom:50%;" /> 
+![2-1](img/2-1.png)
 
 （图2-1）
+
+`生成开放数据域工程模板`：一般用来显示好友排行榜，发布完成后会生成openDataContext目录。（详见第五节）
 
 
 
 ### 2.2 发布后的小游戏目录介绍
 
-发布后的目录结构如图2-2所示
+发布后的目录结构如图2-2所示。
 
 <img src="img/2-2.png" style="zoom:50%;" /> 
 
@@ -53,7 +44,7 @@ https://developers.weixin.qq.com/minigame/dev/api/
 
 **`js` 项目文件 与 `libs` 引擎库目录**
 
-项目代码和类库
+项目代码和类库。
 
 **`resources`资源目录 与 Scene.js**
 
@@ -65,7 +56,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 **`game.json` 小游戏的配置文件**
 
-开发者工具和客户端需要读取这个配置，完成相关界面渲染和属性设置。比如屏幕的横竖屏方向，状态栏的显示、小游戏分包等，都是在这里配置。具体如何配置，以及参数的使用，可以[查看微信小游戏的开发文档](https://mp.weixin.qq.com/debug/wxagame/dev/index.html?t=2018115)。
+开发者工具和客户端需要读取这个配置，完成相关界面渲染和属性设置。比如屏幕的横竖屏方向，状态栏的显示、小游戏分包等，都是在这里配置。具体如何配置，以及参数的使用，可以查看[微信小游戏的开发文档](https://mp.weixin.qq.com/debug/wxagame/dev/index.html?t=2018115)。
 
 **`fileconfig.json` 小游戏的项目配置文件**
 
@@ -73,7 +64,9 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 > 项目参数libVersion的值一定要是game，这里一般不会出错。但是，万一出现了LayaAirIDE里发布正常，也引用了适配库，发布为小游戏后，在开发者工具里还是有报错的话，可以检查libVersion里的值是不是game。不是的话要改为game。
 
-**`weapp-adapter.js` 微信小游戏适配库文件**
+**`weapp-adapter.js` **
+
+微信小游戏适配库文件。
 
 
 
@@ -119,17 +112,13 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 （图3-5）
 
-**注意：上传真机的时候，默认不能超过4M，配置分包不能超过8M**
-
-
-
-至此，一个完整的小游戏开发流程就结束了。是不是很简单。采用LayaAirIDE开发的小游戏项目，基本上是无缝用于微信小游戏项目。
+至此，一个完整的小游戏开发流程就结束了。采用LayaAir IDE开发的小游戏项目，基本上是无缝用于微信小游戏项目。
 
 
 
 ## 四、微信小游戏的4M本地包与动态资源加载
 
-比如示例中引用的就是本地路径，
+比如引用的是本地路径，
 
 ```typescript
 Laya.Texture2D.load("res/layabox.png");
@@ -137,11 +126,9 @@ Laya.Texture2D.load("res/layabox.png");
 
 如果项目的目录中，全部大小加起来不超过4M的话，只要能找到本地的资源，怎么写也没问题。
 
-但是，
+但是，微信小游戏的本地包有4M的限制，一旦超过这个限制，那就不允许上传，不允许真机预览。
 
-微信小游戏的本地包有4M的限制，一旦超过这个限制，那就不允许上传，不允许真机预览。
-
-所以，我们的**项目要是大于4M后，怎么处理呢？**
+所以，**项目要是大于4M后，怎么处理呢？**
 
 ### 4.1 分包
 
@@ -270,7 +257,37 @@ MiniAdpter.nativefiles =  [
 
 
 
-## 五、微信小游戏的50M物理缓存管理
+## 五、生成开放数据域工程模板
+
+开放数据域一般用来显示好友排行榜。
+
+首先，如图5-1所示，在层级面板中，向Scene2D中添加一个OpenDataContexView组件，即可激活开放数据域的显示（此时并没有排行榜的效果显示，需要发布后才能看到），组件的大小就是好友排行榜面板的大小。
+
+<img src="img/5-1.png" alt="5-1" style="zoom:67%;" />
+
+（图5-1）
+
+添加后，在其属性设置面板中，可以看到FPS属性，如图5-2所示，表示sharedCanvas更新到主域的帧率。
+
+![5-2](img/5-2.png)
+
+（图5-2）
+
+然后构建发布时，勾选图2-1所示的`生成开放数据域工程模板`。如图5-3所示，发布完成后会生成openDataContext目录。开发者可以根据需求修改这里面的内容，并在“微信开发者工具”里调试。下次发布时，这个目录不会清除。
+
+![5-3](img/5-3.png)
+
+（图5-3）
+
+> 修改生成的工程模板，推荐使用一个轻量的[第三方Canvas引擎](https://github.com/wechat-miniprogram/minigame-canvas-engine)解决这个需求，开发者可以使用此引擎制作自定义的好友排行榜。
+
+因为release目录一般不会加入版本管理，这里的openDataContext目录在协同开发中可能不方便，那么可以将openDataContext目录放入构建模版目录，这样每次发布都会从模版目录中拷贝。
+
+构建模版目录：开发者可以在项目目录中建立`build-templates/平台名称`，例如build-templates/web等，发布时会将这里面的内容拷贝到输出目录。如果是json文件，还会进行合并。例如build-templates/wxgame里放置game.json，并且内容为 {   "showStatusBar": true } ，那么最终的game.json文件里这个key值就会被加入，并且引擎模版里的game.json其他key值会保留。
+
+
+
+## 六、微信小游戏的50M物理缓存管理
 
 **物理缓存的意义**
 
