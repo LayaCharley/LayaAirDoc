@@ -32,7 +32,7 @@ Label组件拖放到编辑区后，设置 text 属性的值为 LayaAir IDE 后�
 | font           | 文本的字体名称，例如：`Microsoft YaHei`，这里可以手动输入常用的字体，还可以是[位图字体](../../advanced/useText/readme.md) |
 | fontSize       | 文本字体大小，例如： `50`，直接填写正整数                    |
 | color          | 文本的颜色，可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
-| fit content    | 勾选后，Label边框可以根据文字大小和数量，自适应调整大小      |
+| fit content    | 否（"no"）：无操作；高度和宽度（"yes"）：Label边框可以根据文字大小和数量，自动调整高度和宽度为合适大小；高度（"height"）：Label边框只自动调整高度 |
 | style          | “**B**”(bold)是否为粗体，“***I***”(italic)是否为斜体，“<u>**U**</u>”是否有下划线 |
 | syntax         | [多样式混排](../../../../2D/displayObject/Text/readme.md)，支持部分HTML语法和UBB语法。还可以勾选模板，能够在字符串中使用变量 |
 | align          | 对齐方式，水平对齐(align)分别是left（居左对齐）、center（居中对齐）、right（居右对齐）;垂直对齐(valign)分别是top（居顶对齐）、middle（居中对齐）、bottom（居底对齐） |
@@ -88,7 +88,7 @@ export class LabelControl extends Laya.Script {
         this.lab.align = "left"; //水平对齐方式
         this.lab.valign = "top"; //垂直对齐方式
         this.lab.overflow = "visible"; //文本溢出
-        // this.lab.fitContent = true; //自适应大小
+        // this.lab.fitContent = "yes"; //自适应大小
 
         this.lab.bgColor = "#19a4f1"; //背景颜色
         this.lab.borderColor = "#f6ff03" //边框颜色
