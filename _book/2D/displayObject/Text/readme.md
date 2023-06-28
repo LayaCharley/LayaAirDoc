@@ -25,15 +25,15 @@ Text继承于Sprite，是静态文本的基础组件。这里我们介绍一下T
 | 属性名         | 属性说明                                                     |
 | -------------- | ------------------------------------------------------------ |
 | text           | 文本的实际内容                                               |
-| font           | 文本字体，例如：`Microsoft YaHei`，这里可以手动输入常用的字体 |
+| font           | 文本字体，例如：`Microsoft YaHei`，这里可以手动输入常用的字体，还可以是[位图字体](../../advanced/useText/readme.md) |
 | fontSize       | 文本字体大小，例如： `50`，直接填写正整数                    |
 | color          | 文本的颜色，可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
 | style          | “**B**”(bold)是否为粗体，“***I***”(italic)是否为斜体，“<u>**U**</u>”是否有下划线 |
-| syntax         | 多样式混排，支持部分HTML语法和UBB语法。还可以勾选模版，能够在字符串中使用变量。 |
+| syntax         | 多样式混排，支持部分HTML语法和UBB语法。还可以勾选模板，能够在字符串中使用变量 |
 | align          | 对齐方式，水平对齐(align)分别是left（居左对齐）、center（居中对齐）、right（居右对齐）;垂直对齐(valign)分别是top（居顶对齐）、middle（居中对齐）、bottom（居底对齐） |
 | bgColor        | 背景颜色，勾选后可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
 | borderColor    | 文本边框颜色，勾选后可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
-| overflow       | 文本溢出处理，共有三种模式。visible（默认模式）：不进行任何裁切。hidden:不显示超出文本域的字符。scroll:不显示文本域外的字符像素，并且支持scroll接口 |
+| overflow       | 文本溢出处理，共有五种模式。visible（可见）：默认模式，不进行任何裁切。hidden（隐藏）：不显示超出文本域的字符。scroll（滚动）：不显示文本域外的字符像素，并且支持scroll接口，详见1.4节。shrink（自动收缩）：超出文本域时，文本整体缩小以适应文本框。ellipsis（显示省略号）：超出文本域时，文本被截断，并且文本最后显示省略号 |
 | wordWrap       | 是否自动换行，布尔值选项，默认为`false`，选择`true`可以开启自动换行 |
 | leading        | 垂直行间距，当开启自动换行时，文本内容多行时有效。间距以像素为单位，输入正整数即可 |
 | padding        | 文本边距，以像素为单位，由4个整数值组成。“U”表示距上边框的距离、”R“表示距右边框的距离、”D“表示距下边框的距离、”L”表示距左边框的距离 |
@@ -103,9 +103,9 @@ Text中输入的示例语句如下：
 
 上述这6条语句分别对应图1-3所示的6种效果：加载图片、显示链接、字体大小为60、字体颜色为红色、下划线、嵌套（大小和颜色）。每条语句之间可以不空行，示例中有空行是为了方便观察效果。
 
-#### 1.3.2 模版
+#### 1.3.2 模板
 
-“syntax”属性还可以勾选`模版`选项，勾选后，就可以在字符串中使用变量了。比如，在Text属性中输入`Text{n=100}`，效果如图1-4所示：
+“syntax”属性还可以勾选`模板`选项，勾选后，就可以在字符串中使用变量了。比如，在Text属性中输入`Text{n=100}`，效果如图1-4所示：
 
 ![1-4](img/1-4.png)
 
@@ -214,6 +214,81 @@ export class TextControl extends Laya.Script {
 ```
 
 
+
+下面再来看一个示例，这个是有关overflow属性中的滚动参数，如果文字超出了文本框，将其overflow属性设置为滚动，那么可以添加如下代码，实现通过鼠标拖拽显示超出的文字：
+
+```typescript
+const { regClass, property } = Laya;
+
+let prevX = 0;
+let prevY = 0;
+
+@regClass()
+export class UI_Text extends Laya.Script {
+
+	constructor() {
+		super();
+	}
+
+	@property({ type: Laya.Text })
+	txt: Laya.Text;
+
+	onAwake(): void {
+		
+		this.txt.text = 
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！\n" +
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！\n" +
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！\n" +
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！\n" +
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！\n" +
+			"Layabox是HTML5引擎技术提供商与优秀的游戏发行商，面向AS/JS/TS开发者提供HTML5开发技术方案！";
+		this.txt.fontSize = 35;
+		this.txt.size(400,150);
+		this.txt.borderColor = "#fa1515";
+		this.txt.overflow = "scroll";
+		this.txt.on(Laya.Event.MOUSE_DOWN, this, this.startScrollText);
+	}
+
+	/* 开始滚动文本 */
+	startScrollText() {
+
+		prevX = this.txt.mouseX;
+		prevY = this.txt.mouseY;
+
+		Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.scrollText);
+		Laya.stage.on(Laya.Event.MOUSE_UP, this, this.finishScrollText);
+	}
+
+	/* 停止滚动文本 */
+	finishScrollText() {
+
+		Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.scrollText);
+		Laya.stage.off(Laya.Event.MOUSE_UP, this, this.finishScrollText);
+	}
+
+	/* 鼠标滚动文本 */
+	scrollText() {
+
+		let nowX = this.txt.mouseX;
+		let nowY = this.txt.mouseY;
+
+		this.txt.scrollX += prevX - nowX; //水平滚动距离 
+		this.txt.scrollY += prevY - nowY; //垂直平滚动距离 
+
+		prevX = nowX;//鼠标移动后，归位
+		prevY = nowY;
+	}
+
+}
+```
+
+效果如下：
+
+![1-8](img/1-8.gif)
+
+（动图1-8）
+
+这个示例说明，滚动与隐藏不同，它并没有把超出文本框的文字进行裁剪。
 
 ## 2. 代码创建Text
 
