@@ -1,4 +1,4 @@
-# UI继承类
+# UI运行时
 
 
 
@@ -6,7 +6,7 @@
 
 在项目开发过程中，开发者往往对UI的开发思路不够清晰，开发方式也多种多样，对项目的结构和使用方式会造成一定的混乱。这篇文章可以帮助开发者理清一些思路，我们会从这几个方面来展开：
 
-- **UI组件脚本（UI继承类、Runtime类）**
+- **UI组件脚本（UI运行时、Runtime类）**
 - **UI组件脚本和自定义组件脚本的区别**
 - **UI组件脚本和自定义组件脚本混合使用的高级用法**
 
@@ -36,7 +36,7 @@
 
 在UI开发过程中，我们会使用Image，Box，Tab等等这些LayaAir 提供的UI组件。对于一套相对复杂的UI界面来说，大量的UI组件，用自定义组件脚本的方式管理并**不方便**，需要每个组件都拖拽到自定义属性中，繁琐而费力。因此我们建议开发者，使用UI组件脚本来管理UI组件，后面我们再说UI组件脚本和自定义组件脚本的区别。**UI组件脚本设计的目的就是在场景或者是预制体的根节点创建，能对其内部所有的组件进行更加方便的管理。**
 
-如图1-3所示，这是一套复杂的UI的预制体，是通过UI组件脚本（Runtime）进行管理的。
+如图1-3所示，这是一套复杂的UI的预制体，是通过UI组件脚本（Runtime即UI运行时）进行管理的。
 
 <img src="img/1-3.png" alt="image-20221229153156561" style="zoom:50%;" />
 
@@ -46,9 +46,9 @@
 
 
 
-## 二、UI继承类
+## 二、UI运行时
 
-UI组件脚本只能添加在Scene2D节点或2D预制体根节点的属性设置面板上的Runtime入口。如果添加在Scene2D上，它的父类就继承于Laya.Scene；如果添加在2D预制体的根节点，它的父类就继承于UI小部件的类（根据2D预制体根节点的节点类型而定）。因此，UI组件脚本就是**UI继承类**，也叫做 Runtime 类，可以对场景或预制体内部所有UI组件进行方便的管理。
+UI组件脚本只能添加在Scene2D节点或2D预制体根节点的属性设置面板上的Runtime入口。如果添加在Scene2D上，它的父类就继承于Laya.Scene；如果添加在2D预制体的根节点，它的父类就继承于UI小部件的类（根据2D预制体根节点的节点类型而定）。因此，UI组件脚本就是**UI运行时**，也叫做 Runtime 类，可以对场景或预制体内部所有UI组件进行方便的管理。
 
 在[《项目入口说明》](../../../basics/IDE/entry/readme.md)中已经介绍了IDE中创建UI组件脚本，下面介绍它的使用。
 
@@ -216,23 +216,33 @@ UI组件脚本如果添加在Scene2D上，它的父类就继承于Laya.Scene（�
 
 
 
-## 四、UI继承类和自定义组件脚本的混合使用
+## 四、UI运行时和自定义组件脚本的混合使用
 
 ### 4.1 简单用法
 
-在上述示例中（图2-4），已经在Scene场景中创建好了UI组件脚本，而后添加的代码如图4-1所示。
+在上述示例中（图2-4），已经在Scene场景中创建好了UI组件脚本，而后添加的代码如下所示：
+
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
+
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+
+    onAwake(): void {
+         // Button添加鼠标事件，让Image不显示
+         this.Button.on( Laya.Event.MOUSE_DOWN, this, ()=>{
+             this.Image.visible = false;
+         });
+     }
+}
+```
+
+其次，可以在Scene2D节点下添加自定义的组件脚本，如图4-1所示。
 
 ![4-1](img/4-1.png)
 
 （图4-1）
-
-
-
-其次，可以在Scene2D节点下添加自定义的组件脚本，如图4-2所示。
-
-![4-2](img/4-2.png)
-
-（图4-2）
 
 
 
@@ -262,7 +272,7 @@ export class NewScript extends Laya.Script {
 
 > ui 属性直接从脚本中通过 `this.owner.scene as RuntimeScript` 这句代码拿到了Runtime对象，那么Runtime下的UI组件也就可以直接获取了（this.ui.）。
 
-将图4-1添加的“Button添加鼠标事件”代码注释后，运行项目，效果依然是动图2-7所展示的效果。说明以上这段代码的运行效果与图4-1所示代码的运行效果是一致的。通过UI组件脚本和自定义组件脚本的混合使用，开发者可以在自定义组件脚本中方便的使用UI组件了。
+将本节（4.1节）开头添加的“Button添加鼠标事件”代码注释后，运行项目，效果依然是动图2-7所展示的效果。说明以上这段代码的运行效果与开头所示代码的运行效果是一致的。通过UI组件脚本和自定义组件脚本的混合使用，开发者可以在自定义组件脚本中方便的使用UI组件了。
 
 
 
@@ -272,25 +282,25 @@ export class NewScript extends Laya.Script {
 
 #### 4.2.1 创建多个场景
 
-那么以“统一找到和处理所有UI的Button，让所有Button点击时自动缩放” 为例，我们需要再创建一个有多个Button的UI场景，命名为“Button_Scene”，如图4-3所示。
+那么以“统一找到和处理所有UI的Button，让所有Button点击时自动缩放” 为例，我们需要再创建一个有多个Button的UI场景，命名为“Button_Scene”，如图4-2所示。
 
-![4-3](img/4-3.png)
+![4-2](img/4-2.png)
 
-（图4-3）
+（图4-2）
 
-因为不同的UI，所持有的UI组件是不一样的，比如A场景有a1，a2组件，B场景有b1，b2，b3组件，那么不同的场景就需要有不同的 Runtime来关联每个UI的组件。那么下一步，针对这个Button_Scene的场景，再在Runtime入口创建一个UI组件脚本，并重命名为“ButtonRuntime.ts” ，如动图4-4所示。
+因为不同的UI，所持有的UI组件是不一样的，比如A场景有a1，a2组件，B场景有b1，b2，b3组件，那么不同的场景就需要有不同的 Runtime来关联每个UI的组件。那么下一步，针对这个Button_Scene的场景，再在Runtime入口创建一个UI组件脚本，并重命名为“ButtonRuntime.ts” ，如动图4-3所示。
 
-![4-4](img/4-4.gif)
+![4-3](img/4-3.gif)
 
-（动图4-4）
+（动图4-3）
 
 接下来，我们需要把Button_Scene中的Button1，Button2，Button3都勾选`定义变量`属性，然后保存场景。这个操作和动图2-5类似，就不再详细介绍了。
 
-最后，我们还需要给Button_Scene再添加一个自定义的组件脚本，命名为“ButtonScript.ts”，如图4-5所示。
+最后，我们还需要给Button_Scene再添加一个自定义的组件脚本，命名为“ButtonScript.ts”，如图4-4所示。
 
-![4-5](img/4-5.png)
+![4-4](img/4-4.png)
 
-（图4-5）
+（图4-4）
 
 
 
@@ -298,11 +308,11 @@ export class NewScript extends Laya.Script {
 
 在上述操作后，两个场景都有UI组件脚本和自定义组件脚本了，那么如何做统一处理呢？我们发现Runtime类是用来关联UI组件的，因为它们都是继承于各自生成的脚本（RuntimeScript继承于RuntimeScriptBase、ButtonRuntime继承于ButtonRuntimeBase），就不能再统一继承某个类了。
 
-而自定义的组件脚本类（NewScript、ButtonScript）都继承自Laya.Script，那么我们再多继承一层，可以让NewScript和ButtonScript都继承自一个新的类“Main”（这个类就是创建项目时默认生成的Main.ts），Main类再继承自Laya.Script（图4-6），从而实现统一处理的目的。
+而自定义的组件脚本类（NewScript、ButtonScript）都继承自Laya.Script，那么我们再多继承一层，可以让NewScript和ButtonScript都继承自一个新的类“Main”（这个类就是创建项目时默认生成的Main.ts），Main类再继承自Laya.Script（图4-5），从而实现统一处理的目的。
 
-![4-6](img/4-6.png)
+![4-5](img/4-5.png)
 
-（图4-6）
+（图4-5）
 
 另外在Main类加一个方法baseUI()：
 
@@ -407,15 +417,15 @@ export class Main extends Laya.Script {
 
 分别运行两个场景看看效果：
 
+![4-6](img/4-6.gif)
+
+（动图4-6）Scene的Button可以点击缩放
+
 ![4-7](img/4-7.gif)
 
-（动图4-7）Scene的Button可以点击缩放
+（动图4-7）Button_Scene的三个Button都可以点击缩放
 
-![4-8](img/4-8.gif)
-
-（动图4-8）Button_Scene的三个Button都可以点击缩放
-
-到此，我们了解了什么是UI继承类，UI继承类和自定义组件脚本类的区别，以及混合使用的方式，统一管理UI的高级用法，开发者可以更深一步研究，有更多的混合用法欢迎和我们交流~
+到此，我们了解了什么是UI运行时，UI运行时和自定义组件脚本类的区别，以及混合使用的方式，统一管理UI的高级用法，开发者可以更深一步研究，有更多的混合用法欢迎和我们交流~
 
 
 
