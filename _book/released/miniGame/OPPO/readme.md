@@ -4,13 +4,11 @@
 
 ## 一、概述
 
-推荐要看一看OPPO小游戏官方的文档，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看OPPO官方文档肯定没错。
+推荐要看一看OPPO小游戏官方的[文档](https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏接口的应用介绍，但是仔细看看OPPO官方文档肯定没错。
 
-**链接如下：**
+OPPO官方提供了可视化开发者工具，点击[这里](https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/develop/games/ide)下载，在LayaAirIDE中配置好相关参数，然后直接在LayaAirIDE内一键发布成功（还会生成一个rpk的包），就可以用OPPO开发者工具调试了。
 
-https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html
-
-OPPO小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中配置好相关参数，然后直接在LayaAirIDE内一键发布成功（生成一个rpk的包）。至于调试方式，则是通过OPPO手机里安装一个apk调试环境，在apk里选择打开rpk的文件，然后通过chrome在PC上用数据线连接手机进行调试。
+另一种调试方式则是通过OPPO手机里安装一个apk调试环境，在apk里选择打开rpk的文件，然后通过chrome在PC上用数据线连接手机进行调试。
 
 
 
@@ -18,9 +16,9 @@ OPPO小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中
 
 ### 2.1 选择目标平台
 
-点击构建项目，在弹出的构建项目界面里，选择发布平台为OPPO小游戏。如图2-1所示
+点击构建发布，在弹出的构建发布界面里，选择发布平台为OPPO小游戏。如图2-1所示
 
-<img src="img/2-1.png" style="zoom:50%;" /> 
+<img src="img/2-1.png" style="zoom: 80%;" /> 
 
 （图2-1）
 
@@ -28,7 +26,7 @@ OPPO小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中
 
 **1、游戏名称**
 
-一般都填写中文汉字，英文也可以。用于应用商店、桌面图标、弹窗等游戏入口处。一个好的名字是游戏能不能吸量的重要元素。OPPO是6个汉字以内可以
+一般都填写中文汉字，英文也可以。用于应用商店、桌面图标、弹窗等游戏入口处。一个好的名字是游戏能不能吸量的重要元素。OPPO是6个汉字以内就可以
 
 **2、游戏包名**
 
@@ -46,13 +44,13 @@ OPPO小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中
 
 游戏版本与版本名称用处不同，这里是渠道平台用于区别版本更新。每次提审都要至少递归+1，自己测试无所谓。但是提审这里的值必须要比上次提审的值至少要+1，+N也是可以的，绝对不能等于或者小于上个版本值，建议是提审版本号递归+1。这里需要注意的是，游戏版本必须为正整数。
 
-**6、最小平台号**
+**6、最小平台版本**
 
-最小平台号，按调试器上显示的平台版本号，进行填写即可。
+最小平台版本，按调试器上显示的平台版本号，进行填写即可。
 
 **7、日志等级**
 
-七种日志等级，先级从高到底依次为OFF、ERROR、WARN、INFO、DEBUG、TRACE、ALL，可以方便地知道当前程序的运行状态。
+七种日志等级，先级从高到底依次为OFF、ERROR、WARN、INFO、LOG、DEBUG、TRACE，可以方便地知道当前程序的运行状态。
 
 **8、是否使用正式版签名**
 
@@ -65,24 +63,6 @@ OPPO小游戏中没有可视化开发调试工具，所以只能是LayaAirIDE中
 ②对于个人开发者，可以多个项目使用一个正式签名。只需要生成一次即可。
 
 如果已经release签名了，将签名文件放到Laya项目 sign/release 文件夹下
-
-**9、设置分包**
-
-让开发者在开发完成后，能够按照分包配置将需要分包的文件夹内的 js 或者某个 js， 打包签名生成 .rpk 文件；将项目中分包之外的其他文件打包成主包；再将整个包打成 .rpk 文件。
-
-> - 整个小游戏的所有分包总和不超过 10M；
-> - 单个分包/基础包大小不能超过 5M；
-> - 整体压缩包（包含原整包和所有分包；）不超过20M。
->
-> com.application.quickgame.rpk  整体压缩包(包名+.rpk) （最大20M）   
->
-> --->com.application.quickgame.rpk  原整包(包名+.rpk) （最大10M）   
->
-> --->main.rpk  分包主包(main+.rpk) （主包，最大5M）   
->
-> --->sub1Name.rpk  sub1分包(子包名+.rpk) （单个分包，最大5M）   
->
-> --->sub2Name.rpk  sub2分包(子包名+.rpk)（单个分包，最大5M）
 
 
 
@@ -114,9 +94,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 
 
-## 三、用OPPO小游戏调试器
-
-
+## 三、Chrome联调OPPO小游戏
 
 ### 3.1 OPPO小游戏发布、调试环境准备
 
@@ -124,13 +102,13 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 2、下载安装OPPO真机测试APP “快应用”（OPPO 小游戏调试器 ）
 
-前往OPPO官网文档（https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/） 我们找到`安装 runtime.apk 包到 OPPO 手机上`这个栏目，通常会选择新版本，进行下载。
+前往OPPO官网[文档](https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/develop/games/use) 找到`安装 runtime.apk 包到 OPPO 手机上`这个栏目，通常会选择新版本，进行下载。
 
 要注意的是，调试器的版本，文档中有注明最小平台版本号。LayaAirIDE发布的时候，要和这里最小平台版本号对应上。
 
 3、PC电脑的chrome浏览器与手机数据连接线。
 
-4、安装nodejs 环境，建议安装 8.x 稳定版本 [node官网：https://nodejs.org/en/]
+4、安装node.js 环境， node官网：https://nodejs.org/en/。
 
 就是下载安装，比较简单，也不细介绍。能在命令行里调起npm命令就算是成功了。
 
@@ -156,13 +134,13 @@ OPPO发布时，是通过 ADB 把rpk包推到手机的games目录上去，所以
 
 (图3-1)
 
-另外要确保安装好OPPO小游戏调试环境“快应用”，如图2所示。
+另外要确保安装好OPPO小游戏调试环境“快应用”，如图3-2所示。
 
 <img src="img/3-2.png" alt="图2" style="zoom: 67%;" /> 
 
 (图3-2)
 
-第三、将PC电脑与手机用USB数据线相连，电脑里，可以出现类似图3一样的界面。比如，点击图3-3左上角的OPPO R9m，就可以进入手机存储。
+第三、将PC电脑与手机用USB数据线相连，电脑里，可以出现类似图3-3一样的界面。比如，点击图3-3左上角的OPPO R9m，就可以进入手机存储。
 
 ![图3](img/3-3.png) 
 
@@ -191,14 +169,14 @@ OPPO的调试必须基于真机调试，PC的chrome只能输出信息，看不�
 如果想看调试信息。这时就需要打开chrome浏览器。然后在输入栏里输入：
 
 ```
-chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=10.10.82.111:12345/00010002-0003-4004-8005-000600070008
+devtools://devtools/bundled/inspector.html?v8only=true&ws=10.10.82.111:12345/00010002-0003-4004-8005-000600070008
 ```
 
-上面示例的IP地址`10.10.82.111`替换成自己手机上的IP就行。IP地址不知道怎么查的，自行百度。这里重点提示的是，PC电脑必须要和手机处于同一个网段的局域网环境下。
+上面示例的IP地址`10.10.82.111`替换成自己手机上的IP就行，12345是端口号，不行的话就换成12346。IP地址不知道怎么查的，自行百度。这里重点提示的是，**PC电脑必须要和手机处于同一个网段的局域网环境下**，调试时要保证手机打开在小游戏页面。
 
-如果没问题，效果如图3-6所示。
+如果没问题，效果如图3-6所示，会打印出调试日志。
 
-![图6](img/3-6.png)
+![3-6](img/3-6.png)
 
 （图3-6）
 
@@ -210,11 +188,11 @@ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=10.10.82.111:12
 
 **调试列表中未见游戏，是什么情况**
 
-如果我们发布的时候没能将rpk自动发到小游戏目录内，那图5的列表中，就没办法直接看到刚发布的小游戏。
+如果我们发布的时候没能将rpk自动发到小游戏目录内，那图3-5的列表中，就没办法直接看到刚发布的小游戏。
 
 这时候就可以使用adb来确认环境了。
 
-在ide的终端或者cmd中 输入 `adb devices` 指令。
+在cmd中 输入 `adb devices` 指令。
 
 **1.连接非正常情况：**
 
@@ -238,19 +216,15 @@ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=10.10.82.111:12
 
 ------
 
-另一方案，使我们可以采用手工模式，把rpk包，复制到手机存储的games目录下，如果没有games目录则自己手工创建一下。
+另一方案，使我们可以采用手动模式，把rpk包，复制到**手机存储的games目录下**，如果没有games目录则自己手工创建一下。
 
-rpk包位于项目的release/OPPOgame/quickgame/dist 目录下，如图3-8所示。
+rpk包位于项目的release/OPPOgame/dist 目录下。
 
-![图8](img/3-8.png) 
+ 将发布生成的rpk文件，复制到手机存储的games目录下，如图3-8所示。
+
+![3-8](img/3-8.png)
 
 （图3-8）
-
-将发布生成的rpk文件，复制到手机存储的games目录下，如图9所示。
-
-![图9](img/3-9.png) 
-
-（图3-9）
 
 这种方法稳定性更高。
 
@@ -260,77 +234,49 @@ rpk包位于项目的release/OPPOgame/quickgame/dist 目录下，如图3-8所示
 
 
 
-## 四、OPPO小游戏分包
+## 四、OPPO开发者工具调试
 
-对于一些大型游戏而言，OPPO小游戏的4M初始包远远不够用，因为光JS就会超过4M，所以在2.5.0beta的小游戏基础库推出之前，只能是不断的砍功能，一直砍到JS小于5M。(如果有新手不了解这是为什么？那先去了解一些基础之后，再来看本文)。小游戏基础库从2.5.0beta版本开始支持通过分包的形式，将上传的包体扩大到20M，那如何进行分包呢？
+除了Chrome调试，开发者还可以使用官方提供的开发者工具。如图4-1所示，打开OPPO开发者工具，点击导入游戏引擎工程，然后选择路径即可。
 
-在分包之前，官方的文档没看过的，一定要先仔细看一看。这非常有用，无论能理解到多少，先尽量看懂文档要点，才能更好的理解分包。链接如下，请先看过后再进行后面的步骤。
-
-https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/develop/subpackage/subpackage
-
-**在manifest.json中配置分包名与分包路径的字段**
-
-```json
-{
-  ...
-  "subpackages": [
-    {
-      "name": "sub1Name",
-      "root": "sub1/" // 可以指定一个目录，目录根目录下的 main.js 会作为入口文件，目录下所有资源将会统一打包
-    }, {
-      "name": "sub2Name",
-      "root": "sub2.js" // 也可以指定一个 JS 文件
-    }
-  ]
-  ...
-}
-```
-
-这个manifest.json是通过IDE的发布功能自动生成的，打开IDE的构建发布可以看到设置分包选项，如图4-1所示
-
-<img src="img/4-1.png" style="zoom:50%;" /> 
+<img src="img/4-1.png" alt="4-1" style="zoom:50%;" />
 
 （图4-1）
 
-subpackages里，可以有多个name与root，每一组代表一个分包，单个分包
+然后选择编译方式，如图4-2所示，默认为普通编译，如果进行了分包，则选择“编译分包”，选择后点击“编译”。
 
-分包路径可以指定一个目录，根目录下的 main.js 会作为入口文件，目录下所有资源将会统一打包
-
-**这里设置的分包文件（夹）要与OPPOgame目录下的文件（夹）对应，这里设置只是自动生成manifest.json里的配置信息，并不会去创建文件夹和文件。一定要手动创建文件与文件夹**
-
-**OPPO小游戏的分包加载示例代码**
-
-OPPO小游戏官方提供了qg.loadSubpackage(Object object) API 来触发分包的下载，调用 qg.loadSubpackage 后，将触发分包的下载与加载，在加载完成后，通过 qg.loadSubpackage 的 success 回调来通知加载完成。示例代码如下：
-
-```typescript
-const loadTaskA = qg.loadSubpackage({
-        name: 'sub1Name',
-        success: function (data) {
-            console.info('加载分包 sub1Name 成功')
-        },
-        fail: function (err) {
-              console.info('加载分包 sub1Name 失败', err)
-       }
-	}
-)
-```
-
-加载成功的同时，qg.loadSubpackage 会返回一个 `LoadSubpackageTask`，可以通过 `LoadSubpackageTask` 获取获取分包加载状态。示例代码如下：
-
-```typescript
-loadTaskA.onProgressUpdate(res => {
-                console.log('sub1Name 下载进度', res.progress)
-                console.log('sub1Name 已经下载的数据长度', res.totalBytesWritten)
-                console.log('sub1Name 预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
-            }
-);
-```
-
-## OPPO的分包调试
-
-分包成功后的小游戏 rpk 需拷贝到手机的 `sdcard/Android/data/com.nearme.instant.platform/files/subPkg` 中
-之后便可打开 OPPO 小游戏调试器在 `GAME` 分包标签页下打开对应小游戏 如图：
-
-![分包调试](img/4-2.png) 
+<img src="img/4-2.png" alt="4-2" style="zoom:50%;" />
 
 （图4-2）
+
+编译成功后，usb连接真机，然后点击真机运行：
+
+<img src="img/4-3.png" alt="4-3" style="zoom:50%;" />
+
+（图4-3）
+
+真机效果如图4-4所示：
+
+<img src="img/4-4.png" alt="4-4" style="zoom:50%;" />
+
+（图4-4）
+
+此种方式相比Chrome浏览器调试的优势是，它能够实时显示手机的效果。
+
+
+
+## 五、分包加载
+
+让开发者在开发完成后，能够将项目中分包之外的其他文件打包成主包；再将整个包打成 .rpk 文件。开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。
+
+> OPPO分包加载包大小的限制
+>
+> - 整个小游戏所有分包大小之和不超过 16 M
+> - 单个分包大小无限制
+> - 加上主包 4M，最终的 rpk 包大小不超过 20M
+>
+> 详细请参考官网[文档](https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/develop/subpackage/subpackage)。
+
+使用LayaAirIDE分包，只需点击构建发布后，勾选开启分包，然后选择要分包的文件夹即可。在设置时需要注意，如果是代码加载的资源，在场景里没有引用，那么一定要添加到`始终包含的资源目录`。
+
+发布后，开发者只需根据第三节、第四节的任一种调试方法进行调试即可。
+
