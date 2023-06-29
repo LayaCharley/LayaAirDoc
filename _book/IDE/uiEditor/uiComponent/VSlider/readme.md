@@ -32,7 +32,7 @@ VSlider资源命名规以vsliser为前缀名，它的默认资源总共3个，�
 
 ### 1.3 VSlider组件的API介绍
 
-[VSlider API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VSlider
+[VSlider API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VSlider
 
 
 

@@ -74,7 +74,7 @@
 
 ![image-20230215203928304](img/1-8.png)
 
-预烘培骨骼动画示例：https://layaair.layabox.com/3.x/demo/?category=3D&group=8&name=6
+预烘培骨骼动画示例：https://layaair.com/3.x/demo/?category=3D&group=8&name=6
 
 
 

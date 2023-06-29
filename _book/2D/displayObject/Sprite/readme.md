@@ -8,7 +8,7 @@
 
 `Sprite` 是基本的显示图形的显示列表节点。 通过 `graphics` 可以绘制图片或者矢量图，支持旋转，缩放，位移等操作。`Sprite`同时也是容器类，可用来添加多个子节点。`Sprite`针对不同的情况做了渲染优化，所以保证一个类实现丰富功能的同时，又达到高性能。
 
-另外，在LayaAir 2D UI中，Sprite是所有节点对象的基础类，如图1-1所示，Sprite 类的基础功能会被继承到所有继承的节点对象中（由于篇幅有限，图中只列出了Sprite类部分的子类，全部的继承关系请参考[API文档](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=display&class=laya.display.Sprite)），因此本篇会详解介绍 Sprite 类的基础功能，后续的节点对象重复的将不再介绍。
+另外，在LayaAir 2D UI中，Sprite是所有节点对象的基础类，如图1-1所示，Sprite 类的基础功能会被继承到所有继承的节点对象中（由于篇幅有限，图中只列出了Sprite类部分的子类，全部的继承关系请参考[API文档](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=display&class=laya.display.Sprite)），因此本篇会详解介绍 Sprite 类的基础功能，后续的节点对象重复的将不再介绍。
 
 ![img](img/1-1.png) 
 

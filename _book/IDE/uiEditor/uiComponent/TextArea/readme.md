@@ -1,6 +1,6 @@
 # 多行输入文本组件(TextArea)
 
-由于TextArea继承于TextInput，两者相同点太多这篇文章只介绍两者不同的地方，TextInput介绍到的点这里不再过多讲解。详细内容可以查阅[TextArea API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.TextArea)。
+由于TextArea继承于TextInput，两者相同点太多这篇文章只介绍两者不同的地方，TextInput介绍到的点这里不再过多讲解。详细内容可以查阅[TextArea API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.TextArea)。
 
  
 

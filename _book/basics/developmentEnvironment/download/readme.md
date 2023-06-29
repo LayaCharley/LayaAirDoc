@@ -8,7 +8,7 @@
 
 IDE内集成了引擎，直接下载IDE即可。
 
-下载地址：https://layaair.layabox.com/#/engineDownload
+下载地址：https://layaair.com/#/engineDownload
 
 
 

@@ -5,7 +5,7 @@
 ## 一、通过LayaAirIDE创建Tree组件
 
 ​        Tree 组件用来显示树状结构。用户可以查看排列为可扩展树的层次结构数据。
-​        Tree 组件的脚本接口请参考 [Tree API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Tree)。 
+​        Tree 组件的脚本接口请参考 [Tree API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Tree)。 
 
 ### 1.1 Tree 组件主要由两个部分组成：
 

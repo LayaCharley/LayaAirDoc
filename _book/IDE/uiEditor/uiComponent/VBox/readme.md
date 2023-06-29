@@ -4,7 +4,7 @@
 
 VBox是容器类组件，继承自Box，VBox是常用于垂直布局的容器组件，对比Box它增加了绝对布局的功能。
 
-[VBox API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VBox
+[VBox API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VBox
 
 
 

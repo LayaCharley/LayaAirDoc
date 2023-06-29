@@ -75,7 +75,7 @@ export class UI_Button extends Laya.Script {
 
  (动图2)
 
-**Tips:** Button 组件的属性接口介绍请参考 [Button API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Button)。
+**Tips:** Button 组件的属性接口介绍请参考 [Button API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Button)。
 
 
 

@@ -620,7 +620,7 @@ private completeHandler(e:any):void
   iframe.style.zIndex = 100;//设置层级
   iframe.style.left ="100px";
   iframe.style.top ="100px";
-  iframe.src = "http://ask.layabox.com/";
+  iframe.src = "http://ask.layaair.com/";
   Laya.Browser.document.body.appendChild(iframe);
   ```
 

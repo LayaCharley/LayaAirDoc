@@ -2,7 +2,7 @@
 
 FontClip组件本质上是对位图从方向上进行等比切割，FontClip继承于Clip。
 
-[FontClip API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.FontClip
+[FontClip API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.FontClip
 
 
 

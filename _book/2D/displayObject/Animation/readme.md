@@ -4,7 +4,7 @@
 
 ## 1. 初步认知Animation节点
 
-Animation是节点动画，可以方便的创建图集动画、多帧动画。如动图1-1所示，就是由Animation创建的动画效果。Animation节点的API请参考[Animation API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=display&class=laya.display.Animation )。
+Animation是节点动画，可以方便的创建图集动画、多帧动画。如动图1-1所示，就是由Animation创建的动画效果。Animation节点的API请参考[Animation API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=display&class=laya.display.Animation )。
 
  ![1-1](img/1-1.gif)
 

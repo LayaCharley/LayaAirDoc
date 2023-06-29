@@ -746,7 +746,7 @@ xxx.canCollideWith = Laya.Physics3DUtils.COLLISIONFILTERGROUP_CUSTOMFILTER1;
 xxx.canCollideWith = Laya.Physics3DUtils.COLLISIONFILTERGROUP_CUSTOMFILTER1 | Laya.Physics3DUtils.COLLISIONFILTERGROUP_CUSTOMFILTER2 | Laya.Physics3DUtils.COLLISIONFILTERGROUP_CUSTOMFILTER5;
 ```
 
-> 关于位运算用于碰撞的基础原理，如果不明白的可以参考[2D物理的碰撞分组详解：https://ldc2.layabox.com/doc/?nav=zh-ts-3-5-5](https://ldc2.layabox.com/doc/?nav=zh-ts-3-5-5)
+> 关于位运算用于碰撞的基础原理，如果不明白的可以参考[2D物理](../../../IDE/physicsEditor/physics2D/readme.md)
 
 ###### 指定不可碰撞的组
 

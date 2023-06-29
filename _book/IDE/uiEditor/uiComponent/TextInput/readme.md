@@ -2,7 +2,7 @@
 
 ## 1. LayaAir IDE中使用TextInput
 
-文本输入框是游戏中经常会用到的一个UI组件，任何需要输入的时候可以使用TextInput。TextInput类的API可以参考[这里](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.TextInput)。
+文本输入框是游戏中经常会用到的一个UI组件，任何需要输入的时候可以使用TextInput。TextInput类的API可以参考[这里](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.TextInput)。
 
 ### 1.1 创建TextInput
 

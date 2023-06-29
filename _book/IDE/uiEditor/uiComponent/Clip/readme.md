@@ -10,7 +10,7 @@
 
  Clip 组件可以用来播放切片动画，和显示切片动画的某一帧图片。
         点击资源面板里的 Clip 组件，拖放到页面编辑区，即可添加 Tab 组件到页面上。
-Clip 的脚本接口参考[Clip API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Clip)
+Clip 的脚本接口参考[Clip API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Clip)
 
 Clip 组件的资源示例：
 
