@@ -4,7 +4,7 @@
 
 ## 一、通过LayaAir IDE创建Label组件
 
-Label 组件用来显示一段文字。Label 组件的脚本接口请参考 [Label API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Label)。
+Label 组件用来显示一段文字。Label 组件的脚本接口请参考 [Label API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Label)。
 
 ###     1.1 创建Label
 

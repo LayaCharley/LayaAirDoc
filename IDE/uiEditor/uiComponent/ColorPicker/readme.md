@@ -8,7 +8,7 @@ ColorPicker继承自UIComponent，ColorPicker组件将显示包含多个颜色�
 
 
 
-[ColorPicker API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ColorPicker
+[ColorPicker API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ColorPicker
 
 
 

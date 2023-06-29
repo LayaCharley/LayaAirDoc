@@ -12,7 +12,7 @@
 优点是减少了实例化对象时的开销，且能让对象反复使用，减少了新内存分配与垃圾回收器运行的机会。
 **注意**：对象移除时并不是立即从内存中抹去，只有认为内存不足时，才会使用垃圾回收机制清空，清空时很耗内存，很可能就会造成卡顿现象。**用了对象池后将减少程序的垃圾对象，有效的提高程序的运行速度和稳定性**。
 
-具体使用方式请参考[《对象池》](https://layaair.layabox.com/3.x/doc/basics/common/Pool/readme.html)文档
+具体使用方式请参考[《对象池》](../../basics/common/Pool/readme.md)文档
 
 
 
@@ -517,7 +517,7 @@ WebGL模式下可以采用GPU运算，能减轻CPU压力，但也要尽量控制
 
 2，降低带宽，手游类应用，在渲染时会有大量贴图传输到GPU，不限制的话不仅会严重影响渲染性能，同时会带来很严重的发热
 
-具体使用方式请参考[《纹理压缩》](https://layaair.layabox.com/3.x/doc/IDE/textureCompress/readme.html)文档
+具体使用方式请参考[《纹理压缩》](../../IDE/uiEditor/textureCompress/readme.md)文档
 
 
 

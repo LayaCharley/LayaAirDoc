@@ -18,7 +18,7 @@ ViewStack组件是容器类组件，没有独立的组件资源规范。本例�
 
 ### 1.3 ViewStack组件的API介绍
 
-[ViewStack API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ViewStack
+[ViewStack API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ViewStack
 
 
 

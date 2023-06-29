@@ -30,7 +30,7 @@ export class LoaderDemo extends Laya.Script {
 
     onAwake(): void {
         this.loadTexture("image/bird.jpg", 500);
-        this.loadTexture("https://layaair2.ldc2.layabox.com/demo2/h5/res/apes/monkey1.png");
+        this.loadTexture("https://layaair.com/3.x/demo/resources/res/apes/monkey2.png");
     }
 
     /**加载并显示图片 */
@@ -69,7 +69,7 @@ export class LoaderDemo extends Laya.Script {
 
     onAwake(): void {
         //下面的URL未来可能会失效，仅用于示例参考
-        this.loadHTMLImage("http://lf3-sf-be-pack-sign.pglstatp-toutiao.com/ad.union.api/25dec97625d484d59beb22c408f072f9?x-expires=1942070400&x-signature=V5u1mTfzD6dnf6uSWif%2Fa65fI%2B4%3D");
+        this.loadHTMLImage("https://layaair.com/3.x/demo/resources/res/apes/monkey2.png");
     }
 
     /** 加载URL无后缀资源 */
@@ -134,7 +134,7 @@ export class LoaderDemo extends Laya.Script {
         let resArr: Array<string> = [
             "image/bird.jpg",
             "image/cloud.png",
-            "https://layaair2.ldc2.layabox.com/demo2/h5/res/apes/monkey1.png"
+            "https://layaair.com/3.x/demo/resources/res/apes/monkey2.png"
         ];
         this.loadTextures(resArr);
     }
@@ -184,11 +184,11 @@ export class LoaderDemo extends Laya.Script {
             "image/bird.jpg",
             "image/cloud.png",
             {
-                url: "https://layaair2.ldc2.layabox.com/demo2/h5/res/apes/monkey1.png",
+                url: "https://layaair.com/3.x/demo/resources/res/apes/monkey2.png",
                 type: "image"
             },
             {
-                url: "http://lf3-sf-be-pack-sign.pglstatp-toutiao.com/ad.union.api/25dec97625d484d59beb22c408f072f9?x-expires=1942070400&x-signature=V5u1mTfzD6dnf6uSWif%2Fa65fI%2B4%3D",
+                url: "https://layaair.com/3.x/demo/resources/res/apes/monkey1.png",
                 type: Laya.Loader.IMAGE
             }
         ];
@@ -241,9 +241,9 @@ export class LoaderDemo extends Laya.Script {
     onAwake(): void {
         let resArr: Array<any> = [
             "image/bird.jpg",
-            "http://lf3-sf-be-pack-sign.pglstatp-toutiao.com/ad.union.api/25dec97625d484d59beb22c408f072f9?x-expires=1942070400&x-signature=V5u1mTfzD6dnf6uSWif%2Fa65fI%2B4%3D",
+            "https://layaair.com/3.x/demo/resources/res/apes/monkey2.png",
             "image/cloud.png",
-            "http://lf3-sf-be-pack-sign.pglstatp-toutiao.com/ad.union.api/25dec97625d484d59beb22c408f072f9?x-expires=1942070400&x-signature=V5u1mTfzD6dnf6uSWif%2Fa65fI%2B4%3D",
+            "https://layaair.com/3.x/demo/resources/res/apes/monkey2.png",
         ];
         this.loadTextures(resArr);
     }
@@ -327,7 +327,7 @@ fetch的加载限定为以下类型：
 
 在使用的时候，第二个参数那里填写对应的类型标识字符串即可。
 
-更多fetch加载代码示例请参考[《使用二进制图片》](https://layaair.layabox.com/3.x/doc/2D/useBinaryImage/readme.html)文档
+更多fetch加载代码示例请参考[《使用二进制图片》](../../../2D/useBinaryImage/readme.md)文档
 
 > **Tips**​
 >

@@ -104,7 +104,7 @@ export class UI_CheckBox extends Laya.Script {
 
 
 
-**Tips:** CheckBox 组件的属性接口介绍请参考 [CheckBox API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.CheckBox)。
+**Tips:** CheckBox 组件的属性接口介绍请参考 [CheckBox API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.CheckBox)。
 
 
 

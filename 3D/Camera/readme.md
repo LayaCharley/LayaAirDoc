@@ -517,8 +517,6 @@ camera.aspectRatio = 0;
 
 `Opaque Pass`：开启opaquePass后，会生成非透明物体贴图。在Shader中可以引入u_cameraOpaqueTexture来得到相机渲染管线的非透明图片。使用非透明物体贴图功能，可以实现玻璃折射，水面折射，热浪等效果
 
-详情见示例 GlassRefractionDemo ，链接: https://layaair2.ldc2.layabox.com/demo2/?language=zh&category=3d&group=Advance&name=GlassRefractionDemo
-
 `Enable Blit Depth`：设置是否使用内置的深度贴图 (如果开启，只可在后期使用深度贴图，不可在渲染流程中使用)
 
 `Depth Texture Format`：摄像机深度格式与深度纹理的默认值是DEPTH_16，随着深度广泛的使用，有的开发者会发现16位的深度已然不够用，现在增加了24位和32位深度模式的值。用于设置**depthTextureFormat**属性。

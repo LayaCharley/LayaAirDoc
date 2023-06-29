@@ -38,6 +38,6 @@ LayaAir引擎开源免费，拥有超百万的开发者生态。
 
 提供了：免费的社区服务、LayaAir集成开发环境（IDE）、丰富的学习资料（文档、API、DEMO、视频）。
 
-引擎官网地址：https://layaair.layabox.com/
+引擎官网地址：https://layaair.com/
 
-引擎社区地址：https://ask.layabox.com/
+引擎社区地址：https://ask.layaair.com/

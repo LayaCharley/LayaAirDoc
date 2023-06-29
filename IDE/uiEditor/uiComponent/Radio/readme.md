@@ -4,7 +4,7 @@
 
 Radio继承自Buttn，前面Buttn中介绍过的这里就不再过多讲述。
 
-[Radio API]:https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Radio
+[Radio API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.Radio
 
 
 

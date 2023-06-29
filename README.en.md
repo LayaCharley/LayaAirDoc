@@ -6,7 +6,7 @@ Founded in 2014, Layabox's open source engine product LayaAir has more than one 
 
 
 
-Website URL: https://layaair.layabox.com/
+Website URL: https://layaair.com/
 
-BBS URL: https://ask.layabox.com/
+BBS URL: https://ask.layaair.com/
 

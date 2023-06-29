@@ -14,7 +14,7 @@
 
  点击选择资源面板里的 VScrollBar 组件，拖放到页面编辑区，即可添加 VScrollBar 组件到页面上。
 
-VScrollBar 组件的脚本接口请参考 [VScrollBar API](https://layaair.layabox.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VScrollBar)。
+VScrollBar 组件的脚本接口请参考 [VScrollBar API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.VScrollBar)。
 
  VScrollBar 组件的图像资源示例：
 

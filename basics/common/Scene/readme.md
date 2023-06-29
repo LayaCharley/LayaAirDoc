@@ -22,13 +22,13 @@ LayaAir3.0继续延用2.0开发思路为组件化，脚本化，场景管理开�
 
 （图1-2）
 
-`Scene3D`：编辑3D场景的根节点，可以参考[《3D场景编辑的基础交互》](https://layaair.layabox.com/3.x/doc/IDE/sceneEditor/basic/readme.html)文档和[《3D场景环境设置》](https://layaair.layabox.com/3.x/doc/IDE/sceneEditor/environment/readme.html)文档来详细了解3D场景的操作和使用，如图1-3所示
+`Scene3D`：编辑3D场景的根节点，可以参考[《3D场景编辑的基础交互》](../../../IDE/sceneEditor/basic/readme.md)文档和[《3D场景环境设置》](../../../IDE/sceneEditor/environment/readme.md)文档来详细了解3D场景的操作和使用，如图1-3所示
 
 <img src="images/1-3.png" style="zoom:50%;" />
 
 （图1-3）
 
-`Scene2D`：编辑2D场景的根节点，可以参考[《UI编辑器基础交互》](https://layaair.layabox.com/3.x/doc/IDE/uiEditor/basic/readme.html)文档和[《UI继承类》](https://layaair.layabox.com/3.x/doc/IDE/uiEditor/runtime/readme.html)文档来详细了解2D场景的操作和代码使用，如图1-4所示
+`Scene2D`：编辑2D场景的根节点，可以参考[《UI编辑器基础交互》](../../../IDE/uiEditor/basic/readme.md)文档和[《UI运行时》](../../../IDE/uiEditor/runtime/readme.md)文档来详细了解2D场景的操作和代码使用，如图1-4所示
 
 <img src="images/1-4.png" style="zoom:50%;" /> 
 
