@@ -337,7 +337,7 @@ RenderTexture渲染纹理，用于将3D场景渲染到2D纹理中，混合2D开�
 
 （图2-20）
 
-通过创建AvatarMask，开发者可以用来描述动画层遮罩
+通过创建AvatarMask，开发者可以用来描述动画层遮罩，详细内容参考[《动画状态机详解》](../../../IDE/animationEditor/aniController/readme.md)3.5.1节。
 
 
 

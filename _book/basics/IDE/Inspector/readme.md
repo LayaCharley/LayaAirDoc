@@ -10,7 +10,7 @@
 
 （图1-1）
 
-- 3D节点可以增加的组件有：动画（[时间轴动画](../../../IDE/animationEditor/timelineGUI/readme.md)、[动画状态机](../../../IDE/animationEditor/aniController/readme.md)）、[3D物理](../../../IDE/physicsEditor/physics3D/readme.md)、[网格](../../../IDE/Component/Mesh/readme.md)、特效（[粒子](../../../IDE/particleEditor/readme.md)、[拖尾](../../../IDE/Component/Trail/readme.md)、[像素线](../../../IDE/Component/PixelLine/readme.md)）、[灯光](../../../3D/Light/readme.md)、渲染（[UI3D](../../../IDE/uiEditor/3DUI/readme.md) 、[反射探针](../../../IDE/Component/ReflectionProbe/readme.md)、[静态合批](../../../IDE/Component/StaticBatchVolume/readme.md)、[LOD组](../../../IDE/Component/LOD/readme.md)）、[自定义组件脚本](../../../basics/IDE/entry/readme.md)、[新建组件脚本](../../../basics/common/Component/readme.md)。
+- 3D节点可以增加的组件有：动画（[时间轴动画](../../../IDE/animationEditor/timelineGUI/readme.md)、[动画状态机](../../../IDE/animationEditor/aniController/readme.md)）、[3D物理](../../../IDE/physicsEditor/physics3D/readme.md)、[网格](../../../IDE/Component/Mesh/readme.md)、特效（[粒子](../../../IDE/particleEditor/readme.md)、[拖尾](../../../IDE/Component/Trail/readme.md)、[像素线](../../../IDE/Component/PixelLine/readme.md)）、[灯光](../../../3D/Light/readme.md)、渲染（[UI3D](../../../IDE/uiEditor/3DUI/readme.md) 、[反射探针](../../../IDE/Component/ReflectionProbe/readme.md)、[体积全局照明](../../../IDE/Component/VolumetricGI/readme.md)、[静态合批](../../../IDE/Component/StaticBatchVolume/readme.md)、[LOD组](../../../IDE/Component/LOD/readme.md)）、[自定义组件脚本](../../../basics/IDE/entry/readme.md)、[新建组件脚本](../../../basics/common/Component/readme.md)。
 - 2D节点可以增加的组件有：动画（[时间轴动画](../../../IDE/animationEditor/timelineGUI/readme.md)、[动画状态机](../../../IDE/animationEditor/aniController/readme.md)）、[2D物理](../../../IDE/physicsEditor/physics2D/readme.md)、[自定义组件脚本](../../../basics/IDE/entry/readme.md)、[新建组件脚本](../../../basics/common/Component/readme.md)。
 
 > “自定义组件脚本”是添加已经存在的脚本文件；“新建组件脚本”是新建一个脚本文件。
@@ -128,6 +128,7 @@
 - 第三方JS文件：提供了单独导入的功能，详细内容参考[《引用第三方JS模块》](../../../basics/IDE/importJsLibrary/readme.md)的第二节。
 - 模型：支持的模型后缀为fbx与gltf的模型文件，详细内容参考[《模型与动画的导入使用》](../../../3D/useModel/readme.md)。
 - RenderTexture：可以修改渲染纹理的属性，详细内容参考[《混合使用3D》](../../../IDE/uiEditor/use3D/readme.md)的第二节。
+- AvatarMask：开发者可以用来设置动作遮罩，详细内容参考[《动画状态机详解》](../../../IDE/animationEditor/aniController/readme.md)3.5.1节。
 
 
 

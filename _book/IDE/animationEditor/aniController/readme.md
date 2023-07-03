@@ -149,13 +149,13 @@ this.animator = this.target.getComponent<Laya.Animator>(Laya.Animator);
 
 默认情况下，一个动画状态机文件只有一个默认的层 `BaseLayer`，如图3-6所示，比如一个角色模型的常规动作（待机，跑，攻击），我们只需要一个默认层就可以了。
 
-<img src="img/3-6.png" alt="image-20221205162952720" style="zoom:50%;" /> 
+<img src="img/3-6.png" alt="image-20221205162952720" style="zoom: 80%;" /> 
 
 （图3-6）
 
 但是我们也可以创建更多的分层，多个分层可以用来解决什么样的问题呢？试想一下如果你要开发一款第三人称的射击游戏，那么肯定是希望身体的动画分为上下两部分，上方根据瞄准的位置和是否射击进行动画播放，下方根据移动播放动画。所以更多复杂的需求可以用分层来解决，如图3-7所示，我们又添加了一个分层，并命名为Layer1。
 
-<img src="img/3-7.png" alt="image-20221205164319707" style="zoom: 50%;" /> 
+<img src="img/3-7.png" alt="image-20221205164319707" style="zoom: 80%;" /> 
 
 （图3-7）
 
@@ -163,20 +163,20 @@ this.animator = this.target.getComponent<Laya.Animator>(Laya.Animator);
 
 每个图层是有一些参数属性的，如图3-8所示：
 
-<img src="img/3-8.png" alt="image-20221205164500506" style="zoom: 50%;" /> 
+<img src="img/3-8.png" alt="image-20221205164500506" style="zoom: 80%;" /> 
 
 （图3-8）
 
-`Name`：图层的名字。
+**1.**`Name`：图层的名字。
 
-`Play On Wake`：是否默认播放这个层的动画。
+**2.**`Play On Wake`：是否默认播放这个层的动画。
 
-`Blending Mode`：动画混合方式：
+**3.**`Blending Mode`：动画混合方式：
 
 - `Override`：覆盖，表示当前层的动画会覆盖掉其它层的动画，比如射击播放时右手就不能播放其它的动画了；
 - `Additive`：添加，表示当前层的动画的量添加到其它层的动画，比如射击播放时，手部奔跑或站立的甩动也会保留。
 
-`Default Weight`：动画层的权重，默认的Base Layer必须为1。如果设置为0则当前层的动画不会播放，1则会播放，0-1之间会采用类似融合的情况来播放动画，比如之前说的边移动边射击的情况，如果设置为0.5则射击动画播放时手部只会抬到脖子附近。
+**4.**`Default Weight`：动画层的权重，默认的Base Layer必须为1。如果设置为0则当前层的动画不会播放，1则会播放，0-1之间会采用类似融合的情况来播放动画，比如之前说的边移动边射击的情况，如果设置为0.5则射击动画播放时手部只会抬到脖子附近。
 
 通过代码，我们可以获得想要的图层，需要使用Animator的 `animator.getControllerLayer(layerIndex)`方法，该方法的定义如下：
 
@@ -198,13 +198,57 @@ let animatorControllerLayer : Laya.AnimatorControllerLayer = this.animator.getCo
 let defaultState = animatorControllerLayer.defaultState;
 ```
 
+**5.**`Avatar Mask`：动作遮罩，进行遮罩后，选定的上层动作会遮挡下层的动作。以一个具体的例子来说明：
+
+假设有两个图层，如图3-9所示，fight和congratulate，
+
+![3-9](img/3-9.png)
+
+（图3-9）
+
+将Blending Mode属性设置为覆盖后，congratulate层的动作会覆盖fight层的动作，congratulate效果如动图3-10所示。
+
+![3-10](img/3-10.gif)
+
+（动图3-10）
+
+此时的覆盖，是将fight动作全都覆盖掉了，如果想上半身是fight动作，下半身是congratulate动作，这就需要动作遮罩了，先来看一下动图3-11的fight动作，方便进行对比。
+
+![3-11](img/3-11.gif)
+
+（动图3-11）
+
+在项目资源面板中，添加`AvatarMask`后，如图3-12所示，可以添加预制体或模型资源，这里选择预制体，然后点击`导入骨架`按钮。
+
+![3-12](img/3-12.png)
+
+（图3-12）
+
+导入后的骨架，勾选的部位，就是要进行遮罩的地方。如图3-13所示，这里勾选了下半身的骨架，那么就是要对下半身的动作进行遮挡。
+
+<img src="img/3-13.png" alt="3-13" style="zoom: 80%;" />
+
+（图3-13）
+
+原本，congratulate层的动作会遮挡fight层的动作，并且会全部遮挡。现在，在congratulate层添加AvatarMask，按照刚刚的设置，congratulate层只遮挡fight层的下半身动作，也就是上半身仍然是fight层的动作不被覆盖，下半身的动作被遮挡变为congratulate层的动作。效果如动图3-14所示。
+
+![3-14](img/3-14.gif)
+
+（动图3-14）
+
+可以看到，上半身是fight动作，下半身是congratulate动作，这就是动作遮罩的用法。
+
+> 这只是最基本的一种用法，如果只有一个动画层，比如给fight动画层的下半身添加动画遮罩，那么此时就只显示下半身动画了。
+
+
+
 ##### 3.5.2 图层的参数
 
-每个图层是可以添加一些参数的，如图3-9所示，具体这些参数是在动画切换中会用到，我们将在第五章动画切换中介绍。
+每个图层是可以添加一些参数的，如图3-15所示，具体这些参数是在动画切换中会用到，我们将在第五章动画切换中介绍。
 
-<img src="img/3-9.gif" style="zoom:50%;" /> 
+<img src="img/3-15.gif" style="zoom:50%;" /> 
 
-（动图3-9）
+（动图3-15）
 
 目前LayaAir中，我们可以添加这三种参数：
 

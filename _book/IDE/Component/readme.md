@@ -16,6 +16,8 @@
 
 ### [反射探针](./ReflectionProbe/readme.md)
 
+### [体积全局照明](./VolumetricGI/readme.md)
+
 ###  [静态合批](./StaticBatchVolume/readme.md)
 
 ###  [LOD组](./LOD/readme.md)
