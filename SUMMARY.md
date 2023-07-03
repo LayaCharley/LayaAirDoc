@@ -117,6 +117,7 @@
     * [拖尾](IDE/Component/Trail/readme.md)
     * [像素线](IDE/Component/PixelLine/readme.md)
     * [反射探针](IDE/Component/ReflectionProbe/readme.md)
+    * [体积全局照明](IDE/Component/VolumetricGI/readme.md)
     * [静态合批](IDE/Component/StaticBatchVolume/readme.md)
     * [LOD组](IDE/Component/LOD/readme.md)
   - [预制体模块](IDE/prefab/readme.md)
