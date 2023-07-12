@@ -50,6 +50,10 @@ HTML5的资源包与代码，是需要通过网络进行加载后使用的。
 
 除了以上游戏本身项目关系密切的介绍，其实小游戏更大的好处是，提供了比HTML5更多的开放接口，例如更多的设备接口、AI接口、支付接口、广告接口、缓存文件管理接口、好友关系链接口等等。
 
+### 2.4 发布模板的设置
+
+开发者可以在项目目录中建立build-templates/平台名称，例如build-templates/web等，发布时会将这里面的内容拷贝到输出目录。如果是json文件，还会进行合并。例如build-templates/wxgame里放置game.json，并且内容为 { “showStatusBar”: true } ，那么最终的game.json文件里这个key值就会被加入，并且引擎模版里的game.json其他key值会保留。
+
 
 
 ## 三、LayaAir适配哪些小游戏平台
