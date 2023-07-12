@@ -321,7 +321,7 @@ Allow HDR 用于开启摄像机的高动态范围渲染功能，默认是不勾�
 
         let point = new Laya.Vector2();
 		point.x = Laya.stage.mouseX;
-		point.y = Laya.stage.mouseX;
+        point.y = Laya.stage.mouseY;
 		//产生射线
         let ray = new Laya.Ray(new Laya.Vector3(0, 0, 0), new Laya.Vector3(0, 0, 0));
 		this.camera.viewportPointToRay(point,ray);
