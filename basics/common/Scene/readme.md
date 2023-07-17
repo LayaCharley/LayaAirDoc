@@ -18,7 +18,7 @@ LayaAir3.0继续延用2.0开发思路为组件化，脚本化，场景管理开�
 
 通过资源管理器打开assets目录，可以看到Scene1的后缀是ls文件，这个场景ls文件，与2.0的区别是，它包括了Scene3D场景和Scene2D场景。如图1-2所示
 
-<img src="img/1-2.png" style="zoom:50%;" /> 
+<img src="images/1-2.png" alt="1-2" style="zoom:50%;" /> 
 
 （图1-2）
 
@@ -142,35 +142,67 @@ Laya.Scene.open("uiDemo/page/OpenScene.ls", false);
 Laya.Scene.open("dailog.lh");
 ```
 
-运行效果如动图所示
+运行效果如动图2-2所示
 
-<img src="img/3-2.gif" style="zoom: 33%;" />  
+<img src="images/2-2.gif" alt="2-2" style="zoom: 25%;" />
 
-（动图）
+（动图2-2）
 
 
 
 #### 2，传参与接收参数
 
-<img src="images/2-2.png" alt=" " style="zoom: 28%;" /> 
-
-（图2-2）
-
-例如创建名为Msg的场景，用于进入这个场景时会传递文字，可以使用如下代码：
+项目中有Scene.ls和Msg.ls两个场景，可以在Scene场景中通过 `Laya.Scene.open` 附带传递参数给Msg场景，代码如下所示：
 
 ```typescript
-Laya.Scene.open("uiDemo/Msg.ls", false, { "text": "没有勾选项，请先勾选" });
+const { regClass, property } = Laya;
+
+@regClass()
+export class NewScript extends Laya.Script {
+
+    @property({ type: Laya.Button })
+    public uiBtn: Laya.Button;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    onAwake(): void {
+
+        this.uiBtn.on(Laya.Event.CLICK, this, () => {
+            //点击后，打开Msg场景
+            Laya.Scene.open("Msg.ls", false, { "text": "点击成功！" });
+        });
+    }
+
+}
 ```
 
-通过 `Laya.Scene.open` 附带传递参数给下一个场景，数据为 `{ "text": "没有勾选项，请先勾选" }`
+其中，Scene场景有一个Button组件，需要在IDE中，将其拖入到@property暴露的属性入口中。
 
-`onOpened`方法中会接受传入的参数，`param.text` 就是 "没有勾选项，请先勾选"，如图2-3所示
+Scene场景传递的参数数据为 `{ "text": "点击成功！" }`，在Msg场景的Runtime中，`onOpened`方法会接受传入的参数，`param.text` 的值就是文本 "点击成功！"，代码如下所示：
 
-<img src="images/2-3.png" alt="image-20221103173414315" style="zoom:50%;" /> 
+```typescript
+const { regClass } = Laya;
+import { MsgRTBase } from "./MsgRT.generated";
 
-（图2-3）
+@regClass()
+export class MsgRT extends MsgRTBase {
+    
+    onOpened(param: any): void {
+        console.log(param.text);
+    }
+}
+```
 
+这样，点击Scene场景中的Button，就会打印日志“点击成功！”，效果如动图2-3所示：
 
+![2-3](images/2-3.gif)
+
+（动图2-3）
 
 
 
@@ -228,7 +260,6 @@ static closeAll(): void {
  * @param type 如果是点击默认关闭按钮触发，则传入关闭按钮的名字(name)，否则为null。
  */
 onClosed(type: string = null): void {
-    //trace("onClosed");
 }
 ```
 
@@ -244,27 +275,58 @@ onClosed(type: string = null): void {
 
  `Laya.Scene.showLoadingPage(param: any = null, delay: number = 500)`
 
-显示loading界面，打开参数，如果是scene，则会传递给 `onOpened` 方法，延迟打开时间，默认500毫秒
+显示loading界面，打开参数，如果是scene，则会传递给 `onOpened` 方法。延迟打开时间，默认500毫秒
 
  `Laya.Scene.hideLoadingPage(delay: number = 500)` 
 
-隐藏loading界面
+隐藏loading界面，延迟关闭时间，默认500毫秒。
 
 
 
-例如要打开一个新场景，使用加载页面，那么就先定义一个脚本代码，加入可能拖入loading场景的Laya.Prefab属性，如图2-5所示
+例如要打开一个新场景，使用加载页面，那么就先定义一个脚本代码，加入可能拖入loading场景的Laya.Prefab属性，代码如下：
 
-<img src="images/2-5.png" alt="image-20221105102225313" style="zoom:40%;" /> 
+```typescript
+const { regClass, property } = Laya;
+
+@regClass()
+export class NewScript extends Laya.Script {
+    //declare owner : Laya.Sprite3D;
+
+    @property({ type: Laya.Prefab })
+    private loadingScenePrefab: Laya.Prefab;
+
+    private loadingScene: Laya.Node;
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 第一次执行update之前执行，只会执行一次
+     */
+    onStart(): void {
+        //创建Loading场景
+        this.loadingScene = this.loadingScenePrefab.create();
+        //设置Loading场景
+        Laya.Scene.setLoadingPage(this.loadingScene as Laya.Sprite);
+        //手动调用显示Loading场景
+        Laya.Scene.showLoadingPage(this.loadingScene);
+        Laya.timer.once(3000,this,()=>{
+            //3秒后跳转到Game场景
+            Laya.Scene.open("Game.ls");
+        })
+    }
+
+}
+```
+
+在打开的场景Scene.ls下，挂上脚本，并拖入Loading.lh作为场景。
+
+![2-5](images/2-5.png)
 
 （图2-5）
 
-在要打开的场景Scene.ls下，挂上脚本，并拖入Loading.ls场景
-
-<img src="images/2-6.png" alt="image-20221105102404282" style="zoom: 50%;" />
-
-（图2-6）
-
-这样就可以使用Loading场景作为加载场景了
+这样就可以使用Loading场景作为加载场景了。
 
 
 
