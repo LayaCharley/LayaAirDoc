@@ -8,19 +8,19 @@
 
 - **HTTP**：
 
-优点：协议较成熟，应用广泛、基于TCP/IP，拥有TCP优点、研发成本很低，开发快速、nginx/apache/tomact等
+优点：协议成熟，应用广泛，基于TCP/IP，拥有TCP的可靠性，研发成本低，开发快速，被广泛支持，如nginx/apache/tomcat等。
 
-缺点：无状态无连接、只有PULL模式，不支持PUSH、数据报文较大
+缺点：无状态无连接，只有PULL模式，不支持PUSH，数据报文较大，每次请求都要带上所有的头信息。
 
-特性：无状态，无连接（短链接）、支持C/S模式、适用于文本传输。
+特性：无状态，无连接（短连接），支持C/S模式，适用于文本传输，但也可以传输其他类型的数据，如图片、视频等。
 
 - **WebSocket**：
 
-优点：协议较成熟、基于TCP/IP，拥有TCP优点、数据报文较小，包头非常小、面向连接，有状态协议、开发较快
+优点：协议较新，但已趋于成熟，基于TCP/IP，拥有TCP的可靠性，数据报文较小，只有在建立连接时的握手阶段需要较大的头信息，之后的数据交换阶段头信息较小，面向连接，有状态协议，支持服务器主动推送数据（PUSH模式）。
 
-缺点：websocket 是应用层协议所以数据包不简洁，更耗流量，还耗费性能
+缺点：WebSocket 是应用层协议，虽然数据包较简洁，但相比于TCP/IP协议，其数据包头部信息相对较大，对于非常小的数据包，这可能会导致一些额外的流量消耗。此外，由于需要维持连接，可能会占用更多的服务器资源。
 
-特性：有状态，面向连接、数据报头较小
+特性：有状态，面向连接，数据报头较小，支持全双工通信，适用于需要实时通信的应用。
 
 
 
@@ -28,7 +28,7 @@
 
 1，对于弱联网类游戏，比如消除类的，卡牌类的，可以直接HTTP协议，考虑安全的话直接HTTPS，或者对内容体做对称加密；
 
-2，对于实时性，交互性要求较高，且team有过相关经验，可以优先选择websocket协议，比如SLG和RPG等大型网络游戏
+2，对于实时性，交互性要求较高，且team有过相关经验，可以优先选择websocket协议，比如SLG和RPG等大型网络游戏。
 
 
 
@@ -53,7 +53,7 @@ HTTP协议即超文本传送协议(Hypertext Transfer Protocol )，是Web联网�
     }
 ```
 
-通过 .http 属性可以获得`XMLHttpRequest`。`XMLHttpRequest` 中文可以解释为可扩展超文本传输请求。它为客户端提供了在客户端和服务器之间传输数据的功能。它提供了一个通过 URL 来获取数据的简单方式，并且不会使整个页面刷新。这使得网页只更新一部分页面而不会打扰到用户。
+通过 ._http 属性可以获得`XMLHttpRequest`。`XMLHttpRequest` 中文可以解释为可扩展超文本传输请求。它为客户端提供了在客户端和服务器之间传输数据的功能。它提供了一个通过 URL 来获取数据的简单方式，并且不会使整个页面刷新。这使得网页只更新一部分页面而不会打扰到用户。
 
 1，属性
 
@@ -72,7 +72,7 @@ HTTP协议即超文本传送协议(Hypertext Transfer Protocol )，是Web联网�
 
 2，方法
 
-abort()
+`abort()`
 
 如果请求已经被发送,则立刻中止请求。
 
@@ -94,7 +94,7 @@ abort()
 
 `setRequestHeader()`
 
-给指定的HTTP请求头赋值。在这之前，你必须确认已经调用 [`open()`](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest#open) 方法打开了一个url。
+给指定的HTTP请求头赋值。在这之前，你必须确认已经调用 `open()`方法打开了一个url。
 
 因此使用 `HttpRequest` 的过程中，我们也可以获得 `XMLHttpRequest` 对象，并对 `XMLHttpRequest` 对象做相关的操作，在此我们就不对 `XMLHttpRequest` 做过多讲解，开发者可以自行查阅相关文档。
 
@@ -124,7 +124,7 @@ abort()
     send(url: string, data: any = null,
         method: "get" | "post" | "head" = "get",
         responseType: "text" | "json" | "xml" | "arraybuffer" = "text",
-        headers: any[] | null = null): void {
+        headers: any[] | null = null)
 ```
 
 
@@ -155,7 +155,7 @@ abort()
 
 #### 2.1.4 在代码中怎么使用
 
-laya引擎中用 `HttpRequest` 继承的是 `EventDispatcher`，具有事件派发的功能。加上本身具备发送请求的功能。我们写个简单的例子来看下用法：
+LayaAir引擎中用 `HttpRequest` 继承的是 `EventDispatcher`，具有事件派发的功能。加上本身具备发送请求的功能。我们写个简单的例子来看下用法：
 
 ```typescript
 class LayaSample {
@@ -165,24 +165,26 @@ class LayaSample {
         let http: Laya.HttpRequest = new Laya.HttpRequest();
         //设置超时时间
         http.http.timeout = 10000;
+        //发送了一个简单的请求
+        http.send("resources/data.txt", "", "get", "text");//需要在resources文件夹下新建一个data.txt文件
         //设置完成事件，添加回调方法
         http.once(Laya.Event.COMPLETE, this, this.completeHandler);
         //设置错误事件，添加回调方法        
         http.once(Laya.Event.ERROR, this, this.errorHandler);
         //设置进度事件，添加回调方法        
         http.on(Laya.Event.PROGRESS, this, this.processHandler);
-        //发送了一个简单的请求
-        http.send("res/data.data", "", "get", "text");
-        
     }
     
     private processHandler(data:any): void {
+        console.log("processHandler");
     }
     
     private errorHandler(error:any): void {
+        console.log("errorHandler");
     }
     
     private completeHandler(data:any): void {
+        console.log("completeHandler");
     }
 }
 new LayaSample();
@@ -200,7 +202,7 @@ this.hr.once(Event.PROGRESS, this, this.onHttpRequestProgress);
 this.hr.once(Event.COMPLETE, this, this.onHttpRequestComplete);
 this.hr.once(Event.ERROR, this, this.onHttpRequestError);
 //发送了一个get请求，携带的参数为 name=myname 和 psword=xxx
-this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/api/getData?name=myname&psword=xxx', null, 'get', 'text');
+this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/', null, 'get', 'text');
 ```
 
 这里的重点是send方法，这个send方法要和 `XMLHttpRequest` 的send区分开。
@@ -217,7 +219,7 @@ this.hr.once(Event.PROGRESS, this, this.onHttpRequestProgress);
 this.hr.once(Event.COMPLETE, this, this.onHttpRequestComplete);
 this.hr.once(Event.ERROR, this, this.onHttpRequestError);
 //发送了一个post请求，携带的参数为 name=myname 和 psword=xxx
-this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/api/getData', 'name=myname&psword=xxx', 'post', 'text');
+this.hr.send('http://xkxz.zhonghao.huo.inner.layabox.com/', 'name=myname&psword=xxx', 'post', 'text');
 ```
 
 **注意：GET和POST请求是有区别的：**
@@ -453,7 +455,7 @@ this.byte.clear();
 
 ### 3.2 Laya.Byte 二进制读写
 
-在开发项目中，二进制的操作是不可或缺的。在html5时代，对二进制的支持已经有了很大的突破。但是api的繁琐，对开发者开发项目来说不太方便。在页游时代，ActionScript3.0的二进制数组ByteArray，功能完善，api操作简单易懂，因此Laya的Byte在参考ByteArray的同时承接了html5的TypedArray类型化数组的特点。下面看下主要的用法
+在开发项目中，二进制的操作是不可或缺的。在html5时代，对二进制的支持已经有了很大的突破。但是api的繁琐，对开发者开发项目来说不太方便。在页游时代，ActionScript3.0的二进制数组ByteArray，功能完善，api操作简单易懂，因此LayaAir的Byte在参考ByteArray的同时承接了html5的TypedArray类型化数组的特点。下面看下主要的用法
 
 #### 3.2.1 常用方法
 
@@ -467,7 +469,7 @@ this.byte.clear();
 
   `typedArray`：类型化数组
 
-  当传入一个包含任意类型元素的任意类型化数组对象(`typedArray)` (比如 **Int32Array)**作为参数时，typeArray被复制到一个新的类型数组。typeArray中的每个值会在复制到新的数组之前根据构造器进行转化。新的生成的类型化数组对象将会有跟传入的数组相同的length(译者注:比如原来的typeArray.length==2，那么新生成的数组的length也是2，只是数组中的每一项进行了转化)。
+  当传入一个包含任意类型元素的任意类型化数组对象(typedArray) (比如 **Int32Array)**作为参数时，typeArray被复制到一个新的类型数组。typeArray中的每个值会在复制到新的数组之前根据构造器进行转化。新的生成的类型化数组对象将会有跟传入的数组相同的length(比如原来的typeArray.length==2，那么新生成的数组的length也是2，只是数组中的每一项进行了转化)。
 
   `ArrayBuffer`：二进制数据缓冲区。
 
@@ -501,80 +503,110 @@ this.byte.clear();
 
 - **读取数据**
 
-  **getByte**():number在字节流中读一个字节。
+  `getByte():number`
 
-  **getInt16**():number在当前字节偏移量位置处读取 Int16 值。
+  从字节流中读取带符号的字节。
 
-  **getInt32**():number在当前字节偏移量位置处读取 Int32 值
+  `getInt16():number`
 
-  **getFloat32**():number在指定字节偏移量位置处读取 Float32 值。
+  从字节流的当前字节偏移量位置处读取一个 Int16 值。
 
-  **getFloat32Array**(start:number, len:number):any从指定的位置读取指定长度的数据用于创建一个 Float32Array 对象并返回此对象。
+  `getInt32():number`
 
-  **getFloat64**():number在指定字节偏移量位置处读取 Float64 值。
+  从字节流的当前字节偏移量位置处读取一个 Int32 值。
 
-  **getInt16**():number 在当前字节偏移量位置处读取 Int16 值。
+  `getFloat32():number`
 
-  **getInt32**():number在当前字节偏移量位置处读取 Int32 值。
+  从字节流的当前字节偏移位置处读取一个 IEEE 754 单精度（32 位）浮点数。
 
-  **getUint8**():number在当前字节偏移量位置处读取 Uint8 值。
+  `getFloat32Array(start:number, len:number)any`
 
-  **getUint16**():number在当前字节偏移量位置处读取 Uint16 值。
+  从指定的位置读取指定长度的数据用于创建一个 Float32Array 对象并返回此对象。
 
-  **getUint32**():number在当前字节偏移量位置处读取 Uint32 值。
+  `getFloat64():number`
 
-  **getInt16Array**(start:number, len:number):any从指定的位置读取指定长度的数据用于创建一个 Int16Array 对象并返回此对象。
+  从字节流的当前字节偏移量位置处读取一个 IEEE 754 双精度（64 位）浮点数。
 
-  **getString**():string读取字符型值。
+  `getInt16():number `
 
-  **getUTFBytes**(len:number = -1):string 读字符串，必须是 writeUTFBytes 方法写入的字符串。
+  从字节流的当前字节偏移量位置处读取一个 Int16 值。
 
-  **getUTFString**():string 读取 UTF-8 字符串。
+  `getInt32():number`
+
+  从字节流的当前字节偏移量位置处读取一个 Int32 值。
+
+  `getUint8():number`
+
+  从字节流的当前字节偏移量位置处读取一个 Uint8 值。
+
+  `getUint16():number`
+
+  从字节流的当前字节偏移量位置处读取一个 Uint16 值。
+
+  `getUint32():number`
+
+  从字节流的当前字节偏移量位置处读取一个 Uint32 值。
+
+  `getInt16Array(start:number, len:number):any`
+
+  从指定的位置读取指定长度的数据用于创建一个 Int16Array 对象并返回此对象。
+
+  `getString():string`
+
+  读取字符型值。
+
+  `getUTFBytes(len:number = -1):string `
+
+  读字符串，必须是 writeUTFBytes 方法写入的字符串。
+
+  `getUTFString():string `
+
+  读取 UTF-8 字符串。
 
   
 
 - **写入数据**
 
-  **writeByte**(value:number):void在字节流中写入一个字节。	
+  `writeByte(value:number):void`在字节流中写入一个字节。	
 
 ```typescript
  var byte:Laya.Byte = new Laya.Byte(); 
  byte.writeByte(10);//0-255之间
 ```
 
-​	  **writeFloat32**(value:number):void在当前字节偏移量位置处写入 Float32 值。范围是$\left[-2^{128}, 2^{127}\right]$，约为-3.4E38—3.4E+38。
+​	  `writeFloat32(value:number):void`在当前字节偏移量位置处写入 Float32 值。范围是$\left[-2^{128}, 2^{127}\right]$，约为-3.4E38—3.4E+38。
 
 ```typescript
 var byte:Laya.Byte = new Laya.Byte();
 byte.writeFloat32(10.021);
 ```
 
-​	  **writeFloat64**(value:number):void写入float64位数值 其数值范围为-1.7E308～1.7E+308。
+​	  `writeFloat64(value:number):void`写入float64位数值 其数值范围为-1.7E308～1.7E+308。
 
-​	  **writeInt16**(value:number):void在当前字节偏移量位置处写入 Int16 值。范围-32768 到 +32767之间。	
+​	  `writeInt16(value:number):void`在当前字节偏移量位置处写入 Int16 值。范围-32768 到 +32767之间。	
 
 ```typescript
 var byte:Laya.Byte = new Laya.Byte();
 byte.writeInt16(120);
 ```
 
-​	  **writeInt32**(value:number):void在当前字节偏移量位置处写入 Int32 值。-2,147,483,648 到 +2,147,483,647 之间的有符号整数。
+​	  `writeInt32(value:number):void`在当前字节偏移量位置处写入 Int32 值。-2,147,483,648 到 +2,147,483,647 之间的有符号整数。
 
 ```typescript
  **writeUint16**(value:number):void在当前字节偏移量位置处写入 Uint16 值。
 ```
 
-​	  **writeUint32**(value:number):void在当前字节偏移量位置处写入 Uint32 值。
+​	  `writeUint32(value:number):void`在当前字节偏移量位置处写入 Uint32 值。
 
-​	  **writeUint8**(value:number):void在当前字节偏移量位置处写入 Uint8 值。
+​	  `writeUint8(value:number):void`在当前字节偏移量位置处写入 Uint8 值。
 
-​	  **writeUTFBytes**(value:string):void写入字符串，该方法写的字符串要使用 readUTFBytes 方法读取。
+​	  `writeUTFBytes(value:string):void`写入字符串，该方法写的字符串要使用 readUTFBytes 方法读取。
 
-​	  **writeUTFString**(value:string):void将 UTF-8 字符串写入字节流。
+​	  `writeUTFString(value:string):void`将 UTF-8 字符串写入字节流。
 
 
 
-- **clear**():void清除数据。
+- `clear():void`清除数据。
 
   ```typescript
   var byte:Laya.Byte = new Laya.Byte();
@@ -584,7 +616,7 @@ byte.writeInt16(120);
 
   
 
-- **getSystemEndian()**:string[static] 获取系统的字节存储顺序。
+- `getSystemEndian():string[static]`获取系统的字节存储顺序。
 
   ```typescript
   console.log(Laya.Byte.getSystemEndian());//打印系统的字节顺序
@@ -594,11 +626,11 @@ byte.writeInt16(120);
 
 #### 3.2.2 属性
 
-- **BIG_ENDIAN** : string= bigEndian[static] 表示多字节数字的最高有效字节位于字节序列的最前面。
+- `BIG_ENDIAN : string= bigEndian[static]` 表示多字节数字的最高有效字节位于字节序列的最前面。
 
-- **LITTLE_ENDIAN** : string= littleEndian[static] 表示多字节数字的最低有效字节位于字节序列的最前面。
+- `LITTLE_ENDIAN : string= littleEndian[static]` 表示多字节数字的最低有效字节位于字节序列的最前面。
 
-- **[pos]** : number当前读取到的位置。
+- `pos `number当前读取到的位置。
 
   ```typescript
   var byte:Laya.Byte = new Laya.Byte();
@@ -606,16 +638,16 @@ byte.writeInt16(120);
   byte.pos =0;//读取位置归零。
   ```
 
-- **length**: number字节长度。
+- `length: number`字节长度。
 
-- **endian** : string字节顺序。
+- `endian : string`字节顺序。
 
   ```typescript
   var byte:Laya.Byte = new Laya.Byte();
   byte.endian = Laya.Byte.BIG_ENDIAN;//设置为大端；
   ```
 
-- **bytesAvailable** : number[read-only] 可从字节流的当前位置到末尾读取的数据的字节数。
+- `bytesAvailable : number[read-only]`可从字节流的当前位置到末尾读取的数据的字节数。
 
   ```typescript
   var byte:Laya.Byte = new Laya.Byte();
@@ -744,25 +776,25 @@ function load(filename, root, callback) {
 
 ### 4.4 Message 方法
 
-- **Message.verify**(message: `Object`): `null|string`
+- Message.verify(message: Object): null|string
 
-验证一个Message对象是否满足有效消息的要求
+验证一个Message对象是否满足有效消息的要求。
 
-- **Message.create**(properties: `Object`): `Message`
+- Message.create(properties: Object): Message
 
 对满足有效消息要求的一组Javascirpt数据创建新消息实例。
 
-- **Message.encode**(message: `Message|Object` [, writer: `Writer`]): `Writer`
+- Message.encode(message: Message|Object , writer: Writer): Writer
 
-对Message对象进行编码，用于网络通信传输
+对Message对象进行编码，用于网络通信传输。
 
-- **Message.decode**(reader: `Reader|Uint8Array`): `Message`
+- Message.decode(reader: Reader|Uint8Array): Message
 
-网络通信传输数据中，解码获得Mesaage对象
+网络通信传输数据中，解码获得Mesaage对象。
 
-- **Message.toObject**(message: `Message` [, options: `ConversionOptions`]): `Object`
+- Message.toObject(message: Message , options: ConversionOptions): Object
 
-转换Message对象数据到一组Javascirpt数据
+转换Message对象数据到一组Javascirpt数据。
 
 
 
