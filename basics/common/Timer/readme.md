@@ -4,116 +4,286 @@
 
 同时 `Laya.Timer` 表示游戏主时针，同时也是管理场景、动画、缓动等效果时钟，通过控制本时钟缩放可以达到快进慢播的效果。
 
-### 帧间隔
+## 1. 帧间隔
 
-`Laya.timer.frameOnce(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true)`
+### 1.1 定时执行一次 (基于帧率)
 
-定时执行一次 (基于帧率)
+`Laya.timer.frameOnce`，定义如下：
 
-<img src="images/1.png" alt="image-20221103142630486" style="zoom:50%;" /> 
+```typescript
+    /**
+     * 定时执行一次(基于帧率)。
+     * @param	delay	延迟几帧(单位为帧)。
+     * @param	caller	执行域(this)。
+     * @param	method	定时器回调函数。
+     * @param	args	回调参数。
+     * @param	coverBefore	是否覆盖之前的延迟执行，默认为 true 。
+     */
+    frameOnce(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true): void {
+        this._create(true, false, delay, caller, method, args, coverBefore);
+    }
+```
 
-（图1）
+使用示例如下：
 
-<img src="images/2.png" alt="image-20221103143504218" style="zoom:50%;" /> 
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
 
-（图2）
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //60帧后，图片的透明度变为0.5
+        Laya.timer.frameOnce(60, this, () => {
+            this.Image.alpha = 0.5;
+        })
+    }
+}
+```
 
-`Laya.timer.frameLoop(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true)`
+### 1.2 定时重复执行  (基于帧率)
 
-定时重复执行  (基于帧率)
+`Laya.timer.frameLoop`，定义如下：
 
-<img src="images/3.png" alt="image-20221103143634419" style="zoom:50%;" /> 
+```typescript
+    /**
+     * 定时重复执行(基于帧率)。
+     * @param	delay	间隔几帧(单位为帧)。
+     * @param	caller	执行域(this)。
+     * @param	method	定时器回调函数。
+     * @param	args	回调参数。
+     * @param	coverBefore	是否覆盖之前的延迟执行，默认为 true 。
+     */
+    frameLoop(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true): void {
+        this._create(true, true, delay, caller, method, args, coverBefore);
+    }
+```
 
-（图3）
+使用示例如下： 
 
-<img src="images/4.png" alt="image-20221103143829625" style="zoom:50%;" /> 
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
 
-（图4）
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //每60帧后，图片的透明度减少0.1
+        Laya.timer.frameLoop(60, this, () => {
+            this.Image.alpha -= 0.1;
+        })
+    }
+}
+```
 
-### 时间间隔
 
-`Laya.timer.once(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true)`
 
-定时执行一次 (单位为毫秒)
+## 2. 时间间隔
 
-<img src="images/5.png" alt="image-20221103144319347" style="zoom:50%;" /> 
+### 2.1 定时执行一次 (单位为毫秒)
 
-（图5）
+`Laya.timer.once`，定义如下：
 
-<img src="images/7.png" alt="image-20221103150141104" style="zoom:50%;" /> 
+```typescript
+    /**
+     * 定时执行一次。
+     * @param	delay	延迟时间(单位为毫秒)。
+     * @param	caller	执行域(this)。
+     * @param	method	定时器回调函数。
+     * @param	args	回调参数。
+     * @param	coverBefore	是否覆盖之前的延迟执行，默认为 true 。
+     */
+    once(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true): void {
+        this._create(false, false, delay, caller, method, args, coverBefore);
+    }
+```
 
-（图6） 
+使用示例如下： 
 
-`Laya.timer.loop(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true, jumpFrame: boolean = false)`
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
 
-定时重复执行(单位为毫秒)
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //1秒后，图片的透明度变为0.5
+        Laya.timer.once(1000, this, () => {
+            this.Image.alpha = 0.5;
+        })
+    }
+}
+```
 
-![image-20221103144350629](images/6.png)
+### 2.2 定时重复执行(单位为毫秒)
 
-（图7）
+`Laya.timer.loop`，定义如下：
 
-<img src="images/8.png" alt="image-20221103150108661" style="zoom:50%;" /> 
+```typescript
+    /**
+     * 定时重复执行。
+     * @param	delay	间隔时间(单位毫秒)。
+     * @param	caller	执行域(this)。
+     * @param	method	定时器回调函数。
+     * @param	args	回调参数。
+     * @param	coverBefore	是否覆盖之前的延迟执行，默认为 true 。
+     * @param	jumpFrame 时钟是否跳帧。基于时间的循环回调，单位时间间隔内，如能执行多次回调，出于性能考虑，引擎默认只执行一次，设置jumpFrame=true后，则回调会连续执行多次
+     */
+    loop(delay: number, caller: any, method: Function, args: any[] = null, coverBefore: boolean = true, jumpFrame: boolean = false): void {
+        var handler: TimerHandler = this._create(false, true, delay, caller, method, args, coverBefore);
+        if (handler) handler.jumpFrame = jumpFrame;
+    }
+```
 
-（图8） 
+使用示例如下：
 
-### 暂停定时器执行
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
 
-一旦定时器暂停，游戏将处于静止状态
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //每1秒后，图片的透明度减少0.1
+        Laya.timer.loop(1000, this, () => {
+            this.Image.alpha -= 0.1;
+        })
+    }
+}
+```
 
-<img src="images/9.png" alt="image-20221103145440023" style="zoom:50%;" /> 
 
-（图9） 
 
-### 当前帧延迟执行
+## 3. 暂停定时器执行
 
-`callLater(caller: any, method: Function, args: any[] = null)`
+一旦定时器暂停，游戏将处于静止状态：
 
-当前帧执行后立即执行。渲染之前执行，比延迟一帧的定时器，执行优先级更高
+```typescript
+    /**
+     * 暂停时钟
+     */
+    pause(): void {
+        this.scale = 0;
+    }
 
-<img src="images/10.png" alt="image-20221103150705285" style="zoom:50%;" /> 
+    /**
+     * 恢复时钟
+     */
+    resume(): void {
+        this.scale = 1;
+    }
+```
 
- （图10） 
 
-<img src="images/11.png" alt="image-20221103151301135" style="zoom:50%;" /> 
 
- （图11）  
+## 4. 当前帧延迟执行
 
-### 清理定时器
+当前帧执行后立即执行。渲染之前执行，比延迟一帧的定时器，执行优先级更高：
 
-`Laya.timer.clear(caller: any, method: Function)`
+```typescript
+    /**
+     * 延迟执行。
+     * @param	caller 执行域(this)。
+     * @param	method 定时器回调函数。
+     * @param	args 回调参数。
+     */
+    callLater(caller: any, method: Function, args: any[] = null): void {
+        CallLater.I.callLater(caller, method, args);
+    }
+```
 
-清理指定的定时器
+使用示例如下：
 
-`Laya.timer.clearAll(caller: any)`
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
 
-清理对象指定作用域的所有定时器
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //循环调用10次，但是定时器回调函数只执行一次，即"hideImage"日志只打印一次
+        for (let i = 0; i < 10; i++)
+            Laya.timer.callLater(this, this.hideImage);
+    }
 
-<img src="images/12.png" alt="image-20221103151432520" style="zoom:50%;" /> 
+    hideImage(): void {
+        console.log("hideImage");
+        this.Image.visible = false;
+    }
+}
+```
 
- （图12）   
 
- ![](images/13.png) 
 
-（图13）
+## 5. 清理定时器
 
-建议在一个模块功能销毁之前，清理定时器或者清除所有的定时器
+`Laya.timer.clear`：清理指定的定时器。定义如下：
 
-### 立即执行并删除定时器
+```typescript
+    /**
+     * 清理定时器。
+     * @param	caller 执行域(this)。
+     * @param	method 定时器回调函数。
+     */
+    clear(caller: any, method: Function): void {
+        var handler: TimerHandler = this._getHandler(caller, method);
+        if (handler) {
+            handler.clear();
+        }
+    }
+```
 
-`Laya.timer.runCallLater(caller: any, method: Function)`
+`Laya.timer.clearAll`：清理对象指定作用域的所有定时器。定义如下：
 
-立即执行
+```typescript
+    /**
+     * 清理对象身上的所有定时器。
+     * @param	caller 执行域(this)。
+     */
+    clearAll(caller: any): void {
+        if (!caller) return;
+        for (var i: number = 0, n: number = this._handlers.length; i < n; i++) {
+            var handler: TimerHandler = this._handlers[i];
+            if (handler.caller === caller) {
+                handler.clear();
+            }
+        }
+    }
+```
 
-`Laya.timer.runTimer(caller: any, method: Function)`
+建议在一个模块功能销毁之前，清理定时器或者清除所有的定时器。
 
-立即提前执行定时器，执行之后从队列中删除
 
-<img src="images/13.png" alt="image-20221103152355434" style="zoom:50%;" /> 
 
- （图14）     
+## 6. 立即执行并删除定时器
 
-<img src="images/14.png" alt="image-20221103152958866" style="zoom:50%;" /> 
+`Laya.timer.runCallLater`：立即执行。定义如下：
 
-（图15）
+```typescript
+    /**
+     * 立即执行 callLater 。
+     * @param	caller 执行域(this)。
+     * @param	method 定时器回调函数。
+     */
+    runCallLater(caller: any, method: Function): void {
+        CallLater.I.runCallLater(caller, method);
+    }
+```
 
-注意：`hideImage()` 方法只执行一次
+`Laya.timer.runTimer`：立即提前执行定时器，执行之后从队列中删除。定义如下：
+
+```typescript
+    /**
+     * 立即提前执行定时器，执行之后从队列中删除
+     * @param	caller 执行域(this)。
+     * @param	method 定时器回调函数。
+     */
+    runTimer(caller: any, method: Function): void {
+        var handler: TimerHandler = this._getHandler(caller, method);
+        if (handler && handler.method != null) {
+            this._map[handler.key] = null;
+            handler.run(true);
+        }
+    }
+```
+
