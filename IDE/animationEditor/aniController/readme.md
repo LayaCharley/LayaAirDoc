@@ -933,7 +933,7 @@ export class AnimationScript extends Laya.AnimatorStateScript {
         this.playStateInfo.animator = animator;
         this.playStateInfo.layerindex = layerindex;
         this.playStateInfo.playState = playstate;
-        this._label = animator.owner.scene.parent.getChildByName("root").getChildByName("Scene2D").getChildByName("Label");
+        this._label = animator.owner.scene.scene2D.getChildByName("Label");
     }
     constructor() {
         super();
