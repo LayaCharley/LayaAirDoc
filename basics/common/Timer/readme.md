@@ -257,7 +257,7 @@ export class RuntimeScript extends RuntimeScriptBase {
 
 ## 6. 立即执行并删除定时器
 
-`Laya.timer.runCallLater`：立即执行。定义如下：
+`Laya.timer.runCallLater`：立即执行callLater，执行后删除。定义如下：
 
 ```typescript
     /**
@@ -269,6 +269,30 @@ export class RuntimeScript extends RuntimeScriptBase {
         CallLater.I.runCallLater(caller, method);
     }
 ```
+
+使用示例如下：
+
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
+
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //延迟一帧执行hideImage
+        Laya.timer.callLater(this, this.hideImage);
+        //当前帧立即执行hideImage，执行后删除定时器
+        Laya.timer.runCallLater(this, this.hideImage);
+    }
+
+    hideImage(): void {
+        console.log("hideImage");
+        this.Image.visible = false;
+    }
+}
+```
+
+> 注：上述示例会打印一个"hideImage"，因为LayaAir中的runCallLater执行回调后，会删除定时器。如果不删除定时器，当前帧执行完runCallLater的回调hideImage后，还会执行callLater的回调hideImage，就会打印出两个"hideImage"。
 
 `Laya.timer.runTimer`：立即提前执行定时器，执行之后从队列中删除。定义如下：
 
@@ -285,5 +309,27 @@ export class RuntimeScript extends RuntimeScriptBase {
             handler.run(true);
         }
     }
+```
+
+使用示例如下：
+
+```typescript
+const { regClass } = Laya;
+import { RuntimeScriptBase } from "./RuntimeScript.generated";
+
+@regClass()
+export class RuntimeScript extends RuntimeScriptBase {
+    onAwake(): void {
+        //如果没有Laya.timer.runTimer，则5秒后才执行hideImage
+        Laya.timer.loop(5000, this, this.hideImage);
+        //立即执行hideImage
+        Laya.timer.runTimer(this, this.hideImage);
+    }
+
+    hideImage(): void {
+        console.log("hideImage");
+        this.Image.visible = false;
+    }
+}
 ```
 
