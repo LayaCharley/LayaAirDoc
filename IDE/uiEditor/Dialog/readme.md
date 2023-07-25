@@ -1,6 +1,6 @@
-# Dialog组件参考
+# 弹窗视图组件
 
-Dialog继承于View，主要用于弹窗面板，
+弹窗视图(Dialog)用于弹窗面板
 
 ## 1、Dialog组件创建
 
