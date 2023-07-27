@@ -1,4 +1,4 @@
-# 音乐与音效的播放与控制
+# 使用音频
 
 ​        HTML5的音频播放，在当前有两种主流的方式，一种是Audio标签播放,另一种是WebAudio二进制播放。
 
@@ -24,15 +24,36 @@
 
 ### 三、音频音量的控制
 
-​        声音音量的控制 可以通过laya.media.SoundManager音频管理类中的setSoundVolume方法来设置，
+​        声音音量的控制，可以通过laya.media.SoundManager音频管理类中的setSoundVolume方法来设置：
 
-​        如上图所示，我们可以看到，通过设置volume参数，可以有效控制url所对应声音文件的音量大小。初始值为1。音量范围从 0（静音）至 1（最大音量）。
+```typescript
+/**
+     * 设置声音音量。根据参数不同，可以分别设置指定声音（背景音乐或音效）音量或者所有音效（不包括背景音乐）音量。
+     * @param volume	音量。初始值为1。音量范围从 0（静音）至 1（最大音量）。
+     * @param url		(default = null)声音播放地址。默认为null。为空表示设置所有音效（不包括背景音乐）的音量，不为空表示设置指定声音（背景音乐或音效）的音量。
+     */
+    static setSoundVolume(volume: number, url: string = null): void {
+        if (url) {
+            SoundManager._setVolume(url, volume);
+        } else {
+            SoundManager.soundVolume = volume;
+            for (let i = SoundManager._channels.length - 1; i >= 0; i--) {
+                let channel = SoundManager._channels[i];
+                if (channel.url != SoundManager._bgMusic) {
+                    channel.volume = volume;
+                }
+            }
+        }
+    }
+```
+
+​        通过设置volume参数，可以有效控制url所对应声音文件的音量大小。初始值为1。音量范围从 0（静音）至 1（最大音量）。
 
 ### 四、设备静音控制
 
 如果通过设备静音键让音频自动跟随设备静音。需要将useAudioMusic设置为false。
 
-```javascript
+```typescript
 Laya.SoundManager.useAudioMusic = false;
 ```
 

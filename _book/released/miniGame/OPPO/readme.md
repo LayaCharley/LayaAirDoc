@@ -108,7 +108,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 3、PC电脑的chrome浏览器与手机数据连接线。
 
-4、安装node.js 环境， node官网：https://nodejs.org/en/。
+4、安装node.js 环境， 这里推荐安装14.x.x 稳定版本(10.x.x 以上版本可能出现不兼容问题)，node官网：https://nodejs.org/en/。
 
 就是下载安装，比较简单，也不细介绍。能在命令行里调起npm命令就算是成功了。
 

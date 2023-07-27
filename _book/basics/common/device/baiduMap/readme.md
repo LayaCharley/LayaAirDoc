@@ -1,26 +1,30 @@
 # 使用百度地图显示当前位置
 
-> 本节一步步演示使用watchPosition()在百度地图上标注出当前所在位置。watchPosition方法来自于Geolocation API，**学习本节前请先阅读Geolocation基础文档或Geolocation API文档。**
+> 本节一步步演示使用watchPosition()在百度地图上标注出当前所在位置。watchPosition方法来自于Geolocation API，**学习本节前请先阅读Geolocation[基础文档](../geolocation/readme.md)或Geolocation [API文档](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=Core&category=device&class=laya.device.geolocation.Geolocation)。**
 >
 
-在开始之前需要在index.html中引入百度地图的脚本文件，这个url在百度地图的官方网站可以免费获取到。演示中使用的url是[http://api.map.baidu.com/api?v=2.0&ak=LIhOlvWfdiPYMCsK5wsqlFQD8wW4Bfy6](http://api.map.baidu.com/api?v=2.0&ak=LIhOlvWfdiPYMCsK5wsqlFQD8wW4Bfy6)
+在开始之前需要在index.html中引入百度地图的脚本文件，这个url在百度地图的官方网站可以免费获取到。演示中使用的url是[http://api.map.baidu.com/api?v=2.0&ak=LIhOlvWfdiPYMCsK5wsqlFQD8wW4Bfy6](http://api.map.baidu.com/api?v=2.0&ak=LIhOlvWfdiPYMCsK5wsqlFQD8wW4Bfy6)，在`<body> </body>`标签中添加的代码如下：
+
+```html
+<script src="https://api.map.baidu.com/api?v=2.0&ak=LIhOlvWfdiPYMCsK5wsqlFQD8wW4Bfy6&s=1&callback=appendCode"></script>
+```
+
+
 
 ### **一、首先介绍成员变量：**
 
-```java
-// 百度地图的API
-private map;                              // 地图引用
-private marker;                           // 地图标注物
-private BMap = Laya.Browser.window.BMap;       // 百度地图命名空间
-private convertor = new this.BMap.Convertor(); // 坐标转换接口
- 
-private mapDiv; // 包含百度地图的div容器
+```typescript
+// 百度地图
+private map: any;// 地图引用
+private marker: any;// 地图标注物
+private BMap: any = Laya.Browser.window.BMap;// 百度地图命名空间
+private convertor: any;// 坐标转换接口
+private mapDiv: any;// 包含百度地图的div容器
 ```
 
 ### 二、接着是构造函数：
 
 ```typescript
-class WatchPosition {
     constructor() {
         Laya.init(1, 1);
 
@@ -34,10 +38,9 @@ class WatchPosition {
         this.convertToBaiduCoord = this.convertToBaiduCoord.bind(this);
     }
 }
-new WatchPosition();
 ```
 
-​    由于本例不需要使用LayaAir的显示元素，因此舞台尺寸设置为1。百度地图界面的初始化放在init()中。然后是监听设备位置的变化。最后需要注意，函数convertToBaiduCoord()是将获取到的坐标转换至百度地图坐标，由于它是作为convertor.translate()的参数，所以触发时作用域会被改变，因此在这里绑定了该函数的作用域。
+由于本例不需要使用LayaAir的显示元素，因此舞台尺寸设置为1。百度地图界面的初始化放在init()中。然后是监听设备位置的变化。最后需要注意，函数convertToBaiduCoord()是将获取到的坐标转换至百度地图坐标，由于它是作为convertor.translate()的参数，所以触发时作用域会被改变，因此在这里绑定了该函数的作用域。
 
 ##### 2.1 init函数：
 
@@ -68,7 +71,7 @@ private  init(): void {
 }
 ```
 
- init()函数初始化百度地图。关闭了大部分交互功能，只留下拖动地图。地图初始地点位于北京，缩放系数15。并且添加了一个地图标注物。
+init()函数初始化百度地图。关闭了大部分交互功能，只留下拖动地图。地图初始地点位于北京，缩放系数15。并且添加了一个地图标注物。
 
 ##### 2.2 refit函数：
 
@@ -93,7 +96,7 @@ private  updatePosition(p: Laya.GeolocationInfo): void {
 }
 ```
 
-  updatePosition()是Geolocation.watchPosition()的触发函数，在每次监测到位置改变后都需要把获取到的原始坐标转换到百度坐标，才能在百度地图上显示正确的位置。
+updatePosition()是Geolocation.watchPosition()的触发函数，在每次监测到位置改变后都需要把获取到的原始坐标转换到百度坐标，才能在百度地图上显示正确的位置。
 
 注意有的设备浏览器获取到的坐标可能是谷歌坐标，这时convertor.translate的第三个参数就不是5，而是3。
 
@@ -129,4 +132,4 @@ private onError(e: any): void {
     }
 ```
 
- 完成以上步骤之后就可以在设备上的浏览器查看效果。如果位置错误，把获取到的坐标当成谷歌坐标试试。注意浏览器本身的安全限制可能需要用户手动允许网页使用地理位置，或者Chrome需要https协议的地址才能够使用地理位置。
+完成以上步骤之后就可以在设备上的浏览器查看效果。如果位置错误，把获取到的坐标当成谷歌坐标试试。注意浏览器本身的安全限制可能需要用户手动允许网页使用地理位置，或者Chrome需要https协议的地址才能够使用地理位置。

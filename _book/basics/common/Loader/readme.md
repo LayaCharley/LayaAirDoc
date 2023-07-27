@@ -389,36 +389,3 @@ TexturePropertyParams {
 
 
 
-## 五、如何不下载json文件（option { noMetaFile: true}）
-
-当发布web后，在release/web目录下的资源中可以看到，每个图片资源对应一个json文件，如图5-1所示
-
-<img src="img/5-1.png" alt="image-20230310112809985" style="zoom:50%;" /> 
-
-（图5-1） 
-
-此json文件会记录IDE中设置的图片属性，如图5-2所示
-
-<img src="img/5-2.png" alt="image-20230310113253733" style="zoom:50%;" /> 
-
-（图5-2） 
-
-当LayaAir3.0引擎加载图片xxx.png时，先去加载xxx.png.json文件，来获取IDE中设置的图片信息
-
-如果这些图片不是发布出来的，比如说服务器上的一些散图资源，那么就不存在json文件，当使用 `load()`或者`fetch()`方法加载图片时，会发现找不到json文件而提示错误信息：
-
-**GET https://xxxx/xxx.png.json 404 (Not Found)**
-
-虽然无法获取json信息，但是LayaAir3.0引擎会使用默认属性
-
-如果我们希望不去下载这些json文件，可以使用如下方式：
-
-```typescript
-//创建Option
-let option:any = {};
-option.noMetaFile = true;//不去下载json
-Laya.loader.load("http://xxxx/xxx.png",option).then((res)=>{
-});  
-```
-
-这样，load资源的时候传option { noMetaFile: true}就不会去下载json文件
