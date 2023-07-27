@@ -74,25 +74,61 @@ LayaAir3.0与2.0的区别是List增加了Scroll Type属性，用Scroll Type去�
 
 #### 6.在代码里给 List 对象赋值
 
+结合代码使用List组件，在代码中我们可以使用装饰器的方式来控制List，并给List对象赋值。
 
-```javascript
-var data: Array<any> = [];
+```
+const { regClass, property } = Laya;
 
-for(var m:number =0; m<20; m++){
-    
-	data.push({m_label:"No."+m});
-    
+@regClass()
+export class Script extends Laya.Script {
+    //declare owner : Laya.Sprite3D;
+    // list: Laya.List
+    @property(String)
+    public text: string = "";
+
+    // 装饰器List
+    @property({ type: Laya.List })
+    list: Laya.List
+
+    constructor() {
+        super();
+    }
+
+    /**
+     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+     */
+    //onAwake(): void {}
+
+    /**
+     * 组件被启用后执行，例如节点被添加到舞台后
+     */
+    onEnable(): void {
+
+        // 给List对象赋值
+        var data: Array<any> = [];
+
+        for (var m: number = 0; m < 20; m++) {
+
+            data.push({ m_label: "No." + m });
+
+        }
+        this.list.array = data;
+    }
+
 }
-m_list.array = data;
 ```
 
+这时候将脚本挂载到Scene2D场景上，然后点击Scene2D，然后将List组件拖入到脚本暴露出来的属性即可，如图6所示。
 
+![](img/6.png) 
+
+（图6）
 
 #### 7.在程序里运行查看效果。
 
-![图片0.gif](gif/1.gif) 
+![图片0.gif](gif/7.gif) 
 
-（图6）
+（图7）
 
 
 
@@ -102,17 +138,20 @@ m_list.array = data;
  m_list.scrollType = Laya.ScrollType.Vertical;//设置列表使用垂直滚动
  m_list.vScrollBarSkin = "";//隐藏列表的滚动条皮肤
  m_list.elasticEnabled = true;//设置橡皮筋为ture
- m_list.scrollBar.elasticBackTime = 200;//设置橡皮筋回弹时间。单位为毫秒。
- m_list.scrollBar.elasticDistance = 50;//设置橡皮筋极限距离。
+ m_list.scrollBar.elasticBackTime = 200;//设置橡皮筋回弹时间。单位为毫秒
+ m_list.scrollBar.elasticDistance = 50;//设置橡皮筋极限距离
+ m_list.scrollBar.autoHide = true;///不滚动时隐藏列表的滚动条皮肤
 ```
 
+![](gif/8.gif) 
 
+（图8）
 
 ### 1.2 List 组件常用属性
 
-![图片0.png](img/6.png) 
+![图片0.png](img/9.png) 
 
-（图8）
+（图9）
 
   
 
@@ -137,9 +176,9 @@ m_list.array = data;
 在我们进行书写代码的时候，免不了通过代码控制UI，创建UI_List类，通过代码设定List相关的属性。
 
 **运行示例效果:**
-<img src="gif/3.gif" alt="5" style="zoom:50%;" />  
+<img src="gif/10.gif" alt="5" style="zoom:50%;" />  
 
-(图9)
+(图10)
 
 List的其他属性也可以通过代码来设置，下述示例代码演示了如何通过代码创建List，有兴趣的读者可以自己通过代码设置List，创建出符合自己需要的列表。
 
