@@ -27,7 +27,7 @@
       * [场景管理](basics/common/Scene/readme.md)
       * [节点管理](basics/common/Node/readme.md)
       * [定时器](basics/common/Timer/readme.md)
-      * [事件与交互](basics/common/Event/readme.md)
+      * [事件管理](basics/common/Event/readme.md)
       * [缓动](basics/common/Tween/readme.md)
       * [对象池](basics/common/Pool/readme.md)
       * [网络通信](basics/common/network/readme.md)
