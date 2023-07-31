@@ -1,7 +1,3 @@
-
-
-
-
 # LayaAir引擎的资源加载方法详解
 
 > Author: Charley   
@@ -29,7 +25,7 @@ const { regClass, property } = Laya;
 export class LoaderDemo extends Laya.Script {
 
     onAwake(): void {
-        this.loadTexture("image/bird.jpg", 500);
+        this.loadTexture("resources/image/monkey2.png", 500);//需要在resources/image放入相应的资源
         this.loadTexture("https://layaair.com/3.x/demo/resources/res/apes/monkey2.png");
     }
 
@@ -83,7 +79,7 @@ export class LoaderDemo extends Laya.Script {
 }
 ```
 
-#### 常用类型如下：
+**常用类型如下：**
 
 | 引擎全局变量            | 类型标识字符串 | 类型说明                                                     |
 | ----------------------- | -------------- | ------------------------------------------------------------ |
@@ -312,18 +308,16 @@ onEnable(): void {
 }
 ```
 
-###  3.1 fetch加载支持的类型
+**fetch的加载限定为以下类型**：
 
-fetch的加载限定为以下类型：
-
-| 类型标识字符串 | 资源类型                        |
-| -------------- | ------------------------------- |
-| text           | string                          |
-| json           | any                             |
-| xml            | XMLDocument                     |
-| arraybuffer    | ArrayBuffer                     |
-| image          | HTMLImageElement \| ImageBitmap |
-| sound          | HTMLAudioElement                |
+| 类型标识字符串 | 资源类型                      |
+| -------------- | ----------------------------- |
+| text           | string                        |
+| json           | any                           |
+| xml            | XMLDocument                   |
+| arraybuffer    | ArrayBuffer                   |
+| image          | HTMLImageElement \ImageBitmap |
+| sound          | HTMLAudioElement              |
 
 在使用的时候，第二个参数那里填写对应的类型标识字符串即可。
 
