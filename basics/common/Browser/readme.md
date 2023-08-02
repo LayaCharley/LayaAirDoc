@@ -119,7 +119,7 @@ LayaAir引擎中的物理宽高是通过逻辑宽高*`DPR`计算而来，`DPR` �
 
 
 
-通过逻辑宽高。物理宽高，设备像素比 ，我们才能更好的做到屏幕适配，想了解更多详细的屏幕适配，请参考[《屏幕适配》](basics/common/adaptScreen/readme.md)文档
+通过逻辑宽高。物理宽高，设备像素比 ，我们才能更好的做到屏幕适配，想了解更多详细的屏幕适配，请参考[《屏幕适配》](../../../basics/common/adaptScreen/readme.md)文档 
 
 
 
@@ -134,15 +134,15 @@ LayaAir引擎中的物理宽高是通过逻辑宽高*`DPR`计算而来，`DPR` �
 `Laya.Browser` 也为我们封装了对这些对象的调用，看下API：
 
 ```typescript
-    /**浏览器原生 window 对象的引用。*/
-    static get window(): any {
-        return Browser._window || Browser.__init__();
-    }
-
     /**浏览器原生 document 对象的引用。*/
     static get document(): any {
         Browser.__init__();
         return Browser._document;
+    }    
+
+	/**浏览器原生 window 对象的引用。*/
+    static get window(): any {
+        return Browser._window || Browser.__init__();
     }
     
    	/**画布容器，用来盛放画布的容器。方便对画布进行控制*/
@@ -197,7 +197,7 @@ LayaAir引擎里可以通过 `Laya.Browser.document` 获取原生 document 对�
     }
 ```
 
-通过和原生Dom的交互，可以解决一些问题，例如 LayaAir 使用元素 iframe
+通过和原生Dom的交互，可以解决一些问题，例如，LayaAir 使用HTML DOM元素 [iframe](https://www.w3school.com.cn/jsref/dom_obj_frame.asp)。
 
 在插入三方的一些网站的时候我们一般会用到 iframe，甚至三方的渠道基本都是用iframe嵌入一个应用。我们项目中也会遇到用iframe的情况。下面的例子就是演示在项目中应用iframe。
 
@@ -225,16 +225,20 @@ LayaAir引擎里可以通过 `Laya.Browser.window` 获取原生 window 对象。
 
 ```typescript
 //Get发送数据
-Laya.Browser.window.open(url?a=b&c=d);
+Laya.Browser.window.open("https://layaair.com/");
 
 //Post发送数据
+//url必须为真实的地址，content表示要发送的数据
 let win2 = Laya.Browser.window.open(url);
 win2.postMessage(content, url);// 此处最好加延迟
-//接受数据
-Laya.Browser.window.addEventListener("message", (event)=>{
-    // console.log("receive message == > ", event.data);
+
+//监听器注册
+Laya.Browser.window.addEventListener("click", (event: any) => {
+	console.log(event.type);
 })
 ```
+
+> [Window.open()](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/open) 方法、[window.postMessage()](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)方法、[Window.addEventListener()](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener)方法
 
 
 
@@ -247,6 +251,8 @@ LayaAir引擎里可以通过 `Laya.Browser.container` 获取画布容器。
 ```typescript
 Laya.Browser.container.style.display = "none";
 ```
+
+>[Style display](https://www.w3school.com.cn/jsref/prop_style_display.asp) 属性
 
 
 
@@ -267,8 +273,6 @@ Laya.Browser.container.style.display = "none";
     static onIPad: boolean;
     /** 表示是否在 Android 设备内。*/
     static onAndroid: boolean;
-    /** 表示是否在 Windows Phone 设备内。*/
-    static onWP: boolean;
     /** 表示是否在 QQ 浏览器内。*/
     static onQQBrowser: boolean;
     /** 表示是否在移动端 QQ 或 QQ 浏览器内。*/
@@ -285,26 +289,14 @@ Laya.Browser.container.style.display = "none";
     static onPC: boolean;
     /** 微信小游戏 **/
     static onMiniGame: boolean;
-    /** 百度小游戏 **/
-    static onBDMiniGame: boolean;
-    /** 小米戏小游戏 **/
+    /** 小米小游戏 **/
     static onKGMiniGame: boolean;
     /** OPPO小游戏 **/
     static onQGMiniGame: boolean;
     /** VIVO小游戏 **/
     static onVVMiniGame: boolean;
-    /** 阿里小游戏 **/
-    static onAlipayMiniGame: boolean;
-    /***手机QQ小游戏 */
-    static onQQMiniGame: boolean;
-    /*** BILIBILI小游戏 */
-    static onBLMiniGame: boolean;
     /** 字节跳动小游戏*/
     static onTTMiniGame: boolean;
-    /** 华为快游戏 */
-    static onHWMiniGame: boolean;
-    /** 淘宝小程序 */
-    static onTBMiniGame: boolean;
     /** @private */
     static onFirefox: boolean;//TODO:求补充
     /** @private */
@@ -316,15 +308,9 @@ Laya.Browser.container.style.display = "none";
 例如，我们可以这样在代码中判断：
 
 ```typescript
-//如果是微信小游戏
-if (Laya.Browser.onMiniGame) {
-    var wx = Laya.Browser.window.wx;
-    wx.onShow(() => {
-        console.log("wx OnShow");
-    });
-    wx.onHide(() => {
-        console.log("wx onHide");
-    });
+//如果是Chrome浏览器
+if (Laya.Browser.onChrome) {
+	console.log("Chrome");
 }
 ```
 
