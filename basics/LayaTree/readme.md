@@ -28,13 +28,13 @@
 
 ![](img/2.png) 
 
-### 1.2 下载并安装
+### 1.2 手动下载并安装
 
 也可以通过作者提供的国内zip包地址（ v1.0.5）下载：
 
  LayaTree zip包：https://womenzhai.cn/LayaTree_V1.0.5.zip
 
-#### zip包安装方法
+**zip包安装方法**
 
 打开Chrome浏览器进入**`chrome://extensions/` **页面
 
@@ -95,8 +95,11 @@ LayaTree设计的本意是尽可能少的影响到游戏，做一个安安静静
 #### 2.2.4 运行时调整参数：文本内容直接编辑
 
 操作文本节点,文本内容直接编辑
+
 非常好用的基于拾色器的颜色调整​
+
 使用下拉框来选择文本的水平对齐和垂直对齐方式
+
 字体大小,粗细,描边,overflow超出行为随意调节
 ![GIF33.gif](img/cee42e3b81fe56b3e4b98565b5881f67.gif)
 
@@ -114,10 +117,13 @@ LayaTree设计的本意是尽可能少的影响到游戏，做一个安安静静
 
 cacheAs为"none"，不做任何缓存.当值为"bitmap"时，webgl模式下显示对象使用renderTarget缓存成静态图像可以大幅提升渲染效率.但是额外创建的renderTarget对象，会增加内存开销.通过该选项可以便捷的切换模式,找到优化方向.
 
-![2020.10_.16_李铒_.png](img/ea4101d29d3c67db88bb995046fba0ff.png) 
-**7.增加标记选中功能,勾选后,选中2d节点时,会显示红框标记**
+![2020.10_.16_李铒_.png](img/ea4101d29d3c67db88bb995046fba0ff.png)
 
+ 
 
+#### 2.2.7 标记选中
+
+增加标记选中功能,勾选后,选中2d节点时,会显示红框标记
 
 [![GIF55.gif](https://img.layabox.com/questions/20201103/0cc12422fb5cbe07e7c8af074ed28b20.gif)](https://img.layabox.com/questions/20201103/0cc12422fb5cbe07e7c8af074ed28b20.gif)
 
