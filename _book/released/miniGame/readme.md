@@ -62,7 +62,7 @@ LayaAir 3.0当前适配了以下平台：
 
 - #### [微信小游戏](./wechat/readme.md)
 
-- #### [字节跳动小游戏](./byteDance/readme.md)
+- #### [抖音小游戏](./byteDance/readme.md)
 
 - ####  [OPPO小游戏](./OPPO/readme.md)
 

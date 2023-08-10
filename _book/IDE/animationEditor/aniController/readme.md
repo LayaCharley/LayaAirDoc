@@ -70,15 +70,54 @@ LayaAir IDE的动画状态机，适用于2D与3D。
 
 #### 2.4 组件属性
 
-`Animator` 组件有两个属性，`Controller` 和 `Culling Mode`，如图2-3所示：
+`Animator` 组件的属性如图2-3所示：
 
-<img src="img/2-3.png" alt="image-20221205144955396" style="zoom:60%;" /> 
+![2-3](img/2-3.png)
 
 （图2-3）
 
 `Controller` ：使用的 `Animator Controller `文件，当有了 `Animator` 组件，依然不能打开动画状态机，我们需要创建动画状态机文件，下一章将具体介绍。
 
 `Culling Mode`：剔除模式，`Always Animate `表示即使摄像机看不见也要进行动画播放的更新，`Cull Completely ` 表示摄像机看不见时停止动画的所有更新。
+
+`Sleep`：动画完成是否停止更新。因为在LayaAir中，动画播放完成以后还依然会不停的循环最后一帧，所以勾选Sleep可以停止更新。例如，给场景中一个立方体添加平移的动画，如动图2-4所示，最后看到这个立方体已经不再移动了。
+
+![2-4](img/2-4.gif)
+
+（动图2-4）
+
+此时不勾选Sleep选项，给CubeAnimation动画节点添加动画脚本，添加的代码如下：
+
+```typescript
+...
+import Vector3 = Laya.Vector3;
+...
+
+export class AnimationScript extends Laya.AnimatorStateScript {
+    ...
+    private model: Laya.Sprite3D;
+    
+    /**@internal */
+    setPlayScriptInfo(animator: Laya.Animator | Laya.Animator2D, layerindex: number, playstate: Laya.AnimatorState | Laya.AnimatorState2D) {
+        ...
+        this.model = animator.owner as Laya.Sprite3D;//得到Cube节点
+    }
+
+    ...
+    
+	/**
+    * 动画状态退出时执行。
+    */
+    onStateExit(): void {
+        console.log("动画退出了");
+        //平移操作
+        let position = new Vector3(1, 1, 1);
+        this.model.transform.translate(position);
+    }
+}
+```
+
+在脚本中，当动画结束时，对模型进行了平移。但是由于没有勾选Sleep选项，动画播放完成以后还依然会不停地循环最后一帧，即动图2-4最后的静止状态。所以无法控制Cube的位置，实现平移的效果。当勾选了Sleep，动画播放完成以后，就可以显示出平移效果了。
 
 
 

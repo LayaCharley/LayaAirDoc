@@ -328,9 +328,7 @@ IDE提供了一个全部收缩按钮，如动图2-11所示，点击后可以收�
 
 [ColorPicker](../../../IDE/uiEditor/uiComponent/ColorPicker/readme.md)显示包含多个颜色样本的列表。
 
-[View](../../../IDE/uiEditor/View/readme.md)是视图组件， 常用于预制体场景的根节点。
-
-[Dialog](../../../IDE/uiEditor/View/Dialog/readme.md)继承于View，主要用于弹窗面板。
+[Dialog](../../../IDE/uiEditor/View/Dialog/readme.md)主要用于弹窗面板。
 
 [OpenDataContextView](../../../IDE/uiEditor/uiComponent/OpenDataContextView/readme.md)是开放数据域要用到的组件。
 

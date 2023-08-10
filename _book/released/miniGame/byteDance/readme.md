@@ -1,16 +1,16 @@
-# 字节跳动小游戏
+# 抖音小游戏
 
 
 
 ## 一、概述
 
-字节跳动小游戏是基于字节跳动全产品矩阵开发，不需用户进行下载，点开即玩的全新游戏类型。
+抖音小游戏不需用户进行下载，是点开即玩的全新游戏类型。
 
 相较 APP，小游戏有着开发周期短、开发成本低等特性，能够让开发者更简单的参与到开发过程中。实现快速上线，快速变现。
 
-小游戏有无需下载、玩法简单等特性，与图文、视频等场景有着天然的搭配性。字节跳动全产品矩阵以内容分发为核心，通过内容带动小游戏分发，由内容为小游戏带量以及裂变。
+小游戏有无需下载、玩法简单等特性，与图文、视频等场景有着天然的搭配性。全产品矩阵以内容分发为核心，通过内容带动小游戏分发，由内容为小游戏带量以及裂变。
 
-推荐要看一看字节跳动小游戏的[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/introduction/)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏[接口](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/mini-game/bytedance-mini-game)的应用介绍，但是仔细看看字节官方文档肯定没错。
+推荐要看一看抖音小游戏的[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/introduction/)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏[接口](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/overview)的应用介绍，但是仔细看看官方文档肯定没错。
 
 **下载并安装小游戏开发者工具**
 
@@ -18,13 +18,13 @@
 
 
 
-## 二、发布为字节跳动小游戏
+## 二、发布为抖音小游戏
 
 
 
 ### 2.1 选择目标平台
 
-点击构建项目，在弹出的构建项目界面里，选择发布平台为`字节跳动小游戏`。如图2-1所示：
+点击构建项目，在弹出的构建项目界面里，选择发布平台为`抖音小游戏`。如图2-1所示：
 
 ![2-1](img/2-1.png)
 
@@ -48,7 +48,7 @@
 
 resources资源目录和资源文件Scene.js，小游戏由于初始包的限制，建议将初始包的内容在规划好，最好能放到统一的目录下，便于初始包的剥离。
 
-**`game.js`字节小游戏的入口文件**
+**`game.js`抖音小游戏的入口文件**
 
 游戏项目入口JS文件与适配库JS等都是在这里进行引入。IDE创建项目的时候已生成好，一般情况下，这里不需要动。
 
@@ -60,13 +60,11 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 文件里包括了小游戏项目的一些信息，如果想修改appid等信息，可以直接在这里面编辑。
 
-**`microgame-adapter.js` 字节小游戏适配库文件**
+**`microgame-adapter.js` 抖音小游戏适配库文件**
 
 
 
-## 三、用小游戏开发工具创建小游戏项目
-
-**自 2022 年 9 月 2 日起，字节跳动开发者工具已经改为抖音开发者工具**
+## 三、用抖音开发者工具创建小游戏项目
 
 
 
@@ -94,7 +92,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 `AppID` 测试账号，可以点击注册，不输入也可以开发调试，可以使用测试号，不过功能会受到限制。所以最好还是输入 `AppID`
 
-### 3.3 字节开发者工具的编译
+### 3.3 抖音开发者工具的编译
 
 完成小游戏项目的创建后，即可在工具内预览效果和调试。如图3-4所示
 
@@ -112,19 +110,19 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 ## 四、分包加载
 
-下面来介绍LayaAir IDE给字节跳动小游戏分包的方法，开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。可以通过以下步骤进行分包加载，如图4-1所示，点击构建发布后，勾选开启分包，然后选择要分包的文件夹即可。
+下面来介绍LayaAir IDE给抖音小游戏分包的方法，开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。可以通过以下步骤进行分包加载，如图4-1所示，点击构建发布后，勾选开启分包，然后选择要分包的文件夹即可。
 
 ![4-1](img/4-1.png)
 
 （图4-1）
 
-> 字节跳动小游戏分包限制：
+> 抖音小游戏分包限制：
 >
 > - 整个小玩法整体包（主包+分包）大小不超过 20M
 > - 单个主包不超过 4M
 > - 单个分包大小无限制
 >
-> 请参考字节跳动小游戏[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/framework/subpackages/introduction/)。
+> 请参考抖音小游戏[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/framework/subpackages/introduction/)。
 
 小游戏不可以使用远程包。IDE自动加载分包需要在发布时勾选分包的“启动时自动加载”选项。如果是代码引用资源，方法与web发布略有不同，加载代码示例如下：
 
@@ -176,7 +174,7 @@ export class Script extends Laya.Script {
 
 [tt.loadSubpackage](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/tt-loadSubpackage)会返回一个[LoadSubpackageTask](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/api/loadSubpackage/LoadSubpackageTask)，可以通过它获取当前下载进度。
 
-> 参考字节小游戏[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/framework/subpackages/basic)。
+> 参考抖音小游戏[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/framework/subpackages/basic)。
 
 打印的参数的意义分别是：
 
