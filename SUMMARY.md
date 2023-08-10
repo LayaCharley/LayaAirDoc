@@ -140,7 +140,7 @@
     * [Web发布](released/web/readme.md)
     - [小游戏发布](released/miniGame/readme.md)
       * [微信小游戏](released/miniGame/wechat/readme.md)
-      * [字节跳动小游戏](released/miniGame/byteDance/readme.md)
+      * [抖音小游戏](released/miniGame/byteDance/readme.md)
       * [OPPO小游戏](released/miniGame/OPPO/readme.md)
       * [vivo小游戏](released/miniGame/vivo/readme.md)
       * [小米快游戏](released/miniGame/xiaomi/readme.md)

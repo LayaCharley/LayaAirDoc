@@ -295,7 +295,7 @@ Laya.Browser.container.style.display = "none";
     static onQGMiniGame: boolean;
     /** VIVO小游戏 **/
     static onVVMiniGame: boolean;
-    /** 字节跳动小游戏*/
+    /** 抖音小游戏*/
     static onTTMiniGame: boolean;
     /** @private */
     static onFirefox: boolean;//TODO:求补充
