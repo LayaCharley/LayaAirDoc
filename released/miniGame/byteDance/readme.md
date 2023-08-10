@@ -10,7 +10,7 @@
 
 小游戏有无需下载、玩法简单等特性，与图文、视频等场景有着天然的搭配性。全产品矩阵以内容分发为核心，通过内容带动小游戏分发，由内容为小游戏带量以及裂变。
 
-推荐要看一看抖音小游戏的[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/introduction/)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏[接口](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/mini-game/bytedance-mini-game)的应用介绍，但是仔细看看官方文档肯定没错。
+推荐要看一看抖音小游戏的[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/introduction/)，LayaAir引擎的文档更多的是引擎相关的，当然也会混合了一些小游戏[接口](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/overview)的应用介绍，但是仔细看看官方文档肯定没错。
 
 **下载并安装小游戏开发者工具**
 
@@ -64,7 +64,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 
 
-## 三、用小游戏开发工具创建小游戏项目
+## 三、用抖音开发者工具创建小游戏项目
 
 
 
