@@ -897,7 +897,7 @@ color: string;
     nullable: string;
 
 	//控制数字输入的精度和范围
-    @property({ type: Number, range:[0,5], step: 0.5, factionDigits: 3 })
+    @property({ type: Number, range:[0,5], step: 0.5, fractionDigits: 3 })
     range : number;
 
 	//显示为百分比
