@@ -822,8 +822,8 @@ color: string;
 | **catalogCaption** | catalogCaption:"高级组件"                                    | 属性分类栏目的别名，不提供则直接使用栏目名称                 |
 | **catalogOrder**   | catalogOrder:0                                               | 栏目的显示顺序，数值越小显示在前面。不提供则按属性出现的顺序 |
 | **inspector**      | inspector: "color"                                           | 属性值输入控件，内置有：number,string,boolean,color,vec2,vec3,vec4,asset |
-| hidden             | hidden: "!data.a"                                            | true隐藏，false显示。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
-| readonly           | readonly: "data.b"                                           | true表示只读。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果 |
+| hidden             | hidden: "!data.a"                                            | true隐藏，false显示。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果。<br />字符串表达式内，data是一个固定名字的变量，它是当前类型的所有已注册属性的数据集合。表达式内可以使用所有js语法，但不能引用引擎相关类型，也不能使用Laya等全局对象。 |
+| readonly           | readonly: "data.b"                                           | true表示只读。可以直接使用布尔值，也可以使用表达式，通过将条件表达式放到字符串里，获得布尔类型的运算结果。（表达式的格式同上） |
 | validator          | validator: "if (value == data.text1) return '不能与text1值相同' " | 可以使用表达式，将表达式放到字符串里。例如示例中，若在IDE中输入的值和text1的值相等，就会显示”不能与text1值相同“ |
 | **serializable**   | serializable： false                                         | 控制组件属性是否序列化保存，true：序列化保存，false：不序列化保存 |
 | **multiline**      | multiline: true                                              | 字符串类型时，是否为多行输入，true：是，false：不是          |
@@ -841,12 +841,14 @@ color: string;
 | percentage         | percentage: true                                             | 将range参数设置为[0,1]时，可以让percentage为true，显示为百分比 |
 | fixedLength        | fixedLength: true                                            | 数组类型时，固定数组长度，不允许修改                         |
 | arrayActions       | arrayActions: ["delete", "move"]                             | 数组类型时，可限制数组可以进行的操作。如果不提供，表示数组允许所有操作，如果提供，则只允许列出的操作。提供的类型有："append"，"insert" ，"delete" ，"move" |
+| elementProps       | elementProps: { range: [0, 10] }                             | 对数组类型属性适用。这里可以定义数组元素的属性               |
 | showAlpha          | showAlpha: false                                             | 颜色类型时，表示是否提供透明度a值的修改。true表示提供，false表示不提供 |
 | defaultColor       | defaultColor: "rgba(217, 232, 0, 1)"                         | 颜色类型时，定义一个非null时的默认颜色值                     |
 | colorNullable      | colorNullable: true                                          | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
 | isAsset            | isAsset: true                                                | 说明此属性是引用一个资源                                     |
 | assetTypeFilter    | assetTypeFilter: "Image"                                     | 资源类型时，设置加载的资源类型                               |
 | useAssetPath       | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
+| position           | position: "before x"                                         | 属性显示的顺序默认是在类型定义里出现的顺序，position可以人为改变这个顺序。可以使用的句型有："before x"、"after x"、"first"、"last" |
 | **private**        | private：false                                               | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
 | addIndent          | addIndent:1                                                  | 增加缩进，单位是层级，注意不是像素                           |
 | onChange           | onChange: "onChangeTest"                                     | 当属性改变时，调用名称为onChangeTest的函数。函数需要在当前组件类上定义 |
@@ -912,6 +914,13 @@ color: string;
     @property({ type: ["number"], arrayActions: ["delete", "move"] })
     arr2: number[];
 
+    //使数组元素编辑时限制最大值和最小值
+    @property({ type: [Number], elementProps: { range: [0, 100] } })
+    array1: Array<Number>;
+    //如果是多维数组，则elementProps同样需要使用多层
+    @property({ type: [[Number]], elementProps: { elementProps: { range: [0, 10] } } })
+    array2: Array<Array<Number>>;
+
 	//不提供透明度a值的修改
     @property({ type: Laya.Color, showAlpha: false })
     color1: Laya.Color;
@@ -928,6 +937,13 @@ color: string;
     @property({ type: String, isAsset: true, assetTypeFilter: "Image", useAssetPath: true })
     resource: string;
 
+    //x属性出现在testposition属性之前
+    @property({ type: String })
+    x: string;
+    //可以用position人为将testposition属性安排在x属性之前显示
+    @property({ type: String, position: "before x" })
+    testposition: string;
+
 	//增加缩进，单位是层级
     @property({ type: String, addIndent:1 })
     indent1: string;
@@ -940,6 +956,27 @@ color: string;
     onChangeTest() {
         console.log("onChangeTest");
     }
+```
+
+
+
+#### 3.2.9 装饰器属性标识特殊用法
+
+> 除了以上列出的基本参数属性，@property还有一些特殊的组合用法。
+
+- 实现动态下拉框
+
+前面3.2.8节介绍过有两种方式可以实现下拉选择：一是设置属性类型为Enum，二是通过设置enumSource为数组。这两种方式都可以实现固定的下拉选项列表，但如果想让选项列表是动态的，可以使用以下方式：
+
+```typescript
+    //这个属性提供一个get方法，返回下拉选项，这个数据一般只用于编辑器，所以设置不保存
+    @property({ type: [["Record", String]], serializable: false })
+    get itemsProvider(): Array<Record<string, string>> {
+        return [{ name: "Item0", value: "0" }, { name: "Item1", value: "1" }];
+    }
+    //将enumSource设置为一个字符串，表示使用该名字的属性作为下拉数据源
+    @property({ type: String, enumSource: "itemsProvider" })
+    enumItems: string;
 ```
 
 
@@ -970,7 +1007,11 @@ export class NewScript extends Laya.Script {
 
 
 
-### 3.4 加入IDE的组件列表`@classInfo()`
+### 3.4 `@classInfo()`
+
+装饰器标识`@classInfo()`主要有两个作用：
+
+#### 3.4.1 加入IDE的组件列表
 
 开发者的自定义组件脚本默认都位于`属性设置`面板的`增加组件->自定义组件脚本`的下面，如动图3-10所示。
 
@@ -1001,6 +1042,58 @@ export class Main extends Laya.Script {
 ![3-11](images/3-11.gif)
 
 （动图3-11）
+
+#### 3.4.2 属性分组
+
+假设用装饰器暴露了A、B、C、D、E，5个属性，显示效果如下：
+
+![3-12](images/3-12.png)
+
+（图3-12）
+
+当属性比较多时，可以将属性分组显示，就要用到@classInfo()了，@classInfo()可以为类型添加非数据类型的属性。例如，将BC两个属性显示在一个组里，实现方式如下：
+
+```typescript
+const { regClass, property, classInfo } = Laya;
+
+@regClass()
+@classInfo({
+    properties: [
+        {
+            name: "Group1",
+            inspector: "Group",
+            options: {
+                members: ["b", "c"]
+            },
+            position: "after a"
+        }
+    ]
+})
+export class NewScript extends Laya.Script {
+
+    @property(String)
+    public a: string = "";
+
+    @property(String)
+    public b: string = "";
+
+    @property(String)
+    public c: string = "";
+
+    @property(String)
+    public d: string = "";
+
+    @property(String)
+    public e: string = "";
+
+}
+```
+
+其中，members指定了属于这个分组的属性名称列表。如果属性较多，也可以用这种格式 [ "b~c" ]，表示从属性b到属性c之间所有的属性。position是可选的，指示这个分组显示在哪里。显示效果如下：
+
+![3-13](images/3-13.png)
+
+（图3-13）
 
 
 
