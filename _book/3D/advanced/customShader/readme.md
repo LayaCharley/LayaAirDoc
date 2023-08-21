@@ -1,12 +1,12 @@
 # 一篇学会自定义Shader
 
->  Date: 2022-11-09
+
 
 本篇文档属于LayaAir引擎3D使用的进阶性文档，在阅读前需要具备3D顶点、法线、UV等通用的3D基础知识，如果涉及到不理解的名词，请先阅读相关的基础概念文档。
 
 ## 一、Shader基础知识
 
-### 1.1 shader是什么？
+### 1.1 Shader是什么？
 
 Shader 中文名为着色器， Shader本质上是一段采用GLSL着色语言编写在GPU上运行的程序 ， 用于告诉图形软件如何计算和输出图像。小到每一个像素，大到整个屏幕。
 
@@ -28,76 +28,74 @@ Shader主要分两类：顶点着色器Vertex Shader和片段着色器Fragment S
 
 对于由图元覆盖的像素的每个样本，都会生成“片段”。每个片段都有一个“窗口空间”位置以及其他一些值，并且它包含来自上一个“顶点处理”阶段的所有内插的每个顶点输出值。片段着色器的输出是深度值，可能的模板值（片段着色器未修改）以及可能会写入当前帧缓冲区中的缓冲区的零个或多个颜色值。片段着色器将单个片段作为输入，并生成单个片段作为输出。
 
-### 1.2 LayaAir引擎的shader
+### 1.2 LayaAir引擎的Shader
 
 #### 1.2.1 结构与组成
 
-LayaAir引擎中的shader主要是围绕着.shader文件为核心，在引擎核心中.shader文件是Shader3D类对象抽象为文本化表示的结果，在选择不同的shader效果会生成不同的.shader文件，这些shader文件成为模型材质各不相同的核心因素。
+LayaAir引擎中的Shader主要是围绕着.shader文件为核心，在引擎核心中.shader文件是Shader3D类对象抽象为文本化表示的结果，在选择不同的Shader效果会生成不同的.shader文件，这些.shader文件成为模型材质各不相同的核心因素。
 
 如何创建.shader文件？
 
-在Project窗口右键菜单栏 -> 选择Create -> 选择Shader（如图1-1所示）
+在项目资源窗口右键菜单栏 -> 选择创建 -> 选择着色器（如图1-1所示），有五种内置Shader可选。
 
- ![image-20221027163231781](img/create.png)
+<img src="img/1-1.png" alt="1-1" style="zoom:50%;" />
 
-图1-1
+（图1-1）
 
 #### 1.2.2 应用范围
 
-LayaAir引擎中的Shader的应用主要体现在对不同物体的材质效果表达，通过对不同shader的选择，物体的材质随之改变形成了各不相同的效果
+LayaAir引擎中的Shader的应用主要体现在对不同物体的材质效果表达，通过对不同Shader的选择，物体的材质随之改变形成了各不相同的效果。
 
-LayaAir引擎内置的默认Shader有：BlinnPhong，Unlit，PBR，Particle，Trail，SkyBox，SkyPanoramic，SkyProcedural。
+LayaAir引擎内置的默认Shader有：BlinnPhong（布林冯），Unlit（不受光），PBR（基于物理渲染），Particle（粒子），PostProcess（后期处理）。
 ## 2.如何自定义Shader
 ### 2.1 Mesh中常见的属性
 > polygon这个词来自希腊语，由poly(很多)和gnow(角)组成，根据定义，多边形是指以线段为界的封闭平面图形
 
-在不同的3D软件或游戏引擎中我们可以找到最基本的常见3D物体：球体，圆柱体，胶囊体，方块，这些基本的3D物体由若干的多边形组合而成，这些3D物体的形状不相同，但性质相似，它们都存在顶点、法线、UV坐标、顶点颜色等属性，这些都存储在定义为Mesh的数据结构中。我们可以在一个shader中独立访问所有的这些属性，并将它们保存在一些常见的数据结构中，例如Vector，这样是很好的，因为我们可以修改他们的数值，从而产生令人兴奋的效果。
+在不同的3D软件或游戏引擎中我们可以找到最基本的常见3D物体：球体，圆柱体，胶囊体，方块，这些基本的3D物体由若干的多边形组合而成，这些3D物体的形状不相同，但性质相似，它们都存在顶点、法线、UV坐标、顶点颜色等属性，这些都存储在定义为Mesh的数据结构中。我们可以在一个Shader中独立访问所有的这些属性，并将它们保存在一些常见的数据结构中，例如Vector，这样是很好的，因为我们可以修改他们的数值，从而产生令人兴奋的效果。
 
-下图1-2展示的是顶点、多边形、边缘的可视化三种形态
+下图2-1展示的是顶点、多边形、边缘的可视化三种形态，
 
+![2-1](img/2-1.png)
 
+（图2-1）
 
-![image-20221025160814197](img/polygon.png)
-
-​												图1-2 3D物体的顶点、多边形、边缘三种形态
-
-接下来单独介绍Mesh数据结构中常见的属性
+接下来单独介绍Mesh数据结构中常见的属性：
 
 - 顶点 
 
-顶点是什么？顶点是三角形中两条边相交的点，因此每个三角形都由三个顶点组成，所以一个最基本的三角形片元拥有三个顶点
+顶点是什么？顶点是三角形中两条边相交的点，因此每个三角形都由三个顶点组成，所以一个最基本的三角形片元拥有三个顶点，
 
-下图1-3展示的是物体对象的transform和物体顶点坐标的可视化形态
+下图2-2展示的是物体对象的transform和物体顶点坐标的可视化形态。
 
-![image-20221025164231190](img/position.png)
+![2-2](img/2-2.png)
 
-​																										图1-3 变换对象与顶点坐标
+（图2-2）
 
 - 法线
 
-假设我们有一张空白的纸，我们让一个朋友在纸的正面画画。如果两侧相等，我们如何确定哪一个是空白页的正面？这就是法线存在的原因。法线对应于多边形曲面上的垂直向量，用于确定面或顶点的方向或方向
+假设我们有一张空白的纸，我们让一个朋友在纸的正面画画。如果两侧相等，我们如何确定哪一个是空白页的正面？这就是法线存在的原因。法线对应于多边形曲面上的垂直向量，用于确定面或顶点的方向或方向。
 
-在3D软件中我们可以选择可视化顶点的法线，它可以让我们看到顶点在空间中的位置
+在3D软件中我们可以选择可视化顶点的法线，它可以让我们看到顶点在空间中的位置，
 
-下图1-4展示的是物体对象的法线可视化的结果
+下图2-3展示的是物体对象的法线可视化的结果。
 
-![image-20221025165451816](img/normal.png)
+![2-3](img/2-3.png)
 
-​																	图1-4 顶点与顶点法线的可视化表达
+（图2-3）
 
 - UV坐标
 
-纹理坐标，也称UV坐标，映射了纹理的宽度和高度；在UV坐标上定位顶点的过程称为“UV映射”。这是一个创建、编辑和组织显示为对象网格的平面二维表示的UV的过程。在我们的着色器中，我们可以访问此属性，以在三维模型上定位纹理或在其中保存信息，图1-5展示了Mesh和UV坐标的形态关系。
+纹理坐标，也称UV坐标，映射了纹理的宽度和高度；在UV坐标上定位顶点的过程称为“UV映射”。这是一个创建、编辑和组织显示为对象网格的平面二维表示的UV的过程。在我们的着色器中，我们可以访问此属性，以在三维模型上定位纹理或在其中保存信息，图2-4展示了Mesh和UV坐标的形态关系。
 
-![image-20221025170416730](img/uv.png)
+![2-4](img/2-4.png)
 
-​																	图1-5 Mesh数据和UV坐标
+（图2-4）
 
-UV坐标的面积等于0.0f到1.0f的范围，其中0.0f表示起点，1.0表示终点，下图1-6展示了UV坐标的可视化表达
+UV坐标的面积等于0.0f到1.0f的范围，其中0.0f表示起点，1.0表示终点，下图2-5展示了UV坐标的可视化表达。
 
-![image-20221025170711166](img/uvColor.png)
+![2-5](img/2-5.png)
 
-​																	图1-6 UV坐标的可视化表达
+（图2-5）
 
 - VertexColor
 
@@ -142,7 +140,7 @@ Shader3D Start
 Shader3D End
 ```
 
-## 3.UniformMap
+## 3.uniformMap
 
 Uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性有些不同。首先，uniform是全局的(Global)。全局意味着uniform变量必须在每个着色器程序对象中都是独一无二的，而且它可以被着色器程序的任意着色器在任意阶段访问。第二，无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置或更新。
 
@@ -173,7 +171,7 @@ Uniform变量的常见类型：Texture2D，Color，Vector2，Vector3，Vector4�
 ```typescript
 Shader3D Start
 {
-	//联动上面提到的属性(name, type)
+	//联动上面2.2节提到的属性(name, type)
 	type: Shader3D
 	name: ExampleShader
 	uniformMap : {
@@ -193,7 +191,7 @@ Shader3D Start
 		]}
 	}
 }
-shader3D End
+Shader3D End
 ```
 
 #### 3.2 引擎常见内置Uniform
@@ -202,7 +200,7 @@ shader3D End
 
 | 变量名                                                       | 描述        | 所属GLSL文件(高阶操作不推荐直接使用) |
 | :----------------------------------------------------------- | :---------- | ------------------------------------ |
-| u_WorldMat                                                   | 世界矩阵    | Sprite3D.glsl                        |
+| u_WorldMat                                                   | 世界矩阵    | Sprite3DCommon.glsl                  |
 | u_ProjectionParams(near,   far,  invert,  1 / far)           | 投影参数    | Camera.glsl                          |
 | u_Viewport(x,   y,   width,   height)                        | 视口        | Camera.glsl                          |
 | u_CameraDirection                                            | 相机方向    | Camera.glsl                          |
@@ -216,18 +214,18 @@ shader3D End
 
 ## 4.子着色器SubShader
 
-### 4.1 什么是subShader
+### 4.1 什么是SubShader
 
-SubShader子着色器可以理解为shader的渲染方案。每个Shader至少一个subShader，可以有多个subShader，子着色器用将Shader对象分为多个部分，分别兼容不同的硬件、渲染管线和运行设置信息。
+SubShader子着色器可以理解为Shader的渲染方案。每个Shader至少一个SubShader，可以有多个SubShader，子着色器用将Shader对象分为多个部分，分别兼容不同的硬件、渲染管线和运行设置信息。
 
 在一个subShader中包含有：
 
-- 有关此子着色器的硬件、管线和运行时设置等信息
-- 一个或者多个pass
+- 有关此子着色器的硬件、管线和运行时设置等信息。
+- 一个或者多个pass。
 
 ### 4.2 什么是Pass
 
-Pass是Shader对象的基本元素，SubShader中定义了一系列的Pass，它包含设置GPU状态的质量和在GPU上运行的shader程序。
+Pass是Shader对象的基本元素，SubShader中定义了一系列的Pass，它包含设置GPU状态的质量和在GPU上运行的Shader程序。
 
 但是过多的Pass存在一个SubShader中会造成渲染效率的下降，产生性能瓶颈。
 
@@ -248,17 +246,17 @@ Shader3D End
 
 ### 5.1 Instancing
 
-#### 什么是Instancing
+#### 5.1.1 什么是Instancing
 
 当渲染的时候如果存在一类相同顶点数据的物体，只不过是世界空间位置不同，这样的物体就是适合Instancing渲染。想象一个充满草的场景：每根草都是一个包含几个三角形的小模型。你可能会需要绘制很多根草，最终在每帧中你可能会需要渲染上千或者上万根草。因为每一根草仅仅是由几个三角形构成，渲染几乎是瞬间完成的，但上千个渲染函数调用却会极大地影响性能。
 
 如果启动Instancing，将这类数据一次性发送给GPU，然后调用一次绘制函数让OpenGL利用这些数据绘制多个物体，这样就十分的方便，这就是Instancing。Instancing可以让我们使用一个DrawCall来绘制多个物体，节省每次绘制时CPU->GPU的通信。
 
-#### EnableInstancing开关
+#### 5.1.2 enableInstancing开关
 
-`EnableInstancing`是否启用Instancing
+`enableInstancing`：是否启用Instancing。
 
-当启用EnableInstancing为true时，Shader启用Instancing功能，当启用EnableInstancing为false是，Shader不开启Instancing功能
+当启用enableInstancing为true时，Shader启用Instancing功能，当启用enableInstancing为false是，Shader不开启Instancing功能。
 
 ```typescript
 Shader3D Start
@@ -275,23 +273,23 @@ Shader3D End
 
 ### 5.2 ReflectionProbe
 
-#### 什么是ReflectionProbe
+#### 5.2.1 什么是ReflectionProbe
 
 反射探针可以从各个方向捕获周围的环境，然后将捕获到的内容存储为CubeMap（立方体贴图），可供给具有反射材料的对象使用。在一个场景中可以使用多个反射探针，探针可在场景中的关键点对视觉环境进行采样。当反射对象靠近探针时，探针采样的反射可用于对象的反射贴图。此外，当几个探针位于彼此附近时，引擎可在它们之间进行插值，从而实现反射的逐渐变化。因此，使用反射探针可以产生非常逼真的反射，同时将处理开销控制在可接受的水平。
 
-#### 反射探针的工作原理
+#### 5.2.2 反射探针的工作原理
 
 探针的捕获环境可由CubeMap表示，CubeMap在概念上很像一个在内部表面绘制有立方体六个面图像的盒子，需要Shader必须能够采样CubeMap的图像。对象表面的每个点都可在表面朝向的方向（即表面法向矢量的方向）上“看到”立方体贴图的一小块区域。着色器在此处使用立方体贴图的颜色来计算对象表面应该是什么颜色，下图5-1展示了CubeMap和天空盒的对比结果。
 
- ![image-20221027111350501](img/reflectionProbe.png)
+![5-1](img/5-1.png)
 
-图5-1
+(图5-1)
 
-#### SupportReflectionProbe开关
+#### 5.2.3 supportReflectionProbe开关
 
-`SupportReflectionProbe` ReflectionProbe开关
+`supportReflectionProbe` ：ReflectionProbe开关。
 
-当场景中存在探针时，将开关启用为True，当场景中不存在探针时，将开关启用为False
+当场景中存在探针时，将开关启用为True，当场景中不存在探针时，将开关启用为False。
 
 ```typescript
 Shader3D Start
@@ -329,24 +327,102 @@ Shader3D End
 
 
 
-### 5.4 Defines
+### 5.4 defines
 
-使用宏开关来控制顶点着色器和片段着色器产生不同分支条件的Shader指令，在defines中宏开关的基本构成为
+#### 5.4.1 基本用法
 
-defineName ：宏开关的名称
+使用宏开关来控制顶点着色器和片段着色器产生不同分支条件的Shader指令，在defines中宏开关的基本构成为：
 
-type：一般为bool，true或false触发两个不同的分支
+defineName ：宏开关的名称。
 
-private：当private值为false时，在Inspector面板shader窗口中宏开关会显示为勾选开关的形式，供开发者按需在面板控制宏的开启与关闭；当private值为true,不显示勾选开关（下图5-2展示了勾选开关在Shader窗口的展示,图5-3展示了define在Shader文件中的具体使用方法）
+type：一般为bool，true或false触发两个不同的分支。
 
- ![image-20221109105440167](img/definesShow.png) 
+private：当private值为false时，在材质的属性设置面板，Shader窗口中宏开关会显示为勾选开关的形式，供开发者按需在面板控制宏的开启与关闭；当private值为true，不显示勾选开关。
+
+（下图5-2展示了勾选开关在Shader窗口的展示，图5-3展示了defines在Shader文件中的具体使用方法）
+
+![5-2](img/5-2.png)
 
 (图5-2)
 
- ![image-20221109110047972](img/defines.jpg) 
+![5-3](img/5-3.jpg)
+
 (图5-3)
 
+#### 5.4.2 与uniformMap联动
 
+defines中的宏开关可与uniformMap中的全局属性进行联动设置，例如，下面的示例代码：
+
+```glsl
+	uniformMap:{
+        //修改u_AlbedoTexture1时同时define A
+        u_AlbedoTexture1: { type: Texture2D, define: A },
+        //修改u_AlbedoTexture2时同时define A和B
+        u_AlbedoTexture2: { type: Texture2D, define: [A,B] }
+    },
+        
+	defines: {
+        A : { type: Bool },
+        B : { type: Bool },
+        C : { type: Bool }
+    },
+```
+
+在材质的属性设置面板中，给u_AlbedoTexture1添加纹理，会使A被勾选；给u_AlbedoTexture2添加纹理，会使A和B被勾选，效果如动图5-4所示。
+
+![5-4](img/5-4.gif)
+
+（动图5-4）
+
+### 5.5 styles
+
+原来在uniformMap或者defines中，可以直接对uniform或者define在UI上的显示细节调整，现在也可以把这些细节移到styles段，使uniformMap和defines更简洁。
+
+#### 5.5.1 对于uniformMap
+
+原来在uniformMap中，需要定义更多的细节，例如（原有写法）：
+
+```glsl
+    uniformMap:{
+        u_Number: { type: Float, default:0, alias:"数字",  range:[0,100], fractionDigits: 2 }
+    },
+```
+
+如果细节较多，为了uniformMap的简洁性，可以将这些细节移到styles：
+
+```glsl
+    uniformMap:{
+        u_Number: { type: Float, default:0 }
+    },
+    styles: {
+        u_Number: { caption:"数字", range:[0,100], fractionDigits: 2 }
+    },
+```
+
+#### 5.5.2 对于defines
+
+styles更重要的功能是可以定义只用于UI而不属于uniform和define的属性。例如：
+
+```glsl
+    defines: {
+        RAIN : { type: Bool, default: true },
+        SNOWY : { type: Bool, default: false }
+    },
+
+    styles: {
+        RAIN : { caption: "下雨", inspector : null }, //inspector为null，不显示在属性面板
+        SNOWY : { caption: "下雪"},
+
+        // 定义不属于uniform和define的属性
+        weather : { caption:"天气", inspector: RadioGroup, options: { members: [RAIN, SNOWY] }}
+    },
+```
+
+RAIN和SNOWY在defines中，但是在styles中RAIN的inspector为null，所以不显示。SNOWY正常显示。weather是只用于UI而不属于uniform和define的属性，效果如图5-5所示。
+
+![5-5](img/5-5.png)
+
+（图5-5）
 
 ## 6.GLSL语法简述
 
@@ -396,6 +472,8 @@ mat4 marixt4x4 = mat4(1.0); // marixt4x4 = { 1.0, 0.0, 0.0, 0.0,
 vec3 normal = normalize(v_normal);
 ```
 
+
+
 ## 7.ShaderPass
 
 前面我们在SubShader中简要的介绍了Pass的作用，在本节中我们会结合详细的Shader内容来展示ShaderPass的具体功能
@@ -431,15 +509,13 @@ Shader3D Block设置了Shader的type和name以及对instancing、探针的支持
 
 ## 8.GLSL Block
 
-#### 8.1 GLSL Block的概述
-
 该部分的内容主要是定义上述ShaderPass中不同渲染片段中的vs和fs中的glsl语句内容
 
 开始和结束标志：GLSL Start / GLSL End
 
 Pass 对应的VS和FS片段标记：#defineGLSL  “name”  / #endGLSL 
 
-#defineGLSL 和#endGLSL 中包含的内容为与之着色器功能相对于的glsl的语句
+其中，#defineGLSL 和#endGLSL 中包含的内容为与之着色器功能相对于的glsl的语句
 
 ```glsl
 GLSL  Start
@@ -470,113 +546,189 @@ GLSL  End
 
 ### 9.1 创建一个Shader
 
-在LayaAir引擎界面，找到Project窗口 -> 右键打开菜单界面 -> 选择Create选项 -> 选择Shader选项（如下图9-1所示）
+在LayaAir IDE界面，找到项目资源窗口 -> 右键打开菜单界面 -> 选择创建选项 -> 选择着色器选项（如下图9-1所示）。可以创建一个“不受光”类型的.shader文件，然后用编辑器打开，编写自定义的Shader。
 
- ![image-20221027163231781](img/create.png)
+<img src="img/1-1.png" alt="1-1" style="zoom:50%;" />
 
-图 9-1
+（图9-1）
+
+> 开发者在学习本节时，着重感受FS片段和VS片段所实现的功能，具体的原理会在第10节和第11节说明。
 
 ### 9.2 编写一个Shader
 
-打开刚才创建的Shader文件，此时打开的Shader为默认创建的Shader里面包含一些实际开发中可能遇到的常见功能
+#### 9.2.1 基本属性信息
 
-`Shader3D Start` Shader文件开始头
+刚才创建的Shader文件，默认创建的Shader里面包含一些实际开发中可能遇到的常见功能：
 
-`Shader3D End` Shader文件结束头
+`Shader3D Start` Shader文件开始头。
 
-> Shader3D Start/End 中的内容为Shader的一些属性信息，不涉及glsl语句
+`Shader3D End` Shader文件结束头。
 
-下图9-2展示了一个基本Shader3D Start/Shader3D End 结构中包含的基本信息
+> Shader3D Start/End 中的内容为Shader的一些属性信息，不涉及glsl语句。
 
- ![image-20221027170033755](img/shader3d.png)
+下图9-2展示了一个基本Shader3D Start/Shader3D End 结构中包含的基本信息：
 
-图9-2
+![9-2](img/9-2.png)
 
-`type`: 设置type为Shader3D
+（图9-2）
 
-`name`: 设置Shader名称为NewShader
+`type`: 设置type为Shader3D。
 
-`enableInstancing`: 启用Instancing
+`name`: 设置Shader名称为NewShader（原来的名称为UnlitShader）。
 
-`supportReflectionProbe`： 不启用光照探针支持
+`enableInstancing`: 是否启用Instancing。
 
-`UniformMap`： 创建了四个Uniform变量，下图9-3显示了材质与Shader绑定后在IDE面板上显示的结果
+`supportReflectionProbe`： 是否启用光照探针支持。
 
- ![image-20221027171138143](img/mat.png)
+`UniformMap`： 创建了四个Uniform变量，下图9-3显示了材质与Shader绑定后在IDE面板上显示的结果。当材质与Shader绑定之后，UniformMap中的变量就会成为IDE材质编辑器上的一个面板接口，可以在面板接口上对uniform值进行修改。
 
-图9-3
+![9-3](img/9-3.png)
 
-当材质与Shader绑定之后，UniformMap中的变量就会成为IDE材质编辑器上的一个面板接口，可以在面板接口上对uniform值进行修改
+（图9-3）
 
-`shaderPass`当前Shader只有一个pass，vs内容为unlitVS，fs内容为unlitFS，渲染模式为前向渲染
+`shaderPass`：当前Shader只有一个pass，vs内容为unlitVS，fs内容为unlitPS，渲染模式为前向渲染。
 
-GLSL  Start  /  GLSL End 每个Pass的VS与FS对的开始与结束
 
-#defineGLSL 定义 VS或FS的glsl语句片段
 
-**FS片段**
+#### 9.2.2 FS片段与VS片段
 
-给物体填一个纯色，将gl_FragColor设置为一个带有透明通道的vec4变量，实际的结果如下图9-4所示
+`GLSL  Start  /  GLSL End`： 每个Pass的VS与FS对的开始与结束，#defineGLSL 定义 VS或FS的glsl语句片段。
 
- ![image-20221028103053723](img/pureColor.png)
+##### FS片段
 
-图9-4
+将原来UnlitShader.shader中，FS片段main()中的内容删除。
 
-给物体填上纹理的颜色，将gl_FragColor设置为采样纹理的颜色值（左上角为原始纹理示意图，具体效果如下图9-5所示
+下面实现几种简单的效果：
 
- ![image-20221028104519778](img/tex.png)
+（1）给物体填一个纯色，将gl_FragColor设置为一个带有透明通道的vec4变量，实际的结果如下图9-4所示，
 
-图9-5
+![9-4](img/9-4.png)
 
-给物体颜色填充为uniform变量的颜色，具体效果如下图9-6所示
+（图9-4）
 
- ![image-20221028105342688](img/useColor.png)
+（2）给物体填上纹理的颜色，将gl_FragColor设置为采样纹理的颜色值，具体效果如下图9-5所示，图中左上角为原始纹理示意图，
 
-图9-6
+![9-5](img/9-5.png)
 
-使用tilingoffset对UV纹理的采样进行偏移，具体效果如下图9-6所示
+（图9-5）
 
- ![image-20221028141519214](img/offset.png)
+（3）给物体颜色填充为uniform变量的颜色，在IDE中调节颜色，具体效果如下图9-6所示，
 
-图9-6
+![9-6](img/9-6.png)
 
-注意：此时的v_Texcoord0是在VS中进行放缩偏移变换的，并非在FS中变换的，此处先按下不表，在VS部分会详细讲解
+（图9-6）
 
-**VS片段**
+（4）使用TilingOffset对UV纹理的采样进行偏移，具体效果如下图9-7所示，
 
- ![image-20221027203920429](img/vsShader.png)
+![9-7](img/9-7.png)
 
-图9-8
+（图9-7）
 
-LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一些引擎已经打包好的shader算法，上图展示了一部分这些算法的用法，具体的用法如下
+> 注意：此时的v_Texcoord0是在VS中进行放缩偏移变换的，并非在FS中变换的，此处先按下不表，在VS部分会详细讲解。
 
-在图形学中常常有围绕着变换进行的一些用法：例如世界矩阵、投影矩阵、裁剪空间，UV变换等等，在LayaAir的glsl头文件中存在了这样一些用法如下：
+对UV纹理的采样进行偏移时，需要使用二次幂的纹理图才能显示出图9-7的效果。如果是非二次幂的图像，需要按照图9-8所示进行设置，将图像进行二次幂缩放设置后，点击应用。
 
-- getWorldMatrix() 返回一个mat4类型的世界矩阵( ) ，模型空间坐标 * 世界矩阵 = 世界空间坐标		**[** Sprite3DVertex.glsl **]**
-- getVertexParams() 返回一个Vertex结构体，结构体中包含Mesh的原始数据：顶点坐标、法线、UV（UV宏）、切线（NEEDTBN宏）、副切线（NEEDTBN宏）、顶点颜色（COLOR宏）[Vertex.glsl]
+![9-8](img/9-8.png)
 
-- transfromUV（）返回一个vec2的新UV坐标，按照函数第二参数进行放缩和偏移的操作，实际的算法为：newUV = (oldUV.x * x + tilloffset.z,  oldUV.y * y + tilloffset.w) tilloffset的xy对应xy的放缩值，zw对应xy的偏移值 [Vertex.glsl]
+（图9-8）
 
-- 结构体PixelParams定义了一些世界空间下的顶点属性：顶点坐标、法线、UV（UV宏）、切线（NEEDTBN宏）、副切线（NEEDTBN宏）[BlinnPhongCommon.glsl]
-- 结构体PixelParams只是定义了这些世界的顶点属性，并没有初始化，InitPixelParams() 返回初始化后的PixelPaams变量
-- getPositionCS() 传入世界坐标返回的是裁剪空间的坐标 [Camera.glsl]
-- remapPositionZ() 对裁剪空间的坐标Z进行重映射 [Camera.glsl]
+##### VS片段
+
+示例代码如下：
+
+```glsl
+#defineGLSL unlitVS
+
+    #define SHADER_NAME UnlitShader
+
+    #include "Math.glsl";
+    #include "Scene.glsl";
+    #include "SceneFogInput.glsl";
+    #include "Camera.glsl";
+    #include "Sprite3DVertex.glsl";
+    #include "VertexCommon.glsl";
+
+    #ifdef UV
+    varying vec2 v_Texcoord0;
+    #endif // UV
+
+    #ifdef COLOR
+    varying vec4 v_VertexColor;
+    #endif // COLOR
+
+    void main()
+    {
+        Vertex vertex;
+        getVertexParams(vertex);
+
+    #ifdef UV
+        v_Texcoord0 = transformUV(vertex.texCoord0, u_TilingOffset);
+    #endif // UV
+
+    #ifdef COLOR
+        v_VertexColor = vertex.vertexColor;
+    #endif // COLOR
+
+        mat4 worldMat = getWorldMatrix();
+        vec4 pos = (worldMat * vec4(vertex.positionOS, 1.0));
+        vec3 positionWS = pos.xyz / pos.w;
+        gl_Position = getPositionCS(positionWS);
+        gl_Position = remapPositionZ(gl_Position);
+
+    }
+#endGLSL
+```
+
+LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一些引擎已经打包好的shader算法，上述代码展示了一部分这些算法的用法。
+
+在图形学中常常有围绕着变换进行的一些用法：例如世界矩阵、投影矩阵、裁剪空间，UV变换等等，在LayaAir的.glsl头文件中存在了这样一些用法，如下：
+
+- getWorldMatrix() 返回一个mat4类型的世界矩阵( ) ，模型空间坐标 * 世界矩阵 = 世界空间坐标。**[ Sprite3DVertex.glsl ]**
+- getVertexParams() 返回一个Vertex结构体，结构体中包含Mesh的原始数据：顶点坐标、法线、UV（UV宏）、切线（NEEDTBN宏）、副切线（NEEDTBN宏）、顶点颜色（COLOR宏）。**[ VertexCommon.glsl ]**
+- transfromUV() 返回一个vec2的新UV坐标，按照函数第二参数进行放缩和偏移的操作，实际的算法为：newUV = (oldUV.x * x + tilloffset.z,  oldUV.y * y + tilloffset.w) tilloffset的xy对应xy的放缩值，zw对应xy的偏移值。 **[ Sprite3DCommon.glsl ]**
+- 结构体PixelParams定义了一些世界空间下的顶点属性：顶点坐标、法线、UV（UV宏）、切线（NEEDTBN宏）、副切线（NEEDTBN宏）。结构体PixelParams只是定义了这些世界的顶点属性，并没有初始化，InitPixelParams() 返回初始化后的PixelPaams变量。**[ BlinnPhongCommon.glsl ]**
+- getPositionCS() 传入世界坐标返回的是裁剪空间的坐标。**[ Camera.glsl ]**
+- remapPositionZ() 对裁剪空间的坐标Z进行重映射。**[ Camera.glsl ]**
+
+
+
+#### 9.2.3 Shader引用glsl文件
+
+在LayaAir IDE的.shader文件中，如果引用的是引擎内置的glsl（通常是在ShaderInit3D.ts中，通过Shader3D.ts的addInclude方法注册的），则直接引用即可。例如：
+
+```glsl
+#include "Color.glsl";
+```
+
+如果是自定义的.glsl文件，它可以放置在assets文件夹下的任何地方。然后.shader文件通过相对路径引用.glsl文件，即使是同级目录，也要使用./开头，例如：
+
+```glsl
+#include "./abc.glsl";
+#include "./path/to/abc.glsl";
+#include "../path/abc.glsl";
+```
+
+
 
 ## 10.顶点着色器片段
 
-顶点着色器的主要功能是对输入的顶点进行变换，从模型空间变换到裁剪空间下输出到片段着色器，图10-1展示了一个顶点着色器简单的输入与输出
- <img src="img/vsExp.png" alt="image-20221031104941287" style="zoom:67%;" />
-图10-1
+顶点着色器的主要功能是对输入的顶点进行变换，从模型空间变换到裁剪空间下输出到片段着色器，图10-1展示了一个顶点着色器简单的输入与输出。
+
+<img src="img/10-1.png" alt="10-1" style="zoom: 80%;" />
+
+（图10-1）
 
 读者不必深入了解WebGL的运行细节，只需要专注于GLSL的语句的内容，就可以轻松的完成Shader内容的创作，前面章节简述了GLSL的一些内容，下图10-2展示了顶点着色器在图形渲染管线中的运行阶段图示。
 
- <img src="img/vsLoop.png" alt="image-20221031105943212" style="zoom:67%;" />
+<img src="img/10-2.png" alt="10-2" style="zoom: 50%;" />
 
-图10-2
+（图10-2）
 
-在上图所示的阶段，从模型中的顶点经过了图10-3的一系列变换内容
+在上图所示的阶段，从模型中的顶点经过了图10-3的一系列变换内容。
 
- <img src="img/transform.png" alt="图片"  />
+![10-3](img/10-3.png)
+
+（图10-3）
 
 - Local Space 局部坐标，也可以称之为模型坐标。可以理解为就是相对于父节点的坐标。
 - World Space 世界坐标。世界坐标是一个很大的空间范围，相对于世界原点。通过模型坐标与世界矩阵相乘之后得出。
@@ -584,48 +736,60 @@ LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一
 - Clip Space 裁剪坐标。也就是将观察坐标处理到 -1.0 ～ 1.0 的范围，也就是我们在 WebGL 里提供的标准设备化坐标，最终剔除超出 -1 ～ 1 的坐标。通过观察坐标结合投影矩阵得出。
 - Screen Space 屏幕坐标。这个过程其实就是将 -1.0 ～ 1.0 范围的坐标转换到 gl.viewport 所定义的坐标范围内。最后变换出来的坐标会送到光栅器，转换成片段。
 
+
+
 ## 11.片段着色器片段
 
-片段着色器的主要功能主要是计算每个像素片段的颜色，从顶点着色器获得颜色的差值，从纹理中采样出颜色数据。图11-1展示了模型采样纹理的着色结果
+片段着色器的主要功能是计算每个像素片段的颜色，从顶点着色器获得颜色的差值，从纹理中采样出颜色数据。图11-1展示了模型采样纹理的着色结果。
 
- ![image-20221031113326828](img/fs.png)
+![11-1](img/11-1.png)
 
-图11-1
+（图11-1）
+
+
 
 ## 12.GLSL数据传递
 
 ### 12.1 应用处理阶段
 
-模型在应用处理阶段被整合为基本片元（三角形），从模型中获取到不同的属性坐标信息，图12-1展示了应用处理阶段的功能图示
+模型在应用处理阶段被整合为基本片元（三角形），从模型中获取到不同的属性坐标信息，图12-1红色框选部分为应用处理阶段。
 
- <img src="img/app.png" alt="image-20221031115105046" style="zoom:67%;" />
+<img src="img/12-1.png" alt="12-1" style="zoom:50%;" />
 
-图12-1
+（图12-1）
+
+
 
 ### 12.2 顶点着色器阶段
 
-应用阶段完成计算后的一些值作为uniform传入顶点着色器参与计算，然后再通过varing类型的形式传入到光栅化以及后面的片段着色器部分，图12-2展示了这一阶段的具体步骤。
+应用阶段完成计算后的一些值作为uniform传入顶点着色器参与计算，然后再通过varing类型的形式传入到光栅化以及后面的片段着色器部分，图12-2红色框选部分为顶点着色器阶段。 
 
- <img src="img/vsData.png" alt="image-20221031120142383" style="zoom:67%;" /> 
-图12-2
+<img src="img/12-2.png" alt="12-2" style="zoom:50%;" />
+
+（图12-2）
+
+
 
 
 ### 12.3 片段着色器片段
 
-在光栅化阶段完成颜色插值之后的varing类型结果，传入到片段着色器中，片段着色器对颜色值进行处理，将结果输出到对应的缓冲区（分为颜色缓冲区和深度缓冲区），这个步骤在图12-3中进行了展示。
- <img src="img/fsData.png" alt="image-20221031140820839" style="zoom:67%;" />
+在光栅化阶段完成颜色插值之后的varing类型结果，传入到片段着色器中，片段着色器对颜色值进行处理，将结果输出到对应的缓冲区（分为颜色缓冲区和深度缓冲区），这个步骤为图12-3中的红色框选部分。
 
-图12-3
+<img src="img/12-3.png" alt="12-3" style="zoom:50%;" />
+
+（图12-3）
 
 
 
-## 拓展1 材质的渲染模式与Shader的渲染模式
+## 13. 材质的渲染模式与Shader的渲染模式
 
-在LayaAir中不同的材质有着不同的渲染模式，不同的模式下的渲染结果是不相同的，常见的渲染模式如下图a-1红色框选内容所示
+在LayaAir中不同的材质有着不同的渲染模式，不同的模式下的渲染结果是不相同的，常见的渲染模式如下图13-1红色框选内容所示：
 
- ![image-20221101095616251](img/matrender.png)
+<img src="img/13-1.png" alt="13-1" style="zoom: 80%;" />
 
-图a-1
+（图13-1）
+
+> 材质相关的内容可以参考[《材质编辑模块》](../../../IDE/materialEditor/readme.md)。
 
 - OPAQUE（不透明）
 
@@ -633,11 +797,11 @@ LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一
 
 - CUTOUT（镂空）
 
-   ![image-20221101104035923](img/cutout.png)
+   ![13-2](img/13-2.png)
 
-  图a-2
+  （图13-2）
 
-  ​	根据包含Alpha信息的贴图中采样出来的Alpha值进行透明裁剪，也可以根据图a-2中的AlphaTest的值与贴图中采样的Alpha值进行对比来进行裁切，这样裁剪出来的结果造成的空洞部分与正常部分会产生严重的锯齿，但效率高，如果锯齿效果印象严重，建议是采样TRANSPARENT模式，透明的结果就会比较线性
+  根据包含Alpha信息的贴图中采样出来的Alpha值进行透明裁剪，也可以根据图13-2中的AlphaTest的值与贴图中采样的Alpha值进行对比来进行裁切，这样裁剪出来的结果造成的空洞部分与正常部分会产生严重的锯齿，但效率高，如果锯齿效果印象严重，建议是采样TRANSPARENT模式，透明的结果就会比较线性。
 
 - TRANSPARENT（半透明）
 
@@ -645,18 +809,18 @@ LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一
 
 - ADDTIVE（加色混合）
 
-   主要用于一些透明并颜色亮度较高的材质，它会根据贴图像素的亮度进行加色混合，模型正面与背面贴图颜色、相重叠的模型的贴图颜色会相互叠加，形成高亮半透明效果
+   主要用于一些透明并颜色亮度较高的材质，它会根据贴图像素的亮度进行加色混合，模型正面与背面贴图颜色、相重叠的模型的贴图颜色会相互叠加，形成高亮半透明效果。
 
-   ![图片5](img/ADDTive.png)
+   ![13-3](img/13-3.png)
 
-  图a-3
+  （图13-3）
 
 - ALPHABLENDED（透明混合）
 
-  这意味着对象为半透明的模式，但是最终像素的着色的混合模式不同，AlphaBlended混合方式为SrcAlpha * SrcColor + （1 - SRCAlpha）* DstColor，通常来说SrcAlpha来自纹理的Alpha值
-
- ![常规 Alpha 混合](img/AlphaBlending.png)
-
-图a-4
+  这意味着对象为半透明的模式，但是最终像素的着色的混合模式不同，AlphaBlended混合方式为SrcAlpha * SrcColor + （1 - SRCAlpha）* DstColor，通常来说SrcAlpha来自纹理的Alpha值。
+  
+  ![13-4](img/13-4.png)
+  
+  （图13-4）
 
 在引擎内部Shader的RenderMode会和材质上的RenderMode做一个比较，一般是以材质上的RenderMode为主。
