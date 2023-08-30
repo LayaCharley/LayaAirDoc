@@ -96,8 +96,8 @@ UI组件的创建有三种方式：分别是从小部件（Widgets）面板里�
 | TextArea   | 文本域       | textArea_      | area_              |
 | CheckBox   | 多选框       | checkBox_      | check_             |
 | Label      | 显示文本     | label_         | 无缩写             |
-| RadioGroup | 单选框       | radioGroup_    | 无缩写             |
-| Radio      | 单选框组     | radio_         | 无缩写             |
+| RadioGroup | 单选框组     | radioGroup_    | 无缩写             |
+| Radio      | 单选框       | radio_         | 无缩写             |
 | Tab        | 导航标签组   | tab_           | 无缩写             |
 | Clip       | 位图切片     | clip_          | 无缩写             |
 | FontClip   | 位图字体切片 | fontClip_      | 无缩写             |
