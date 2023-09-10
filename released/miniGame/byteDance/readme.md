@@ -110,7 +110,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 
 ## 四、分包加载
 
-下面来介绍LayaAir IDE给抖音小游戏分包的方法，开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。可以通过以下步骤进行分包加载，如图4-1所示，点击构建发布后，勾选开启分包，然后选择要分包的文件夹即可。
+下面来介绍LayaAir IDE给抖音小游戏分包的方法，开发者可以先看一下[《Web发布》](../../web/readme.md)的分包。可以通过以下步骤进行分包加载，如图4-1所示，点击构建发布后，勾选开启分包，然后选择要分包的文件夹即可。开发者还可以选择是否开启远程包。
 
 ![4-1](img/4-1.png)
 
@@ -124,7 +124,7 @@ resources资源目录和资源文件Scene.js，小游戏由于初始包的限制
 >
 > 请参考抖音小游戏[官方文档](https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/framework/subpackages/introduction/)。
 
-小游戏不可以使用远程包。IDE自动加载分包需要在发布时勾选分包的“启动时自动加载”选项。如果是代码引用资源，方法与web发布略有不同，加载代码示例如下：
+IDE自动加载分包需要在发布时勾选分包的“启动时自动加载”选项。如果是代码引用资源，方法与web发布略有不同，加载代码示例如下：
 
 ```typescript
 const { regClass, property } = Laya;
