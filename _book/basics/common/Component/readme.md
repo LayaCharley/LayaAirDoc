@@ -847,7 +847,7 @@ color: string;
 | colorNullable      | colorNullable: true                                          | 颜色类型时，设置为true可显示一个checkbox决定颜色是否为null   |
 | isAsset            | isAsset: true                                                | 说明此属性是引用一个资源                                     |
 | assetTypeFilter    | assetTypeFilter: "Image"                                     | 资源类型时，设置加载的资源类型                               |
-| useAssetPath       | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。如果是true，则是资源原始路径。默认false |
+| useAssetPath       | useAssetPath: true                                           | 属性类型是string，并且进行资源选择时，这个选项决定属性值是资源原始路径还是res://uuid这样的格式。默认false，如果是true，则是资源原始路径，一般不使用，因为如果资源改名，路径会丢失。 |
 | position           | position: "before x"                                         | 属性显示的顺序默认是在类型定义里出现的顺序，position可以人为改变这个顺序。可以使用的句型有："before x"、"after x"、"first"、"last" |
 | **private**        | private：false                                               | 控制组件属性是否显示在IDE里，false：显示，true：不显示       |
 | addIndent          | addIndent:1                                                  | 增加缩进，单位是层级，注意不是像素                           |
@@ -934,7 +934,7 @@ color: string;
     color3: Laya.Color;
 
 	//加载Image资源类型，设置资源路径格式
-    @property({ type: String, isAsset: true, assetTypeFilter: "Image", useAssetPath: true })
+    @property({ type: String, isAsset: true, assetTypeFilter: "Image" })
     resource: string;
 
     //x属性出现在testposition属性之前
@@ -964,9 +964,25 @@ color: string;
 
 > 除了以上列出的基本参数属性，@property还有一些特殊的组合用法。
 
-- 实现动态下拉框
+- 类型属性嵌套数组或字典
 
-前面3.2.8节介绍过有两种方式可以实现下拉选择：一是设置属性类型为Enum，二是通过设置enumSource为数组。这两种方式都可以实现固定的下拉选项列表，但如果想让选项列表是动态的，可以使用以下方式：
+示例如下：
+
+```typescript
+    @property([["string"]])
+    test1: string[][] = [["a", "b", "c"], ["e", "f", "g"]];
+
+    @property([["Record", "string"]])
+    test2: Array<Record<string, string>> = [{ name: "A", value: "a" }, { name: "B", value: "b" }];
+
+    @property({ type: ["Record", [Number]], elementProps: { elementProps: { range: [0, 10] } } })
+    test3: Record<string, number[]> = { "a": [1, 2, 3], "b": [4, 5, 6] };
+
+    @property(["Record", [Laya.Prefab]])
+    test4: Record<string, Laya.Prefab[]>;
+```
+
+它的一个重要应用就是实现动态下拉框。前面3.2.8节介绍过有两种方式可以实现下拉框：一是设置属性类型为Enum，二是通过设置enumSource为数组。这两种方式都可以实现固定的下拉选项列表，但如果想让选项列表是动态的，可以使用以下方式：
 
 ```typescript
     //这个属性提供一个get方法，返回下拉选项，这个数据一般只用于编辑器，所以设置不保存
