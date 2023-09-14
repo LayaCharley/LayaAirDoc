@@ -144,6 +144,7 @@
       * [OPPO小游戏](released/miniGame/OPPO/readme.md)
       * [vivo小游戏](released/miniGame/vivo/readme.md)
       * [小米快游戏](released/miniGame/xiaomi/readme.md)
+      * [支付宝小游戏](released/miniGame/alipaygame/readme.md)
     - [Native打包发布](released/native/LayaNative_Introduction/readme.md)
       * [LayaNative不是浏览器](released/native/native_index/readme.md)
       * [安卓/iOS构建](released/native/build_Tool/readme.md)
