@@ -111,8 +111,8 @@ UI组件的创建有三种方式：分别是从小部件（Widgets）面板里�
 | VScrollBar  | 垂直滚动条 | vscrollbar_    | vscroll_           | 垂直划动条`$bar`、上点击按钮`$up` 、下点击按钮`$down` |
 | HScrollBar  | 水平滚动条 | hscrollbar_    | hscroll_           | 水平划动条`$bar`、左点击按钮`$up` 、右点击按钮`$down` |
 | ProgressBar | 进度条     | progressbar_   | progress_          | 进度条`$bar`                                          |
-| VSlider     | 垂直划动条 | vslider_       | 无缩写             | 垂直划动按钮`$bar`                                    |
-| HSlider     | 水平划动条 | hslider_       | 无缩写             | 水平划动按钮`$bar`                                    |
+| VSlider     | 垂直划动条 | vslider_       | 无缩写             | 垂直划动按钮`$bar`、进度条资源`$progress`（可选）     |
+| HSlider     | 水平划动条 | hslider_       | 无缩写             | 水平划动按钮`$bar`、进度条资源`$progress`（可选）     |
 
 > 资源前缀不区分大小写
 
@@ -120,6 +120,7 @@ UI组件的创建有三种方式：分别是从小部件（Widgets）面板里�
 
 - 垂直滚动条aa，由四个资源文件构成。分别是`vscroll_aa.png、vscroll_aa$bar.png、vscroll_aa$up.png、vscroll_aa$down.png`。
 - 进度条bb，由两个资源文件构成。分别是`progress_bb.png、progress_bb$bar.png`。
+- 水平划动条cc，由两个或三个资源文件构成。分别是`hslider_cc.png、hslider_cc$bar.png、hslider_cc$progress.png（可选）`，若缺少了进度条资源hslider_cc$progress.png不会报错，只是不显示进度。
 
 ### 2.4 容器组件的创建与解除
 
