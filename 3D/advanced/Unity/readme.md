@@ -26,7 +26,7 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 （图2-2）
 
-将插件的Git地址（https://github.com/layabox/LayaAir3.0UnityPlugin.git）填入后点击`Add`，如图2-3所示。
+将插件的Git地址（`https://github.com/layabox/LayaAir3.0UnityPlugin.git`）填入后点击`Add`，如图2-3所示。
 
 ![2-3](img/2-3.png)
 
