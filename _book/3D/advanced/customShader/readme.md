@@ -108,11 +108,11 @@ UV坐标的面积等于0.0f到1.0f的范围，其中0.0f表示起点，1.0表示
 用于声明渲染pass，渲染状态、材质参数等参数
 
 ```typescript
- Shader3D Start
+Shader3D Start
 {
 	//此处填写Shader渲染pass、渲染状态、材质参数等属性
 }
-Start3D End
+Shader3D End
 ```
 
 ` name ` Shader名称
@@ -801,7 +801,7 @@ LayaAir Shader中的#include类似于C语言的include，xxx.glsl中内置了一
 
   （图13-2）
 
-  根据包含Alpha信息的贴图中采样出来的Alpha值进行透明裁剪，也可以根据图13-2中的AlphaTest的值与贴图中采样的Alpha值进行对比来进行裁切，这样裁剪出来的结果造成的空洞部分与正常部分会产生严重的锯齿，但效率高，如果锯齿效果印象严重，建议是采样TRANSPARENT模式，透明的结果就会比较线性。
+  根据包含Alpha信息的贴图中采样出来的Alpha值进行透明裁剪，也可以根据图13-2中的AlphaTest的值与贴图中采样的Alpha值进行对比来进行裁切，这样裁剪出来的结果造成的空洞部分与正常部分会产生严重的锯齿，但效率高，如果锯齿效果影响严重，建议是采样TRANSPARENT模式，透明的结果就会比较线性。
 
 - TRANSPARENT（半透明）
 

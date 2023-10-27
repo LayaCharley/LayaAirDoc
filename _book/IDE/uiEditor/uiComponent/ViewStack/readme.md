@@ -1,151 +1,137 @@
-# ViewStack 组件详解
+# 导航容器组件（ViewStack）
 
-> 由于很多组件属性是通用的，常用及通用的组件属性在`属性设置器`文档中已进行介绍。阅读本篇内容前请先阅读《属性设置器》文档。另外，本篇中会涉及一些Tab组件知识，请先阅读Tab组件详解的文档。
+> 本篇中会涉及一些Tab组件知识，请先阅读[Tab组件](../Tab/readme.md)的文档。
 
-## 1、了解ViewStack组件
+ViewStack组件是导航容器组件，主要用于多页面视图切换。它包含多个子页面，但默认只显示一个，可以通过子页面索引进行显示切换。一般情况下，用它与Tab标签组合制作标签切换页面，效果如动图1所示。ViewStack组件的详细用法请查看[ViewStack API](https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ViewStack)。
 
-### 1.1 ViewStack组件的作用
-
-ViewStack组件主要用于多页面视图切换。它包含多个子页面，但默认只显示一个，可以通过子页面索引进行显示切换。一般情况我们用它与Tab标签组合制作标签切换页面。如动图1所示。
-
-![动图1.gif](img/1.gif) 
+![1](img/1.gif)
 
 （动图1） 
 
-### 1.2 ViewStack组件的资源（skin）规范
-
-ViewStack组件是容器类组件，没有独立的组件资源规范。本例中直接采用的是image组件资源，在实际的游戏开发中，可以根据实际开发需求使用各种UI组件。
-
-### 1.3 ViewStack组件的API介绍
-
-[ViewStack API]:https://layaair.com/3.x/api/Chinese/index.html?version=3.0.0&type=2D&category=UI&class=laya.ui.ViewStack
 
 
+## 1. 创建ViewStack
 
-## 2、通过LayaAirIDE创建ViewStack组件
+### 1.1 准备美术资源
 
-### 2.1 创建ViewStack页面
+准备好页面背景图以及需要切换的页面美术资源，如图1-1所示，放到LayaAir IDE的项目目录中。
 
-#### 2.1.1 准备美术资源
+![1-1](img/1-1.png)
 
-准备好页面背景图以及需要切换的页面美术资源，放到LayaAirIDE资源管理器对应的项目目录中。
+（图1-1）
 
-#### 2.1.2 为页面背景图片设置九宫格
+> 图中资源来自“2D入门示例”。
 
-弹出框的页面背景通常会采用九宫格，这里我们先将背景的九宫格属性设置好。如动图2-1所示。
+然后设置背景的九宫格属性，如图1-2所示。
 
-![(动图2-1](img/2-1.gif) 
+<img src="img/1-2.png" alt="1-2" style="zoom:80%;" />
 
-(动图2-1)
-
-#### 2.1.3 创建页面背景
-
-将刚刚设置过九宫格的背景图拖拽到场景编辑器中。如动图2-2所示。
-
-![(动图2-2](img/2-2.gif) 
-
-(动图2-2)
-
-#### 2.1.4 创建ViewStack页面
-
-将页面中涉及的UI基础组件拖拽到ui文件的`场景编辑器`。如动图3-1所示。
-
-![(动图3-1](img/3-1.gif) 
-
- (动图3-1)
+（图1-2）
 
 
 
-#### 2.1.5 设置ViewStack组件的子页面name属性
+### 1.2 创建页面
 
-ViewStack子页面name属性的命名规则为item0、item1、item2.....”如果有更多页面以此类推，如动图3-2所示，不按此规则增加name属性，生成的ViewStack组件为无效组件，不能正常运行。
+如图1-3所示，将刚刚设置过九宫格的背景图拖拽到场景中，然后创建子节点ViewStack页面，再将页面中涉及的UI基础组件拖拽到ViewStack组件下，作为其子页面，并调整页面的UI布局。
 
-![(动图3-2](img/3-2.gif)  
+<img src="img/1-3.png" alt="1-3" style="zoom:80%;" />
 
-(动图3-2)
+（图1-3）
 
-**Tips**：*Dectare Var属性那里字符必须为item,不能改为其它。当修改完退出ViewStack子页面后，默认只显示item0时为正常，否则ViewStack组件没有生效。*
-
-
-
-#### 2.1.6 调整页面的UI布局
-
-设置好Dectare Var属性后，可以双击进入veiwStack组件内，先把子页面的UI布局调整好。本例中，我们仅将不同页面用到的资源大小、位置调整好，并让三个子页面居中对齐。效果如图3-3所示。
-
-![](img/3-3.png) 
-
-（图3-3）
-
-### 2.2   设置ViewStack的页面索引selectedIndex
-
-ViewStack组件默认显示name属性为item0的图片，因为控制默认索引的属性selectedIndex默认值为0。我们可以通过调整selectedIndex属性值来改变ViewStack组件的默认显示页面。效果如动图4所示。
-
-![动图4](img/4.gif)<br/>（动图4）
-
-**Tips**：
-
-**ViewStack组件的Var值必须要设置，在编写代码时需要通过Var声名的全局变量来控制ViewStack组件，从而改变selectedIndex的属性，实现页面的切换。本例中采用的是viewStack，如动图4右上角所示，开发者也可以取别的名字。**
+ViewStack组件是容器类组件，没有独立的组件资源规范。本例中直接采用的是Image组件资源，在实际的游戏开发中，可以根据实际开发需求使用各种UI组件。
 
 
 
-### 2.3 创建控制用Tab标签
+### 1.3 设置ViewStack组件子页面的name属性
 
-​	 通常，ViewStack组件需要一个相应的控制标签，我们创建一个Tab标签来控制ViewStack的子页面切换显示。
+ViewStack子页面name属性的命名规则为item0、item1、item2.....”如果有更多页面以此类推，如图1-4所示。
 
-​	点击选择资源面板里的 Tab 组件，拖拽到UI页面的场景编辑器生成 Tab 组件。 Tab 组件的美术资源如图5所示，它与上图中的背景风格配套。
+![1-4](img/1-4.png)
 
-​        ![图片5.png](img/5.png)<br/>
-​      （图5）
+（图1-4）
 
-​        Tab 组件拖拽到编辑器后，调位置与背景图适配对齐。设置公用属性var为tab，用于程序调用控制。设置常用属性labels为“雪人,糖罐,绿树”， 选择的按钮索引selectedIndex 为0。再设置其他属性中的字体大小、粗体、字体状态颜色等。
-
-​	显示效果如图6所示：
-
-​        ![图片6.png](img/6.png)<br/>
-​    （图6）
+> 若不按此规则增加name属性，生成的ViewStack组件为无效组件，不能正常运行。
 
 
 
-## 3、通过代码控制ViewStack组件切换显示
+### 1.4 设置ViewStack的页面索引selectedIndex
 
-​	在上面几个制作步骤中，我们完成了在IDE里的组件创建与组合，下面我们通过程序代码把Tab标签和ViewStack的子页面切换显示关联起来。
+ViewStack组件默认显示item0，可以通过调整selectedIndex属性值来改变ViewStack组件的默认显示页面，效果如动图1-5所示。
 
-​	保存页面，按F12发布页面，发布后生成在layaUI.max.all.ts文件中，我们直接使用它。
+<img src="img/1-5.gif" alt="1-5" style="zoom:80%;" />
+
+（动图1-5）
 
 
 
-创建ComponentDemo.ts并设置默认程序，编写代码如下：
+### 1.5 创建控制用的Tab标签
+
+通常，ViewStack组件需要一个相应的控制标签，创建一个Tab标签来控制ViewStack的子页面切换显示。
+
+点击选择资源面板里的Tab资源，拖拽到场景中生成Tab组件。然后，调整位置与背景图适配对齐。设置labels为“页面0,页面1,页面2”，选择的按钮索引selectedIndex设置为0。最后设置字体大小、粗体、字体状态颜色等属性。设置之后的显示效果如图1-6所示：
+
+<img src="img/1-6.png" alt="1-6" style="zoom:80%;" />
+
+（图1-6）
+
+
+
+### 1.6 通过代码控制ViewStack组件切换显示
+
+创建Tab后，需要通过程序代码把Tab标签和ViewStack的子页面切换显示关联起来。
+
+在Scene2D的属性设置面板中，增加一个自定义组件脚本。然后，将ViewStack和Tab组件拖入到其暴露的属性入口中。需要添加如下的示例代码：
 
 ```typescript
-// 程序入口
-class ComponentDemo{
-    /**包含tab与viewStack组件的测试页面**/
-    private comp:ui.ComponentDemoUI;
-    constructor()
-    {
-        Laya.init(1334,750, Laya.WebGL);
-        Laya.stage.scaleMode = "full";
-        Laya.stage.bgColor = "#ffffff";
-        //加载图集成功后，执行onLoaded回调方法
-        Laya.loader.load("res/atlas/comp.atlas",Laya.Handler.create(this,this.onLoaded));
-    }
-    private onLoaded():void{
-        //创建一个UI实例
-        this.comp = new ui.ComponentDemoUI();
-        //添加到舞台上显示
-        Laya.stage.addChild(this.comp);
+const { regClass, property } = Laya;
+
+@regClass()
+export class NewScript extends Laya.Script {
+
+    @property({ type: Laya.ViewStack })
+    public viewstack: Laya.ViewStack;
+
+    @property({ type: Laya.Tab })
+    public tab: Laya.Tab;
+
+    //组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+    onAwake(): void {
         //点击Tab选择按钮的处理
-        this.comp.tab.selectHandler = new Laya.Handler(this,this.onSelecte);
+        this.tab.selectHandler = new Laya.Handler(this, this.onSelecte);
     }
-    /**根据选择tab的索引切换页面**/
-    private onSelecte(index:number):void{
+
+    // 根据选择tab的索引切换页面
+    private onSelecte(index: number): void {
         //切换ViewStack子页面
-		this.comp.viewStack.selectedIndex=index;
+        this.viewstack.selectedIndex = index;
     }
 }
-new ComponentDemo();
 ```
 
-运行示例代码，效果如动图10所示。
+最终的效果如动图1-7所示：
 
-![动图10](img/1.gif)<br/>（动图10） 
+<img src="img/1-7.gif" alt="1-7" style="zoom:80%;" />
+
+（动图1-7）
+
+
+
+## 2. ViewStack属性
+
+ViewStack的特有属性如下：
+
+![2-1](img/2-1.png)
+
+（图2-1）
+
+| 属性          | 说明                                                         |
+| ------------- | ------------------------------------------------------------ |
+| bgColor       | 背景颜色，勾选后可以直接输入颜色值，例如：`#ffffff`，也可以点击输入条右侧的拾色器选取颜色 |
+| selectedIndex | 选择索引，默认为0，表示第一项。-1表示没有选中的子项。索引数量会根据子项数量（item数量）动态改变 |
+
+
+
+
+
+
+
