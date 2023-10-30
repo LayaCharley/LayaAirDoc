@@ -120,6 +120,11 @@
     * [静态合批](IDE/Component/StaticBatchVolume/readme.md)
     * [LOD组](IDE/Component/LOD/readme.md)
   - [预制体模块](IDE/prefab/readme.md)
+  - [IDE插件系统](IDE/layapackage/readme.md)
+    * [资源包导出与导入](IDE/layapackage/package/readme.md)
+    * [插件开发说明](IDE/layapackage/plug-in/readme.md)
+    - [官方插件](IDE/layapackage/Layabox/readme.md)
+      * [LOD减面插件](IDE/layapackage/Layabox/LOD/readme.md)
 - 进阶使用
     * [2.x引擎项目升级指南](basics/2.x-Upgrade/readme.md)
     - [2D进阶](2D/advanced/readme.md)
