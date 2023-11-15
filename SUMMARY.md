@@ -104,7 +104,7 @@
   - [动画编辑模块](IDE/animationEditor/readme.md)
       * [时间轴动画编辑详解](IDE/animationEditor/timelineGUI/readme.md)
       * [动画状态机详解](IDE/animationEditor/aniController/readme.md)
-      * [动画烘培详解](IDE/animationEditor/aniBake/readme.md)
+      * [动画烘焙详解](IDE/animationEditor/aniBake/readme.md)
   - [物理编辑模块](IDE/physicsEditor/readme.md)
     * [2D物理编辑](IDE/physicsEditor/physics2D/readme.md)
     * [3D物理编辑](IDE/physicsEditor/physics3D/readme.md)
