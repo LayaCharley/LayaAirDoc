@@ -137,10 +137,14 @@ LayaAirIDE提供了开发编辑器UI的可视化编辑器。在项目资源的�
 以面板为例，代码里载入该预制体的方法为：
 
 ```TypeScript
-@IEditor.panel()
+@IEditor.panel("Test")
 export class MyPanel extends IEditor.EditorPanel {
     async create() {
-        this._panel = await gui.UIPackage.createWidget("editorResources/MyWidget.widget");
+        this._panel = await gui.UIPackage.createWidget("editorResources/UI/MyWidget.widget");
+        let input: gui.TextInput = this._panel.getChild("TextInput").getChild("title");
+        input.on("changed", () => {
+            console.log("改变了！");
+        })
     }
 }
 ```
