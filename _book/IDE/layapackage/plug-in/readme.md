@@ -151,7 +151,124 @@ export class MyPanel extends IEditor.EditorPanel {
 
 
 
-## 四、自定义Inspector字段编辑界面
+## 四、程序化生成界面
+
+除了使用UI编辑器制作界面，也可以使用代码的方式去创建一些常用的UI组件，它们在IEditor.GUIUtils.
+
+```typescript
+export interface IGUIUtils {
+    /**
+     * 编辑器默认的背景颜色
+     */
+    bgColor: gui.Color;
+    /**
+     * 编辑器默认的分割线颜色
+     */
+    lineColor: gui.Color;
+    /**
+     * 编辑器默认的文字颜色
+     */
+    textColor: gui.Color;
+
+    createButton(autoSize?: boolean): gui.Button;
+    createIconButton(flat?: boolean): gui.Button;
+    createCheckbox(autoSize?: boolean): gui.Button;
+    createIconCheckbox(flat?: boolean): gui.Button;
+    createRadio(): gui.Button;
+    createComboBox(): gui.ComboBox;
+    createTextInput(): TextInput;
+    createTextArea(): TextArea;
+    createSearchInput(): SearchInput;
+    createNumericInput(): NumericInput;
+    createColorInput(): ColorInput;
+    createGradientInput(): GradientInput;
+    createCurveInput(): CurveInput;
+    createResourceInput(): ResourceInput;
+    createNodeRefInput(): NodeRefInput;
+    createProgressBar(): gui.ProgressBar;
+    createSlider(): gui.Slider;
+    createListItem(): ListItem;
+    createIconListItem(): ListItem;
+    createCheckboxListItem(): ListItem;
+    createCheckboxIconListItem(): ListItem;
+    
+    createInspectorPanel(): InspectorPanel;
+}
+```
+
+例如要动态创建一个按钮，可以用以下代码。
+
+```typescript
+let button = IEditor.GUIUtils.createButton();
+
+//它实现的功能其实和以下代码是相同的，只是更加简洁
+//let button = gui.UIPackage.createWidgetSync("~/ui/basics/Button/Button.widget");
+```
+
+IEditor.InspectorPanel是一个通过配置生成界面的通用界面类，下面举一个例子，完全通过配置方式生成一个面板
+
+```typescript
+@IEditor.panel("Test")
+export class MyPanel extends IEditor.EditorPanel {
+    private _data : any;
+    
+    async create() {
+        this._panel = IEditor.GUIUtils.createInspectorPanel();
+        
+        Editor.typeRegistry.addTypes([
+            {
+                name : "MyPanelType", //请注意，名字是全局唯一的，一定要长
+                properties : [
+                    { name : "text", type : "string" },
+                    { name : "count" , type: "number" },
+                    { name : "actions", inspector: "Buttons",
+                        options : { buttons : [ { caption : "点我", event: "my_click" } ] }
+                    }
+                ]
+             }
+        ]);
+        
+        this._panel.allowUndo = true; //根据需要设置
+        //如果不需要undo功能，也可以直接this._data = {};
+        this._data = IEditor.DataWatcher.watch({}); 
+        
+        //inspect可以多次调用，将多个数据组合在一个面板编辑
+        this._panel.inspect(this._data, "MyPanelType");
+        
+        this._panel.on("my_click", ()=> {
+            alert("hello");
+        });
+    }
+} 
+```
+
+执行效果如下：
+
+![4-1](img/4-1.png)
+
+如果不需要顶部的'My Panel Type'栏目显示，可以稍微修改代码，加入以下红字：
+
+```typescript
+{
+    name : "MyPanelType",
+    catalogBarStyle: "hidden",
+    properties : [
+       ....
+    ]
+ }
+```
+
+效果如下：
+
+![4-2](img/4-2.png)
+
+配置方式可以生成非常复杂的界面，它不但可以用于制作单一的面板，也可以嵌入到其他UI中。例如，在UI编辑器制作界面时中拖入InspectorPanel预制体（它放在"editor-widgets/baisc/Inspector/InspectorPanel.widget），然后在代码里通过getChild获得的Widget对象类型则自动为IEditor.InspectorPanel，然后可以通过上述的API（inspect等）进行填充。
+
+类型和属性定义语法请参考[文档](https://www.layaair.com/3.x/doc/basics/common/Component/readme.html#32-%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AF%86%E5%88%ABproperty)。
+
+
+
+## 五、自定义Inspector字段编辑界面
 
 当我们编写一个组件，并暴露某些字段到IDE编辑后，有时希望能够自定义某个字段的编辑界面，可以通过以下步骤：
 
@@ -177,7 +294,7 @@ export class MyPanel extends IEditor.EditorPanel {
    }
  ```
 
- MyTestField是注册的名字，实际应用需要保证不要和其他人取的名字冲突，所以建议取"com.layabox.test"这样的名字。
+MyTestField是注册的名字，实际应用需要保证不要和其他人取的名字冲突，所以建议取"com.layabox.test"这样的名字。
 
 InspectorField的create方法是同步的，所以这里不能用createWidget，而需要用createWidgetSync。这需要确保预制体在创建之前已经载入。所以这里使用了一个IEditor.onLoad的回调用于提前载入资源。
 
@@ -193,28 +310,7 @@ InspectorField的create方法是同步的，所以这里不能用createWidget，
 
 3、实际效果：
 
-<img src="img/4-1.png" alt="4-1" style="zoom:50%;" />
-
-
-
-## 五、自定义Inspector数据流和布局
-
-当选定场景中一个节点，或者一个资源后，在Inspector中如何读取数据，如何展现数据，这部分可以由开发者完全控制，方法是编写一个InspectorLayout类。
-
-```TypeScript
-@IEditor.inspectorLayout("asset")
-export class TestInsLayout implements IEditor.IInspectorLayout {
-    accept(item: IEditor.IAssetInfo): boolean {
-        return item.type == IEditor.AssetType.Image;
-    }
-    onRender(items: readonly any[], inspectors: IEditor.IInspectorHelper, componentInspectors: IEditor.IInspectorHelper): Promise<void> {
-        //这里负责读取数据，并填充inspectors
-        
-    }
-}
-```
-
-这里"asset"表示这个InspectorLayout触发的类型，可用值有asset/node/等自定义的类型。
+<img src="img/5-1.png" alt="5-1" style="zoom:50%;" />
 
 
 
@@ -339,6 +435,8 @@ class AnyName {
 }
 ```
 
+
+
 ## 九、创建菜单
 
 可以创建新菜单，并用代码控制弹出。方法为：
@@ -381,6 +479,8 @@ IEditor.Menu.create("MyTestMenu", [
  //当需要弹出时
  IEditor.Menu.getById("MyTestMenu").show();
 ```
+
+
 
 ## 十、在场景视图中绘制形状以及交互式手柄
 
@@ -436,3 +536,93 @@ export class TestCustomEditor extends IEditorEnv.CustomEditor {
 实现效果如下：
 
 ![10-2](img/10-2.png)
+
+
+
+## 十一、自定义配置
+
+插件开发者可以自定义一些配置数据，这些数据可以保存到文件，也可以只保存在内存中。例如：
+
+```typescript
+@IEditor.onLoad
+static onLoad() {
+    //注意这里面的属性不要使用到Laya引擎里的类型，比如Vector3这些，是不可以的
+    Editor.typeRegistry.addTypes([
+        {
+            name: "MyTestSettingsType",
+            properties: [
+                {
+                    name: "option1",
+                    type: "boolean",
+                    default: true
+                },
+                {
+                    name: "option2",
+                    type: "string",
+                    default: "",
+                }
+            ]
+        }
+    ]);
+    Editor.createCustomSettings("MyTestSettings", "project", "MyTestSettingsType");
+}
+```
+
+createCustomSettings的第一个参数是这个配置的名称，它是全局的，请取一个不会和其他人冲突的名字。第二个参数是配置数据放置的地方，可选的值为：
+
+- project : 保存到路径“项目/settings”。这是一个项目所有成员共享的配置文件放置位置。保存的文件名是"plugin-配置名称.json”，plugin前缀使用户能够清晰地分辨出这是第三方插件创建的配置文件。
+
+- ocal: 保存到路径“项目/local"。这是IDE使用者对项目的个性设置。这里的文件通常不建议项目成员间共享。
+- application: 保存到系统的用户数据目录。这是IDE使用者对IDE的个性设置，它应该是和具体项目不相关的。
+- memory：仅存在于内存中，不会保存到文件。
+
+第三个参数是类型名称，对应上面addTypes的操作。如果类型名称和配置名称一致，第三个参数也可以省略。
+
+配置创建后，UI进程可以通过Editor.getSettings访问配置数据，然后进行读写，例如：
+
+```typescript
+let data = Editor.getSettings("MyTestSettings").data;
+data.option2 = "hello";
+```
+
+配置是自动载入和保存的，无需手动操作。
+
+场景进程可以通过EditorEnv.getSettings访问配置数据，但是是只读的，无法修改。而且因为是跨进程，所以要获得最新的数据，要先调用sync，例如：
+
+```typescript
+let settings = EditorEnv.getSettings("MyTestSettings");
+await settings.sync();
+console.log(settings.data.option2); //hello
+```
+
+
+
+## 十二、扩展编辑器配置界面
+
+如果我们通过上一节创建了一些自定义的配置数据，可以将它展现在项目配置界面，或者首选项界面让用户修改。例如：
+
+```typescript
+@IEditor.panel("TestSettings", { usage: "project-settings", title: "测试" })
+export class TestSettings extends IEditor.EditorPanel {
+    async create() {
+        let panel = IEditor.GUIUtils.createInspectorPanel();
+        panel.inspect(Editor.getSettings("MyTestSettings").data, "MyTestSettings");
+        this._panel = panel;
+    }
+}
+```
+
+@IEditor.panel这个装饰器在“六、使用面板”中已经介绍过，这里不再赘述，唯一不同的是usage这个选项的设置。usage可以取的值有：
+
+- project-settings: 显示在项目配置界面
+- build-settings：显示在构建发布界面
+- preference: 显示在首选项界面
+
+上述代码的显示效果为：
+
+<img src="img/12-1.png" alt="12-1" style="zoom:80%;" />
+
+
+
+
+
