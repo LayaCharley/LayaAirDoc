@@ -124,7 +124,7 @@
 - 自动图集：发布后可以自动生成图集，详细内容参考[《Web发布》](../../../released/web/readme.md)的3.3.1节。
 - 材质：可以创建自定义材质，详细内容参考[《材质编辑模块》](../../../IDE/materialEditor/readme.md)。
 - 动画：有2D动画文件和3D动画文件，详细内容参考[《时间轴动画编辑详解》](../../../IDE/animationEditor/timelineGUI/readme.md)。
-- 光照贴图烘培：可以设置光照属性，详细内容参考[《3D场景环境设置》](../../../IDE/sceneEditor/environment/readme.md)的第六节。
+- 光照贴图烘焙：可以设置光照属性，详细内容参考[《3D场景环境设置》](../../../IDE/sceneEditor/environment/readme.md)的第六节。
 - 第三方JS文件：提供了单独导入的功能，详细内容参考[《引用第三方JS模块》](../../../basics/IDE/importJsLibrary/readme.md)的第二节。
 - 模型：支持的模型后缀为fbx与gltf的模型文件，详细内容参考[《模型与动画的导入使用》](../../../3D/useModel/readme.md)。
 - RenderTexture：可以修改渲染纹理的属性，详细内容参考[《混合使用3D》](../../../IDE/uiEditor/use3D/readme.md)的第二节。
