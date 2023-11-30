@@ -33,7 +33,6 @@ const { regClass, property } = Laya;
 
 @regClass()
 export class NewScript extends Laya.Script {
-    //declare owner : Laya.Sprite3D;
 
     @property({ type: Laya.VideoNode })
     public video: Laya.VideoNode;
@@ -42,14 +41,19 @@ export class NewScript extends Laya.Script {
         super();
     }
 
-    /**
-     * 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
-     */
-    onAwake(): void { 
-        this.video.play(); //播放视频
+    // 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+    onAwake(): void {
+        // 鼠标点击触发播放
+        Laya.stage.on(Laya.Event.MOUSE_DOWN, () => {
+            Laya.loader.load("resources/layaAir.mp4").then(() => {
+                this.video.play(); //播放视频
+            });
+        })
     }
 }
 ```
+
+如果是在LayaAir IDE中运行，则VideoNode无需通过事件触发播放。但是在Chrome中，自动播放只允许**静音自动播放**。只有用户进行交互（单击、双击等）后，才允许自动播放声音。
 
 
 

@@ -20,17 +20,21 @@ editor-ui.d.ts 编辑器UI库。使用IEditorUI命名空间下的类和接口。
 
 编辑器是多进程体系，主要有三个进程：Main进程/UI进程/Scene进程。插件只能运行在UI进程和Scene进程。UI进程没有载入引擎库，也就是没有LayaAir引擎环境；Scene进程有LayaAir引擎环境，与UI通讯只能通过编辑器提供的异步通讯API。此外，插件脚本也可能在预览（含编辑器内预览和外部浏览器预览）中运行，它与Scene进程的区别是，预览进程中没有node环境。总结一下，插件脚本可能运行的环境有3种：
 
-1) UI进程：可直接使用node等本地模块，不可使用Laya引擎；
+(1) UI进程：可直接使用node等本地模块，不可使用Laya引擎；
 
-2) Scene进程：可直接使用node等本地模块，可使用Laya引擎；
+(2) Scene进程：可直接使用node等本地模块，可使用Laya引擎；
 
-3) 预览进程：不可使用node等本地模块，可使用Laya引擎；
+(3) 预览进程：不可使用node等本地模块，可使用Laya引擎；
 
 如果插件脚本错误使用了当前环境中不存在的特性，脚本可能无法运行。例如，在一个Laya自定义组件脚本里使用node的fs模块去访问文件系统，会导致脚本在预览或者最终发布时运行报错。
 
 为了脚本能在各种环境正确运行，开发者编写脚本时，需要自行在文件级别隔离这三种代码。比如，一个自定义面板的TS文件，不能引用Laya引擎，因为它是运行在UI进程里的。又比如，一个Laya.Script，不能使用fs，path等模块，因为它可能会运行在预览进程。但这两种需求也是常见的，应该怎么办？
 
-1、在Laya.Script中使用本地能力，下面是一个推荐做法：
+
+
+### 2.1 在Laya.Script中使用本地能力
+
+下面是一个推荐做法：
 
 ```TypeScript
 //Script.ts
@@ -59,9 +63,9 @@ class TestSceneScript {
 
 
 
-2、UI进程脚本和Scene进程脚本通讯的方式有以下几种：
+### 2.2 UI进程脚本和Scene进程脚本通讯的方式
 
-1) 设置节点/组件属性后，场景里的节点/组件会自动刷新，无需代码。例如：
+1、设置节点/组件属性后，场景里的节点/组件会自动刷新，无需代码。例如：
 
 ```TypeScript
 //下面是UI进程代码
@@ -76,7 +80,9 @@ node.props.x = 100;
 node.getComponent("MeshRenderer").props.enabled = false;
 ```
 
-2) 调用节点/组件的一个方法，并返回值。例如：
+
+
+2、调用节点/组件的一个方法，并返回值。例如：
 
 ```TypeScript
 //下面是UI进程代码
@@ -89,7 +95,9 @@ let ret = await Editor.scene.runNodeScript(node.id, node.getComponent("MyScript"
 console.log(ret);
 ```
 
-3) 自定义一个函数，并执行。例如
+
+
+3、自定义一个函数，并执行。例如：
 
 ```TypeScript
 //下面是场景进程的代码
@@ -110,13 +118,17 @@ let ret = await Editor.scene.runScript("TestSceneScript.test", "hello");
 console.log(ret); //ok
 ```
 
+
+
+### 2.3 脚本隔离机制
+
 编辑器实现脚本隔离的机制是将脚本编译成三个js，bundle.js包含可以在预览环境，也就是在浏览器可以运行的版本；bundle.editor.js是在UI进程运行的脚本；bundle.scene.js是在Scene进程的脚本。这个机制是自动的，但开发者需了解这个机制的运作方式：
 
-1）所有含有@Laya.regClass装饰器的脚本会编译进bundle.js和bundle.scene.js。注意，这里指的“所有”，仅限于Debug版本。在release版本的bundle.js里，只会包含有被场景引用的脚本。bundle.scene.js不会出现在发布版本中。
+1.所有含有@Laya.regClass装饰器的脚本会编译进bundle.js和bundle.scene.js。注意，这里指的“所有”，仅限于Debug版本。在release版本的bundle.js里，只会包含有被场景引用的脚本。bundle.scene.js不会出现在发布版本中。
 
-2）所有含有@IEditorEnv.regClass装饰器的脚本会编译进bundle.scene.js。这个js只在编辑器内部运行，可以放心使用node能力。
+2.所有含有@IEditorEnv.regClass装饰器的脚本会编译进bundle.scene.js。这个js只在编辑器内部运行，可以放心使用node能力。
 
-3）所有含有@IEditor.xxx装饰器的脚本会编译进bundle.editor.js。这个js只运行在UI进程，可以放心使用node能力，但如果引用Laya的类会报错。
+3.所有含有@IEditor.xxx装饰器的脚本会编译进bundle.editor.js。这个js只运行在UI进程，可以放心使用node能力，但如果引用Laya的类会报错。
 
 虽然这种识别机制能够解决标记不同脚本使用用途的问题，但还是建议开发者自行用目录方式进行隔离。例如将UI进程运行的脚本放入到editor名称的目录，将只在编辑器内运行的脚本放入到scene名称的目录，这样维护起来会更清晰。
 
@@ -124,9 +136,11 @@ console.log(ret); //ok
 
 ## 三、制作编辑器UI
 
-LayaAirIDE提供了开发编辑器UI的可视化编辑器。在项目资源的菜单里，新建一个编辑器界面预制体，例如MyWidget.widget。建议将此类预制体放置到editorResources目录或其子目录。
+LayaAirIDE提供了开发编辑器UI的可视化编辑器。在`项目资源`面板的菜单里，新建一个`编辑器界面预制体`，例如MyWidget.widget。建议将此类预制体放置到editorResources目录或其子目录。
 
-> editorResources目录是一个LayaAirIDE里约定名称的特殊目录，他和resources的特性类似，也就是无论它放在多深的子目录下，资源的路径都可以从editorResources开始。例如一个资源位于/MaDaHa/v1/editoResources/a/b.png，在引用资源时可以直接填写editorResources/a/b.png，而不用理会前面的MaDaHa/v1/。这在插件体系中是很重要的，因为在开发插件时，插件开发者无法确定用户使用时会将插件资源放置在什么目录下，只能确定用户不会破坏插件内部的目录结构。
+> editorResources目录是一个LayaAirIDE里约定名称的特殊目录，它和resources的特性类似，也就是无论它放在多深的子目录下，资源的路径都可以从editorResources开始。例如一个资源位于”/MaDaHa/v1/editoResources/a/b.png“，在引用资源时可以直接填写”editorResources/a/b.png“，而不用理会前面的”MaDaHa/v1/“。
+>
+> 这在插件体系中是很重要的，因为在开发插件时，插件开发者无法确定用户使用时会将插件资源放置在什么目录下，只能确定用户不会破坏插件内部的目录结构。
 >
 > resources目录里具有相同的特性，差别在于，resources目录在发布时会拷贝到发布目录里，但editorResources则永远不会。
 
@@ -153,7 +167,7 @@ export class MyPanel extends IEditor.EditorPanel {
 
 ## 四、程序化生成界面
 
-除了使用UI编辑器制作界面，也可以使用代码的方式去创建一些常用的UI组件，它们在IEditor.GUIUtils.
+除了使用UI编辑器制作界面，也可以使用代码的方式去创建一些常用的UI组件，它们在IEditor.GUIUtils。
 
 ```typescript
 export interface IGUIUtils {
@@ -264,7 +278,7 @@ export class MyPanel extends IEditor.EditorPanel {
 
 配置方式可以生成非常复杂的界面，它不但可以用于制作单一的面板，也可以嵌入到其他UI中。例如，在UI编辑器制作界面时中拖入InspectorPanel预制体（它放在"editor-widgets/baisc/Inspector/InspectorPanel.widget），然后在代码里通过getChild获得的Widget对象类型则自动为IEditor.InspectorPanel，然后可以通过上述的API（inspect等）进行填充。
 
-类型和属性定义语法请参考[文档](https://www.layaair.com/3.x/doc/basics/common/Component/readme.html#32-%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AF%86%E5%88%ABproperty)。
+类型和属性定义语法请参考[文档](../../../basics/common/Component/readme.md)。
 
 
 
