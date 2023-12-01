@@ -6,11 +6,9 @@
 
 在项目的engine/types目录，有三个与编辑器插件开发相关的声明文件，editor.d.ts, editor-ui.d.ts, editor-env.d.ts，他们包含了大量编辑器的扩展API。
 
-editor.d.ts 是编辑器UI进程的API。常用的是全局对象Editor和IEditor命名空间下的类和接口。
-
-editor-env.d.ts 是场景场景进程的API。常用的是全局对象EditorEnv和IEditorEnv命名空间下的类和接口。
-
-editor-ui.d.ts 编辑器UI库。使用IEditorUI命名空间下的类和接口。
+- editor.d.ts 是编辑器UI进程的API。常用的是全局对象Editor和IEditor命名空间下的类和接口。
+- editor-env.d.ts 是场景场景进程的API。常用的是全局对象EditorEnv和IEditorEnv命名空间下的类和接口。
+- editor-ui.d.ts 编辑器UI库。使用IEditorUI命名空间下的类和接口。
 
 其中IEditor.utils/IEditorEnv.utils暴露了大量实用的工具函数，包括UUID生成，加密解密，ZIP压缩/解压，文件/目录拷贝/移动，HTTP请求，上传/下载等等。
 
@@ -124,11 +122,11 @@ console.log(ret); //ok
 
 编辑器实现脚本隔离的机制是将脚本编译成三个js，bundle.js包含可以在预览环境，也就是在浏览器可以运行的版本；bundle.editor.js是在UI进程运行的脚本；bundle.scene.js是在Scene进程的脚本。这个机制是自动的，但开发者需了解这个机制的运作方式：
 
-1.所有含有@Laya.regClass装饰器的脚本会编译进bundle.js和bundle.scene.js。注意，这里指的“所有”，仅限于Debug版本。在release版本的bundle.js里，只会包含有被场景引用的脚本。bundle.scene.js不会出现在发布版本中。
+1、所有含有@Laya.regClass装饰器的脚本会编译进bundle.js和bundle.scene.js。注意，这里指的“所有”，仅限于Debug版本。在release版本的bundle.js里，只会包含有被场景引用的脚本。bundle.scene.js不会出现在发布版本中。
 
-2.所有含有@IEditorEnv.regClass装饰器的脚本会编译进bundle.scene.js。这个js只在编辑器内部运行，可以放心使用node能力。
+2、所有含有@IEditorEnv.regClass装饰器的脚本会编译进bundle.scene.js。这个js只在编辑器内部运行，可以放心使用node能力。
 
-3.所有含有@IEditor.xxx装饰器的脚本会编译进bundle.editor.js。这个js只运行在UI进程，可以放心使用node能力，但如果引用Laya的类会报错。
+3、所有含有@IEditor.xxx装饰器的脚本会编译进bundle.editor.js。这个js只运行在UI进程，可以放心使用node能力，但如果引用Laya的类会报错。
 
 虽然这种识别机制能够解决标记不同脚本使用用途的问题，但还是建议开发者自行用目录方式进行隔离。例如将UI进程运行的脚本放入到editor名称的目录，将只在编辑器内运行的脚本放入到scene名称的目录，这样维护起来会更清晰。
 
@@ -166,6 +164,8 @@ export class MyPanel extends IEditor.EditorPanel {
 
 
 ## 四、程序化生成界面
+
+### 4.1 常用方法
 
 除了使用UI编辑器制作界面，也可以使用代码的方式去创建一些常用的UI组件，它们在IEditor.GUIUtils。
 
@@ -209,6 +209,10 @@ export interface IGUIUtils {
     createInspectorPanel(): InspectorPanel;
 }
 ```
+
+
+
+### 4.2 示例
 
 例如要动态创建一个按钮，可以用以下代码。
 
@@ -278,7 +282,7 @@ export class MyPanel extends IEditor.EditorPanel {
 
 配置方式可以生成非常复杂的界面，它不但可以用于制作单一的面板，也可以嵌入到其他UI中。例如，在UI编辑器制作界面时中拖入InspectorPanel预制体（它放在"editor-widgets/baisc/Inspector/InspectorPanel.widget），然后在代码里通过getChild获得的Widget对象类型则自动为IEditor.InspectorPanel，然后可以通过上述的API（inspect等）进行填充。
 
-类型和属性定义语法请参考[文档](../../../basics/common/Component/readme.md)。
+> 类型和属性定义语法请参考[文档](../../../basics/common/Component/readme.md)。
 
 
 
@@ -289,38 +293,42 @@ export class MyPanel extends IEditor.EditorPanel {
 1、编写一个InspectorField
 
  ```TypeScript
-   @IEditor.inspectorField("MyTestField")
-   export class TestField extends IEditor.PropertyField {
-       @IEditor.onLoad
-       static async onLoad() {
-           await gui.UIPackage.resourceMgr.load("MyField.widget");
-       }
-       
-       create() {
-           let input = gui.UIPackage.createWidgetSync("MyField.widget");
-   
-           return { ui: input };
-       }
-       
-       refresh() {
-           //这里负责将数据设置到界面上
-       }
-   }
+@IEditor.inspectorField("MyTestField")
+export class TestField extends IEditor.PropertyField {
+    @IEditor.onLoad
+    static async onLoad() {
+        await gui.UIPackage.resourceMgr.load("MyField.widget");
+    }
+    
+    create() {
+        let input = gui.UIPackage.createWidgetSync("MyField.widget");
+
+        return { ui: input };
+    }
+    
+    refresh() {
+        //这里负责将数据设置到界面上
+    }
+}
  ```
 
 MyTestField是注册的名字，实际应用需要保证不要和其他人取的名字冲突，所以建议取"com.layabox.test"这样的名字。
 
 InspectorField的create方法是同步的，所以这里不能用createWidget，而需要用createWidgetSync。这需要确保预制体在创建之前已经载入。所以这里使用了一个IEditor.onLoad的回调用于提前载入资源。
 
+
+
 2、设置字段的inspector属性为刚才取的名字，这里为MyTestField
 
  ```TypeScript
-      @Laya.regClass()
-      export class Script extends Laya.Script {
-           @property({ type : Laya.Node, inspector: "MyTestField" })
-           public node: Laya.Node;
-      }
+@Laya.regClass()
+export class Script extends Laya.Script {
+     @property({ type : Laya.Node, inspector: "MyTestField" })
+     public node: Laya.Node;
+}
  ```
+
+
 
 3、实际效果：
 
@@ -412,15 +420,15 @@ class AnyName {
 
 常用的选项有：
 
-`position` :  设置菜单的位置，支持的语法: "first" / "last" / "before ids" / "after ids" / "beforeGroup ids" / "afterGroup ids"
+`position` :  设置菜单的位置，支持的语法: "first" / "last" / "before ids" / "after ids" / "beforeGroup ids" / "afterGroup ids"。
 
-​      \* "before"和"beforeGroup"的区别是，"before"是插入到参考菜单的前面，而"beforeGroup"是插入到参考菜单前面最近的一个分割线之前。
-
-​      \* "after"和"afterGroup"的区别是，"after"是插入到参考菜单的后面，而"afterGroup"是插入到参考菜单后面最近的一个分割线之后。
-
-​      \* 在同一个类的扩展定义里，默认是添加到上一个扩展的菜单的后面。如果不在同一个类里，不指定position则默认添加到菜单的最后面。
-
-​      \* 多个参考菜单的id值用逗号分隔。
+> "before"和"beforeGroup"的区别是，"before"是插入到参考菜单的前面，而"beforeGroup"是插入到参考菜单前面最近的一个分割线之前。
+>
+> "after"和"afterGroup"的区别是，"after"是插入到参考菜单的后面，而"afterGroup"是插入到参考菜单后面最近的一个分割线之后。
+>
+> 在同一个类的扩展定义里，默认是添加到上一个扩展的菜单的后面。如果不在同一个类里，不指定position则默认添加到菜单的最后面。
+>
+> 多个参考菜单的id值用逗号分隔。
 
 `checkbox` :  设置菜单为一个可以打勾的效果。
 
