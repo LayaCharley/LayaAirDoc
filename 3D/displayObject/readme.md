@@ -31,7 +31,7 @@
 
 ### 2.1 创建对象
 
-在一个3D场景的Hierarchy窗口中，任何节点下，或者是空白位置，都可以通过鼠标右键来创建3D显示对象，如动图2-1所示
+在一个3D场景的`层级`面板中，任何节点下，或者是空白位置，都可以通过鼠标右键来创建3D显示对象，如动图2-1所示
 
 <img src="img/2-1.gif" style="zoom: 43%;" /> 
 
@@ -39,63 +39,65 @@
 
 
 
-创建这六种基础对象就不一一演示了，我们可以通过菜单来选择创建，如图2-1
+创建这六种基础对象就不一一演示了，我们可以通过如图2-2的菜单选择创建，
 
-<img src="img/2-1.png" alt="image-20221222203618804" style="zoom:45%;" /> 
+<img src="img/2-2.png" alt="2-2" style="zoom: 50%;" />
 
-（图2-1）
+（图2-2）
 
 
 
 ### 2.2 基础变换使用
 
-移动，旋转，缩放是对3D对象来说最基础的变换操作，如动图2-2所示
+移动，旋转，缩放是对3D对象来说最基础的变换操作，如动图2-3所示，
 
-<img src="img/2-2.gif" style="zoom:50%;" /> 
-
-（动图2-2）
-
-
-
-### 2.3 属性设置
-
-每个3D基础对象，都具有 `MeshRenderer` 组件，通过给接收阴影的面片设置 Receive Shadow 和给产生阴影的立方体设置 Case Shadow 来创建阴影效果，如动图2-3所示
-
-<img src="img/2-3.gif" style="zoom:50%;" /> 
+<img src="img/2-3.gif" alt="2-3" style="zoom:50%;" />
 
 （动图2-3）
 
 
 
-### 2.4 添加组件
+### 2.3 属性设置
 
-每个3D基础对象，都可以添加组件来实现高级的功能，通过对立方体添加3D物理组件 Rigidbody3D ，勾选重力属性，最后添加碰撞盒，可以实现模拟自由落体的效果，如动图2-4所示
+每个3D基础对象，都具有 `MeshRenderer` 组件，通过给接收阴影的平面设置`Receive Shadow`和给产生阴影的立方体设置`Cast Shadow `来创建阴影效果，如动图2-4所示，
 
-<img src="img/2-4.gif" style="zoom:50%;" /> 
+<img src="img/2-4.gif" alt="2-4" style="zoom:50%;" />
 
 （动图2-4）
 
+> 阴影除了设置3D基础对象的MeshRenderer，还需要保证Direction Light的Shadow Mode不为None。
 
 
-运行时可以看到立方体下落的效果
 
-<img src="img/2-5.gif" style="zoom:50%;" /> 
+### 2.4 添加组件
 
-（动图2-5） 
+每个3D基础对象，都可以添加组件来实现高级的功能，通过对立方体添加3D物理组件 Rigidbody3D ，勾选重力属性，最后添加碰撞盒，可以实现模拟自由落体的效果，如动图2-5所示，
+
+<img src="img/2-5.gif" alt="2-5" style="zoom:50%;" />
+
+（动图2-5）
+
+运行时可以看到立方体下落的效果，
+
+<img src="img/2-6.gif" alt="2-6" style="zoom:50%;" />
+
+（动图2-6） 
+
+> 运行物理组件需要在项目设置面板中勾选相应的引擎模块。
 
 
 
 ### 2.5 添加材质和纹理
 
-每个3D基础对象，都可以通过创建 `Material`，并在 `MeshRenderer` 组件中指定新创建的材质，来设置 `albedo Texture` 纹理 ，如动图2-6所示
+每个3D基础对象，都可以通过创建 `Material`，并在 `MeshRenderer` 组件中指定新创建的材质，来设置 `albedo Texture` 纹理 ，如动图2-7所示，
 
-<img src="img/2-6.gif" style="zoom: 67%;" />
+<img src="img/2-7.gif" alt="2-7" style="zoom:50%;" />
 
-（动图2-6）
+（动图2-7）
 
 
 
-## 三、 代码创建与使用
+## 三、代码创建与使用
 
 通过代码来创建和使用3D基础对象，也是我们了解和熟悉LayaAir引擎的过程
 
@@ -107,7 +109,7 @@
 
 类用于创建简单网格
 
-*注意：这里还不是最终场景中看到的 Sprite3D。*
+> 注意：这里还不是最终场景中看到的 Sprite3D。
 
 用 `createBox` 来举例，看下API是如何创建网格的：
 
@@ -170,17 +172,50 @@ constructor(mesh: Mesh = null, name: string = null) {
 最后，我们通过 `MeshSprite3D` 来创建并添加到场景中，代码如下：
 
 ```typescript
+//正方体
 //创建Box网络
-let boxMesh: Laya.Mesh = Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5);
+let box: Laya.Mesh = Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5);
 //创建MeshSprite3D网络
-let boxMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(boxMesh);
+let boxMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(box);
 //添加到场景中
-let box = this.scene.addChild( boxMeshSprite3D );
+this.scene.addChild(boxMeshSprite3D);
+// 三维变换
+boxMeshSprite3D.transform.position = new Laya.Vector3(2.0, 0.25, 0.6);
+boxMeshSprite3D.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+
+//球体
+let sphere: Laya.Mesh = Laya.PrimitiveMesh.createSphere(0.25, 20, 20);
+let sphereMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(sphere);
+this.scene.addChild(sphereMeshSprite3D);
+sphereMeshSprite3D.transform.position = new Laya.Vector3(1.0, 0.25, 0.6);
+
+//圆柱体
+let cylinder:Laya.Mesh = Laya.PrimitiveMesh.createCylinder(0.25, 1, 20);
+let cylinderMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(cylinder);
+this.scene.addChild(cylinderMeshSprite3D);
+cylinderMeshSprite3D.transform.position = new Laya.Vector3(0, 0.5, 0.6);
+
+//胶囊体
+let capsule:Laya.Mesh = Laya.PrimitiveMesh.createCapsule(0.25, 1, 10, 20);
+let capsuleMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(capsule);
+this.scene.addChild(capsuleMeshSprite3D);
+capsuleMeshSprite3D.transform.position = new Laya.Vector3(-1.0, 0.5, 0.6);
+
+//圆锥体
+let cone:Laya.Mesh = Laya.PrimitiveMesh.createCone(0.25, 0.75);
+let coneMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(cone);
+this.scene.addChild(coneMeshSprite3D);
+coneMeshSprite3D.transform.position = new Laya.Vector3(-2.0, 0.375, 0.6);
+
+//平面
+let plane:Laya.Mesh = Laya.PrimitiveMesh.createPlane(6, 6, 10, 10);
+let planeMeshSprite3D: Laya.MeshSprite3D = new Laya.MeshSprite3D(plane);
+this.scene.addChild(planeMeshSprite3D);
 ```
 
 运行时效果如下：
 
-<img src="img/3-1.png" alt="image-20221222195755336" style="zoom:50%;" /> 
+<img src="img/3-1.png" alt="3-1" style="zoom:80%;" />
 
 （图3-1）
 
@@ -189,6 +224,8 @@ let box = this.scene.addChild( boxMeshSprite3D );
 ### 3.2 基础变换使用
 
 使用 `Transform3D` 类，可以对3D基础对象做基础变换，代码示例如下：
+
+> 代码中的cube就是3.1.2节中的boxMeshSprite3D。
 
 ```typescript
 //改变立方体的世界坐标
@@ -205,16 +242,18 @@ cube.transform.setWorldLossyScale( new Laya.Vector3(2, 2, 2));
 
 ### 3.3 属性设置
 
-通过对 `MeshRenderer` 组件的属性设置，可以给接收阴影的面片设置 Receive Shadow 和给产生阴影的立方体设置 Case Shadow 来创建阴影效果，代码示例如下：
+通过对 `MeshRenderer` 组件的属性设置，可以给接收阴影的平面设置`Receive Shadow`和给产生阴影的立方体设置`Cast Shadow`来创建阴影效果，代码示例如下：
 
 ```typescript
 //立方体产生阴影
 cube.meshRenderer.castShadow = true;
 //创建平面
-var plane = this.scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createPlane(6, 6, 10, 10)));
+let plane = this.scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createPlane(6, 6, 10, 10)));
 //平面接收阴影
 plane.meshRenderer.receiveShadow = true;
 ```
+
+> 需要保证Direction Light的Shadow Mode不为None。
 
 
 
@@ -233,6 +272,8 @@ let boxShape: Laya.BoxColliderShape = new Laya.BoxColliderShape(1, 1, 1);
 rigidbody3D.colliderShape = boxShape;
 ```
 
+> 运行物理组件需要在项目设置面板中勾选相应的引擎模块。
+
 
 
 ### 3.5 添加材质和纹理
@@ -247,7 +288,7 @@ Laya.loader.load(resource).then( ()=>{
     let materialBill: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial;
     cube.meshRenderer.material = materialBill;
     //为材质加载纹理
-    var tex = Laya.Loader.getTexture2D("layabox.png");
+    let tex = Laya.Loader.getTexture2D("layabox.png");
     //设置贴图
     materialBill.albedoTexture = tex;
 } );
@@ -255,6 +296,6 @@ Laya.loader.load(resource).then( ()=>{
 
 运行时效果如下：
 
-<img src="img/3-2.png" alt="image-20221223102116347" style="zoom:50%;" /> 
+<img src="img/3-2.png" alt="3-2" style="zoom:50%;" />
 
 （图3-2）
