@@ -320,7 +320,7 @@ export default class CameraControll extends Laya.Script {
 
 
 
-## 七、实战练习
+## 七、通过代码使用摄像机
 
 ### 7.1 如何从摄像机创建一条射线
 
@@ -341,7 +341,7 @@ export default class CameraControll extends Laya.Script {
     }
 ```
 
-参照3D-RPG项目，我们加上一段代码，当鼠标点击屏幕时，会发射一条射线，这条射线碰到的点，会创建一个立方体。代码和效果如下所示
+参照3D-RPG项目，我们加上一段代码，当鼠标点击屏幕时，会发射一条射线，这条射线碰到的点，会创建一个立方体。代码和效果如下所示：
 
 ```typescript
 	//在CameraControll.ts类下的onStart()方法中，加入鼠标按下监听
@@ -374,35 +374,36 @@ export default class CameraControll extends Laya.Script {
 	}
 ```
 
-![](img\9-2.gif)
+<img src="img/7-1.gif" alt="7-1" style="zoom:80%;" />
 
-（动图9-1）
+（动图7-1）
 
 
 
 ### 7.2 可视遮罩层Layer
 
-前面也提到过Culling Mask的用处，在我们制作游戏时，我们也可用通过代码来达到‘ 隐身 ’的效果。
+前面5.4节中也提到过Culling Mask的用处，在我们制作游戏时，我们也可用通过代码来达到‘ 隐身 ’的效果。
 
-还是用3D-RPG项目为例，我们先设置两个Layer
+还是用3D-RPG项目为例，我们先设置两个Layer。
 
-![image-20221123154114505](img\10-3.png) 
+![7-2](img/7-2.png)
 
-（图10-1）
+（图7-2）
 
-继续，我们把这两个屋子的Layer改为Building1和Building2，如图10-2，10-3所示
+再把这两个屋子的Layer改为Building1和Building2，如图7-3，7-4所示，
 
-<img src="img\10-1.png" alt="image-20221123152034916" style="zoom: 80%;" /> 
+<img src="img/7-3.png" alt="7-3" style="zoom:80%;" />
 
-（图10-2）
+（图7-3）
 
-<img src="img\10-2.png" alt="image-20221123152125323" style="zoom:80%;" /> 
+![7-4](img/7-4.png)
 
-（图10-3） 
+（图7-4）
 
-我们在CameraControll.ts类添加如下代码
+我们在CameraControll.ts类添加如下代码：
 
 ```typescript
+	private layerIndex: number = 0;
 	onMouseDown(e: Laya.Event) 
     {
         //清除所有图层
@@ -413,23 +414,29 @@ export default class CameraControll extends Laya.Script {
 	}
 ```
 
-这是效果如动图10-4
+效果如动图7-5所示，
 
-![](img\10-4.gif) 
+![7-5](img/7-5.gif)
 
-（动图10-4）
+（动图7-5）
 
 
 
 ### 7.3 捕捉目标
 
-在创建摄像机时，我们经常需要调整摄像机的位置，用于对准显示某个三维物体，或显示某个区域。对于初学者来说，空间思维还未形成习惯，调整位置所花的时间会很多。LayaAir 3D引擎3D变换提供了一个lookAt()方法，用于捕捉目标，自动调整3D对象对准目标点。摄像机也可以使用它达到我们的调整视角的目的。
+在创建摄像机时，我们经常需要调整摄像机的位置，用于对准显示某个三维物体，或显示某个区域。对于初学者来说，空间思维还未形成习惯，调整位置所花的时间会很多。LayaAir的3D变换提供了一个lookAt()方法，用于捕捉目标，自动调整3D对象对准目标点。摄像机也可以使用它达到我们的调整视角的目的。
 
-![image-20221123155543457](img\11-1.png) 
+```typescript
+	/**
+	 * 观察目标位置。
+	 * @param	target 观察目标。
+	 * @param	up 向上向量。
+	 * @param	isLocal 是否局部空间。
+	 */
+	lookAt(target: Vector3, up: Vector3, isLocal: boolean = false, isCamera: boolean = true): void
+```
 
-（图11-1）
-
-同样，我们在3D-RPG项目中，通过鼠标点击来切换所见区域，代码如下
+同样，我们在3D-RPG项目中，通过鼠标点击来切换所见区域，代码如下：
 
 ```typescript
     //CameraControll.ts类脚本中，添加3个节点对象，把3个不同的房子建筑拖入到属性中
@@ -443,6 +450,7 @@ export default class CameraControll extends Laya.Script {
 ```
 
 ```typescript
+	private index: number = 0;
 	//同样，添加鼠标事件，来修改摄像机对3个建筑的朝向
 	onMouseDown(e: Laya.Event) 
     {
@@ -464,13 +472,15 @@ export default class CameraControll extends Laya.Script {
 
 效果如下：
 
-![](img\11-2.gif) 
+![7-6](img/7-6.gif)
 
-（动图11-2）
+（动图7-6）
+
+
 
 ### 7.4 横纵比
 
-我们一般不会手动设置屏幕的横纵比，在运行过程中会通过计算自动设置横纵比。但是在一些特殊的情况下需要对横纵比手动设置时，可以自己手动设置。如果需要重置横纵比，变回自动改变横纵比，只需要将这个值设置为0
+我们一般不会手动设置屏幕的横纵比，在运行过程中会通过计算自动设置横纵比。但是在一些特殊的情况下需要对横纵比手动设置时，可以自己手动设置。如果需要重置横纵比，变回自动改变横纵比，只需要将这个值设置为0。
 
 ```typescript
 //手动设置横纵比
@@ -486,13 +496,22 @@ camera.aspectRatio = 0;
 
 ### 7.5 目标纹理
 
-我们依然用3D-RPG项目为例，Main Camera为场景主渲染摄像机，添加一个新的 renderTargetCamera 为开启 RenderTarget 属性的摄像机。同时在场景中添加一个Plane，面向主摄像机，如图13-1所示
+我们依然用3D-RPG项目为例，Main Camera为场景主渲染摄像机，添加一个新的 renderTargetCamera 为开启 RenderTarget 属性的摄像机。同时在场景中添加一个Plane，面向主摄像机，如图7-7所示。
 
-<img src="img\13-1.png" alt="image-20221124093330379" style="zoom:80%;" /> 
+<img src="img/7-7.png" alt="7-7" style="zoom:70%;" />
 
-（图13-1）
+（图7-7）
 
-接下来，我们把Plane和renderTargetCamera添加到CameraControll.ts脚本中，并添加代码：
+接下来，我们把Plane和renderTargetCamera添加到CameraControll.ts脚本中，
+
+```typescript
+    @property({ type: Laya.Camera })
+    public renderTargetCamera: Laya.Camera;
+    @property({ type: Laya.Sprite3D })
+    public plane: Laya.Sprite3D;
+```
+
+并在onStart()中添加代码：
 
 ```typescript
         //选择渲染目标为纹理
@@ -511,13 +530,13 @@ camera.aspectRatio = 0;
         mat1.albedoTexture = this.renderTargetCamera.renderTarget;
 ```
 
-在LayaAir引擎中渲染顺序是越小渲染优先度越高
+> 在LayaAir引擎中，渲染顺序renderingOrder越小，渲染优先度越高。
 
-好，我们来运行看下效果，如动图13-2所示，场景中多了一个摄像机的视图放在Plane上作为纹理
+运行效果如动图7-8所示，场景中多了一个摄像机的视图放在Plane上作为纹理，
 
-![](img\13-2.gif) 
+![7-8](img/7-8.gif)
 
-（动图13-2）
+（动图7-8）
 
 
 
