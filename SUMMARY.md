@@ -141,7 +141,7 @@
       * [WebXR](3D/WebXR/readme.md)
       * [Unity资源导出插件](3D/advanced/Unity/readme.md)
 - 项目发布
-    * [构建发布](released/readme.md)
+    * [通用发布](released/generalSetting/readme.md)
     * [Web发布](released/web/readme.md)
     - [小游戏发布](released/miniGame/readme.md)
       * [微信小游戏](released/miniGame/wechat/readme.md)
