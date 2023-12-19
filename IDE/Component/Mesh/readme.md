@@ -101,7 +101,7 @@ E：Render材质列表
 
 那么，什么是**第一个实例化后的material**呢？
 
-Unity中每个MeshRenderer组件里有个Materals属性，这个数组决定了该物体下可以放几个material组件，默认是1。
+每个MeshRenderer组件里有个Materals属性，这个数组决定了该物体下可以放几个material组件，默认是1。
 
 当同一个物体上有很多个material的时候，我们可以手动更改material组件的上下位置关系。这里的第一个实例化后的material指的就是该物体上从上往下的第一个material组件，而不是MeshRenderer.materials[0]，也就是说我们每一次引用就会生成一个新的material到内存中。但是在引用后并不会改变我们项目工程中材质球的原始属性设置
 
