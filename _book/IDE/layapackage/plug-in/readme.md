@@ -40,7 +40,7 @@
 class Script extends Laya.Script {
 
     wantToUseNode() {
-        IEditorEnv.scene.runScript("TestSceneScript.visitNode");
+        EditorEnv.scene.runScript("TestSceneScript.visitNode");
     }
 }
 
