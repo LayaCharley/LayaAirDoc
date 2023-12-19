@@ -1,6 +1,6 @@
 ## 一篇上手LayaAir的3D物理引擎
 
-LayaAir引擎集成了世界三大物理引擎之一的Bullet引擎，当在Unity中使用了物理组件，用LayaAir的Unity插件导出后，默认就是采用的Bullet引擎。当然，LayaAir引擎也支持使用比较轻量的Cannon物理引擎的基础功能。本篇针对LayaAir引擎的初学者，全面介绍了3D物理引擎使用的基础能力。方便开发者快速上手。
+LayaAir引擎集成了世界三大物理引擎之一的Bullet引擎。当然，LayaAir引擎也支持使用比较轻量的Cannon物理引擎的基础功能。本篇针对LayaAir引擎的初学者，全面介绍了3D物理引擎使用的基础能力。方便开发者快速上手。
 
 > 阅读本篇时，除非是Cannon物理引擎的专属章节，或者注明是cannon物理引擎，默认介绍都是基于LayaAir封装的Bullet引擎。
 
@@ -430,7 +430,7 @@ LayaAir引擎支持8种3D碰撞形状，分别为：
     ……省略若干代码
    */
 Laya.Mesh.load("res/threeDimen/Physics/table.lm", Laya.Handler.create(this, function(mesh:Laya.Mesh) {
-    //读取Unity导出的桌子模型节点对象，添加到3D场景节点下，
+    //读取桌子模型节点对象，添加到3D场景节点下，
     var table = scene.addChild(new Laya.MeshSprite3D(mesh)) as Laya.MeshSprite3D;
     //给桌子节点对象添加刚体碰撞器
     var rigidBody = table.addComponent(Laya.Rigidbody3D) as Laya.Rigidbody3D;
