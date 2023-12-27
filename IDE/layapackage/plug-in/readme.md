@@ -1,6 +1,6 @@
 # 插件开发说明
 
-## 一、插件能力
+## 一、开始
 
 编辑器使用Electron框架开发，本质是对Chrome浏览器的封装。编辑器实际是一个HTML+JS+CSS制作的单页应用。但我们封装了大部分功能，所以游戏开发者和插件开发者都不需要学习HTML/CSS或者相关的前端框架。我们在开发插件时，需要使用编辑器提供的UI框架，一般不允许直接去修改编辑器的DOM结构。考虑到用户体验和兼容性，资源商店也一般不允许这类插件上架。
 
@@ -11,16 +11,6 @@
 - editor-ui.d.ts 编辑器UI库。使用IEditorUI命名空间下的类和接口。
 
 其中IEditor.utils/IEditorEnv.utils暴露了大量实用的工具函数，包括UUID生成，加密解密，ZIP压缩/解压，文件/目录拷贝/移动，HTTP请求，上传/下载等等。
-
-开发者可以直接使用node模块，另外，IDE也内置了一些常用的npm库，例如sharp，glob，pinyin, @svgdotjs/svg.js等。
-
-```typescript
-//使用nodejs模块的方式
-import fs from "fs";
-import path from "path";
-const sharp = window.require("sharp");
-const glob = window.require("glob");
-```
 
 
 
@@ -124,18 +114,6 @@ export class TestSceneScript {
 
 let ret = await Editor.scene.runScript("TestSceneScript.test", "hello");
 console.log(ret); //ok
-```
-
-
-
-4、场景进程如果需要向UI进程发送消息，通过以下方法：
-
-```typescript
-//选中项目资源面板一个资源
-EditorEnv.postMessageToPanel("ProjectPanel", "select", assetId);
-
-//调用自定义的Panel的一个方法，并返回结果
-let ret = await EditorEnv.sendMessageToPanel("MyPanel", "getResult");
 ```
 
 
@@ -251,7 +229,7 @@ IEditor.InspectorPanel是一个通过配置生成界面的通用界面类，下�
 @IEditor.panel("Test")
 export class MyPanel extends IEditor.EditorPanel {
     private _data : any;
-    
+    declare _panel : IEditor.InspectorPanel;
     async create() {
         this._panel = IEditor.GUIUtils.createInspectorPanel();
         
@@ -358,7 +336,7 @@ export class Script extends Laya.Script {
 
 
 
-## 六、自定义面板
+## 六、使用面板
 
 可以通过以下方式给编辑器增加一个面板
 
@@ -608,11 +586,11 @@ static onLoad() {
             ]
         }
     ]);
-    Editor.extensionManager.createSettings("MyTestSettings", "project", "MyTestSettingsType");
+    Editor.createCustomSettings("MyTestSettings", "project", "MyTestSettingsType");
 }
 ```
 
-createSettings的第一个参数是这个配置的名称，它是全局的，请取一个不会和其他人冲突的名字。第二个参数是配置数据放置的地方，可选的值为：
+createCustomSettings的第一个参数是这个配置的名称，它是全局的，请取一个不会和其他人冲突的名字。第二个参数是配置数据放置的地方，可选的值为：
 
 - project : 保存到路径“项目/settings”。这是一个项目所有成员共享的配置文件放置位置。保存的文件名是"plugin-配置名称.json”，plugin前缀使用户能够清晰地分辨出这是第三方插件创建的配置文件。
 
@@ -631,7 +609,7 @@ data.option2 = "hello";
 
 配置是自动载入和保存的，无需手动操作。
 
-场景进程可以通过EditorEnv.getSettings访问配置数据，**但是是只读的，无法修改**。而且因为是跨进程，所以要获得最新的数据，要先调用sync，例如：
+场景进程可以通过EditorEnv.getSettings访问配置数据，但是是只读的，无法修改。而且因为是跨进程，所以要获得最新的数据，要先调用sync，例如：
 
 ```typescript
 let settings = EditorEnv.getSettings("MyTestSettings");
@@ -665,260 +643,6 @@ export class TestSettings extends IEditor.EditorPanel {
 上述代码的显示效果为：
 
 <img src="img/12-1.png" alt="12-1" style="zoom:80%;" />
-
-
-
-## 十三、扩展构建流程
-
-构建流程除了在界面中启动外，也可以通过API调用，下面的例子演示了通过一个自定义菜单启动构建任务:
-
-```typescript
-class Abc {
-    IEditor.menu("App/my/build")
-    static build() {
-        IEditor.BuildTask.start("web");
-    }
-}
-```
-
-在场景进程也可以手动启动构建任务：
-
-```typescript
-IEditorEnv.BuildTask.start("web");
-```
-
-通过构建插件定制插件流程，构建插件的接口是IBuildTask。IBuildTask的定义为：
-
-```typescript
-export interface IBuildPlugin {
-    /**
-     * 构建任务初始化时。可以在这个事件里修改config和platformConfig等配置。
-     * @param task 
-     */
-    onSetup?(task: IBuildTask): Promise<void>;
-
-    /**
-     * 构建任务开始。可以在这个事件里在初始化目标目录的结构，或者进行必要的检查和安装等。
-     * @param task
-     */
-    onStart?(task: IBuildTask): Promise<void>;
-
-    /**
-     * 正在收集需要发布的资源。assets集合是系统根据依赖、resources目录规则等所有有效的规则收集的所有需要发布的资源对象，你可以额外向集合添加资源对象。
-     * @param task 
-     * @param assets 
-     */
-    onCollectAssets?(task: IBuildTask, assets: Set<IAssetInfo>): Promise<void>;
-
-    /**
-     * 正在导出资源。exportInfoMap包含了导出资源的信息，包括保存的位置等信息。可以修改outPath自定义资源的输出位置。
-     * @param task 
-     * @param exportInfoMap 
-     */
-    onBeforeExportAssets?(task: IBuildTask, exportInfoMap: Map<IAssetInfo, IAssetExportInfo>): Promise<void>;
-
-    /**
-     * 导出资源完成。如果开发者需要添加自己的文件，或者及进行压缩等操作，可以在这个事件里处理。
-     * @param task 
-     * @param exportInfoMap 
-     */
-    onAfterExportAssets?(task: IBuildTask): Promise<void>;
-
-    /**
-     * 构建已经完成，可以在这个事件生成一些清单文件，配置文件等。
-     */
-    onCreateManifest?(task: IBuildTask): Promise<void>;
-
-    /**
-     * 如果有原生的构建流程，在这里处理。
-     * @param task 
-     */
-    onCreatePackage?(task: IBuildTask): Promise<void>;
-
-    /**
-     * 构建任务完成事件。
-     * @param task 
-     */
-    onEnd?(task: IBuildTask): Promise<void>;
-}
-```
-
-所有钩子函数都是可选的，可以根据需要实现需要的逻辑。需要通过IEditorEnv.regBuildPlugin装饰器注册插件。下面的例子演示了怎样在web这个平台构建时，手动添加一个参加构建的资源。
-
-```typescript
-@IEditorEnv.regBuildPlugin("web")
-class MyBuildPlugin implements IEditorEnv.IBuildPlugin {
-    async onCollectAssets(task : IEditorEnv.IBuildTask, assets: Set<IAssetInfo>) {
-        let myAsset = ...
-        assets.add(myAsset);
-        
-        //在发布插件里，需要使用task.logger输出日志
-        task.logger.debug("add my asset");
-    }
-}
-```
-
-如果需要构建插件在所有平台都生效，那么regBuildPlugin的第一个参数可以传递"*"。regBuildPlugin的第二个参数可以传递一个优先级的数值，优先级越大，构建时这个插件会被更早的调用。
-
-在插件中经常会用到的一些工具方法有：
-
-（1）使用task.logger接口记录日志；
-
-（2）使用IEditorEnv.utils.renderTemplateFile渲染模版文件，使用的是mustache库；
-
-（3）使用task.mergeConfigFile合并配置文件。即，如果在内置模版目录和项目模版目录(build-templates)有相同路径和名字的json格式的配置文件，通过此方法可以将他们合并；
-
-（4）使用IEditorEnv.utils.intallCli安装公共的一些cli包，它将安装在library/cli-package下。例如：
-
-```typescript
-await IEditorEnv.utils.installCli("@oppo-minigame/cli", options);
-```
-
-（6)  使用IEditorEnv.utils.exec执行任意本地命令。
-
-（7） 使用IEditorEnv.utils.downloadFile下载文件。
-
-（8）使用IEditorEnv.utils.ZipFileR解压文件。
-
-可以扩展构建选项面板，添加一些自定义的参数，如“自定义面板”一节中描述那样，我们将面板的usage设置为“build-settings"即可。
-
-```typescript
-@IEditor.panel("TestBuildSettings", { usage: "build-settings", title: "测试" })
-export class TestBuildSettings extends IEditor.EditorPanel {
-@IEditor.onLoad
-    static start() {
-        Editor.typeRegistry.addTypes([
-            {
-                name: "MyBuildSettings",
-                catalogBarStyle : "hidden",
-                properties: [
-                    {
-                        name: "option1",
-                        type: "boolean",
-                        default: true
-                    },
-                    {
-                        name: "option2",
-                        type: "string",
-                        default: "2332",
-                    }
-                ]
-            }
-        ]);
-        Editor.extensionManager.createSettings("MyBuildSettings", "project");
-    }
-
-    async create() {
-        let panel = IEditor.GUIUtils.createInspectorPanel();
-        panel.allowUndo = true;
-        panel.inspect(Editor.getSettings("MyBuildSettings").data, "MyBuildSettings");
-        this._panel = panel;
-    }
-}
-```
-
-效果如下：
-
-![13-1](img/13-1.png)
-
-在构建插件中可以通过Settings机制访问这些参数，例如：
-
-```typescript
-@IEditorEnv.regBuildPlugin("web")
-class MyBuildPlugin implements IEditorEnv.IBuildPlugin {
-    async onSetup(task : IEditorEnv.IBuildTask) {
-        let mySettings = EditorEnv.getSettings("MyBuildSettings");
-        await mySettings.sync();
-        
-        task.logger.debug(mySettings.data.option1);
-    }
-}
-```
-
-
-
-## 十四、自定义发布目标平台
-
-可以通过插件给IDE新增一个发布目标平台。例如：
-
-```typescript
-Editor.extensionManager.createBuildTarget("test",  //平台的唯一id，不能冲突
-{ 
-    caption: "自定义平台", //目标名称
-    settingsName:"MyBuildPlatformtSettings", //需要先用Edition.extensionManager.createSettings注册
-    inspector: "TestBuildSettings"  //一个usage为build-settings的面板
-    templatePath : "editorResources/testTemplate" //可选的一个参数，指定的目录内放置构建模版文件，构建时将会自动拷贝到输出目录
-});
-```
-
-以下是一个完整的实例：
-
-```typescript
-@IEditor.panel("TestBuildSettings", { usage: "build-settings", title: "测试" })
-export class TestBuildSettings extends IEditor.EditorPanel {
-    @IEditor.onLoad
-    static start() {
-        Editor.typeRegistry.addTypes([
-            {
-                name: "MyTestSettings2",
-                catalogBarStyle : "hidden",
-                properties: [
-                    {
-                        name: "option1",
-                        type: "boolean",
-                        default: true
-                    },
-                    {
-                        name: "option2",
-                        type: "string",
-                        default: "2332",
-                    }
-                ]
-            }
-        ]);
-        Editor.extensionManager.createSettings("MyBuildPlatformtSettings", "project");
-        Editor.extensionManager.createBuildTarget("test", { caption: "自定义平台", settingsName:"MyTestSettings2", inspector: "TestBuildSettings" });
-    }
-
-    async create() {
-        let panel = IEditor.GUIUtils.createInspectorPanel();
-        panel.allowUndo = true;
-        panel.inspect(Editor.getSettings("MyBuildPlatformtSettings").data, "MyBuildPlatformtSettings");
-        this._panel = panel;
-    }
-}
-```
-
-效果如下：
-
-![14-1](img/14-1.png)
-
-在场景进程中，需要添加一个或者多个构建插件，用于这个新的自定义平台。
-
-```typescript
-@IEditorEnv.regBuildPlugin("test")
-export class TestBuildPlugin implements IEditorEnv.IBuildPlugin {
-
-    async onCreatePackage(task: IEditorEnv.IBuildTask) {
-        //这里platformConfig，对应的是MyBuildPlatformtSettings，不需要自行再getSettings
-        task.logger.info(task.platformConfig.option2);
-    }
-}
-```
-
-构建完成后，如果需要支持“运行”，构建插件需要定义runHandler。下面这个例子演示了通过Web访问构建后的内容，Web站的根目录就是构建的目标目录，所以传入了一个空串，如果是子目录，可以传入子目录的路径。
-
-```typescript
-@IEditorEnv.regBuildPlugin("test")
-export class TestBuildPlugin implements IEditorEnv.IBuildPlugin {
-
-    async onCreatePackage(task: IEditorEnv.IBuildTask) {
-        task.config.runHandler = {
-            serveRootPath : ""
-        };
-    }
-}
-```
 
 
 
