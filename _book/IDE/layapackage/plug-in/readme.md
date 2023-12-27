@@ -229,7 +229,7 @@ IEditor.InspectorPanel是一个通过配置生成界面的通用界面类，下�
 @IEditor.panel("Test")
 export class MyPanel extends IEditor.EditorPanel {
     private _data : any;
-    
+    declare _panel : IEditor.InspectorPanel;
     async create() {
         this._panel = IEditor.GUIUtils.createInspectorPanel();
         
