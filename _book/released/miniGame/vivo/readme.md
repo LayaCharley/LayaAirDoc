@@ -294,3 +294,12 @@ vivo小游戏官方提供了`qg.loadSubpackage()`API来触发分包的加载，�
 
 同时，`qg.loadSubpackage()`会返回一个 LoadSubpackageTask ，可以通过 LoadSubpackageTask 获取当前下载进度。
 
+
+
+## 五、常见问题
+
+**粒子渲染黑屏问题**
+
+vivo小游戏勾选使用3D粒子有时会遇到卡死、黑屏问题，这是由于vivo支持instance扩展以及支持vao扩展存在[问题](https://github.com/vivominigame/issues/issues/248)导致的。
+
+建议直接配置vao为true来避免直接修改引擎的麻烦，可以在项目中配置vivo的[发布模板](../readme.md)：在发布模板的manifest.json中配置好vao，并设置最小平台版本为最低支持引擎版本（1102）以上。
