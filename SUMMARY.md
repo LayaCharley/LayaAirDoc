@@ -122,6 +122,7 @@
   - [预制体模块](IDE/prefab/readme.md)
   - [IDE插件系统](IDE/layapackage/readme.md)
     * [插件开发说明](IDE/layapackage/plug-in/readme.md)
+    * [插件导入使用说明](IDE/layapackage/pluginImport/readme.md)
     - [官方插件](IDE/layapackage/Layabox/readme.md)
       * [LOD减面插件](IDE/layapackage/Layabox/LOD/readme.md)
 - 进阶使用
