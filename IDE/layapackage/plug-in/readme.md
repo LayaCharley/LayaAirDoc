@@ -1024,7 +1024,81 @@ test() {
 }
 ```
 
+在很多情况下，如果只是代码里用到的一些小量国际化的支持，并不想创建多个json文件，那么也有全代码的方法。
 
+```typescript
+//第一个参数需要全局唯一
+let myI18n = gui.Translations.create("LodSimplify");
+myI18n.setContent("zh-CN", {
+    meshRate : "模型压缩比例",
+    meshRateTips : "根据设置的比例对模型网格进行压缩2x"
+});
+
+Editor.typeRegistry.addTypes([
+{
+    name: "LodSimplifyData",
+    properties: [
+        {
+            name: "meshRate",
+            type : "number",
+            caption: myI18n.t("meshRate", "Mesh Rate"),
+            tips: myI18n.t("meshRateTips", "Compress the model mesh based on the set ratio."),
+        }
+     ]
+ }
+```
+
+可以多次调用setContent添加不同语言的翻译，下面的例子添加了语言en的翻译，所以在应用t函数时可以省略默认值。
+
+```typescript
+//第二个参数是备用语言ID，默认是en，所以在这里是可以省略不写的
+let myI18n = gui.Translations.create("LodSimplify", "en");
+myI18n.setContent("zh-CN", {
+    meshRate : "模型压缩比例",
+    meshRateTips : "根据设置的比例对模型网格进行压缩2x"
+}).setContent("en", {
+    meshRate: "Mesh Rate2",
+    meshRateTips: "Compress the model mesh based on the set ratio."
+});
+
+Editor.typeRegistry.addTypes([
+{
+    name: "LodSimplifyData",
+    properties: [
+        {
+            name: "meshRate",
+            type : "number",
+            caption: myI18n.t("meshRate"),
+            tips: myI18n.t("meshRateTips"),
+        }
+     ]
+ }
+```
+
+
+
+## 十七、命令行支持
+
+可以在终端中启动编辑器，并在后台执行脚本，参数为：
+
+```
+> LayaAirIDE --project=/path/to/project --script=MyScript.buildWeb
+```
+
+**--project:**  项目路径
+
+**--script:** 指定执行的脚本
+
+例如，使用以下脚本，可以使用命令行构建Web平台。脚本执行结束后，后台进程会自动退出。
+
+```typescript
+@IEditorEnv.regClass()
+class MyScript {
+    static async buildWeb() {
+        return IEditorEnv.BuildTask.start("web").waitForCompletion();
+    }
+}
+```
 
 
 
