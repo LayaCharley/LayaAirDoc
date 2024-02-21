@@ -84,7 +84,7 @@ settings.json里当前只配置了一些需要隐藏显示的文件，让项目�
 
 `.meta`是IDE用于识别与管理文件的文件，开发者也无需关注。
 
-`Library、temp、local、settingst`这些目录，也是IDE仅供系统配置使用，不希望开发者修改，也给隐藏了起来。
+`library、temp、local、settings`这些目录，也是IDE仅供系统配置使用，不希望开发者修改，也给隐藏了起来。
 
 
 
