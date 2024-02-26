@@ -125,6 +125,7 @@
     * [插件导入使用说明](IDE/layapackage/pluginImport/readme.md)
     - [官方插件](IDE/layapackage/Layabox/readme.md)
       * [LOD减面插件](IDE/layapackage/Layabox/LOD/readme.md)
+      * [3D骨骼动作烘焙插件](IDE/layapackage/Layabox/BakeAnimation/readme.md)
 - 进阶使用
     * [2.x引擎项目升级指南](basics/2.x-Upgrade/readme.md)
     - [2D进阶](2D/advanced/readme.md)
