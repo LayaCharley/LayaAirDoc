@@ -10,6 +10,7 @@
       * [LayaTree调试工具](basics/LayaTree/readme.md)
 - 引擎基础
     - [IDE基础](basics/IDE/readme.md)
+      
       * [自定义界面布局](basics/IDE/layouts/readme.md)
       * [项目工程目录说明](basics/IDE/projecFolders/readme.md)
       * [项目设置详解](basics/IDE/projectSettings/readme.md)
@@ -152,6 +153,7 @@
       * [vivo小游戏](released/miniGame/vivo/readme.md)
       * [小米快游戏](released/miniGame/xiaomi/readme.md)
       * [支付宝小游戏](released/miniGame/alipaygame/readme.md)
+      * [淘宝小游戏](released/miniGame/tbgame/readme.md)
     - [Native打包发布](released/native/LayaNative_Introduction/readme.md)
       * [LayaNative不是浏览器](released/native/native_index/readme.md)
       * [安卓/iOS构建](released/native/build_Tool/readme.md)
