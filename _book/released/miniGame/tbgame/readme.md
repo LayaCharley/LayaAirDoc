@@ -4,9 +4,9 @@
 
 ## 一、概述
 
-淘宝创意小游戏是指开发者基于[淘宝开放平台](https://open.taobao.com/)开发，直接投放至手淘、猫客、淘特等消费者端为淘宝、淘特消费者提供各年龄段适用游戏，包含养成类、益智类、合成类、建造类等。
+淘宝小游戏是指开发者基于[淘宝开放平台](https://open.taobao.com/)开发，直接投放至手淘、猫客、淘特等消费者端为淘宝、淘特消费者提供各年龄段适用游戏，包含养成类、益智类、合成类、建造类等。
 
-推荐开发者查看淘宝官方对于[创意小游戏的介绍](https://open.taobao.com/v2/doc#/abilityToOpen?docType=1&docId=121009&treeId=804)，能够了解应用场景、查看接入指南等。还可以浏览一下淘宝官方的[开发指南](https://open.taobao.com/v2/doc#/abilityToOpen?treeId=776&docId=119114&docType=1)。
+推荐开发者查看淘宝官方对于[小游戏的介绍](https://open.taobao.com/v2/doc#/abilityToOpen?docType=1&docId=121009&treeId=804)，能够了解应用场景、查看接入指南等。还可以浏览一下淘宝官方的[开发指南](https://open.taobao.com/v2/doc#/abilityToOpen?treeId=776&docId=119114&docType=1)。
 
 **下载并安装淘宝开发者工具**
 
