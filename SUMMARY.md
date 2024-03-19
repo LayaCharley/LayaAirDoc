@@ -10,7 +10,6 @@
       * [LayaTree调试工具](basics/LayaTree/readme.md)
 - 引擎基础
     - [IDE基础](basics/IDE/readme.md)
-      
       * [自定义界面布局](basics/IDE/layouts/readme.md)
       * [项目工程目录说明](basics/IDE/projecFolders/readme.md)
       * [项目设置详解](basics/IDE/projectSettings/readme.md)
@@ -138,6 +137,7 @@
       * [和原生Dom交互](2D/dom/readme.md)
     - [3D进阶](3D/advanced/readme.md)
       * [自定义Shader](3D/advanced/customShader/readme.md)
+      * [自定义物理引擎](3D/advanced/customPhysicsEngine/readme.md)
       * [后处理](3D/advanced/PostProcessing/readme.md)
       * [CommandBuffer](3D/advanced/CommandBuffer/readme.md)
       * [3D性能优化](3D/advanced/performanceOptimization/readme.md)
@@ -169,5 +169,5 @@
       * [嵌入字体](released/native/built_in_font/readme.md)
       * [zip更新](released/native/zipUpdate/readme.md)
       * [APK扩展机制](released/native/apk_expansion/readme.md)
-      * [layanative 命令行工具使用](released/native/build_Cmd/readme.md)
+      * [layaAirNative命令行工具使用](released/native/build_Cmd/readme.md)
       * [其他](released/native/Other_settings/readme.md)
