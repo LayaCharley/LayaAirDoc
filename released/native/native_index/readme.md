@@ -20,9 +20,11 @@
 
 **LayaNative的启动入口默认为**
 
-通过LayaAirIDE的菜单栏`工具`--> `app构建` ，打开的构建项目窗口里，URL那里配置好即可，配置方式如图1所示。
+通过LayaAirIDE的菜单栏`文件`--> `构建发布` ，打开的构建项目窗口里，URL那里配置好即可，配置方式如图1所示。
 
-<img src="img/1.png" style="zoom:50%;" />  
+> 还需要进行[通用](../../generalSetting/readme.md)配置。
+
+![1](img/1.png)
 
 在图1里，入口默认为index.js
 
