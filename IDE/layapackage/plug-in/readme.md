@@ -469,7 +469,7 @@ class AnyName {
 ```TypeScript
 class AnyName {
     static testEnable() {
-        return Editor.secene.getSelection().length > 0;
+        return Editor.scene.getSelection().length > 0;
     }
     
     @IEditor.menu("Hierarchy/test", { enableTest: ()=> AnyName.testEnable() } )
