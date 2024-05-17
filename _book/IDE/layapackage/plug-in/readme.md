@@ -126,9 +126,20 @@ let ret = await Editor.scene.runScript("TestSceneScript.test", "hello");
 console.log(ret); //ok
 ```
 
+特别的用法，可以通过window对象调用eval执行脚本，用于一些简单的需求，例如：
+
+```typescript
+let str = await Editor.scene.runScript("window.eval", `
+    (function() {
+        //do something
+        return "hello";
+    }())
+`);
+```
 
 
-4、场景进程如果需要向UI进程发送消息，通过以下方法：
+
+4、场景进程向UI进程发送消息：
 
 ```typescript
 //选中项目资源面板一个资源
@@ -136,11 +147,60 @@ EditorEnv.postMessageToPanel("ProjectPanel", "select", assetId);
 
 //调用自定义的Panel的一个方法，并返回结果
 let ret = await EditorEnv.sendMessageToPanel("MyPanel", "getResult");
+
+//使用eval执行一些简单的脚本
+let ret = await EditorEnv.runUIScript("window.eval", `
+    (function() {
+        //do something
+        return "hello";
+    }())
+`);
 ```
 
 
 
-### 2.3 脚本隔离机制
+### 2.3 预览运行进程和UI进程的通讯方式
+
+1、预览运行进程调用UI进程的脚本：
+
+```typescript
+let EditorClient = (<any>window).EditorClient;
+EditorClient.postMessageToPanel("ProjectPanel", "select", assetId);
+
+//调用自定义的Panel的一个方法，并返回结果
+let ret = await EditorClient.sendMessageToPanel("MyPanel", "getResult");
+
+//使用eval执行一些简单的脚本
+let ret = await EditorClient.runUIScript("window.eval", `
+    (function() {
+        //do something
+        return "hello";
+    }())
+`);
+```
+
+
+
+2、 UI进程调用预览运行进程的脚本：
+
+```typescript
+//下面是游戏的逻辑代码
+
+@Laya.regClass()
+export class TestGameScript {
+    static test(msg: string) {
+        console.log(msg); //hello
+        
+        return "ok";
+    }
+}
+
+//下面是UI进程的代码
+
+//这里用runScriptMax而不是runScript，因为在播放状态下，runScript依然会发送到源场景，而不是正在播放的场景
+let ret = await Editor.scene.runScriptMax("TestGameScript.test", "hello");
+console.log(ret); //ok
+```
 
 编辑器实现脚本隔离的机制是将脚本编译成三个js，bundle.js包含可以在预览环境，也就是在浏览器可以运行的版本；bundle.editor.js是在UI进程运行的脚本；bundle.scene.js是在Scene进程的脚本。这个机制是自动的，但开发者需了解这个机制的运作方式：
 
@@ -772,6 +832,14 @@ class MyBuildPlugin implements IEditorEnv.IBuildPlugin {
 
 ```typescript
 await IEditorEnv.utils.installCli("@oppo-minigame/cli", options);
+```
+
+（5）使用IEditorEnv.utils.exeCli执行npm/npx或者使用installCli安装的cli。例如：
+
+```typescript
+await IEditorEnv.utils.exeCli("npm", ["install"], options);
+
+await IEditorEnv.utils.exeCli("quickgame", args, options); //假设quickgame已通过installCli安装
 ```
 
 （6)  使用IEditorEnv.utils.exec执行任意本地命令。
