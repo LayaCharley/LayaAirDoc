@@ -119,6 +119,7 @@
     * [体积全局照明](IDE/Component/VolumetricGI/readme.md)
     * [静态合批](IDE/Component/StaticBatchVolume/readme.md)
     * [LOD组](IDE/Component/LOD/readme.md)
+    * [3D寻路](IDE/Component/navMesh/readme.md)
   - [预制体模块](IDE/prefab/readme.md)
   - [IDE插件系统](IDE/layapackage/readme.md)
     * [插件开发说明](IDE/layapackage/plug-in/readme.md)
@@ -142,7 +143,6 @@
       * [CommandBuffer](3D/advanced/CommandBuffer/readme.md)
       * [3D性能优化](3D/advanced/performanceOptimization/readme.md)
       * [WebXR](3D/WebXR/readme.md)
-      * [3D寻路](3D/navMesh/readme.md)
       * [Unity资源导出插件](3D/advanced/Unity/readme.md)
 - 项目发布
     * [通用发布](released/generalSetting/readme.md)

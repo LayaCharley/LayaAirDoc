@@ -21,3 +21,5 @@
 ###  [静态合批](./StaticBatchVolume/readme.md)
 
 ###  [LOD组](./LOD/readme.md)
+
+### [3D寻路](./navMesh/readme.md)
