@@ -14,6 +14,4 @@
 
 ### [WebXR](../WebXR/readme.md)
 
-### [3D寻路](../navMesh/readme.md)
-
 ### [Unity资源导出插件](./Unity/readme.md)
