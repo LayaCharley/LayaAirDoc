@@ -146,7 +146,7 @@
       * [Unity资源导出插件](3D/advanced/Unity/readme.md)
 - 项目发布
     * [通用发布](released/generalSetting/readme.md)
-    * [命令行支持](released/commandLine/readme.md)
+    * [命令行发布](released/commandLine/readme.md)
     * [Web发布](released/web/readme.md)
     - [小游戏发布](released/miniGame/readme.md)
       * [微信小游戏](released/miniGame/wechat/readme.md)
