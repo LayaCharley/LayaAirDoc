@@ -127,7 +127,7 @@ Sprite3D的数量是影响游戏性能的重要因素之一。Sprite3D数量过�
 
 TriangleFace是性能统计面板中的一个指标，表示当前场景中渲染的三角形面数。TriangleFace的值越大，表示场景中需要渲染的三角形面数越多，对于性能的影响也越大。
 
-在3D渲染中，每个MeshRenderer（MeshSprite3D、SkinnedMeshSprite3D）都由多个三角形面组成。因此，在开发中应尽量减少需要渲染的三角形面数，以提高游戏的性能表现。如图6-1所示。
+在3D渲染中，每个MeshRenderer都由多个三角形面组成。因此，在开发中应尽量减少需要渲染的三角形面数，以提高游戏的性能表现。如图6-1所示。
 
 ![6-1](img/6-1.png)
 
@@ -144,7 +144,7 @@ TriangleFace是性能统计面板中的一个指标，表示当前场景中渲�
 
 ## 7、RenderNode数值说明
 
-RenderNode是性能统计面板中的一个指标，表示当前场景中渲染节点的数量。渲染节点是指需要进行渲染的节点，包括Sprite、MeshSprite3D、SkinnedMeshSprite3D等。
+RenderNode是性能统计面板中的一个指标，表示当前场景中渲染节点的数量。渲染节点是指需要进行渲染的节点，包括2D节点和3D节点。
 
 RenderNode的数量是影响游戏性能的重要因素之一。RenderNode数量过多，会导致渲染次数增加，从而影响游戏的帧率和性能表现。如图7-1所示 。
 
