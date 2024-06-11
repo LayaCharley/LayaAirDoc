@@ -154,7 +154,7 @@ RenderNode的数量是影响游戏性能的重要因素之一。RenderNode数量
 
 ## 8、SkinRenderNode数值说明
 
-SkinRenderNode是性能统计面板中的一个指标，表示当前场景中骨骼动画渲染节点的数量。骨骼动画渲染节点是指需要进行骨骼动画渲染的节点，包括SkinnedMeshSprite3D等。如图8-1所示 。
+SkinRenderNode是性能统计面板中的一个指标，表示当前场景中骨骼动画渲染节点的数量。骨骼动画渲染节点是指需要进行骨骼动画渲染的节点。如图8-1所示 。
 
 SkinRenderNode的数量是影响游戏性能的重要因素之一。SkinRenderNode数量过多，会导致渲染次数增加，从而影响游戏的帧率和性能表现。 
 
