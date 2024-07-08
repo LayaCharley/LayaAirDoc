@@ -1144,3 +1144,446 @@ Editor.typeRegistry.addTypes([
 ```
 
 
+
+## 十七、添加新的资源类型
+
+可以通过插件为IDE增加新的可识别的资源类型，资源类型通常使用特殊的扩展名进行识别。
+
+### 17.1 设置资源的显示图标
+
+示例代码如下：
+
+```typescript
+class AssetHelper {
+    @IEditor.onLoad
+    onLoad() {
+        //为扩展名为abc的文件设置图标为abc.svg
+        Editor.extensionManager.setFileIcon(["abc"], "editorResources/abc.svg");
+    }
+}
+```
+
+
+
+### 17.2 设置资源的分类名称
+
+ 当资源需要被用户挑选时，这时需要使用到资源的分类。
+
+```typescript
+class AssetHelper {
+    @IEditor.onLoad
+    onLoad() {
+        //为扩展名为abc的文件设置分类名称
+        Editor.extensionManager.setFileType(["abc"], "ABC Files");
+    }
+}
+```
+
+ 如果脚本组件上需要支持选择abc扩展名的资源，那可以这样写：
+
+```typescript
+@property({ type: "string", isAsset:true, typeAssetFilter: "ABC Files"})
+abcResource: string;
+```
+
+
+
+
+
+## 十八、自定义的资源缩略图
+
+资源在资源库中一般显示为图标，但某些特殊资源可以支持显示为一个缩略图。例如，目前IDE已经支持了图片、材质和模型显示为缩略图。
+
+（注意：如下图两个红色箭头所示，需要开启双列显示，并且图标大小不为最小时，才会显示缩略图，否则显示为图标）
+
+![18-1](img/18-1.png)
+
+为某种资源添加资源缩略图通过以下方式实现：
+
+```typescript
+class AssetHelper {
+    @IEditor.onLoad
+    onLoad() {
+        //为扩展名为abc的文件设置缩略图，DemoThumbnailPlugin是一个场景脚本的名字
+        Editor.extensionManager.setFileThumbnail(["abc"], "DemoThumbnailPlugin");
+    }
+}
+```
+
+```typescript
+//生成缩略图的场景脚本
+
+@IEditorEnv.regClass()
+export class DemoThumbnailPlugin extends IEditorEnv.AssetThumbnail {
+    async generate(asset: IEditorEnv.IAssetInfo): Promise<string | Buffer> {
+        //这里可以返回两种类型
+        //1. 字符串类型。为一个png/jpg/svg文件的绝对路径。
+        //2. Buffer类型。为一个png/jpg/svg格式的数据。
+        //图片的大小建议为AssetThumbmail.imageSize
+    }
+}
+```
+
+ 以下是IDE内置的ImageThumbmail的一个简略版本，供参考：
+
+```typescript
+const sharp = IEditorEnv.require("sharp");
+       
+@IEditorEnv.regClass()
+export class DemoThumbnailPlugin extends IEditorEnv.AssetThumbnail {
+    async generate(asset: IEditorEnv.IAssetInfo): Promise<string | Buffer> {
+        let file = EditorEnv.assetMgr.getFullPath(asset);
+        let img = sharp(file);
+        let meta = await img.metadata();
+        if (meta.width < 200 && meta.height < 200)
+            return "source"; //source是一个特殊的字符串，表示返回源文件。
+        else
+            return await img.resize(AssetThumbnail.imageSize, AssetThumbnail.imageSize, 
+                { fit: "inside" }).png().toBuffer();
+    }
+}
+```
+
+
+
+## 十九、自定义资源的预览面板
+
+资源的预览是指下图红框中的界面：
+
+![19-1](img/19-1.png)
+
+这部分界面可以由插件自定义：
+
+```typescript
+/**
+    面板的usage必须为preview
+    当一个资源被选中时，会调用所有usage为preview的面板的accept方法，第一个返回true的将显示出来
+    面板的顺序通常是由注册顺序决定，但也可以通过order参数制定，order越小，判断顺序越前。例如
+    { usage : "preview", order: -1 }
+*/    
+@IEditor.panel("TestPreview", { usage: "preview" })
+export class TestPreview extends IEditor.EditorPanel implements IEditor.IPreviewPanel {
+
+    async create(): Promise<void> {
+        this._panel = new gui.Widget();
+        let btn = IEditor.GUIUtils.createButton();
+        btn.setPos(150, 180);
+        this._panel.addChild(btn);
+    }
+    
+    accept(asset: IEditor.IAssetInfo): boolean {
+        return asset.ext === "abc"; //应用于扩展名是abc的资源
+    }
+
+    async refresh(asset: IEditor.IAssetInfo, render3DCanvas: IEditor.IRender3DCanvas): Promise<void> {
+        //这里执行具体的渲染逻辑，比如更新UI（this._panel）
+        
+        //如果需要绘制引擎中的3D内容，可以使用render3DCanvas这个接口。如果不需要，可忽略。
+        //render3DCanvas一般使用createObject接口，它的第一个参数是场景脚本的名称，第二个参数是脚本的函数的名字，其余参数是函数的参数
+        return render3DCanvas.createObject("DemoPreviewPlugin", "setAssetById", asset.id);
+    }
+}
+```
+
+```typescript
+//AssetPreview是IDE封装的具有离线渲染引擎对象功能的基类，
+//通过this.scene可得到一个配置完备的3D场景。然后将this.renderTarget设置为this.scene.scene3D，就可以将场景的内容返回到UI界面。
+//也可以通过this.sprite绘制纯2D内容，然后将this.renderTarget设置为this.sprite，就可以将2D内容返回到界面。
+
+@IEditorEnv.regClass()
+export class DemoPreviewPlugin extends IEditorEnv.AssetPreview {
+    constructor() {
+        super();
+
+        this.sprite.graphics.drawCircle(100, 100, 50, "#ffff00");
+        this.sprite.size(100, 100);
+    }
+
+    async setAsset(asset: IEditorEnv.IAssetInfo): Promise<any> {
+        this.renderTarget = this.sprite;
+    }
+}
+```
+
+显示效果如下：
+
+![19-2](img/19-2.png)
+
+
+
+## 二十、自定义资源的导入导出
+
+资源在第一次导入IDE，或者文件被修改后，会触发IDE的导入流程，这个导入流程的核心部分由AssetImporter完成。每种资源都可以有自己的Importer。资源Importer定义的方式如下：
+
+```TypeScript
+@IEditorEnv.regAssetImporter(["abc"])
+export class DemoAssetImporter extends IEditorEnv.AssetImporter {
+    async handleImport(): Promise<any> {
+        console.log("importing abc file");
+    }
+}
+```
+
+并非每种资源都需要定义Importer。 Importer一般用于在导入阶段对资源进行预处理，例如，生成临时文件信息在library目录。
+
+> 注意：Importer不允许修改资源的源文件，这会导致循环导入。
+
+当处于构建发布阶段时，资源会调用对应的Exporter进行处理。注册Exporter的方法如下：
+
+```TypeScript
+@IEditorEnv.regAssetExporter(["abc"])
+export class DemoAssetExporter extends IEditorEnv.AssetExporter {
+    async handleExport(): Promise<void> {
+        //导出处理
+        //当前正在处理的资源是this.asset
+        //输出信息在this.exportInfo
+    }
+}
+```
+
+在IDE编辑器中，资源引用的方式主要是uuid，但在发布后，资源引用的方式是路径。所以，在构建时，需要从uuid引用转化为路径引用。Exporter的主要功能是分析出资源的依赖，然后构建器会自动转换这些依赖。如果资源有依赖其他资源，可以用addQueue添加，但一般较方便的方式是使用parseLinks方法：
+
+IAssetLinkInfo结构由开发者填充并传入，例如
+
+```TypeScript
+const links = [ { obj: "data", prop: "url", url : "b5b5975b-3d93-4ee5-83a3-68d25c2354bf" };
+this.exportInfo.deps = this.parseLinks(links);
+```
+
+构建器在输出阶段，将会自动处理这些依赖的更新，以上面的代码为例，假设“b5b5975b-3d93-4ee5-83a3-68d25c2354bf”输出的路径是"test/123.xyz"，那么输出时将会自动设置data[url] = "test/123.xyz"。
+
+除了分析和转换依赖，Exporter还可以改写资源的输出，这主要是通过exportInfo.contents数组。默认情况下，exportInfo.contents包含了一个元素，它表示将源文件原样复制到输出目录。下面的例子是直接替换源文件的输出，改为输出一个文本。
+
+```TypeScript
+this.exportInfo.contents[0] = { type: "text", data: "this is demo text" };
+```
+
+type参数的可选值有text/json/xml/arraybuffer/bytes/filePath/custom，特别的，filePath是一个文件的绝对路径，custom可以指定一个自定义的回调函数。
+
+如果资源不需要输出，那可以直接将输出内容置为空数组，即：
+
+```TypeScript
+this.exportInfo.contents.length = 0;
+```
+
+如果资源不需要输出，也不会被其他资源引用，例如是仅在IDE内使用的配置文件，那么可以在注册Exporter就声明exclulde为true：
+
+```TypeScript
+@IEditorEnv.regAssetExporter(["abc"], { exclude: "true" } )
+export class DemoAssetExporter extends IEditorEnv.AssetExporter {} //不需要任何实现代码
+```
+
+在上面的例子里，资源的扩展名是abc，但在实际应用中，abc这个扩展名未必能被部分Web服务器或者小游戏环境支持，这时我们可以定义一个扩展名转换：
+
+```TypeScript
+this.fileExtensionOverrides["abc"] = "abc.json";
+```
+
+这样，test.abc发布后就会变成test.abc.json。要注意的是，这个转换行为是底层行为，也就是说，开发者如果在代码里需要载入test.abc时，依然是使用test.abc而不需要用test.abc.json。
+
+
+
+## 二十一、自定义资源配置界面
+
+为资源设计配套的配置界面，需要根据资源的特性进行考虑，下面就集中典型的资源特性展开描述：
+
+### 21.1 素材型资源
+
+这类资源的特点是，它通常来自于DCC软件，不会在IDE中二次编辑，也不需要在选中时就载入资源。典型的如图片、模型。它需要配置的属性主要是用于Importer，即自定义导入参数。自定义导入参数我们约定是保存在meta文件的importer属性中。所以，这类资源的配置界面可以这样定义：
+
+```TypeScript
+@IEditor.regClass()
+export class DemoABCImportSettings {
+    @IEditor.property(String)
+    name: string = "";
+
+    @IEditor.property(Number)
+    age: number = 18;
+
+    @IEditor.property(Number)
+    gender: number =1;
+}
+
+@IEditor.inspectorLayout("asset")
+export class DemoInspectorLayout extends IEditor.MetaDataInspectorLayout {
+    constructor() {
+        super(DemoABCImportSettings);
+    }
+
+    accept(asset: IEditor.IAssetInfo): boolean {
+        return asset.ext === "abc";
+    }
+}
+```
+
+DemoABCType是一个自定义的类，它必须通过IEditor.regClass定义。它的用法有点类似于Laya.regClass定义的组件类，也是可以使用@property定义各种属性，不同在于，它生存在UI进程，因此不能使用引擎的对象。
+
+IEditor.inspectorLayout注册了一个编辑器布局，第一个参数指定是选择资源时会触发（如果是“node”，则是选定场景节点时会触发）。IEditor.MetaDataInspectorLayout是一个典型的从meta文件读取数据和写入数据到meta文件的处理。
+
+显示如果如下：
+
+![21-1](img/21-1.png)
+
+修改数据并点击应用按钮，观察meta文件的变化，可以看到数据写入到了meta文件的importer属性内。这部分数据，在AssetImporter的settings属性可以读取到。
+
+![21-2](img/21-2.png)
+
+
+
+### 21.2 实时读写的资源
+
+这类资源的特点，IDE在显示此类资源属性时，需要先在引擎中载入该资源（或者已经由场景节点先行载入)，同一个资源总是对应同一个实例。典型的如材质。修改一个材质文件时，所有使用到此材质的物体都会发生改变。
+
+首先，需要为资源定义一个Laya.Resource的派生类：
+
+```TypeScript
+//因为这个类需要在实际游戏环境中使用，所有请勿和其他包含@IEditorEnv装饰器的脚本混杂在一起
+
+@Laya.regClass()
+export class ABCResource extends Laya.Resource {
+    @Laya.property(String)
+    name: string = "";
+
+    @Laya.property(Number)
+    age: number = 18;
+
+    @Laya.property(Number)
+    gender1: number = 100;
+
+    constructor() {
+        super();
+    }
+}
+```
+
+然后定义资源的载入方式：
+
+```TypeScript
+//因为这个类需要在实际游戏环境中使用，所有请勿和其他包含@IEditorEnv装饰器的脚本混杂在一起
+
+//第三个参数是true，表示资源支持热重载。如果资源需要支持热重载，需要在load方法里判断是否有task.obsuluteInst,
+//如果有，需要使用此实例去重载资源的实际内容并返回。如果不需要支持热重载，则忽略。
+@Laya.regLoader(["abc"], null, true)
+export class DemoAssetLoader implements Laya.IResourceLoader {
+
+    async load(task: Laya.ILoadTask): Promise<any> {
+        let json = await task.loader.fetch(task.url, "json");
+        let res = task.obsoluteInst ? task.obsoluteInst : new ABCResource();
+        Object.assign(res, json);
+        return res;
+
+    }
+}
+```
+
+注册了Loader后，在游戏代码里就可以使用Loader加载资源：
+
+```TypeScript
+let res: ABCResource = await Laya.Loader.load("xx.abc");
+```
+
+资源还需要定义保存的方式，因为保存操作只会发生在IDE内，所以这里用的是IEditorEnv，主要不要和游戏代码混合在一起。
+
+```TypeScript
+//AssetSaver只在IDE内使用，不会发布到最终的游戏中
+
+@IEditorEnv.regAssetSaver(["abc"])
+export class DemoAssetSaver implements IEditorEnv.IAssetSaver {
+    async onSave(asset: IEditorEnv.IAssetInfo, res: ABCResource): Promise<any> {
+        //SerializeUtil是一个可以将组件序列化为json的工具类，直接使用最方便
+        let data = IEditorEnv.SerializeUtil.encodeObj(res, null, { writeType: false });
+        await IEditorEnv.utils.writeJsonAsync(EditorEnv.assetMgr.getFullPath(asset), data);
+    }
+}
+```
+
+在UI进程为资源定义属性界面，这种类型的资源，使用基类ResourceInspectorLayout即可，无需额外编码
+
+```TypeScript
+@IEditor.inspectorLayout("asset")
+export class DemoInspectorLayout extends IEditor.ResourceInspectorLayout {
+    constructor() {
+        super();
+    }
+
+    accept(asset: IEditor.IAssetInfo): boolean {
+        return asset.ext === "abc";
+    }
+}
+```
+
+界面的显示效果为：
+
+![21-3](img/21-3.png)
+
+可以看到这里是没有"应用”和“撤销”按钮的，所有属性的改变都会立刻同步到场景的资源实例里，并实时影响场景效果。
+
+保存的文件内容为：
+
+![21-4](img/21-4.png)
+
+资源会在恰当的时机保存到文件，例如任何场景的保存，构建发布前，关闭编辑器前等。
+
+
+
+### 21.3 离线的资源
+
+这类资源的特点是在编辑和查看属性时，不需要在引擎中生成资源实例。它通常是`json/xml/bin`这种普通的格式，可能需要在实际游戏中使用，也可能仅仅是在IDE里做一个配置。典型的如位图字体，自动图集等。
+
+这里我们同样使用了一个自定义类，也就是说，文件内容将会是一个json文件，它由DemoABCType序列化生成。
+
+```TypeScript
+@IEditor.regClass()
+export class DemoABCType {
+    @IEditor.property(String)
+    name: string = "";
+
+    @IEditor.property(Number)
+    age: number = 18;
+
+    @IEditor.property(Number)
+    gender: number =1;
+}
+
+@IEditor.inspectorLayout("asset")
+export class DemoInspectorLayout extends IEditor.FileInspectorLayout {
+    constructor() {
+        super(DemoABCType);
+    }
+
+    accept(asset: IEditor.IAssetInfo): boolean {
+        return asset.ext === "abc";
+    }
+}
+```
+
+如果目标文件不是json文件，例如是xml，或者是二进制，可以自行重写FileInspectorLayout的readFile和writeFile，返回转移后的json对象即可。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
