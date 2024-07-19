@@ -106,3 +106,12 @@ export class NewScript extends Laya.Script {
 }
 ```
 
+另外，spine的GPU渲染优化，默认是开启的，不需要开发者做额外的操作。如果想关闭进行测试，可以使用如下代码：
+
+```typescript
+// 关闭GPU骨骼动画优化
+Laya.SketonOptimise.normalRenderSwitch = true;
+```
+
+
+
