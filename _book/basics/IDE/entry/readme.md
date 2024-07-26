@@ -139,21 +139,22 @@ LayaAir 3.0引擎，只能在IDE里设置启动场景作为项目的入口。如
 
 由于之前的流程，是先初始化引擎，然后再加载与启动入口场景。但是在某些特殊的情况下，开发者可能需要在引擎初始化之前执行一些逻辑，例如需要提前判断不同的运行环境等。
 
-那我们也提供了自定义的代码流程，通过`Laya.LayaEnv.beforeInit`定义引擎初始化之前要执行的逻辑，通过`Laya.LayaEnv.afterInit`定义引擎初始化之后要执行的逻辑。
+那我们也提供了自定义的代码流程，通过`Laya.addBeforeInitCallback`定义引擎初始化之前要执行的逻辑，通过`Laya.addAfterInitCallback`定义引擎初始化之后要执行的逻辑。
 
 例如，在开发者创建项目时会自动生成一个`Main.ts`，加入下面的代码：
 
 ```typescript
-Laya.LayaEnv.beforeInit = function(config: Laya.IStageConfig) {
-    //这个方法会在Laya.init前调用
+// 在引擎初始化前执行自定义逻辑(此方法在Laya.init前调用)
+Laya.addBeforeInitCallback(() => {
     console.log("before init");
-    //这里可以对config以及Laya.Config、Laya.Config3D进行自定义的修改
-}
+});
 
-Laya.LayaEnv.afterInit = function() {
-    //这个方法会在Laya.init后调用
+
+// 在引擎初始化后执行自定义逻辑(此方法在Laya.init后调用)
+Laya.addAfterInitCallback(()=>{
     console.log("after init");
-}
+});
+
 
 const { regClass, property } = Laya;
 @regClass()
