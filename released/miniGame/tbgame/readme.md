@@ -126,6 +126,98 @@ resources资源目录和场景文件Scene.ls，小游戏由于初始包的限制
 >
 > 请参考淘宝小游戏[官方文档](https://open.taobao.com/v2/doc#/abilityToOpen?docId=119146&docType=1)。
 
+### 4.1 推荐使用根目录进行分包
+
+一般来说，在进行图4-1所示的分包时，通常选取的sub1和sub2是资源根目录（assets目录下），如图4-2所示，
+
+![4-2](img/4-2.png)
+
+（图4-2）
+
+其发布后的情况如图4-3所示（sub1和sub2都作为根目录）。
+
+![4-3](img/4-3.png)
+
+（图4-3）
+
+此时，在代码中加载分包，是可以加载到分包内的资源的：
+
+```typescript
+        Laya.loader.load("sub1/Cube.lh").then((res: Laya.PrefabImpl) => {
+            // ......
+        });
+
+        Laya.loader.load("sub2/Sphere.lh").then((res: Laya.PrefabImpl) => {
+            // ......
+        });
+```
+
+
+
+### 4.2 特殊情况下多级目录的分包
+
+有时开发者的分包选取的并不是资源根目录（assets目录下），如图4-4所示，
+
+![4-4](img/4-4.png)
+
+（图4-4）
+
+这样分包，发布后的结果如图4-5所示（sub1和sub2都不是根目录），
+
+![4-5](img/4-5.png)
+
+（图4-5）
+
+此时，在代码中加载分包：
+
+```typescript
+        Laya.loader.load("sub/sub1/Cube.lh").then((res: Laya.PrefabImpl) => {
+            // ......
+        });
+
+        Laya.loader.load("sub/sub2/Sphere.lh").then((res: Laya.PrefabImpl) => {
+            // ......
+        });
+```
+
+在真机调试的时候，会编译报错，如图4-6所示。
+
+![4-6](img/4-6.png)
+
+（图4-6）
+
+这是由于淘宝小游戏的限制，所以开发者在发布后，需要更改game.json中的内容，如图4-7所示，将name改为单一目录名。
+
+![4-7](img/4-7.png)
+
+（图4-7）
+
+此时，在代码中加载分包，不要通过路径加载，而改为使用分包名进行加载：
+
+```typescript
+        Laya.loader.load("subname1/Cube.lh").then((res) => {
+            // ......
+        });
+
+        Laya.loader.load("subname2/Sphere.lh").then((res) => {
+            // ......
+        });
+```
+
+还需要注意的是，在构建发布时勾选了`启动时自动加载`选项，需要将自动加载的分包路径更改为分包名，如图4-8所示。
+
+![4-8](img/4-8.png)
+
+（图4-8）
+
+另外，更改分包名后，如果在分包中的资源有引用resources目录下的资源，需要注意层级关系，如图4-9所示。所以，不建议开发者在分包中引用其它目录下的资源。
+
+![4-9](img/4-9.png)
+
+（图4-9）
+
+综上，如果采用4.2节的方式分包，在发布后需要手动更改分包名。因此，建议开发者在管理资源时，就按照4.1节的方式进行规划，这样便于最终的分包。
+
 
 
 ## 五、Q&A
