@@ -4,6 +4,7 @@
     - [开发环境](basics/developmentEnvironment/readme.md)
       * [搭建基础开发环境](basics/developmentEnvironment/download/readme.md)
       * [IDE开发流程界面概述](basics/IDE/GUI/readme.md)
+      * [开发流程: Hello World](basics/IDE/helloWorld/readme.md)
     - [引擎学习必备技能](basics/essentialSkills/readme.md)
       * [TS语言基础](basics/language/readme.md)
       * [DevTools调试工具](basics/DevTools/readme.md)
