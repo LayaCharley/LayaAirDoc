@@ -112,6 +112,8 @@
   - [3D粒子编辑模块](IDE/particleEditor/readme.md)
   - [材质编辑模块](IDE/materialEditor/readme.md)
   - [蓝图编辑模块](IDE/ShaderBlueprint/readme.md)
+    * [蓝图](IDE/ShaderBlueprint/blueprint/readme.md)
+    * [着色器蓝图](IDE/ShaderBlueprint/ShaderBlueprint/readme.md)
   - [自定义组件](IDE/customComponent/readme.md)
     * [组件装饰器说明](IDE/customComponent/decorators/readme.md)
     * [组件属性的代码使用](IDE/customComponent/componentProperties/readme.md)
