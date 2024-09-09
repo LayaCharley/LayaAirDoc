@@ -12,14 +12,17 @@
 
 其中IEditor.utils/IEditorEnv.utils暴露了大量实用的工具函数，包括UUID生成，加密解密，ZIP压缩/解压，文件/目录拷贝/移动，HTTP请求，上传/下载等等。
 
-开发者可以直接使用node模块，另外，IDE也内置了一些常用的npm库，例如sharp，glob，pinyin, @svgdotjs/svg.js等。
+开发者可以直接使用node模块，另外，IDE也内置了一些常用的npm库，例如sharp，glob，pinyin, @svgdotjs/svg.js等。引用node内置模块可以使用import xx from "xx"的方式，所有IDE内置cjs模块都可以通过IEditor.require或者IEditorEnv.require去引用。
 
 ```typescript
-//使用nodejs模块的方式
+//可以通过import导入node内置模块
 import fs from "fs";
 import path from "path";
-const sharp = window.require("sharp");
-const glob = window.require("glob");
+
+//也可以通过require
+const fs = IEditor.require("fs");
+const sharp = IEditor.require("sharp");
+const glob = IEditor.require("glob");
 ```
 
 
@@ -44,7 +47,7 @@ const glob = window.require("glob");
 
 下面是一个推荐做法：
 
-```TypeScript
+```typescript
 //Script.ts
 @Laya.regClass()
 class Script extends Laya.Script {
@@ -75,7 +78,7 @@ class TestSceneScript {
 
 1、设置节点/组件属性后，场景里的节点/组件会自动刷新，无需代码。例如：
 
-```TypeScript
+```typescript
 //下面是UI进程代码
 
 //获取选中的节点
@@ -92,7 +95,7 @@ node.getComponent("MeshRenderer").props.enabled = false;
 
 2、调用节点/组件的一个方法，并返回值。例如：
 
-```TypeScript
+```typescript
 //下面是UI进程代码
 
 //获取选中的节点
@@ -107,7 +110,7 @@ console.log(ret);
 
 3、自定义一个函数，并执行。例如：
 
-```TypeScript
+```typescript
 //下面是场景进程的代码
 
 //注意：IEditorEnv.regClass是必须的
@@ -230,7 +233,7 @@ LayaAirIDE提供了开发编辑器UI的可视化编辑器。在`项目资源`面
 
 以面板为例，代码里载入该预制体的方法为：
 
-```TypeScript
+```typescript
 @IEditor.panel("Test")
 export class MyPanel extends IEditor.EditorPanel {
     async create() {
@@ -368,13 +371,52 @@ export class MyPanel extends IEditor.EditorPanel {
 
 
 
+在LayaAir3.2中，可以用更直观的方式定义数据类型，以上面的例子为例，可以改写为：
+
+```typescript
+@IEditor.regClass()
+export class MyPanelType {
+    @property(String)
+    text: string;
+    
+    @property(Number)
+    count: number;
+    
+    @IEditor.property({ inspector: "Buttons", options: { buttons: [{ caption: "点我", event: "my_click" }] } })
+    actions: any;
+}
+
+@IEditor.panel("Test")
+export class MyPanel extends IEditor.EditorPanel {
+    delcare _panel : IEditor.InspectorPanel;
+    private _comp : IEditor.DataComponent;
+    
+    async create() {
+        this._panel = IEditor.GUIUtils.createInspectorPanel();
+        
+        this._panel.allowUndo = true; //根据需要设置
+        //DataComponent可以方便的将你的组件和数据绑定在一起
+        this._comp = new IEditor.DataComponent(MyPanelType); 
+        
+        //inspect可以多次调用，将多个数据组合在一个面板编辑
+        this._panel.inspect(this._comp.props, MyPanelType);
+        
+        this._panel.on("my_click", ()=> {
+            alert("hello");
+        });
+    }
+} 
+```
+
+
+
 ## 五、自定义Inspector字段编辑界面
 
 当我们编写一个组件，并暴露某些字段到IDE编辑后，有时希望能够自定义某个字段的编辑界面，可以通过以下步骤：
 
 1、编写一个InspectorField
 
- ```TypeScript
+ ```typescript
 @IEditor.inspectorField("MyTestField")
 export class TestField extends IEditor.PropertyField {
     @IEditor.onLoad
@@ -402,7 +444,7 @@ InspectorField的create方法是同步的，所以这里不能用createWidget，
 
 2、设置字段的inspector属性为刚才取的名字，这里为MyTestField
 
- ```TypeScript
+ ```typescript
 @Laya.regClass()
 export class Script extends Laya.Script {
      @property({ type : Laya.Node, inspector: "MyTestField" })
@@ -422,7 +464,7 @@ export class Script extends Laya.Script {
 
 可以通过以下方式给编辑器增加一个面板
 
-```TypeScript
+```typescript
 @IEditor.panel("test", {
     title: "Test",
     icon : "editorResources/20230710-161955.png"
@@ -445,7 +487,7 @@ export class TestPanel extends IEditor.EditorPanel {
 
 可以通过以下方式创建一个弹出的对话框：
 
-```TypeScript
+```typescript
 //MyDialog.ts
 export class MyDialog extends IEditor.Dialog {
     async create() {
@@ -462,7 +504,7 @@ export class MyDialog extends IEditor.Dialog {
 
 在编辑器内，所有对话框都是单例。显示这个对话框的方式为：
 
-```TypeScript
+```typescript
 import { MyDialog } from "./MyDialog";
 
 Editor.showDialog(MyDialog, null);
@@ -474,7 +516,7 @@ Editor.showDialog(MyDialog, null);
 
 支持对编辑器现有菜单的扩展。如以下代码，在应用程序菜单栏的工具菜单下，新增了一个test的菜单，并且点击菜单会调用test函数。
 
-```TypeScript
+```typescript
 class AnyName {
     @IEditor.menu("App/tool/test")
     static test() {
@@ -489,7 +531,7 @@ menu的第一个参数表示菜单的路径，路径用"/"分隔，"App/tool/tes
 
 menu方法的第二个参数是可选参数，通过它可以进行一些额外的配置。例如：
 
-```TypeScript
+```typescript
 class AnyName {
     @IEditor.menu("App/tool/test", { position: "before openDevTools" } )
     static test() {
@@ -526,7 +568,7 @@ class AnyName {
 
 下面的例子演示了enableTest的用法。这个新加的菜单， 如果场景中没有选中的物体，则会显示变灰并且无法触发点击回调。
 
-```TypeScript
+```typescript
 class AnyName {
     static testEnable() {
         return Editor.scene.getSelection().length > 0;
@@ -545,7 +587,7 @@ class AnyName {
 
 可以创建新菜单，并用代码控制弹出。方法为：
 
-```TypeScript
+```typescript
 let menu = IEditor.Menu.create([ 
     { label: "test" , click : function() { console.log("clicked"); } }
  ]);
@@ -556,7 +598,7 @@ menu.show();
 
 菜单也支持级联，并且不限层数。例如：
 
-```TypeScript
+```typescript
 IEditor.Menu.create([ 
     { 
         label: "test" , 
@@ -575,7 +617,7 @@ IEditor.Menu.create([
 
 可以给菜单指定一个ID，通过ID引用菜单。但要注意ID值不要和编辑器内置的菜单或者其他人的菜单的ID冲突。
 
-```TypeScript
+```typescript
 IEditor.Menu.create("MyTestMenu", [ 
     { label: "test" , click : function() { console.log("clicked"); } }
  ]);
@@ -590,7 +632,7 @@ IEditor.Menu.create("MyTestMenu", [
 
 使用IEditorEnv.Gizmos/IEditorEnv.Handles/IEditorEnv.Gizmos2D提供的接口，在场景视图中绘制形状和交互式手柄。假设我们已经有一个自定义的组件Script1，通过IEditorEnv.customEditor这个装饰器，给Script1绑定一个CustomEditor脚本，以实现在编辑器内的自定义编辑。
 
-```TypeScript
+```typescript
 //Script1.ts
 
 @regClass()
@@ -621,7 +663,7 @@ export class TestCustomEditor extends IEditorEnv.CustomEditor {
 
 以下是2D的一个例子：
 
-```TypeScript
+```typescript
 @IEditorEnv.customEditor(Script2)
 export class TestCustomEditor extends IEditorEnv.CustomEditor {
     private _c: IEditorEnv.IGizmoCircle;
@@ -697,6 +739,24 @@ data.option2 = "hello";
 let settings = EditorEnv.getSettings("MyTestSettings");
 await settings.sync();
 console.log(settings.data.option2); //hello
+```
+
+在LayaAir3.2中，我们可以用更直观的方式定义数据类型，以上面的例子为例，可以改写为：
+
+```typescript
+@IEditor.regClass()
+export class MyTestSettingsType {
+    @property({ type: Boolean, default: true })
+    option1: boolean = true;
+    
+    @property(string)
+    options2: string = "";
+}
+
+@IEditor.onLoad
+static onLoad() {
+    Editor.extensionManager.createSettings("MyTestSettings", "project", MyTestSettingsType);
+}
 ```
 
 
@@ -777,6 +837,12 @@ export interface IBuildPlugin {
      */
     onBeforeExportAssets?(task: IBuildTask, exportInfoMap: Map<IAssetInfo, IAssetExportInfo>): Promise<void>;
 
+    /**
+     * 脚本导出完成。如果开发者需要对生成的代码进行修改，可以在这个事件里处理。因为在这时脚本还没压缩或者混淆（如果有）。
+     * @param task
+     */
+    onExportScripts?(task: IBuildTask): Promise<void>;
+ 
     /**
      * 导出资源完成。如果开发者需要添加自己的文件，或者及进行压缩等操作，可以在这个事件里处理。
      * @param task 
@@ -1188,6 +1254,34 @@ abcResource: string;
 
 
 
+### 17.3 设置资源的操作
+
+```typescript
+class AssetHelper {
+    @IEditor.onLoad
+    onLoad() {
+        //双击abc类型文件时打开VSCode
+        Editor.extensionManager.setFileAtions(["abc"], {
+            onOpen : asset=> IEditor.utils.openCodeEditor(Editor.assetDb.getFullPath(asset))
+        });
+    }
+}
+```
+
+ 这里支持的操作有：
+
+- onOpen 双击文件时触发。
+- onCreateNode 如果资源支持实例化为节点，那么在这里实现。例如：
+
+```typescript
+onCreateNode: asset => {
+    return Editor.scene.createNode("Image");
+}
+```
+
+- onDropToScene 资源被拖放到场景时被调用，如果没有定义这个方法，或者这个方法返回false，则会尝试调用onCreateNode创建节点，如果创建成功，新节点会添加到场景。
+- onCreateInField 当一个限定了接受当前资源类型的资源输入框处于空白状态时，双击会触发该方法。这通常用于创建新文件。
+
 
 
 ## 十八、自定义的资源缩略图
@@ -1315,7 +1409,7 @@ export class DemoPreviewPlugin extends IEditorEnv.AssetPreview {
 
 资源在第一次导入IDE，或者文件被修改后，会触发IDE的导入流程，这个导入流程的核心部分由AssetImporter完成。每种资源都可以有自己的Importer。资源Importer定义的方式如下：
 
-```TypeScript
+```typescript
 @IEditorEnv.regAssetImporter(["abc"])
 export class DemoAssetImporter extends IEditorEnv.AssetImporter {
     async handleImport(): Promise<any> {
@@ -1330,7 +1424,7 @@ export class DemoAssetImporter extends IEditorEnv.AssetImporter {
 
 当处于构建发布阶段时，资源会调用对应的Exporter进行处理。注册Exporter的方法如下：
 
-```TypeScript
+```typescript
 @IEditorEnv.regAssetExporter(["abc"])
 export class DemoAssetExporter extends IEditorEnv.AssetExporter {
     async handleExport(): Promise<void> {
@@ -1345,7 +1439,7 @@ export class DemoAssetExporter extends IEditorEnv.AssetExporter {
 
 IAssetLinkInfo结构由开发者填充并传入，例如
 
-```TypeScript
+```typescript
 const links = [ { obj: "data", prop: "url", url : "b5b5975b-3d93-4ee5-83a3-68d25c2354bf" };
 this.exportInfo.deps = this.parseLinks(links);
 ```
@@ -1354,7 +1448,7 @@ this.exportInfo.deps = this.parseLinks(links);
 
 除了分析和转换依赖，Exporter还可以改写资源的输出，这主要是通过exportInfo.contents数组。默认情况下，exportInfo.contents包含了一个元素，它表示将源文件原样复制到输出目录。下面的例子是直接替换源文件的输出，改为输出一个文本。
 
-```TypeScript
+```typescript
 this.exportInfo.contents[0] = { type: "text", data: "this is demo text" };
 ```
 
@@ -1362,20 +1456,20 @@ type参数的可选值有text/json/xml/arraybuffer/bytes/filePath/custom，特�
 
 如果资源不需要输出，那可以直接将输出内容置为空数组，即：
 
-```TypeScript
+```typescript
 this.exportInfo.contents.length = 0;
 ```
 
 如果资源不需要输出，也不会被其他资源引用，例如是仅在IDE内使用的配置文件，那么可以在注册Exporter就声明exclulde为true：
 
-```TypeScript
+```typescript
 @IEditorEnv.regAssetExporter(["abc"], { exclude: "true" } )
 export class DemoAssetExporter extends IEditorEnv.AssetExporter {} //不需要任何实现代码
 ```
 
 在上面的例子里，资源的扩展名是abc，但在实际应用中，abc这个扩展名未必能被部分Web服务器或者小游戏环境支持，这时我们可以定义一个扩展名转换：
 
-```TypeScript
+```typescript
 this.fileExtensionOverrides["abc"] = "abc.json";
 ```
 
@@ -1391,7 +1485,7 @@ this.fileExtensionOverrides["abc"] = "abc.json";
 
 这类资源的特点是，它通常来自于DCC软件，不会在IDE中二次编辑，也不需要在选中时就载入资源。典型的如图片、模型。它需要配置的属性主要是用于Importer，即自定义导入参数。自定义导入参数我们约定是保存在meta文件的importer属性中。所以，这类资源的配置界面可以这样定义：
 
-```TypeScript
+```typescript
 @IEditor.regClass()
 export class DemoABCImportSettings {
     @IEditor.property(String)
@@ -1436,7 +1530,7 @@ IEditor.inspectorLayout注册了一个编辑器布局，第一个参数指定是
 
 首先，需要为资源定义一个Laya.Resource的派生类：
 
-```TypeScript
+```typescript
 //因为这个类需要在实际游戏环境中使用，所有请勿和其他包含@IEditorEnv装饰器的脚本混杂在一起
 
 @Laya.regClass()
@@ -1458,7 +1552,7 @@ export class ABCResource extends Laya.Resource {
 
 然后定义资源的载入方式：
 
-```TypeScript
+```typescript
 //因为这个类需要在实际游戏环境中使用，所有请勿和其他包含@IEditorEnv装饰器的脚本混杂在一起
 
 //第三个参数是true，表示资源支持热重载。如果资源需要支持热重载，需要在load方法里判断是否有task.obsuluteInst,
@@ -1478,13 +1572,13 @@ export class DemoAssetLoader implements Laya.IResourceLoader {
 
 注册了Loader后，在游戏代码里就可以使用Loader加载资源：
 
-```TypeScript
+```typescript
 let res: ABCResource = await Laya.Loader.load("xx.abc");
 ```
 
 资源还需要定义保存的方式，因为保存操作只会发生在IDE内，所以这里用的是IEditorEnv，主要不要和游戏代码混合在一起。
 
-```TypeScript
+```typescript
 //AssetSaver只在IDE内使用，不会发布到最终的游戏中
 
 @IEditorEnv.regAssetSaver(["abc"])
@@ -1499,7 +1593,7 @@ export class DemoAssetSaver implements IEditorEnv.IAssetSaver {
 
 在UI进程为资源定义属性界面，这种类型的资源，使用基类ResourceInspectorLayout即可，无需额外编码
 
-```TypeScript
+```typescript
 @IEditor.inspectorLayout("asset")
 export class DemoInspectorLayout extends IEditor.ResourceInspectorLayout {
     constructor() {
@@ -1532,7 +1626,7 @@ export class DemoInspectorLayout extends IEditor.ResourceInspectorLayout {
 
 这里我们同样使用了一个自定义类，也就是说，文件内容将会是一个json文件，它由DemoABCType序列化生成。
 
-```TypeScript
+```typescript
 @IEditor.regClass()
 export class DemoABCType {
     @IEditor.property(String)
