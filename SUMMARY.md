@@ -114,6 +114,8 @@
   - [蓝图编辑模块](IDE/ShaderBlueprint/readme.md)
     * [程序蓝图](IDE/ShaderBlueprint/blueprint/readme.md)
     * [着色器蓝图](IDE/ShaderBlueprint/ShaderBlueprint/readme.md)
+  - [资源管理模块](IDE/assets/readme.md)
+    * [模型资源设置](IDE/assets/model/readme.md)
   - [自定义组件](IDE/customComponent/readme.md)
     * [组件装饰器说明](IDE/customComponent/decorators/readme.md)
     * [组件属性的代码使用](IDE/customComponent/componentProperties/readme.md)
