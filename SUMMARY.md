@@ -167,6 +167,7 @@
     - [Native打包发布](released/native/LayaNative_Introduction/readme.md)
       * [LayaNative不是浏览器](released/native/native_index/readme.md)
       * [安卓/iOS构建](released/native/build_Tool/readme.md)
+      * [Windows构建](released/native/build_Windows/readme.md)
       * [鸿蒙NEXT构建](released/native/build_Harmony/readme.md)
       * [横竖屏设置](released/native/screen_orientation/readme.md)
       * [启动画面LoadingView](released/native/loading_view_new/readme.md)
