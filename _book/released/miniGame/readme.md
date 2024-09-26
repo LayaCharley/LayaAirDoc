@@ -72,3 +72,5 @@ LayaAir 3.0当前适配了以下平台：
 
 - #### [支付宝小游戏](./alipaygame/readme.md)
 
+- #### [淘宝小游戏](./tbgame/readme.md)
+

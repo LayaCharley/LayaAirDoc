@@ -1655,6 +1655,40 @@ export class DemoInspectorLayout extends IEditor.FileInspectorLayout {
 
 
 
+## 二十二、场景钩子
+
+场景钩子用于实现对场景新建对象、载入、保存等特定流程里插入自定义的逻辑。
+
+```typescript
+@IEditorEnv.regSceneHook()
+export class TestSceneHook implements IEditorEnv.ISceneHook {
+    onLoadScene() {
+    }
+
+    onSaveScene(scene: IEditorEnv.IGameScene, data: any) {
+    }
+
+    onCreateNode(scene: IEditorEnv.IGameScene, node: Laya.Node) {
+    }
+
+    onCreateComponent(scene: IEditorEnv.IGameScene, comp: Laya.Component) {
+    }
+}
+```
+
+例如，如果希望所有新建的UI节点，轴心都初始化为(0.5,0.5)，可以写这样一个插件：
+
+```typescript
+@IEditorEnv.regSceneHook()
+export class TestSceneHook implements IEditorEnv.ISceneHook {
+
+    onCreateNode(scene: IEditorEnv.IGameScene, node: Laya.Node) {
+        if (node instanceof Laya.Sprite)
+            node.anchorX = node.anchorY = 0.5;
+    }
+}
+```
+
 
 
 
