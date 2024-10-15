@@ -3,8 +3,13 @@
 ## 一、关于插件
 采用Unity插件方案的主要原因，主要是为了支持开发者在Unity资源商城中购买的资源可以无感的迁移到LayaAir IDE中进行相关的开发工作，Unity资源商城拥有一定数量的精美且高质量的美术资源，采用Untiy资源导出插件能将这些精美的美术资源迁移到LayaAir引擎的IDE中进行开发，对一些小而美的项目来说无疑是一种无形的帮助，更可以让有Unity经验的优质开发者可以更低学习成本进入HTML5和小游戏产业中来。
 
-插件的项目地址：https://github.com/layabox/LayaAir3.0UnityPlugin.git
+插件的下载地址：https://github.com/layabox/LayaAir3.0UnityPlugin/releases
 
+![1-1](img/1-1.png)
+
+（图1-1）
+
+> 开发者下载最新版的插件即可。
 
 
 
@@ -12,33 +17,47 @@
 
 Unity里有一个导入自定义包的功能，通过这个功能，可以在Unity里导入LayaAir引擎提供的专属功能包，用来导出Unity里编辑好的场景和资源，然后再用以LayaAir引擎3D的开发。在Unity里导入这个自定义的LayaAir功能包的过程，我们可以视为安装了一个LayaAir引擎资源导出的Unity插件。本小节会针对这个过程进行详细介绍。
 
-### 2.1 项目中首次安装插件
+### 2.1 创建一个空项目
 
-打开一个Unity项目后，如果还没有安装插件，那么需要在Unity菜单栏下打开`Window->Package Manager`窗口，如图2-1所示。
+除非是在已经安装过LayaAir3D插件的Unity项目上进行升级安装，否则，我们建议去创建一个新的空项目。
+
+因为直接打开一个Unity已有项目进行插件的安装，可能会有冲突，会导致插件安装不成功。
+
+如果想使用已有Unity项目的场景资源和编辑好的场景，建议先在一个Unity空项目里安装好LayaAir引擎的插件后，再把旧项目的资源目录（也就是Unity项目中的Assets目录）复制到新建的项目里。
+
+> Tips: 旧项目中的其他文件对于导出插件而言都用不上，只复制Assets目录即可
+
+
+
+### 2.2 两种插件导入方式（项目中首次安装）
+
+#### 2.2.1 菜单式导入
+
+在Unity的资源菜单Assets（如图2-1）或者资源面板的Assets（如图2-2），右键`import Package-> custom Package`。
 
 <img src="img/2-1.png" alt="2-1" style="zoom:80%;" />
 
-（图2-1）
+（图2-1）从菜单导入
 
-然后，如图2-2所示，在打开的窗口中，点击左上角的`+`按钮，选择`Add package from git URL`。
+<img src="img/2-2.png" alt="2-2" style="zoom:80%;" />
 
-![2-2](img/2-2.png)
+（图2-2）从资源面板导入
 
-（图2-2）
+以上的两种导入方式，任选一种点开后，选择之前下载好的LayaAir引擎unity插件（xx.unitypackage）打开，如图2-3所示。
 
-将插件的Git地址（`https://github.com/layabox/LayaAir3.0UnityPlugin.git`）填入后点击`Add`，如图2-3所示。
-
-![2-3](img/2-3.png)
+<img src="img/2-3.png" alt="2-3" style="zoom: 50%;" />
 
 （图2-3）
 
-点击后，插件会自动进行安装，安装完成后的效果如图2-4所示。
+点击`打开`后，如图2-4所示，会有插件包含的内容列表展示，如果有不想要的功能，比如在Unity里直接预览这个功能不想要，也可以把相关默认的勾选去掉，但是建议全部导入（默认是全选）。
 
-<img src="img/2-4.png" alt="2-4" style="zoom: 67%;" />
+所以，直接点击`Import`按钮，开始全部导入，即可。
+
+<img src="img/2-4.png" alt="2-4" style="zoom:80%;" />
 
 （图2-4）
 
-插件安装完成后，可以看到菜单栏多出一个`LayaAir3D`，如图2-5所示。此时说明，已经导入成功。
+导入完成后，可以看到菜单栏多出一个`LayaAir3D`，如图2-5所示。此时说明，已经导入成功。
 
 ![2-5](img/2-5.png)
 
@@ -46,15 +65,13 @@ Unity里有一个导入自定义包的功能，通过这个功能，可以在Uni
 
 
 
-### 2.2 已有插件更新
+#### 2.2.2 拖拽式导入
 
-如果LayaAir官方更新了插件，而开发者的Unity项目中已经安装过资源导出插件了，那么开发者只需要进行更新即可。如图2-6所示，在`Package Manager`窗口中找到`LayaAir 3.0 Export Tool`插件，点击`Update`即可更新。
+拖拽式安装的操作方式是把下载好的插件（xx.unitypackage）直接拖拽到Assets面板下，如图2-6所示。其他后续操作与菜单式安装一样。就不重复介绍了。
 
-<img src="img/2-6.png" alt="2-6" style="zoom: 67%;" />
+<img src="img/2-6.png" alt="2-6" style="zoom:70%;" />
 
 （图2-6）
-
-> 如果要删除插件，只需点击`Remove`即可。
 
 
 
@@ -449,18 +466,4 @@ Unity的法线贴图经过了压缩，在导出的时候可能会存在LayaAir I
 （图5-3）
 
 
-
-## 六、常见问题
-
-如果遇到下图的报错，原因是缺少一些包。
-
-![6-1](img/6-1.png)
-
-（图6-1）
-
-这时需要在`Window`菜单中，打开包管理器`Package Manager`。打开后，如图6-2所示，搜索editor，然后选择”Editor Coroutines“和”Version Control“这两个包，添加即可。
-
-![6-2](img/6-2.png)
-
-（图6-2）
 
