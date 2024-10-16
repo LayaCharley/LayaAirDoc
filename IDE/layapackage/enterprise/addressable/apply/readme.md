@@ -1,6 +1,6 @@
 # 实战操作
 
-本章节中我们以一个示例项目为基础，为开发者演示智能资源管理插件的使用流程。请注意，在阅读此文前，建议先阅读[使用说明]()文档。
+本章节中我们以一个示例项目为基础，为开发者演示智能资源管理插件的使用流程。请注意，在阅读此文前，建议先阅读[使用说明](../instruction/readme.md)文档。
 
 ## 1. 导入插件
 
@@ -126,7 +126,7 @@ export class LoadImage extends Laya.Script {
 
 ![3-2-2-2](img/3-2-2-2.png)
 
-通过智能资源管理插件加载资源，无论加载的是什么样的资源，第一步都是先调用//四种加载方法加载资源包。
+通过智能资源管理插件加载资源，无论加载的是什么样的资源，第一步都是先调用[使用说明](../instruction/readme.md)第5节中介绍的四种方法加载资源包。
 
 #### 3.2.3加载FBX资源
 
@@ -150,28 +150,20 @@ export class NewScript extends Laya.Script {
     }
 
     async loadFBX() {
-        let loadResult = await Addressables.loadAssetAsync("FBX");
-        console.log(loadResult);
-        let location = await Addressables.getLocationAsync("FBX");
-        this.resource = await Laya.loader.load(location[0].path, Laya.Loader.HIERARCHY);
-        
-        let monkey: Laya.Sprite3D = this.resource.create();
+        this.resource = await Addressables.loadAssetAsync("FBX", { type: Laya.Loader.HIERARCHY });      
+        let monkey: Laya.Sprite3D = this.resource.data.create();
         this.scene.addChild(monkey);
     }
 }
 ```
 
-![3-2-3-2](img/3-2-3-2.png)
-
-打印加载到的资源，会发现加载成功，但 data 为 undefined, 这时就要获取资源的路径，并通过 Laya.loader.load 的方法再加载资源。
-
-插件加载资源时，会将加载到的资源包存在缓存中，而 Laya.loader.load 方法在加载资源时会先在缓存中检索资源，因此这个加载流程依然是通过插件进行加载。
+引擎在加载某些资源时需要传入资源类型作为参数。
 
 运行结果：
 
 ![3-2-3-3](img/3-2-3-3.png)
 
-实际上，也可以将资源制作成预制体，然后进行加载，这时就不会遇到资源无法识别的问题。
+实际上，也可以将资源制作成预制体，然后进行加载。
 
 按需求加载资源也是智能资源管理插件的优势。在不使用插件时，系统会下载全部的资源，即使有些资源不一定会被使用；而智能资源管理插件会根据开发者的设置，有选择的对资源进行加载（例如程序总共有十个资源包，此时只需要用到其中的两个，插件只会下载这两个资源包，而不下载其余八个资源包），这大大提高了程序加载的速度。
 
@@ -193,11 +185,9 @@ export class NewScript extends Laya.Script {
 
 ![4-1-2](img/4-1-2.png)
 
-构建配置的//操作方法和//属性请参考文档
-
 ### 4.2 构建发布设置
 
-在构建配置设置完成后，接下来就是在构建发布 - 智能资源管理页面进行设置，对具体属性的讲解请//参考文档。
+在构建配置设置完成后，接下来就是在构建发布 - 智能资源管理页面进行设置，对具体属性的讲解请[使用说明](../instruction/readme.md)中第2.3节。
 
 ![4-2-1](img/4-2-1.png)
 
