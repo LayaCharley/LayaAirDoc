@@ -3,15 +3,15 @@
 
 应用程序在启动的时候，需要加载必要的html、js、图片，这个时候就需要通过加载界面显示进度，LayaNative在运行项目的时候，默认有一个LoadingView界面，一段时间后，即可进入游戏，如图1所示：  
 
-​![图1](img/1.png) <br/>
+![图1](img/1.png) <br/>
 
 图1
 
 ## 1.进度条控制
 
-​开发者可以在config.js中，控制LoadingView的背景色、字体颜色、Tips等。  
+开发者可以在config.js中，控制LoadingView的背景色、字体颜色、Tips等。  
 
-config.js的位置：  
+config.js的位置（也可以在项目中直接搜索config.js文件）：  
 ```
 Android: 工程目录下的assets/scripts/config.js  
 IOS:工程目录下的resources/scripts/config.js  
@@ -23,21 +23,21 @@ config.js中的内容如下所示，开发者可以根据自己的需求进行�
 window.loadingView = new loadingView();
 if(window.loadingView)
 {
-    window.loadingView.loadingAutoClose=true;//true代表引擎控制关闭时机。false为开发者手动控制
+    window.loadingView.loadingAutoClose=true;//true代表当动画播放完毕，自动进入游戏。false为开发者手动控制
     window.loadingView.bgColor("#FFFFFF");//设置背景颜色
     window.loadingView.setFontColor("#000000");//设置字体颜色
-    window.loadingView.setTips(["新世界的大门即将打开","敌军还有30秒抵达战场","妈妈说，心急吃不了热豆腐"]);//设置tips数组，会随机出现
+    window.loadingView.loading(-1);
 }
 ```
 
 ## 2.进度条控制实例
 
-在实际开发过程中，通常想要精确控制LoadingView的隐藏和显示，那么开发者可以在config.js中这样设置loadingView.loadingAutoClose的值为false
+在实际开发过程中，通常想要精确控制LoadingView的隐藏和显示，那么开发者可以在config.js中设置loadingView.loadingAutoClose的值为false
 然后在项目中根据加载完成情况，设置进度条的显示进度，调用函数如下:  
 
 ```javascript
 window.loadingView.loading(nPercent);//参数为0-100的整数值，当值为100的时候LoadingView自动关闭
-```  
+```
 
 具体的步骤如下：
 
@@ -103,7 +103,7 @@ window.loadingView = new loadingView();
 if(window.loadingView)
 {
     ...
-    window.loadingView.setTips(["新世界的大门即将打开","敌军还有30秒抵达战场","妈妈说，心急吃不了热豆腐"]);//设置tips数组，会随机出现
+    window.loadingView.loading(-1);
 
     window.loadingView.showTextInfo=false; // 值设置为false
 
