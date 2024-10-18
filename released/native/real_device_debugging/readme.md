@@ -23,11 +23,11 @@ JavaScript代码的调试，是使用调试机上的Chrome浏览器进行的。A
 
 ## 二、调试layaAirIDE构建的Android项目
 
-### 步骤1: 
+### 步骤1:   构建项目
 
 使用LayaAirIDE对项目进行构建，生成Android的工程。
 
-<!-- TODO：添加链接地址。 具体可参考“使用IDE构建工程”。 -->
+[安卓/iOS构建](../build_Tool/readme.md)
 
 ### 步骤2：修改调试模式
 
