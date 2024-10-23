@@ -173,7 +173,6 @@
       * [启动画面LoadingView](released/native/loading_view_new/readme.md)
       * [关于网络监听](released/native/network/readme.md)
       * [关于LocalStorage](released/native/LocalStrorage/readme.md)
-      * [处理Android后退按钮](released/native/Android_BackPress/readme.md)
       * [Android真机调试JavaScript](released/native/real_device_debugging/readme.md)
       * [缓存工具-layadcc](released/native/LayaDcc_Tool/readme.md)
       * [二次开发](released/native/Secondary_Development/readme.md)
