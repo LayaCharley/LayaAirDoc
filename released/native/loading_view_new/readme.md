@@ -3,9 +3,9 @@
 
 应用程序在启动的时候，需要加载必要的html、js、图片，这个时候就需要通过加载界面显示进度，LayaNative在运行项目的时候，默认有一个LoadingView界面，一段时间后，即可进入游戏，如图1所示：  
 
-![图1](img/1.png) <br/>
+<img src="img/1.png" alt="1" style="zoom:50%;" />
 
-图1
+（图1）
 
 ## 1.进度条控制
 
@@ -30,9 +30,12 @@ if(window.loadingView)
 }
 ```
 
+开发者可分别在 `\app\src\main\res\values`和`\app\src\main\res\values-en`目录下找到strings.xml文件，可以在此添加用于显示在`loadingView`界面上的Tips，在`RuntimeProxy.java`文件中修改`private int[] mTips`的值，即可决定哪个Tips会出现在界面上。
+
 ## 2.进度条控制实例
 
-在实际开发过程中，通常想要精确控制LoadingView的隐藏和显示，那么开发者可以在config.js中设置loadingView.loadingAutoClose的值为false
+在实际开发过程中，通常想要精确控制LoadingView的隐藏和显示，那么开发者可以在config.js中设置loadingView.loadingAutoClose的值为false，
+
 然后在项目中根据加载完成情况，设置进度条的显示进度，调用函数如下:  
 
 ```javascript
@@ -41,7 +44,7 @@ window.loadingView.loading(nPercent);//参数为0-100的整数值，当值为100
 
 具体的步骤如下：
 
-**步骤1：** 在`config.js`中设置`loadingView.loadingAutoClose`的值为`false`
+**步骤1：** 在`config.js`中设置`loadingView.loadingAutoClose`的值为`false`。
 
 ```javascript
 window.loadingView = new loadingView();
@@ -53,7 +56,15 @@ if(window.loadingView)
 
 ```
 
-**步骤2：** 调用`loadingView.loading(nPercent)`更新进度条
+构建项目后，config.js中会存在以下代码，`loadingView.hideLoadingView()`方法会关闭加载界面，如果开发者希望手动控制加载界面的关闭，需要删除这段代码。
+
+```typescript
+window.hideSplashScreen = function() {
+    window.loadingView.hideLoadingView();
+}
+```
+
+**步骤2：** 调用`loadingView.loading(nPercent)`更新进度条。
 
 伪代码如下：
 
@@ -114,7 +125,7 @@ if(window.loadingView)
 所有代码公开，因此开发者可以根据需要修改代码实现任何所需自定义功能。
 
 ## 5.特别说明
-启动画面，Android版本使用原生Java开发，iOS版本使用Object-C开发，代码都是开源的，开发者如果需要自定义界面，可自行修改，如果不会Android和iOS编写界面，那就去学一下吧。
+启动画面，Android版本使用原生Java开发，iOS版本使用Object-C开发，代码都是开源的，开发者如果需要自定义界面，可自行修改。
 
 后续LayaBox会有白名单机制，如果开发者购买了授权，便可以去掉LayaBox的Logo，如果没有购买，则需要强制增加LayaBox的logo，引擎内部会有检测机制，随机检测，如果检测不通过，会强制Crash应用程序。
 
