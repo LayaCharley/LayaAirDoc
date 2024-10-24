@@ -34,7 +34,7 @@
 
 ## 二、项目构建后横竖屏的设置
 
-构建发布后，如果发布的是原生包（XCode、Android Studio项目），在index.js中（Android Studio为例）会看到所有的横竖屏属性：
+构建发布后，如果发布的是原生包（XCode、Android Studio项目），会看到所有的横竖屏属性：
 
 ```typescript
 function setOrientation(s) {
@@ -56,7 +56,7 @@ function setOrientation(s) {
 }
 ```
 
-开发者可以在开发工具中，通过代码更改横竖屏的设置，并且重新打包即可。
+开发者可以在开发工具中，通过代码更改横竖屏的设置：
 
 > 如果是直接打包的项目，则需要重新在LayaAir-IDE中构建发布一次。
 
@@ -117,7 +117,9 @@ fullSensor：随传感器旋转
 
 ## 三、执行顺序
 
-应用程序在启动的时候，会先读取iOS的config.ini中设置的屏幕方向或android的AndroidManifest.xml中设置的屏幕方向。当解析到index.js的时候再读取屏幕方向的值，并重新设置屏幕方向。  
+应用程序在启动的时候，会先读取iOS的config.ini中设置的屏幕方向或android的AndroidManifest.xml中设置的屏幕方向。当解析到Native的启动入口index.js的时候再读取屏幕方向的值，并重新设置屏幕方向。  
+
+> 启动入口设置屏幕方向参考[这里](../native_index/readme.md)。
 
 例如：android的AndroidManifest.xml中设置为portrait，index.js中的标签设置为landscape，运行过程中就会发现在android设备上，屏幕会旋转一下，从竖屏旋转成了横屏。
 
