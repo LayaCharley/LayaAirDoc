@@ -179,5 +179,4 @@
       * [嵌入字体](released/native/built_in_font/readme.md)
       * [zip更新](released/native/zipUpdate/readme.md)
       * [APK扩展机制](released/native/apk_expansion/readme.md)
-      * [layaAirNative命令行工具使用](released/native/build_Cmd/readme.md)
       * [其他](released/native/Other_settings/readme.md)
