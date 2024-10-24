@@ -30,6 +30,8 @@ if(window.loadingView)
 }
 ```
 
+开发者可分别在 `\app\src\main\res\values`和`\app\src\main\res\values-en`目录下找到strings.xml文件，可以在此添加用于显示在`loadingView`界面上的Tips，在`RuntimeProxy.java`文件中修改`private int[] mTips`的值，即可决定哪个Tips会出现在界面上。
+
 ## 2.进度条控制实例
 
 在实际开发过程中，通常想要精确控制LoadingView的隐藏和显示，那么开发者可以在config.js中设置loadingView.loadingAutoClose的值为false
@@ -51,6 +53,14 @@ if(window.loadingView)
     ...
 }
 
+```
+
+构建项目后，config.js中会存在一下代码，`loadingView.hideLoadingView()`方法会关闭加载界面，如果开发者希望手动控制加载界面的关闭，需要删除这段代码。
+
+```typescript
+window.hideSplashScreen = function() {
+    window.loadingView.hideLoadingView();
+}
 ```
 
 **步骤2：** 调用`loadingView.loading(nPercent)`更新进度条
