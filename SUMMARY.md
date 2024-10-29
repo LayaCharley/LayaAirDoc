@@ -155,7 +155,9 @@
 - 项目发布
     * [通用发布](released/generalSetting/readme.md)
     * [命令行发布](released/commandLine/readme.md)
-    * [Web发布](released/web/readme.md)
+    - [Web发布](released/web/readme.md)
+      * [CrazyGames](released/CrazyGames/readme.md)
+      * [Poki](released/Poki/readme.md)
     - [小游戏发布](released/miniGame/readme.md)
       * [微信小游戏](released/miniGame/wechat/readme.md)
       * [抖音小游戏](released/miniGame/byteDance/readme.md)
