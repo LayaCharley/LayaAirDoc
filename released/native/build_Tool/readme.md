@@ -155,7 +155,7 @@ x86-64: 也称为x64或AMD64，是Intel处理器的64位版本。用于较新的
 ### 4.1 构建好的项目工程的使用
 
 - Android项目可以使用Android Studio软件进行导入和开发。
-- iOS项目可以使用 xcode 软件进行导入和开发。打开XCode(ios)项目后需要选择真正的ios设备进行build。（注意：真正的设备是 armv7、armv7s、arm64 架构。而如果使用ios Simulator 则是 X86 架构，目前 LayaNative 在 ios 设备上尚未支持 X86 架构，如果使用模拟器编译是无法通过的。
+- iOS项目可以使用 xcode 软件进行导入和开发。打开XCode(ios)项目后需要选择真正的ios设备进行build。
 
 **参考资源：**
 
@@ -163,7 +163,7 @@ x86-64: 也称为x64或AMD64，是Intel处理器的64位版本。用于较新的
 
 - [IOS打包发布App详细流程](https://github.com/layabox/layaair-doc/tree/master/Chinese/LayaNative/packagingReleases_IOS)
 
-  
+
 
 ### 4.2 手动切换单机版和网络版
 
@@ -175,7 +175,7 @@ x86-64: 也称为x64或AMD64，是Intel处理器的64位版本。用于较新的
 
 单机版需要设置为"true"，如`mPlugin.game_plugin_set_option("localize","true");`  
 
-如果要设置为网络版，就要修改为：`mPlugin.game_plugin_set_option("localize","false");`， 
+如果要设置为网络版，就要修改为：`mPlugin.game_plugin_set_option("localize","false");`
 
 并且设置正确的地址：`mPlugin.game_plugin_set_option("gameUrl", "http://你的地址/index.js");`
 
@@ -195,22 +195,19 @@ iOS项目构建完成后，项目目录下的 resource/scripts/index.js 脚本�
 
 > 一旦修改了url地址，原来打包的资源就都失效了。这时候，需要手动删除 cache目录下内容，重新用layadcc来生成打包资源，参见[LayaDCC工具](../LayaDcc_Tool/readme.md)。
 
-### 4.3 资源刷新
+### 4.3 资源
 
-通过IDE构建好工程，如果选择的是单机版和打包资源版本。会在resource/cache目录下，把所有h5项目的资源（包括：脚本、图片、html、声音等）全部打包到了这个目录下。  
+通过IDE构建好工程，
 
-`android的目录： assets/cache/  ` 
-`iOS的目录：  resource/cache/`
+- 如果选择的是单机版（打包资源）版本，会把所有的h5项目的资源（包括：脚本、图片、html、声音等）全部打包到了这个目录下：
 
-但是在开发过程中，h5的项目一直在变化，为了避免每次都重新构建工程，可以通过命令行进行刷新。
+`android的目录`：release\android\android_project\app\src\main\assets\cache
 
-资源包版本调用命令：``layanative3 refreshres -u http://testgame.layabox.com/index.js``    
+`iOS的目录`：release\ios\ios_project\resource\cache
 
-单机版本调用命令：``layanative3 refreshres`` 
 
-> 必须在构建的app工程目录下，执行命令。最明显的标志就是要在navtie.json的目录下。
 
-关于layanative命令行如何安装使用，请参考[layanative命令行工具使用](../build_Cmd/readme.md)。
+- 如果是联网且不打包资源的版本，资源则使用发布目录下的resource目录（release\resource）。
 
 
 
