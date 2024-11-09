@@ -422,6 +422,158 @@ Unity的法线贴图经过了压缩，在导出的时候可能会存在LayaAir I
 
 
 
+### 4.8 着色器Shader
+
+#### 4.8.1 unity内置的Shader
+
+插件只支持了部分unity内置shader的导出，支持的shader如下：
+
+- Skybox："Skybox/6 Sided"、"Skybox/Procedural"、"Skybox/Panoramic"、"SkyBox/Cubemap"
+
+- Particles："Particles/Standard Surface"、"Particles/Standard Unlit"
+- Unlit："Unlit/Texture"、"Unlit/Transparent Cutout"、"Unlit/Transparent"、"Unlit/Color"
+- "Standard"
+
+- Legacy："Legacy Shaders/Diffuse Fast"、"Legacy Shaders/Diffuse"、"Legacy Shaders/Diffuse Detail"、"Legacy Shaders/Bumped Diffuse"、"Legacy Shaders/Bumped Specular"
+
+
+
+#### 4.8.2 自定义的unityshader
+
+这里要注意，插件导出的shader并不是将unity的.shader文件转化为LayaAir可用的.shader文件，它只是导出了shader在材质上的参数配置。因此，对于在unity中的自定义shader，在导出前，需要先把unityshader手动写成一个layashader，然后才能导出配置。
+
+> layashader的格式参考[自定义Shader](../customShader/readme.md)。
+
+  > [!Tip]
+  >
+  > Unity中的“Properties”对应LayaAir中的“uniformMap”；Unity中的“SubShader”对应LayaAir中的“shaderPass”。
+
+导出自定义unityshader需要在插件里面找到`MetarialPropData.json`文件，在里面添加自定义的shader的配置。
+
+打开这个文件可以看到，里面已经有很多的shader配置了，这些就是上一节中提到的内置shader。如果想添加自定义的导出配置，需要按照以下格式：
+
+```json
+"GAPH Custom Shader/Shader_IntegradedEffect": {
+        "targeName": "Shader_IntegradedEffect",
+        "textures": [
+            {
+                "uName": "_MainTex",
+                "layaName": "u_AlbedoTexture",
+                "defind": "ALBEDOTEXTURE"
+            },
+            ......
+        ],
+        "tillOffset": [
+            {
+                "uName": "_MainTex_ST",
+                "layaName": "u_TilingOffset"
+            },
+            ......
+        ],
+        "colors": [
+            {
+                "uName": "_TintColor",
+                "layaName": "u_TintColor",
+                "hdrName": "u_TintColorIntensity"
+            },
+            ......
+        ],
+        "floats": [
+            {
+                "uName": "_MaskOffsetFactor",
+                "layaName": "u_MaskOffsetFactor"
+            },
+            ......
+        ],
+        "defineds": [
+            {
+                "uName": "_SecondColor",
+                "layaName": "IS_USE_SECOND_COLOR",
+                "from": 0,
+                "deflat": 1.0
+            },
+            ......
+        ]
+    }
+```
+
+其中，
+
+- "GAPH Custom Shader/Shader_IntegradedEffect"是定义unityshader的路径，如图4-14所示。
+
+![4-14](img/4-14.png)
+
+（图4-14）
+
+- "targeName"：对应layaShader中定义的名称，如图4-15所示。
+
+![4-15](img/4-15.png)
+
+（图4-15）
+
+- "textures"：需要导出的贴图配置。
+
+```json
+{
+    "uName": unity 属性名,
+    "layaName": layaair 属性名,
+    "defind": defind
+}
+```
+
+- "tillOffset"：材质球贴图的参数。
+
+```json
+{
+    "uName": unity 属性名,
+    "layaName": layaair 属性名,
+}
+```
+
+- "colors"：颜色。
+
+```json
+{
+    "uName": unity 属性名,
+    "layaName": layaair 属性名,
+    "hdrName": unity 中是hdr颜色则laya会生成这个参数，否则不需要。
+}
+```
+
+- floats：浮点数。
+
+```json
+{
+    "uName": unity 属性名,
+    "layaName": layaair 属性名,
+}
+```
+
+- defineds
+
+```json
+{
+    "uName": unity 属性名,
+    "layaName": layaair 属性名,
+    "from": 0:浮点数，1：keyWorld，2：材质是否有属性，3：是否有贴图,
+    "deflat": 对应属性检查
+}
+```
+
+- ......（开发者可以导出更多自定义的配置）
+
+
+
+### 4.9 粒子
+
+为实现快速将unity粒子资源导出到LayaAir-IDE场景，插件做了对unity粒子系统导出的支持。但是，导出的粒子在LayaAir内置的粒子系统中并不支持。
+
+因此，LayaAir推出了CPU粒子系统，在这个版本的粒子系统上，支持unity粒子的参数导出。
+
+说明：”CPU粒子系统“属于[企业会员的功能](https://layaair.com/3.2/doc/IDE/layapackage/enterprise/readme.html)。
+
+
+
 ## 五、模型的导出文件与加载显示
 
 当了解完插件的功能和使用规则后，我们就可以在Unity中进行编辑并导出了，但是导出后的文件名分别代表着什么，又是怎么进行加载使用的。本小节开始为大家介绍。

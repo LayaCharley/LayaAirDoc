@@ -570,7 +570,7 @@ Unity的法线贴图经过了压缩，在导出的时候可能会存在LayaAir I
 
 因此，LayaAir推出了CPU粒子系统，在这个版本的粒子系统上，支持unity粒子的参数导出。
 
-说明：”CPU粒子系统“属于[企业会员的功能](../../../IDE/layapackage/enterprise/readme.md)。
+说明：”CPU粒子系统“属于[企业会员的功能](https://layaair.com/3.2/doc/IDE/layapackage/enterprise/readme.html)。
 
 
 
