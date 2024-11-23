@@ -1,7 +1,7 @@
 - 新手入门
     - [引擎介绍](README.md)
       * [引擎功能概述](basics/readme.md)
-      * [为Unity开发者准备的LayaAir指南](basics/UnityToLayaAir/readme.md)
+      * [Unity转LayaAir差异说明](basics/UnityToLayaAir/readme.md)
     - [开发环境](basics/developmentEnvironment/readme.md)
       * [搭建基础开发环境](basics/developmentEnvironment/download/readme.md)
       * [IDE开发流程界面概述](basics/IDE/GUI/readme.md)
