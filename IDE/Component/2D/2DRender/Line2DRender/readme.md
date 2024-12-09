@@ -1,7 +1,7 @@
 # 2D像素线
 ## 一、概述
 
-尽管LayaAir引擎提供了绘制图形（Graphics）API用于绘制线段和折线，然而LayaAir3.3开始，提供了更为高级的2D线渲染器(Line2DRender），不仅具有Graphics的画线能力，还支持创建虚线，以及为线段设置材质和纹理，使得2D线也可以接收光照，拥有更加炫酷的线形状效果，例如绳索、渐变线、线段边框、线上的动态纹理等等。
+尽管LayaAir引擎提供了绘制图形（Graphics）API用于绘制线段和折线，然而LayaAir3.3开始，提供了更为高级的2D线渲染器(Line2DRender)，不仅具有Graphics的画线能力，还支持创建虚线，以及为线段设置材质和纹理，使得2D线也可以接收光照，拥有更加炫酷的线形状效果，例如绳索、渐变线、线段边框、线上的动态纹理等等。
 
 注：基于性能考虑，Graphics可以实现的情况下，建议优先使用Graphics画线。
 
@@ -9,7 +9,7 @@
 
 （图1-1）
 
-如图1-1所示，场景中通过线渲染器创建了三个图案，并设置了不同的颜色。下面我们来看看如何在IDE中创建和使用线渲染器。
+如图1-1所示，我们在场景中通过线渲染器创建了绳索、渐变线、图像边框。下面开始介绍如何在IDE中创建和使用线渲染器。
 
 
 
@@ -29,7 +29,7 @@
 
 如图2-2-1所示，2D线渲染器上有以下这些属性：
 
-![2-2-1](img/2-2-1.png)
+![2-2-1](img/2-2-1.png) 
 
 （图2-2-1）
 
@@ -44,9 +44,6 @@
 | 虚线偏移量(DashedOffset)            | 虚线上每个循环整体向左或向右的移动距离。                     |
 | 渲染纹理(Texture)                   | 应用于线段的纹理，此属性后续会详细讲解                       |
 | 纹理偏移量(TillOffset)              | 代表线段上纹理的偏移值与缩放值，其中 `X,Y` 为纹理的偏移值；`Z，W` 为纹理的缩放值。 |
-| 材质(SharedMaterial)                | 应用于线段的2D材质。                                         |
-
-
 
 ### 2.3线段的渲染纹理
 
@@ -108,46 +105,66 @@ LayaAir引擎中还有另一个可以用于绘制线段的工具Graphics。
 
 ## 三、在代码中使用2D线渲染器组件
 
-在游戏开发的过程中，开发者可以通过代码在游戏运行时动态的创建线段，或是更改线段的显示效果。下述示例代码演示了如何通过代码创建线段，并控制线段的显示效果。
+在游戏开发的过程中，开发者也可以通过脚本代码动态的创建线渲染器组件，以及创建任意图形线段。示例代码如下所示：
 
 **示例代码:**
 
 ```typescript
-const { regClass, property } = Laya;
+const { regClass} = Laya;
 
 @regClass()
-export class Script1 extends Laya.Script {
+/**
+ * 基于2D线渲染器的画线示例脚本
+ * 注意：脚本的事件是基于节点的宽高，所以绘制的图形也是在宽高范围内。
+ */
+export class DrawLine extends Laya.Script {
 
-    //场景中添加的2D精灵
-    @property(Laya.Sprite)
-    public sprite2D: Laya.Sprite;
+    declare owner: Laya.Sprite;
 
     line2DRender: Laya.Line2DRender;
     lastMousePos: number[] = [];
+    isDrawing: boolean = false; // 标记是否正在绘制
 
-    //组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
-    onAwake(): void {
-        //添加2D线渲染器组件
-        this.line2DRender = this.sprite2D.addComponent(Laya.Line2DRender);
-        //设置线的宽度
+    // 组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+    onEnable(): void {
+        // 添加2D线渲染器组件
+        this.line2DRender = this.owner.addComponent(Laya.Line2DRender);
+        // 设置线的宽度
         this.line2DRender.lineWidth = 5;
     }
 
-    onMouseMove(evt: Laya.Event): void {
-        if(this.lastMousePos.length == 0) {
-            this.lastMousePos.push(evt.touchPos.x-379, evt.touchPos.y-121);
-            return;
-        }
+    // 鼠标按下时开始绘制
+    onMouseDown(evt: Laya.Event): void {
+        this.isDrawing = true;
+        // 记录起始点
+        this.lastMousePos[0] = evt.stageX - this.owner.x;
+        this.lastMousePos[1] = evt.stageY - this.owner.y;
+    }
 
-        //添加线段，注意，添加的线段端点坐标是相对于节点的坐标
-        this.line2DRender.addPoint(this.lastMousePos[0], this.lastMousePos[1], evt.touchPos.x-379, evt.touchPos.y-121);
-        this.lastMousePos[0] = evt.touchPos.x-379;
-        this.lastMousePos[1] = evt.touchPos.y-121;
+    // 鼠标松开时停止绘制
+    onMouseUp(): void {
+        this.isDrawing = false;
+        this.lastMousePos.length = 0; // 清空上一次的点
+    }
+
+    // 鼠标移动时绘制线段（仅在按下时）
+    onMouseMove(evt: Laya.Event): void {
+        if (!this.isDrawing || this.lastMousePos.length === 0) return;
+
+        const x = evt.stageX - this.owner.x;
+        const y = evt.stageY - this.owner.y;
+
+        // 添加线段
+        this.line2DRender.addPoint(this.lastMousePos[0], this.lastMousePos[1], x, y);
+
+        // 更新最后一个点的坐标
+        this.lastMousePos[0] = x;
+        this.lastMousePos[1] = y;
     }
 }
 ```
 
-运行效果如图：
+将以上代码保存后，拖到场景中的精灵节点上，运行即可，效果如图：
 
 ![3-1](img/3-1.gif)
 
