@@ -1,33 +1,23 @@
-require(['gitbook', 'jQuery'], function(gitbook, $) {
+require(['gitbook', 'jQuery'], function (gitbook, $) {
   var TOGGLE_CLASSNAME = 'expanded',
-      CHAPTER = '.chapter',
-      ARTICLES = '.articles',
-      TRIGGER_TEMPLATE = '<i class="exc-trigger fa"></i>',
-      LS_NAMESPACE = 'expChapters';
+    CHAPTER = '.chapter',
+    ARTICLES = '.articles',
+    TRIGGER_TEMPLATE = '<i class="exc-trigger fa"></i>',
+    LS_NAMESPACE = 'expChapters';
   var init = function () {
     // adding the trigger element to each ARTICLES parent and binding the event
     $(ARTICLES)
       .parent(CHAPTER)
-      .children('a')
-      .append(
-        $(TRIGGER_TEMPLATE)
-          .on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggle($(e.target).closest(CHAPTER));
-          })
-      );
-      $(ARTICLES)
-      .parent(CHAPTER)
-      .children('span')
-      .append(
-        $(TRIGGER_TEMPLATE)
-          .on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggle($(e.target).closest(CHAPTER));
-          })
-      );
+      .children('a, span')  // 选择a标签和span标签
+      .each(function () {
+        // 添加触发器图标
+        $(this).append($(TRIGGER_TEMPLATE));
+        // 为整个标题元素绑定点击事件
+        $(this).on('click', function (e) {
+          e.preventDefault();
+          toggle($(this).closest(CHAPTER));
+        });
+      });
     expand(lsItem());
     //expand current selected chapter with it's parents
     var activeChapter = $(CHAPTER + '.active');
@@ -35,7 +25,7 @@ require(['gitbook', 'jQuery'], function(gitbook, $) {
     expand(activeChapter.parents(CHAPTER));
 
 
-  } 
+  }
   var toggle = function ($chapter) {
     if ($chapter.hasClass('expanded')) {
       collapse($chapter);
@@ -66,14 +56,14 @@ require(['gitbook', 'jQuery'], function(gitbook, $) {
       })
       localStorage.setItem(LS_NAMESPACE, JSON.stringify(map));
     } else {
-      return $(CHAPTER).map(function(index, element){
+      return $(CHAPTER).map(function (index, element) {
         if (map[$(this).data('level')]) {
           return this;
         }
       })
     }
   }
-  gitbook.events.bind('page.change', function() {
+  gitbook.events.bind('page.change', function () {
     init()
-  }); 
+  });
 });
