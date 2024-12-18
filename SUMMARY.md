@@ -82,9 +82,8 @@
     * [2D线渲染器](IDE/Component/2D/2DRender/Line2DRender/readme.md)
   * [UI滤镜效果](IDE/uiEditor/Filter/readme.md)
   * [UI运行时](IDE/uiEditor/runtime/readme.md)
-  * [混合使用3D](IDE/uiEditor/use3D/readme.md)
+  * [2D节点使用3D](IDE/uiEditor/use3D/readme.md)
   * [纹理压缩](IDE/uiEditor/textureCompress/readme.md)
-  * [使用3DUI](IDE/uiEditor/3DUI/readme.md)
 - 3D基础
   * [3D概念入门](basics/3D/beginner/readme.md)
   * [3D变换](basics/3D/Transform/readme.md)
@@ -96,6 +95,7 @@
   * [使用3D摄像机](3D/Camera/readme.md)
   * [3D灯光与阴影](3D/Light/readme.md)
   * [3D材质编辑](IDE/materialEditor/readme.md)
+  * [使用3D UI](IDE/uiEditor/3DUI/readme.md)
 - 粒子
   * [2D粒子](IDE/particleEditor2D/readme.md)
   * [3D粒子](IDE/particleEditor3D/readme.md)
