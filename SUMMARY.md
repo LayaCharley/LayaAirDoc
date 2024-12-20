@@ -201,6 +201,7 @@
     * [关于网络监听](released/native/network/readme.md)
     * [关于LocalStorage](released/native/LocalStrorage/readme.md)
     * [Android真机调试JavaScript](released/native/real_device_debugging/readme.md)
+    * [鸿蒙NEXT真机调试JavaScript](released/native/real_device_debugging_harmony/readme.md)
     * [缓存工具-layadcc](released/native/LayaDcc_Tool/readme.md)
     * [二次开发](released/native/Secondary_Development/readme.md)
     * [嵌入字体](released/native/built_in_font/readme.md)
