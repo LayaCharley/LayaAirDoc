@@ -64,31 +64,13 @@ function setOrientation(s) {
 
 ### 2.1 iOS
 
-iOS项目构建成功后，打开resource/config.ini文件，修改`orientation=16`的值，如图2-1所示：
+iOS项目构建成功后，打开XCode工程设置页面，根据需要勾选相应Device Orientation选项，如图2-1所示：
 
-<img src="img/2-1.png" alt="2-1" style="zoom:80%;" />
 
-（图2-1）
-
-参数的意义如下：
-```
-orientation=2   //竖屏：IOS home键在下   
-orientation=4   //竖屏：IOS home键在上   
-orientation=8   //横屏：IOS home键在左   
-orientation=16  //横屏：IOS home键在右   
-```
-orientation的值可以使用`按位或`的方式进行设置，例如:
-```   
-orientation=6   //代表竖屏可以任意旋转  
-orientation=24  //代表横屏可以任意旋转  
-```
-
-**注意：** iOS工程项目内的横竖屏设置最好和config.ini设置一致。如果设置的不一致可能会导致未知的情况发生。设置如图2-2，
 
 <img src="img/2-2.png" alt="2-2" style="zoom: 50%;" />
 
-（图2-2）
-
+（图2-1）
 
 
 ### 2.2 Android
