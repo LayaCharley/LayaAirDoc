@@ -196,6 +196,7 @@
     * [安卓/iOS构建](released/native/build_Tool/readme.md)
     * [Windows构建](released/native/build_Windows/readme.md)
     * [鸿蒙NEXT构建](released/native/build_Harmony/readme.md)
+    * [Linux构建](released/native/build_Linux/readme.md)
     * [横竖屏设置](released/native/screen_orientation/readme.md)
     * [启动画面LoadingView](released/native/loading_view_new/readme.md)
     * [关于网络监听](released/native/network/readme.md)
