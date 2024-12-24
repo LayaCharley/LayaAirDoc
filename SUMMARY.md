@@ -204,6 +204,7 @@
     * [Android真机调试JavaScript](released/native/real_device_debugging/readme.md)
     * [鸿蒙NEXT真机调试JavaScript](released/native/real_device_debugging_harmony/readme.md)
     * [缓存工具-layadcc](released/native/LayaDcc_Tool/readme.md)
+    * [原生平台通信](released/native/platform_communication/readme.md)
     * [二次开发](released/native/Secondary_Development/readme.md)
     * [嵌入字体](released/native/built_in_font/readme.md)
     * [zip更新](released/native/zipUpdate/readme.md)
