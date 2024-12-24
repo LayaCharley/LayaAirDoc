@@ -63,6 +63,22 @@ alert(data);
     }
 ```
 ### 3. iOS
+在HandleMessageUtils.mm添加消息处理代码  
+```C++
++(NSString*)handleSyncMessageWithEventName:(NSString*)eventName data:(NSString*)data {
+    NSLog(@"%@ %@", eventName, data);
+    if ([eventName isEqualToString:@"syncMessage"]) {
+        return @"sync message from platform";
+    }
+    return @"default sync result";
+}
++(void)handleAsyncMessageWithEventName:(NSString*)eventName data:(NSString*)data callback:(void (^)(NSString *))cb {
+    NSLog(@"%@ %@", eventName, data);
+    if ([eventName isEqualToString:@"asyncMessage"]) {
+        cb(@"async message from platform");
+    }
+}
+```
 ### 4. windows
 conchSetHandleMessageCallback函数设置处理异步和同步消息的回调  
 conchSendHandleMessageResult根据事件名称把数据传递回JS侧    
