@@ -129,7 +129,8 @@
   * [音频](basics/common/device/media/readme.md)
   * [视频](basics/common/device/video/readme.md)
 - 网络通信
-  * [HTTP与WebSocket通信](basics/common/network/readme.md)
+  * [HTTP通信](basics/common/network/HTTP/readme.md)
+  * [WebSocket通信](basics/common/network/WebSocket/readme.md)
   * [ProtocolBuffer通信](libs/Protobuf/readme.md)
 - 性能
   * [性能统计与优化](basics/common/Stat/readme.md)
@@ -145,7 +146,12 @@
       * [Spine渲染器](IDE/Component/2D/2DRender/Spine2DRenderNode/readme.md)
       * [2D拖尾渲染器](IDE/Component/2D/2DRender/Trail2DRender/readme.md)
       * [2D线渲染器](IDE/Component/2D/2DRender/Line2DRender/readme.md)
-    * [2D光照](IDE/Component/2D/light/readme.md)
+    * [2D灯光与网格](IDE/Component/2D/BaseLight2D/readme.md) 
+      * [2D方向光](IDE/Component/2D/DirectionLight2D/readme.md)
+      * [2D精灵光](IDE/Component/2D/SpriteLight2D/readme.md)
+      * [2D聚光灯](IDE/Component/2D/SpotLight2D/readme.md)
+      * [2D自由形态光](IDE/Component/2D/FreeformLight2D/readme.md)
+    * [2D光遮挡器与阴影](IDE/Component/2D/LightOccluder2D/readme.md)
     * [2D物理](IDE/physicsEditor/physics2D/readme.md)
     * [2D寻路](IDE/Component/2D/navMesh/readme.md)
   - [3D内置组件](IDE/Component/readme.md)
