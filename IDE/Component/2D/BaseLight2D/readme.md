@@ -125,75 +125,23 @@ this.light1Render.layerMask = -1;
 this.light1Render.layerMask = -1 ^ (1 << 1) ^ (1 << 2);
 ```
 
-### 3.2 昼夜循环光照的示例
+### 3.2 引擎中的API
 
-通过代码的控制，可以让灯光的属性变化的更为丰富。
+除了IDE中显示的常用属性，引擎的灯光基类中，还开放了一些其它的API，例如灯光旋转、灯光缩放等，我们在灯光组件的文档中，尽可能对常用的API给予代码的使用参照。
 
-以下代码，基于灯光颜色与强度，实现了一个简单的昼夜循环光照变化效果：
-
-```typescript
-const { regClass } = Laya;
-
-@regClass()
-export class DayNightSystem extends Laya.Script {
-    declare owner: Laya.Sprite;
-
-    private lightComp: Laya.DirectionLight2D;
-    private dayTime: number = 0;
-    private dayDuration: number = 16; // 一个昼夜光照完整变化周期的秒数
-
-    onAwake(): void {
-        this.lightComp = this.owner.getComponent(Laya.DirectionLight2D);
-    }
-
-    onUpdate(): void {
-        // 更新时间
-        this.dayTime = (this.dayTime + Laya.timer.delta / 1000) % this.dayDuration;
-
-        // 计算当前时间的光照强度和颜色
-        const timeProgress = this.dayTime / this.dayDuration;
-        this.updateLightByTime(timeProgress);
-    }
-
-    private updateLightByTime(progress: number): void {
-        // 调整光照强度和颜色
-        const color = this.lightComp.color;
-
-        if (progress < 0.25) { // 凌晨到早上
-            // 从深蓝色渐变到白色
-            const t = progress * 4; // 0-1的过渡
-            const r = 0.2 + t * 0.8;  // 0.2-1.0
-            const g = 0.2 + t * 0.8;  // 0.2-1.0
-            const b = 0.3 + t * 0.7;  // 0.3-1.0
-            color.setValue(r, g, b, 1);
-            this.lightComp.intensity = 0.3 + t * 0.7; // 0.3-1.0
-        }
-        else if (progress < 0.5) { // 早上到中午
-            // 保持明亮的白色
-            color.setValue(1, 1, 1, 1);
-            this.lightComp.intensity = 1.0;
-        }
-        else if (progress < 0.75) { // 下午到傍晚
-            // 从白色渐变到深蓝色
-            const t = (progress - 0.5) * 4; // 0-1的过渡
-            const r = 1.0 - t * 0.8;  // 1.0-0.2
-            const g = 1.0 - t * 0.8;  // 1.0-0.2
-            const b = 1.0 - t * 0.7;  // 1.0-0.3
-            color.setValue(r, g, b, 1);
-            this.lightComp.intensity = 1.0 - t * 0.7; // 1.0-0.3
-        }
-        else { // 夜晚
-            // 保持深蓝色的夜晚
-            color.setValue(0.2, 0.2, 0.3, 1);
-            this.lightComp.intensity = 0.3;
-        }
-
-        this.lightComp.color = color;
-    }
-}
-```
-
-开发者可以直接将上面的脚本，添加到2D方向光的节点上，然后体验效果，或者修改代码进一步丰富效果。 
+| 名称                     | 说明                      |
+| ------------------------ | ------------------------- |
+| lightRotation            | 灯光旋转角度              |
+| lightScale               | 灯光的缩放值              |
+| showLightTexture         | 是否显示灯光贴图          |
+| getLightType             | 获取灯光类型              |
+| getGlobalPosX            | 获取灯光世界位置的X坐标值 |
+| getGlobalPosY            | 获取灯光世界位置的Y坐标值 |
+| setLayerMaskByList       | 用列表设置灯光层掩码      |
+| isLayerEnable            | 灯光对指定层是否开启      |
+| setShadowLayerMaskByList | 用列表设置阴影层掩码      |
+| isShadowLayerEnable      | 阴影对指定层是否开启      |
+| renderLightTexture       | 渲染灯光贴图              |
 
 ## 四、灯光组件的使用
 
