@@ -71,6 +71,8 @@
     * [取色器组件](IDE/uiEditor/uiComponent/ColorPicker/readme.md)
     * [开放数据域组件](IDE/uiEditor/uiComponent/OpenDataContextView/readme.md)
     * [弹窗视图组件](IDE/uiEditor/Dialog/readme.md)
+  - [2D区域](IDE/uiEditor/Area2D/readme.md)
+    * [2D相机](IDE/uiEditor/Area2D/Camera2D/readme.md)
   - [骨骼动画](IDE/uiEditor/uiComponent/skeleton/readme.md)
     * [Spine骨骼动画](IDE/uiEditor/uiComponent/skeleton/spine/readme.md)
     * [内置骨骼动画](IDE/uiEditor/uiComponent/skeleton/sk/readme.md)
