@@ -62,48 +62,46 @@ const { regClass, property } = Laya;
 @regClass()
 export class SpriteLight extends Laya.Script {
 
-    private spriteLight: Laya.Sprite = new Laya.Sprite();
-    private directLight: Laya.Sprite = new Laya.Sprite();
-    private background: Laya.Sprite = new Laya.Sprite();
+    @property({type: Laya.Sprite})
+    private spriteLight: Laya.Sprite;
 
-    private spriteLightTexture: string = "resources/spritelight.png";
-    private backgroundTexture: string = "resources/bg2.png";
+    @property({type: Laya.Sprite})
+    private directLight: Laya.Sprite;
+
+    @property({type: Laya.Sprite})
+    private background: Laya.Sprite;
 
     //组件被启用后执行，例如节点被添加到舞台后
     onEnable(): void {
-        Laya.loader.load([this.spriteLightTexture, this.backgroundTexture], Laya.Loader.IMAGE).then(() => {
-            this.createSpriteLight();
-            this.createDirectLight();
-            this.createBackground();
+        // 加载资源
+        Laya.loader.load("resources/spritelight.png", Laya.Loader.IMAGE).then(() => {
+            this.setSpriteLight();
+            this.setDirectLight();
+            this.setBackground();
         });
     }
 
-    // 创建精灵灯光
-    createSpriteLight(): void {
+    // 配置精灵灯光
+    setSpriteLight(): void {
         this.spriteLight.pos(100,350);
-        this.owner.addChild(this.spriteLight);
-        let spritelightComponent = this.spriteLight.addComponent(Laya.SpriteLight2D);
+        let spritelightComponent = this.spriteLight.getComponent(Laya.SpriteLight2D);
         spritelightComponent.color = new Laya.Color(1, 1, 1);
-        spritelightComponent.intensity = 0.888;
+        spritelightComponent.intensity = 0.5;
         let tex = Laya.loader.getRes("resources/spritelight.png");
         spritelightComponent.spriteTexture = tex;
     }
 
-    // 创建方向光
-    createDirectLight(): void {
-        this.owner.addChild(this.directLight);
-        let directlithtComponent = this.directLight.addComponent(Laya.DirectionLight2D);
+    // 配置方向光
+    setDirectLight(): void {
+        let directlithtComponent = this.directLight.getComponent(Laya.DirectionLight2D);
         directlithtComponent.color = new Laya.Color(1, 1, 1);
-        directlithtComponent.intensity = 0.5;
+        directlithtComponent.intensity = 0.2;
     }
 
-    // 创建背景
-    createBackground(): void {
-        this.owner.addChild(this.background);
-        let tex = Laya.loader.getRes("resources/bg2.png");
-        let mesh2Drender = this.background.addComponent(Laya.Mesh2DRender);
+    // 配置背景
+    setBackground(): void {
+        let mesh2Drender = this.background.getComponent(Laya.Mesh2DRender);
         mesh2Drender.sharedMesh = this.generateRectVerticesAndUV(1000, 1000);
-        mesh2Drender.texture = tex;
         mesh2Drender.lightReceive = true;
     }
 
