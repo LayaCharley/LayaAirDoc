@@ -60,25 +60,18 @@ const { regClass, property } = Laya;
 @regClass()
 export class SpotLight extends Laya.Script {
 
-    private layaImg: Laya.Sprite = new Laya.Sprite();
-    private spotLight: Laya.Sprite = new Laya.Sprite();
-
-    private meshResource: string = "resources/layabox.lm";
-    private textureResource: string = "resources/layabox.png";
+    @property({ type: Laya.Sprite })
+    private spotLight: Laya.Sprite;
 
     //组件被启用后执行，例如节点被添加到舞台后
     onEnable(): void {
-        Laya.loader.load([this.meshResource, this.textureResource]).then(() => {
-            this.createSpotLight();
-            this.createLayaImg();
-        });
+        this.setSpotLight();
     }
 
     // 创建聚光灯
-    createSpotLight(): void {
+    setSpotLight(): void {
         this.spotLight.pos(336, 280);
-        this.owner.addChild(this.spotLight);
-        let spotLightComponent = this.spotLight.addComponent(Laya.SpotLight2D);
+        let spotLightComponent = this.spotLight.getComponent(Laya.SpotLight2D);
         spotLightComponent.color = new Laya.Color(1, 0.812, 1);
         spotLightComponent.intensity = 1.0;
         spotLightComponent.innerRadius = 50;
@@ -86,23 +79,10 @@ export class SpotLight extends Laya.Script {
         spotLightComponent.innerAngle = 50;
         spotLightComponent.outerAngle = 150;
     }
-
-    // 创建可接收光照的2D网格
-    createLayaImg(): void {
-        this.layaImg.pos(300, 100);
-        this.owner.addChild(this.layaImg);
-        // 添加Mesh2DRender组件
-        let mesh2DComponent = this.layaImg.addComponent(Laya.Mesh2DRender);
-        mesh2DComponent.lightReceive = true;
-        let mesh2Dres: Laya.Mesh2D = Laya.Loader.getRes(this.meshResource);
-        mesh2DComponent.sharedMesh = mesh2Dres;
-        let tex: Laya.BaseTexture = Laya.Loader.getRes(this.textureResource);
-        mesh2DComponent.texture = tex;
-    }
 }
 ```
 
-最终的效果如图3-1所示，
+让此聚光灯照亮一个2D网格，最终的效果如图3-1所示，
 
 ![3-1](img/3-1.png)
 
