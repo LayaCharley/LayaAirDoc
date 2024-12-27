@@ -44,7 +44,7 @@ alert(data);
             cb("async message from platform");
         }
     }
-```  
+```
 ### 2. Android
 在app/src/main/java/demo/HandleMessageUtils.java添加消息处理代码
 ```java
@@ -64,7 +64,7 @@ alert(data);
 ```
 ### 3. iOS
 在HandleMessageUtils.mm添加消息处理代码  
-```C++
+```c
 +(NSString*)handleSyncMessageWithEventName:(NSString*)eventName data:(NSString*)data {
     NSLog(@"%@ %@", eventName, data);
     if ([eventName isEqualToString:@"syncMessage"]) {
@@ -83,13 +83,13 @@ alert(data);
 conchSetHandleMessageCallback函数设置处理异步和同步消息的回调  
 conchSendHandleMessageResult根据事件名称把数据传递回JS侧    
 详见Runtime/x64/include/Exports.h  
-```C++
+```c
 CONCH_EXPORT void CONCH_CDECL conchSetHandleMessageCallback(handleSyncMessageCallback handleSyncMessageCb,
                                                             handleAsyncMessageCallback handleAsyncMessageCb);
 CONCH_EXPORT void CONCH_CDECL conchSendHandleMessageResult(const char *eventName, const char *result);
 ```
 消息处理  
-```C++
+```c
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd)
 {
     conchSetHandleMessageCallback(
@@ -113,13 +113,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 conchSetHandleMessageCallback函数设置处理异步和同步消息的回调  
 conchSendHandleMessageResult根据事件名称把数据传递回JS侧    
 详见Runtime/x86_64/include/Exports.h  
-```C++
+```c
 CONCH_EXPORT void CONCH_CDECL conchSetHandleMessageCallback(handleSyncMessageCallback handleSyncMessageCb,
                                                             handleAsyncMessageCallback handleAsyncMessageCb);
 CONCH_EXPORT void CONCH_CDECL conchSendHandleMessageResult(const char *eventName, const char *result);
 ```
 消息处理 
-```C++
+```c
 int main(int argc, char *argv[])
 {
     conchSetHandleMessageCallback(

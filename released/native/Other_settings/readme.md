@@ -14,7 +14,7 @@ LayaNative底层渲染使用openGLES渲染，使用android的GLSurfaceView控件
 
 LayaNative底层LOG分为五种：
 
-```c++
+```c
 enum class LogType
 {
     Debug,
@@ -25,7 +25,7 @@ enum class LogType
 };
 ```
 每种日志对应的日志级别如下：
-```c++
+```c
 enum class LogLevel
 {
     Debug = 5,
