@@ -82,7 +82,7 @@ extern "C" {
 
 ### 2.2 生成动态链接库
 
-> 生成动态链接库与其使用的方法可以参考[Windows扩展](../Windows/readme.md)文档。
+> 生成动态链接库与其使用的方法可以参考[Windows扩展](../extension/readme.md)文档。
 
 生成的动态链接库`steam_demo.dll`如图2-1所示，
 

@@ -25,7 +25,7 @@ LayaAir-IDE发布后的代码，最终都会被编译为JS。而JavaScript代码
 
 使用LayaAir-IDE对项目进行构建，生成鸿蒙NEXT的工程。
 
-> 参考[鸿蒙NEXT构建](../build_Harmony/readme.md)。
+> 参考[鸿蒙NEXT构建](../readme.md)。
 
 ### 步骤2：修改调试模式
 
@@ -78,7 +78,7 @@ hdc shell "netstat -anp | grep 5959"。结果为5959端口状态为“LISTEN"即
 hdc fport tcp:5959 tcp:5959。转发PC侧端口5959到端侧端口5959。结果为"Forwardport result:OK"即可。
 
 <img src="img/10.png" alt="2-5" style="zoom:120%;" />
-  
+
 （图2-5）
 ### 步骤6：使用Chrome连接工程
 在chrome浏览器地址栏输入"localhost:5959/json"，回车。获取端口连接信息。

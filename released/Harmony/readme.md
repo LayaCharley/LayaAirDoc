@@ -1,6 +1,6 @@
 # 构建鸿蒙NEXT工程
 
-自LayaAir3.2.0beta3版本开始，增加支持发布鸿蒙NEXT项目。
+自LayaAir3.2.0版本开始，增加支持发布鸿蒙NEXT项目。
 
 ## 1. 基础开发环境
 
@@ -30,7 +30,7 @@
 
 构建项目设置中的其他参数与LayaNative的其他平台设置相同，开发者可直接发布。
 
-参考链接：[IDE构建LayaNative工程](../build_Tool/readme.md)
+参考链接：[IDE构建LayaNative工程](../native/build_Tool/readme.md)
 
 ## 4. 构建好的鸿蒙项目工程的使用
 
