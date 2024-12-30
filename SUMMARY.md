@@ -74,7 +74,7 @@
   - [2D区域](IDE/uiEditor/Area2D/readme.md)
     * [2D相机](IDE/uiEditor/Area2D/Camera2D/readme.md)
   - [骨骼动画](IDE/uiEditor/uiComponent/skeleton/readme.md)
-    * [Spine骨骼动画](IDE/uiEditor/uiComponent/skeleton/spine/readme.md)
+    * [Spine骨骼动画](IDE/Component/2D/2DRender/Spine2DRenderNode/readme.md)
     * [内置骨骼动画](IDE/uiEditor/uiComponent/skeleton/sk/readme.md)
   * [绘制图形](IDE/uiEditor/graphics/readme.md)
   - [渲染组件](IDE/Component/2D/2DRender/readme.md)
@@ -106,7 +106,7 @@
   * [动画状态机](IDE/animationEditor/aniController/readme.md)
   * [动画烘焙](IDE/animationEditor/aniBake/readme.md)
   - [骨骼动画](IDE/uiEditor/uiComponent/skeleton/readme.md)
-    * [Spine骨骼动画](IDE/uiEditor/uiComponent/skeleton/spine/readme.md)
+    * [Spine骨骼动画](IDE/Component/2D/2DRender/Spine2DRenderNode/readme.md)
     * [内置骨骼动画](IDE/uiEditor/uiComponent/skeleton/sk/readme.md)
 - IDE资源
   * [模型资源设置](IDE/assets/model/readme.md)
