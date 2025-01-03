@@ -1,12 +1,18 @@
-# 为Unity开发者准备的LayaAir指南
+# 为Unity开发者准备的LayaAir3指南
 
 > 编写此文档时使用的LayaAir-IDE版本为3.2.1
 
-本篇文档为熟悉Unity的用户概述了LayaAir，帮助Unity开发者快速入门LayaAir。
+Unity是移动端的3D引擎龙头。LayaAir是小游戏与HTML5市场的主流3D引擎龙头。
+
+相对于Unity，LayaAir引擎更注重全平台发布，不仅支持发布为移动端平台的Native安装包（安卓、iOS、鸿蒙Next），还支持发布为Windows平台的exe安装包，尤其是在HTML5网页平台，和小游戏平台（微信、抖音、淘宝、支付宝、OPPO、vivo、小米等）有着更为明显的优势。例如，引擎基础包体小，加载效率高，性能表现更优秀等。
+
+越来越多市场重心倾斜于小游戏与网页市场的开发者纷纷开始转向LayaAir引擎，以获得更好的用户体验以及更全面的平台发布效果。并节省大量的研发成本。
+
+因此，本篇文档为熟悉Unity的用户概述了LayaAir的主要技术差异，帮助Unity开发者快速入门LayaAir引擎。
+
+
 
 下载LayaAir编辑器点击[这里](https://layaair.com/#/engineDownload)，克隆引擎源码点击[这里](https://github.com/layabox/LayaAir)。
-
-
 
 ## 一、概述
 
@@ -16,11 +22,11 @@
 
 ![1-1](img/1-1.jpg)
 
-（图1-1）
+（图1-1 ）Unity编辑器
 
 ![1-2](img/1-2.jpg)
 
-（图1-2）
+（图1-2）LayaAir3-IDE编辑器
 
 
 
