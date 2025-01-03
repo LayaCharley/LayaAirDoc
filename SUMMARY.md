@@ -111,6 +111,7 @@
 - IDE资源
   * [模型资源设置](IDE/assets/model/readme.md)
   * [预制体](IDE/prefab/readme.md)
+  * [瓦片地图](IDE/Tileset/readme.md)
 - 物理引擎
   * [2D物理编辑](IDE/physicsEditor/physics2D/readme.md)
   * [3D物理编辑](IDE/physicsEditor/physics3D/readme.md)
@@ -156,6 +157,7 @@
     * [2D光遮挡器与阴影](IDE/Component/2D/LightOccluder2D/readme.md)
     * [2D物理](IDE/physicsEditor/physics2D/readme.md)
     * [2D寻路](IDE/Component/2D/navMesh/readme.md)
+    * [瓦片地图层](IDE/Component/2D/TileMapLayer/readme.md)
   - [3D内置组件](IDE/Component/readme.md)
     * [网格](IDE/Component/Mesh/readme.md)
     * [拖尾](IDE/Component/Trail/readme.md)
