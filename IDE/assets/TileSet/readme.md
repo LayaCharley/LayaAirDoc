@@ -116,7 +116,7 @@ TileSet的属性会作用于每一个瓦片：
 
 如果希望此属性生效，需要在Tile Map Layer中启用`Light Occluder Enable`属性。
 
-接下来，在场景中添加这个瓦片，与光照有关的部分可以参考文档[2D灯光与网格](..\Component\2D\BaseLight2D\readme.md)，效果如图：
+接下来，在场景中添加这个瓦片，与光照有关的部分可以参考文档[2D灯光与网格](..\..\Component\2D\BaseLight2D\readme.md)，效果如图：
 
 ![2-3-11](img/2-3-11.png)
 
@@ -216,7 +216,7 @@ TileSet的属性会作用于每一个瓦片：
 
 **`Flip_v`**：水平翻转。
 
-**`Transpose`**：逆时针旋转90度。
+**`Transpose`**：沿对称轴镜像翻转。
 
 
 
