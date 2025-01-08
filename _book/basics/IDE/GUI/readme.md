@@ -1,6 +1,8 @@
-# IDE开发工作流模块概述
+# IDE主要模块概述
 
-> Author：Charley  &&  诗换花
+IDE是集成开发环境（Integrated Development Environment ）的英文缩写，LayaAir3-IDE是指LayaAir3引擎的集成开发环境。
+
+本章节是为了新手开发者对IDE的主要功能有一个初步的认知。
 
 ## 一、IDE帐号登录
 
@@ -90,7 +92,7 @@ LayaAir3.x由于在IDE内使用了资源商店，社区、IDE核心配置云存�
 
 (图3-4)
 
-2.3.4 创建项目
+#### 2.3.4 创建项目
 
 完成以上选项后，点击创建项目，如图3-5所示。即可完成项目的创建，进入IDE编辑界面。如图3-5所示。
 
@@ -100,7 +102,7 @@ LayaAir3.x由于在IDE内使用了资源商店，社区、IDE核心配置云存�
 
 ### 2.4 开发者商城
 
-开发者商城正在建设中，稍晚推出。
+https://store.layaair.com/
 
 ### 2.5 Web链接
 
@@ -288,7 +290,7 @@ LayaAir3.x由于在IDE内使用了资源商店，社区、IDE核心配置云存�
 
 通过File菜单的Build调出发布界面，如图9所示。
 
-<img src="img/9.png" style="zoom:67%;" /> 
+![9](img/9.png) 
 
 （图9）
 
