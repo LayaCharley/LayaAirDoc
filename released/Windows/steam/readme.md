@@ -8,7 +8,7 @@ LayaAir支持增加自定义的Windows扩展，用户可以通过LayaNative提�
 
 在集成Steam扩展前，开发者需要准备以下内容：
 
-- 阅读[Windows扩展](../Windows/readme.md)文档，集成Steam扩展功能需要使用LayaNative扩展工具，安装步骤都在此文档中。
+- 阅读[Windows扩展](../extension/readme.md)文档，集成Steam扩展功能需要使用LayaNative扩展工具，安装步骤都在此文档中。
 - 在[SteamWorks](https://partner.steamgames.com/)中创建开发者账号，填写信息、付款并等待审核通过。账号审核后，在主面板上创建一个[应用程序](https://partner.steamgames.com/doc/store/application)，获取到应用的AppID。
 - 下载[Steamworks SDK](https://partner.steamgames.com/downloads/steamworks_sdk.zip)并解压缩，将Steamworks API头文件夹 `public/steam` 复制到LayaNative扩展工具中（本文使用的SDK版本为steamworks_sdk_161）。
 
