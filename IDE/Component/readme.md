@@ -10,16 +10,10 @@
 
 ### [网格](./Mesh/readme.md)
 
-### [拖尾](./Trail/readme.md)
+### [3D渲染组件](./3DRender/readme.md)
 
-### [像素线](./PixelLine/readme.md)
+### [3D灯光](../../3D/Light/readme.md)
 
-### [反射探针](./ReflectionProbe/readme.md)
-
-### [体积全局照明](./VolumetricGI/readme.md)
-
-###  [静态合批](./StaticBatchVolume/readme.md)
-
-###  [LOD组](./LOD/readme.md)
+### [3D物理](../physicsEditor/physics3D/readme.md)
 
 ### [3D寻路](./navMesh/readme.md)
