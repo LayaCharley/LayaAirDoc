@@ -2,7 +2,7 @@
 
 > Author: Charley
 
-WebSocket 协议因其全双工、低延迟的特点被广泛应用于在线游戏、实时聊天、数据推送等场景。LayaAir 引擎内置对 WebSocket 的封装（通过 `Laya.Socket`），以及结合 `Laya.Byte` 实现二进制数据的高效读写，为开发者提供了一套简单易用的网络通信接口。本教程将带你从零开始逐步掌握如何在 LayaAir 中利用 WebSocket 进行数据通信。
+WebSocket 协议因其全双工、低延迟的特点被广泛应用于在线游戏、实时聊天、数据推送等场景。LayaAir 引擎内置对 WebSocket 的封装（通过 `Laya.Socket`），以及结合 `Laya.Byte` 实现二进制数据的高效读写，为开发者提供了一套简单易用的网络通信接口。本篇文档将带你从零开始逐步掌握如何在 LayaAir 中利用 WebSocket 进行数据通信。
 
 ## 一、WebSocket基础概念
 
