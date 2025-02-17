@@ -223,7 +223,7 @@
   - [Windows发布](released/Windows/readme.md)
     * [Windows扩展](released/Windows/extension/readme.md)
     * [Steam扩展实例](released/Windows/steam/readme.md)
-  - [鸿蒙NEX构建](released/Harmony/readme.md)
+  - [鸿蒙NEXT构建](released/Harmony/readme.md)
     * [鸿蒙NEXT真机调试JavaScript](released/Harmony/debug/readme.md)
   - [Android构建](released/Android/readme.md)
     * [Android真机调试JavaScript](released/Android/debug/readme.md)

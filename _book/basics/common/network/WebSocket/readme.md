@@ -1,434 +1,547 @@
 # WebSocket通信
 
-WebSocket 是一种在单个 TCP 连接上进行全双工通信的协议。它使得客户端（如 Web 浏览器）和服务器之间能够建立持久的连接，并且双方可以在这个连接上随时互相发送数据，而不像 HTTP 那样需要客户端发起请求才能得到服务器的响应。
+> Author: Charley
 
-websocket发送数据的格式一般为二进制和字符串。LayaAir引擎已经为我们封装好了 Socket 和 Byte 类，收发数据结合Byte类就可以完成。
+WebSocket 协议因其全双工、低延迟的特点被广泛应用于在线游戏、实时聊天、数据推送等场景。LayaAir 引擎内置对 WebSocket 的封装（通过 `Laya.Socket`），以及结合 `Laya.Byte` 实现二进制数据的高效读写，为开发者提供了一套简单易用的网络通信接口。本篇文档将带你从零开始逐步掌握如何在 LayaAir 中利用 WebSocket 进行数据通信。
 
-### 1.1 Laya.Sokcet
+## 一、WebSocket基础概念
 
-在LayaAir引擎中 `Socket` 就是我们使用 WebSocket 的基本类。 `Socket` 封装了 HTML5 WebSocket ，允许服务器端与客户端进行全双工（full-duplex）的实时通信，并且允许跨域通信。在建立连接后，服务器和 Browser/Client Agent 都能主动的向对方发送或接收文本和二进制数据。我们先来了解下 `Socket` 的用法
+WebSocket 是一种网络通信协议，专门用于在客户端（如 Web 浏览器）和服务器之间建立持久的、全双工的连接。这意味着，一旦建立连接后，双方都可以随时主动发送和接收数据，而不需要像传统的 HTTP 协议那样每次都重新建立连接和等待请求响应。
 
-#### 1.1.1 Connect 服务器
+### 1.1 背景与起源
 
-Socket 连接服务器有三种方式：
+在 WebSocket 出现之前，实现客户端与服务器的实时通信通常采用轮询或长轮询技术。
 
-| 方式             | 说明                                                         |
-| :--------------- | :----------------------------------------------------------- |
-| 构造函数传参     | 立即连接 比如 new Socket(“192.168.1.2”,8899)；注意这里的host参数没有ws前缀。 |
-| connect方法      | 传递url和端口号，连接服务器；socket.connect(“192.168.0.1.2”，8989)；注意这里的host参数没有ws前缀。 |
-| connectByUrl方法 | 传递整个url，比如 socket.connectByUrl(“ws://localhost:8989”)；这里有ws前缀。 |
+轮询是指客户端定期向服务器发送请求来获取最新数据，这种方式会造成大量不必要的请求，浪费带宽和服务器资源；
 
+长轮询虽然有所改进，但仍不是真正意义上的实时通信。为了解决这些问题，HTML5 规范引入了 WebSocket 协议。
 
+### 1.2 主要特点
 
-#### 1.1.2 发送数据
+#### 1.2.1 **全双工通信**
 
-发送数据很简单，只需要调用Socket的send函数即可，参数可以是string或者是ArrayBuffer。
+在 WebSocket 连接建立后，客户端和服务器可以在任何时刻相互发送数据，而不需要等待对方的请求。例如，在在线聊天应用中，客户端可以随时向服务器发送消息，服务器也能及时将其他用户的消息推送给客户端。
 
-- **发送字符串格式：**
+#### 1.2.2 **实时性高**：
 
-```
-this.socket.send("hello world");//这是发送字符串的形式。
-```
+由于是全双工通信，数据可以实时传输，没有传统轮询方式的延迟问题。这使得 WebSocket 非常适合实时性要求较高的应用，如股票行情显示、在线游戏等。
 
-- **发送二进制格式的数据：**
+#### 1.2.3 **持久连接**
 
-```typescript
-//写入一个字节
-this.byte.writeByte(1);
-//写入一个int16的数据
-this.byte.writeInt16(20);
-//写入一个32位的浮点数据
-this.byte.writeFloat32(20.5);
-// 写入一个字符串；
-this.byte.writeUTFString("hello");
-//这里声明一个临时Byte类型
-var by:Laya.Byte = new Laya.Byte();
-//设置endian；
-by.endian = Laya.Byte.LITTLE_ENDIAN;
-//写入一个int32数据
-by.writeInt32(5000);
-//写入一个uint16 数据
-by.writeUint16(16);
-//把临时字节数据的数据写入byte中，这里注意写入的是by.buffer;
-this.byte.writeArrayBuffer(by.buffer);
-//这里是把字节数组的数据通过socket发送给服务器。
-this.socket.send(this.byte.buffer);
-//清除掉数据;方便下次读写；
-this.byte.clear();
-```
+建立连接后，客户端和服务器之间的通道一直保持打开状态，直至任意一方主动关闭连接。这大大降低了频繁建立和断开连接的开销。
 
-上面我们看到，通过一个字节数组把我们需要的数据读入一个Byte数组，最后发送给服务器的是`byte.buffer`，这是一个ArrayBuffer的数据类型。这里一定要注意send的参数是 ArrayBuffer，很多开发者可能不注意，直接传递成了Byte，导致发送数据不正确。假如写成 `this.socket.send(this.byte)`；这是错误的，这点一定要注意。
+#### 1.2.4 **低开销**
 
+WebSocket 建立连接后，通信时的头部信息很小，相比于 HTTP 请求的头部信息要少很多，从而减少了数据传输的开销。
 
+#### 1.2.5 **跨域通信**
 
-#### 1.1.3 接收数据
+WebSocket 允许跨域通信，这使得客户端可以和不同域名的服务器进行实时数据交互，而不受同源策略的限制。
 
-客户端从服务器接收到的数据都会派发到 Event.MESSAGE 监听函数中。receiveHandler的参数就是服务器发送回来的数据。可能是字符串，也可能是二进制ArrayBuffer。接收到的是字符串我们不用读，拿来直接用就可以。但是接收到的是二进制的话我们需要读取出来，转成我们需要的类型。
+### 1.3 工作原理
+
+#### 1.3.1 **握手阶段**
+
+客户端通过 HTTP 请求向服务器发起 WebSocket 连接请求，请求头中包含一些特殊字段，如 `Upgrade: websocket` 和 `Connection: Upgrade`，表明客户端希望将当前的 HTTP 连接升级为 WebSocket 连接。服务器收到请求后，如果支持 WebSocket 协议，会返回一个状态码为 101 的响应，表示同意升级连接。
+
+#### 1.3.2 **数据传输阶段**
+
+握手成功后，TCP 连接保持打开，客户端和服务器可以通过这个连接自由地发送和接收数据。数据以帧的形式进行传输，WebSocket 协议定义了不同类型的帧，如文本帧、二进制帧等。
+
+#### 1.3.3 **关闭连接阶段**
+
+当客户端或服务器需要关闭连接时，会发送一个关闭帧，另一方收到关闭帧后，会发送一个确认关闭帧，然后双方关闭 TCP 连接。
+
+## 二、Laya.Sokcet通信基础
+
+LayaAir 中用于 WebSocket 通信的核心类是 `Laya.Socket`。下面详细介绍它的使用方法。
+
+### 2.1 建立连接的方式
+
+#### 2.1.1 构造函数传参
+
+直接在构造时传入主机地址和端口，即刻尝试连接。
 
 ```typescript
- private receiveHandler(msg: any = null): void {
-   ///接收到数据触发函数
-   //.............这里我们假设收到的是二进制ArrayBuffer
-   this.byte.clear();
-   this.byte.writeArrayBuffer(msg);//把接收到的二进制数据读进byte数组便于解析。
-   this.byte.pos = 0;//设置偏移指针；
-   ////下面开始读取数据，按照服务器传递过来的数据，按照顺序读取
-   var a:number = this.byte.getByte();
-   var b:number = this.byte.getInt16();
-   var c:number = this.byte.getFloat32();
-   var d:string = this.byte.getString();
-   var e:string = this.byte.getUTFString();
- }
+// 注意：host 参数不需要“ws://”前缀，默认就是ws
+let socket = new Laya.Socket("192.168.1.2", 8899);
+//如果需要wss安全协议，第5个参数需要为true。
+// let socket = new Laya.Socket("192.168.1.2", 8899, null, null, true);
+```
+
+#### 2.1.2 **connect 方法**
+
+先创建 Socket 对象，再调用 `connect(host, port)` 建立连接。
+
+```typescript
+let socket = new Laya.Socket();
+socket.connect("192.168.1.2", 8899);
+//如果需要wss安全协议，第3个参数需要为true。
+// let socket = new Laya.Socket("192.168.1.2", 8899, true);
+```
+
+#### 2.1.3 connectByUrl 方法
+
+直接传入完整的 WebSocket URL（需包含协议的前缀，如 “ws://”）。
+
+```typescript
+let socket = new Laya.Socket();
+socket.connectByUrl("ws://localhost:8989");
+```
+
+### 2.2 事件监听与处理
+
+由于 WebSocket 的连接和数据传输均为异步过程，因此建立连接后，通常要注册以下事件监听器：
+
+- **Event.OPEN**：连接成功建立后触发。
+- **Event.MESSAGE**：收到服务器发送的数据时触发。
+- **Event.CLOSE**：连接关闭时触发。
+- **Event.ERROR**：连接出错时触发。
+
+示例代码：
+
+```typescript
+// 注册事件监听示例
+this.socket.on(Laya.Event.OPEN, this, this.onSocketOpen);
+this.socket.on(Laya.Event.MESSAGE, this, this.onMessageReceived);
+this.socket.on(Laya.Event.CLOSE, this, this.onSocketClose);
+this.socket.on(Laya.Event.ERROR, this, this.onConnectError);
 ```
 
 
 
-#### 1.1.4 支持的事件类型
+## 三、webSocket数据通信实例
 
-我们常用的基本就是连接建立成功，接收到数据，连接被关闭，出现异常后调度等
+### 3.1 字符串数据通信
+
+发送字符串数据示例：
 
 ```typescript
-/**
- * 连接建立成功后调度。
- * @eventType Event.OPEN
- * */
-/*[Event(name = "open", type = "laya.events.Event")]*/
-/**
- * 接收到数据后调度。
- * @eventType Event.MESSAGE
- * */
-/*[Event(name = "message", type = "laya.events.Event")]*/
-/**
- * 连接被关闭后调度。
- * @eventType Event.CLOSE
- * */
-/*[Event(name = "close", type = "laya.events.Event")]*/
-/**
- * 出现异常后调度。
- * @eventType Event.ERROR
- * */
-/*[Event(name = "error", type = "laya.events.Event")]*/
+// 发送字符串数据
+this.socket.send("Hello, LayaAir!");
 ```
 
+服务器收到的数据直接为字符串，客户端接收后也直接处理即可。
 
-
-#### 1.1.5 在代码中怎么使用
-
-我们举一个简单的发送和接收数据的 WebSocket 代码示例：
+接收字符串数据的完整示例：
 
 ```typescript
-	private connect(): void {
-	
-		//创建Socket对象
-		this.socket = new Socket();
-		
-		//对服务器建立连接
-		this.socket.connectByUrl("ws://echo.websocket.org:80");
-		
-		//表示需要发送至服务端的缓冲区中的数据
-		this.output = this.socket.output;
-		
-		//添加监听事件
-		this.socket.on(Event.OPEN, this, this.onSocketOpen);
-		this.socket.on(Event.CLOSE, this, this.onSocketClose);
-		this.socket.on(Event.MESSAGE, this, this.onMessageReveived);
-		this.socket.on(Event.ERROR, this, this.onConnectError);
-	}
+const { regClass } = Laya;
 
-	//连接建立成功回调
-	private onSocketOpen(e: any = null): void {
-		console.log("Connected");
+@regClass()
+export class WebSocketDemo extends Laya.Script {
+    private socket: Laya.Socket;
 
-		// 发送字符串
-		this.socket.send("demonstrate <sendString>");
+    //组件被启用后执行，例如节点被添加到舞台后
+    onEnable(): void {
+        this.socket = new Laya.Socket();
 
-		// 使用output.writeByte发送
-		var message: string = "demonstrate <output.writeByte>";
-		for (var i: number = 0; i < message.length; ++i) {
-			// 直接写缓冲区中的数据
-			this.output.writeByte(message.charCodeAt(i));
-		}
-		
-		// 发送缓冲区中的数据到服务器
-		this.socket.flush();
-	}
+        // 注册事件监听
+        this.socket.on(Laya.Event.OPEN, this, this.onSocketOpen);
+        this.socket.on(Laya.Event.MESSAGE, this, this.onMessageReceived);
+        this.socket.on(Laya.Event.CLOSE, this, this.onSocketClose);
+        this.socket.on(Laya.Event.ERROR, this, this.onConnectError);
 
-	// 连接断开后的事件回调
-	private onSocketClose(e: any = null): void {
-		console.log("Socket closed");
-	}
+        // 建立连接（此处使用 connectByUrl 方式，实际可根据需要选择其他方式）
+        this.socket.connectByUrl("wss://echo.websocket.org:443");
+    }
 
-	// 有数据接收时的事件回调
-	private onMessageReveived(message: any = null): void {
-		console.log("Message from server:");
-		if (typeof (message) == 'string') {
-			console.log(message);
-		}
-		else if (message instanceof ArrayBuffer) {
-			console.log(new Byte(message).readUTFBytes());
-		}
-		// 清理缓存的服务端发来的数据
-		this.socket.input.clear();
-	}
 
-	// 出现异常后的事件回调
-	private onConnectError(e: Event = null): void {
-		console.log("error");
-	}
+    /** 连接成功回调，发送字符串数据 */
+    private onSocketOpen(e: any): void {
+        console.log("WebSocket 已连接");
+
+        // 发送字符串示例
+        this.socket.send("Hello, LayaAir WebSocket!");
+    }
+
+    /**  接收数据回调 */
+    private onMessageReceived(msg: any): void {
+        console.log("接收到消息：");
+        if (typeof msg === "string") {
+            console.log("文本数据：", msg);
+        } else {
+            console.log("接收到非字符串数据", msg);
+        }
+        // 清除输入缓存，避免残留数据
+        this.socket.input.clear();
+    }
+
+    /** 连接关闭回调 */
+    private onSocketClose(e: any): void {
+        console.log("WebSocket 连接已关闭", e);
+    }
+
+    /** 连接错误回调 */
+    private onConnectError(e: any): void {
+        console.error("WebSocket 连接出错：", e);
+    }
+}
 ```
 
+示例代码成功连接后，控制台打印效果，如图1-1所示：
 
+![](img/1-1.png) 
 
-### 2.2 Laya.Byte 二进制读写
+（图1-1）
 
-在开发项目中，二进制的操作是不可或缺的。在html5时代，对二进制的支持已经有了很大的突破。但是api的繁琐，对开发者开发项目来说不太方便。在页游时代，ActionScript3.0的二进制数组ByteArray，功能完善，api操作简单易懂，因此LayaAir的Byte在参考ByteArray的同时承接了html5的TypedArray类型化数组的特点。下面看下主要的用法
+如果连接出错和关闭，控制台打印效果，如图1-2所示：
 
-#### 2.2.1 常用方法
+![](img/1-2.png)
 
-- **构造方法**
+（图1-2）
 
-  参数：
+### 3.2 二进制数据通信
 
-  `length` ：长度
+#### 3.2.1 二进制通信优势
 
-  当传入length参数时，一个内部数组缓冲区被创建,该缓存区的大小是传入的length大小。
+相比字符串数据通信方式，二进制数据的体积通常比文本（如JSON）减少 50%-80%，解码比文本解析快 3-5 倍（无序列化/反序列化开销），可直接操作内存，减少临时对象创建等优势。
 
-  `typedArray`：类型化数组
+#### 3.2.2 二进制通信数据类型
 
-  当传入一个包含任意类型元素的任意类型化数组对象(typedArray) (比如 **Int32Array)**作为参数时，typeArray被复制到一个新的类型数组。typeArray中的每个值会在复制到新的数组之前根据构造器进行转化。新的生成的类型化数组对象将会有跟传入的数组相同的length(比如原来的typeArray.length==2，那么新生成的数组的length也是2，只是数组中的每一项进行了转化)。
+在WebSocket协议中，支持的基础二进制类型有Blob和ArrayBuffer。
 
-  `ArrayBuffer`：二进制数据缓冲区。
+**Blob** 侧重于存储和传输文件，主要是应用于网页交互场景等。而 **ArrayBuffer** 更适用于数据处理，例如游戏数据的交互。
 
-  上面的三种方法都可以实例化一个Byte，根据参数的不同创建二进制数据。
+由于ArrayBuffer在游戏引擎中是最优的选择，所以在**LayaAir引擎的封装中写死了二进制数据类型是"arraybuffer"**，不支持Blob。
 
-  ```typescript
-  //实例化一个二进制数组Byte
-  var byte:Laya.Byte = new Laya.Byte();
-  //或者传入一个类型化数组
-  var uint8Byte:Uint8Array = new Uint8Array(10);
-  var byte:Laya.Byte = new Laya.Byte(uint8Byte);
-  //或者传入一个ArrayBuffer类型
-  var buffer:ArrayBuffer = new ArrayBuffer(20);
-  var byte:Laya.Byte = new Laya.Byte(buffer);
-  ```
+#### 3.2.3 ArrayBuffer数据通信
 
-- **writeArrayBuffer**(arraybuffer:*, offset:number = 0, length:number = 0):void
+**ArrayBuffer** 是 JavaScript 中用来表示 **原始二进制数据** 的一种基本数据结构，它本身并不直接存储数据，而是提供了一块固定大小的内存区域，使用 **TypedArray** 或 **DataView** 数据类型访问和操作这些数据。
 
-  写入指定的二进制缓冲数据。指定数据的偏移量和长度，如下：
-
-  ```typescript
-  var byte:Laya.Byte = new Laya.Byte();
-  var byte1:Laya.Byte = new Laya.Byte();
-  byte1.writeFloat32(20.0);//写入一个四个字节的浮点数
-  byte1.writeInt16(16);//写入一个两个字节的整数
-  byte1.writeUTFString("hell world");//写入一个字符串；
-  byte.writeArrayBuffer(byte1.buffer,6);//把byte1的数据从第六个字节开始读入byte中。省略其中的浮点数20.0和整数16
-  byte.pos = 0;//
-  console.log(byte.readUTFString())//从byte中读出字符串。
-  ```
-
-- **读取数据**
-
-  `getByte():number`
-
-  从字节流中读取带符号的字节。
-
-  `getInt16():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Int16 值。
-
-  `getInt32():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Int32 值。
-
-  `getFloat32():number`
-
-  从字节流的当前字节偏移位置处读取一个 IEEE 754 单精度（32 位）浮点数。
-
-  `getFloat32Array(start:number, len:number)any`
-
-  从指定的位置读取指定长度的数据用于创建一个 Float32Array 对象并返回此对象。
-
-  `getFloat64():number`
-
-  从字节流的当前字节偏移量位置处读取一个 IEEE 754 双精度（64 位）浮点数。
-
-  `getInt16():number `
-
-  从字节流的当前字节偏移量位置处读取一个 Int16 值。
-
-  `getInt32():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Int32 值。
-
-  `getUint8():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Uint8 值。
-
-  `getUint16():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Uint16 值。
-
-  `getUint32():number`
-
-  从字节流的当前字节偏移量位置处读取一个 Uint32 值。
-
-  `getInt16Array(start:number, len:number):any`
-
-  从指定的位置读取指定长度的数据用于创建一个 Int16Array 对象并返回此对象。
-
-  `getString():string`
-
-  读取字符型值。
-
-  `getUTFBytes(len:number = -1):string `
-
-  读字符串，必须是 writeUTFBytes 方法写入的字符串。
-
-  `getUTFString():string `
-
-  读取 UTF-8 字符串。
-
-  
-
-- **写入数据**
-
-  `writeByte(value:number):void`在字节流中写入一个字节。	
+完整示例代码如下：
 
 ```typescript
- var byte:Laya.Byte = new Laya.Byte(); 
- byte.writeByte(10);//0-255之间
+const { regClass } = Laya;
+import Socket = Laya.Socket;
+import Event = Laya.Event;
+
+@regClass()
+export class ArrayBufferSocketDemo extends Laya.Script {
+    private socket: Socket;
+
+    onEnable(): void {
+        this.socket = new Socket();
+        this.socket.connectByUrl("wss://echo.websocket.org:443");
+
+        this.socket.on(Event.OPEN, this, this.onSocketOpen);
+        this.socket.on(Event.MESSAGE, this, this.onMessageReceived);
+        this.socket.on(Event.ERROR, this, this.onConnectError);
+    }
+
+    private onSocketOpen(): void {
+        console.log("Socket Connected");
+
+        // 创建一个 ArrayBuffer，大小为 8 字节
+        let buffer = new ArrayBuffer(8);
+        let view = new DataView(buffer);
+
+        // 写入整数
+        view.setInt32(0, 123456, true);  // 小端字节序
+        view.setInt32(4, 654321, true);
+
+        // 发送数据
+        this.socket.send(buffer);
+    }
+
+    private onMessageReceived(message: any): void {
+        if (message instanceof ArrayBuffer) {
+            // 创建 DataView 来解析 ArrayBuffer
+            const view = new DataView(message);
+            try {
+                // 解析数据
+                const num1 = view.getInt32(0, true); // 小端字节序
+                const num2 = view.getInt32(4, true);
+
+                // 打印解析结果
+                console.log("Received binary data:");
+                console.log("Number 1:", num1);
+                console.log("Number 2:", num2);
+            } catch (error) {
+                console.error("Error parsing binary data:", error);
+            }
+        } else {
+            console.log("Received non-binary message:", message);
+        }
+    }
+
+    private onConnectError(): void {
+        console.log("Connection Error");
+    }
+}
 ```
 
-​	  `writeFloat32(value:number):void`在当前字节偏移量位置处写入 Float32 值。范围是$\left[-2^{128}, 2^{127}\right]$，约为-3.4E38—3.4E+38。
+将脚本添加到场景中运行，我们看到控制台中的打印如图2-1所示。
+
+![](img/2-1.png) 
+
+（图2-1）
+
+#### 3.2.4 二进制图像传输示例
+
+有的时候，可能需要从服务端读取二进制图像并显示，这里我们给出一个模拟二进制图像的一个示例脚本，供开发者入门参照。
+
+完整示例代码如下：
 
 ```typescript
-var byte:Laya.Byte = new Laya.Byte();
-byte.writeFloat32(10.021);
+const { regClass } = Laya;
+
+@regClass()
+export class ArrayBufferSocketDemo extends Laya.Script {
+    private socket: Laya.Socket;
+
+    onEnable(): void {
+        this.socket = new Laya.Socket();
+        this.socket.connectByUrl("wss://echo.websocket.org:443");
+        this.socket.on(Laya.Event.OPEN, this, this.onSocketOpen);
+        this.socket.on(Laya.Event.MESSAGE, this, this.onMessageReceived);
+        this.socket.on(Laya.Event.ERROR, this, this.onConnectError);
+    }
+
+    private onSocketOpen(): void {
+        console.log("Socket 已连接");
+        /** 一个二进制图片资源路径（本地或在线），请自行替换本地二进制图片路径，
+         * 或从官网下载示例图片(路径：https://layaair.com/3.x/demo/resources/res/test.bin)
+         */
+        const imageUrl = "resources/res/test.bin";
+        // 加载二进制图片文件
+        Laya.loader.fetch(imageUrl, "arraybuffer").then((arrayBuffer: ArrayBuffer) => {
+            // 直接发送加载后的 ArrayBuffer 数据
+            this.socket.send(arrayBuffer);
+            console.log("发送 ArrayBuffer 数据", arrayBuffer);
+        });
+    }
+    private onMessageReceived(message: any): void {
+        if (message instanceof ArrayBuffer) {
+            console.log("收到 ArrayBuffer 数据", message);
+
+            // 跳过用于加密的前4个字节，只处理有效数据，如果资源没有加密，第二个参数可以不写。
+            const uint8Array = new Uint8Array(message, 4);
+
+            // 将 ArrayBuffer 转换为图片数据并加载到 LayaAir 引擎中
+            const img = new Laya.Image();
+            img.size(110, 145); // 设置图片显示大小
+            img.skin = Laya.Browser.window.URL.createObjectURL(new Blob([uint8Array], { type: 'image/png' }));
+            img.centerX = 0; // 设置图片居中显示
+
+            // 将图片添加到舞台显示
+            Laya.stage.addChild(img);
+        } else {
+            console.log("收到数据:", message);
+        }
+    }
+
+    private onConnectError(): void {
+        console.log("Connection Error");
+    }
+}
 ```
 
-​	  `writeFloat64(value:number):void`写入float64位数值 其数值范围为-1.7E308～1.7E+308。
+运行效果如图3-1所示。
 
-​	  `writeInt16(value:number):void`在当前字节偏移量位置处写入 Int16 值。范围-32768 到 +32767之间。	
+![](img/3-1.png)
 
-```typescript
-var byte:Laya.Byte = new Laya.Byte();
-byte.writeInt16(120);
-```
+(图3-1)
 
-​	  `writeInt32(value:number):void`在当前字节偏移量位置处写入 Int32 值。-2,147,483,648 到 +2,147,483,647 之间的有符号整数。
+### 3.3 基于Laya.Byte二进制通信
 
-```typescript
- **writeUint16**(value:number):void在当前字节偏移量位置处写入 Uint16 值。
-```
+#### 3.3.1 TypedArray基础概念
 
-​	  `writeUint32(value:number):void`在当前字节偏移量位置处写入 Uint32 值。
+类型化数组（TypedArray）是 JavaScript 中用于高效处理二进制数据的重要工具，它本质上是基于 `ArrayBuffer` 的视图。`ArrayBuffer` 是一个固定长度的二进制数据缓冲区，而 TypedArray 则为开发者提供了一种以特定数据类型（诸如整数、浮点数等）来访问 `ArrayBuffer` 中数据的方式。
 
-​	  `writeUint8(value:number):void`在当前字节偏移量位置处写入 Uint8 值。
+需要明确的是，TypedArray 并非单个对象，而是一系列构造函数的统称。这些构造函数各自对应着不同的数据类型，用于创建特定类型的二进制数组。例如，`Uint8Array` 构造函数可以创建一个按字节读取和操作数据的类型化数组，适用于处理图像像素数据、音频样本等以字节为单位的数据；`Float32Array` 构造函数则可创建一个按 32 位浮点数来读取和处理数据的数组，常用于科学计算、图形处理等对精度和性能要求较高的场景。
 
-​	  `writeUTFBytes(value:string):void`写入字符串，该方法写的字符串要使用 readUTFBytes 方法读取。
+借助 TypedArray，开发者能够避免直接操作原始字节数据所带来的复杂性，无需手动处理字节的偏移、转换和编码等问题。它使得开发者可以像操作普通数组一样便捷地处理二进制数据，提高了开发效率。
 
-​	  `writeUTFString(value:string):void`将 UTF-8 字符串写入字节流。
+常见的 TypedArray 视图数据类型如下：
 
+| 类型             | 说明                           |
+| ---------------- | ------------------------------ |
+| **Uint8Array**   | 用于操作 8 位无符号整数数组。  |
+| **Int8Array**    | 用于操作 8 位有符号整数数组。  |
+| **Uint16Array**  | 用于操作 16 位无符号整数数组。 |
+| **Int16Array**   | 用于操作 16 位有符号整数数组。 |
+| **Uint32Array**  | 用于操作 32 位无符号整数数组。 |
+| **Int32Array**   | 用于操作 32 位有符号整数数组。 |
+| **Float32Array** | 用于操作 32 位浮点数数组。     |
+| **Float64Array** | 用于操作 64 位浮点数数组。     |
 
+#### 3.3.2 DataView基础概念
 
-- `clear():void`清除数据。
+`DataView` 是 JavaScript 中用于处理二进制数据的一个强大工具，用于在 `ArrayBuffer` 上读取和写入二进制数据。`DataView` 本身不存储数据，而是作为 `ArrayBuffer` 的一种视图，提供了一组方法来按不同的数据类型访问底层二进制内容。
 
-  ```typescript
-  var byte:Laya.Byte = new Laya.Byte();
-  byte.writeInt16(120);
-  byte.pos =0;//读取位置归零。
-  ```
+与 `TypedArray` 不同，`DataView` 不会对整个 `ArrayBuffer` 绑定特定的数据类型，而是允许在同一个 `ArrayBuffer` 上以不同的数据类型进行访问。这意味着，开发者可以在相同的缓冲区内混合读取 `Int8`、`Uint16`、`Float32` 等不同类型的数据，而 `TypedArray` 只能使用其构造时指定的单一数据类型。
 
-  
+在读写多字节数据时，`DataView` 允许开发者指定字节序，即数据在内存中的存储顺序。可以选择大端字节序或小端字节序，通过方法的布尔参数来控制，这在处理不同系统和网络协议时非常重要。
 
-- `getSystemEndian():string[static]`获取系统的字节存储顺序。
+此外，`DataView` 允许精确控制数据的访问位置。开发者可以从 `ArrayBuffer` 的任意字节偏移位置读取或写入数据，而 `TypedArray` 只能顺序访问。这种灵活性使 `DataView` 特别适用于解析复杂的二进制数据结构。例如，你要在 `ArrayBuffer` 里读取不同类型的数据（比如先读取 `Int16`，然后再读取 `Float32`），`TypedArray` 就做不到。
 
-  ```typescript
-  console.log(Laya.Byte.getSystemEndian());//打印系统的字节顺序
-  ```
+当然，`TypedArray` 也有很多特有的优势。
 
+例如，`TypedArray` 性能更高，适用于大规模数值运算，并且提供了类似普通数组的方法（如 `map`、`forEach`、`set`），让开发者可以像操作普通数组一样操作二进制数据，等。
 
+**什么时候使用 `TypedArray`？**
 
-#### 2.2.2 属性
+- 处理**大规模数值计算**（如音频、视频、物理仿真）。
+- 与**Web APIs** 交互（如 `WebGL`、`fetch`、`Web Audio`）。
+- **需要高性能访问** `ArrayBuffer` 数据时。
 
-- `BIG_ENDIAN : string= bigEndian[static]` 表示多字节数字的最高有效字节位于字节序列的最前面。
+**什么时候使用 `DataView`？**
 
-- `LITTLE_ENDIAN : string= littleEndian[static]` 表示多字节数字的最低有效字节位于字节序列的最前面。
+- 需要**读取不同的数据类型**（如 `Int16`、`Float32` 混合使用）。
+- 需要**手动指定字节序**（如解析网络协议、文件格式）。
+- 需要**随意访问 `ArrayBuffer` 的任何字节**，而不是连续数据。
 
-- `pos `number当前读取到的位置。
+#### 3.3.3 Laya.Byte的优势
 
-  ```typescript
-  var byte:Laya.Byte = new Laya.Byte();
-  byte.writeInt16(120);
-  byte.pos =0;//读取位置归零。
-  ```
+LayaAir引擎的`Byte` 类，将TypedArray与DataView优势结合起来，进行了封装。提供了高效、灵活的二进制数据读写方案。
 
-- `length: number`字节长度。
+在数据存储和管理方面，`Byte` 类借助 `TypedArray`（如 `Uint8Array`）实现高效的数据存储。`TypedArray` 具有连续内存存储的特性，能够像普通数组一样进行快速索引访问，非常适合存储大量二进制数据块，这使得 `Byte` 类在处理大数据时能保持良好的性能。`Byte`类还具备**自动扩容**机制，能够在数据超出当前缓冲区容量时动态调整大小，避免手动管理内存的复杂性。
 
-- `endian : string`字节顺序。
+在数据读写操作上，`Byte` 类利用 `DataView` 实现对不同数据类型和字节序的灵活处理。`DataView` 允许在同一个 `ArrayBuffer` 中以不同的数据类型和字节序读写数据，满足了不同系统和协议的多样化需求。开发者可以通过设置 `endian` 属性轻松切换字节序，使用 `DataView` 的方法精确读写多字节的数据类型，如整数、浮点数等。
 
-  ```typescript
-  var byte:Laya.Byte = new Laya.Byte();
-  byte.endian = Laya.Byte.BIG_ENDIAN;//设置为大端；
-  ```
+在性能优化上，`TypedArray` 的批量操作能力与 `DataView` 的精确读写能力相结合，使得 `Byte` 类在处理二进制数据时既高效又灵活。对于大数据块，可利用 `TypedArray` 快速批量写入；对于特定类型数据，则使用 `DataView` 精确读写，避免了不必要的类型转换和内存开销。
 
-- `bytesAvailable : number[read-only]`可从字节流的当前位置到末尾读取的数据的字节数。
+此外，`Byte` 类还能在使用TypedArray与DataView这两种对象进行数据操作时统一进行错误处理和边界检查，例如在读写数据时检查是否超出数据范围，若超出则抛出异常，增强了代码的健壮性。
 
-  ```typescript
-  var byte:Laya.Byte = new Laya.Byte();
-  byte.writeFloat32(20.0);
-  byte.writeInt16(16);
-  byte.writeUTFString("hell world");
-  byte.pos = 6;
-  console.log(byte.bytesAvailable)
-  ```
+#### 3.3.4 创建 Laya.Byte 对象并设置端序
 
+“设置端序”就是在告诉程序在处理多字节数据（例如 16 位、32 位整数或浮点数）时，采用哪种字节排列顺序。简单来说，就是指定数据在内存中存储时字节的顺序是“大端模式”还是“小端模式”。
 
+BIG_ENDIAN：大端字节序，地址低位存储值的高位，地址高位存储值的低位。有时也称之为网络字节序。
 
-#### 2.2.3 代码演示
+LITTLE_ENDIAN： 小端字节序，地址低位存储值的低位，地址高位存储值的高位。
 
-下面我们通过一个完整的代码来演示下这个类的应用，比如网络连接中，我们接收和发送网络消息。
+在网络通信、文件读写等场景中，数据在不同系统间传输时可能需要统一格式。如果发送方和接收方对数据的端序理解不同，就会出现数据解析错误。因此，在数据传输中，双方必须协商并统一使用相同的端序，为确保前后端一致，建议统一设置为小端（LITTLE_ENDIAN）。
+
+示例代码如下：
 
 ```typescript
-var msg:any ={name:"xxx",age:18,weight:65.5,height:175};
-var byte:Laya.Byte = new Laya.Byte();
-//实例化byte数组
+//  初始化用于二进制数据处理的 Laya.Byte
+let byte = new Laya.Byte();
+// 设置字节序为小端模式
 byte.endian = Laya.Byte.LITTLE_ENDIAN;
-//设置大小端
-byte.writeUTFString(msg.name);
-//写入数据
-byte.writeByte(msg.age);
-byte.writeFloat32(msg.weight);
-byte.writeInt16(msg.height);
 ```
 
-输出看下结果：
+#### 3.3.5 用 Laya.Byte 写入和发送数据
+
+创建完对象并设置端序后，我们根据协议顺序调用相应的写入方法（如 writeByte、writeInt16、writeFloat32、writeUTFString 等），然后发送数据。
+
+示例代码如下：
 
 ```typescript
-//设置pos为0 开始从头开始按照写入的顺序读取读取
-byte.pos = 0;
-console.log(byte.getUTFString());
-console.log(byte.getByte());
-console.log(byte.getFloat32());
-console.log(byte.getInt16());
+// 按顺序写入数据
+byte.writeByte(1);
+byte.writeInt16(20);
+byte.writeFloat32(20.5);
+byte.writeUTFString("LayaAir WebSocket");
+
+//发送时必须传入 byte.buffer（ArrayBuffer 对象），而非直接传入 byte 对象。
+socket.send(byte.buffer);
 ```
 
+#### 3.3.6 接收数据与完整示例
+
+在接收到服务器发送的 ArrayBuffer 后，我们如同发送的流程一样，还是通过 Laya.Byte 读取数据。
+
+完整的示例代码如下：
+
+```typescript
+const { regClass } = Laya;
+
+@regClass()
+export class WebSocketDemo extends Laya.Script {
+    private socket: Laya.Socket;
+    private byte: Laya.Byte;
+
+    onEnable() {
+        // 创建 Socket 对象
+        this.socket = new Laya.Socket();
+        //  初始化用于二进制数据处理的 Laya.Byte
+        this.byte = new Laya.Byte();
+        // 设置字节序为小端模式
+        this.byte.endian = Laya.Byte.LITTLE_ENDIAN;
+
+        // 注册事件监听
+        this.socket.on(Laya.Event.OPEN, this, this.onSocketOpen);
+        this.socket.on(Laya.Event.MESSAGE, this, this.onMessageReceived);
+        this.socket.on(Laya.Event.CLOSE, this, this.onSocketClose);
+        this.socket.on(Laya.Event.ERROR, this, this.onConnectError);
+
+        // 建立连接（此处使用 connectByUrl 方式，实际可根据需要选择其他方式）
+        this.socket.connectByUrl("wss://echo.websocket.org:443");
+    }
+
+    // 连接成功回调
+    private onSocketOpen(e: any): void {
+        console.log("WebSocket 已连接");
+        // 按顺序写入数据：一个字节、一个 16 位整数、一个 32 位浮点数、一段字符串
+        this.byte.writeByte(99);
+        this.byte.writeInt16(2025);
+        this.byte.writeFloat32(0.12345672398805618);
+        this.byte.writeUTFString("二进制数据示例");
+
+        // 发送时必须传入二进制数据byte.buffer（ArrayBuffer 对象），而非传入 byte 对象
+        this.socket.send(this.byte.buffer);
+        //清空缓冲区，避免数据残留影响后续操作。
+        this.byte.clear();
+    }
+
+    // 接收数据回调
+    private onMessageReceived(msg: any): void {
+        console.log("接收到消息：", msg);
+
+        // 判断消息类型是否为 ArrayBuffer（二进制数据）
+        if (msg instanceof ArrayBuffer) {
+            // 创建 Laya.Byte 实例，用于操作二进制数据
+            let byte = new Laya.Byte();
+            // 设置字节序列的字节序
+            byte.endian = Laya.Byte.LITTLE_ENDIAN;
+            // 将 ArrayBuffer 中的二进制数据写入 Laya.Byte 对象中
+            byte.writeArrayBuffer(msg);
+
+            // 重置字节流的位置指针，从0开始读取数据
+            byte.pos = 0;
+
+            // 从字节流中读取一个字节（8位）
+            let a = byte.getByte();  // 获取一个字节（1个byte）
+            // 从字节流中读取一个16位整数（2个字节）
+            let b = byte.getInt16();  // 获取一个16位整数
+            // 从字节流中读取一个32位浮点数（4个字节）
+            let c = byte.getFloat32();  // 获取一个32位浮点数
+            // 从字节流中读取一个UTF-8编码的字符串
+            let d = byte.getUTFString();  // 获取一个UTF-8字符串
+
+            // 打印解析结果
+            console.log("解析结果：", a, b, c, d);
+        }
+        // 清空 socket 输入流中的数据，确保下次读取是干净的
+        this.socket.input.clear();
+    }
 
 
-#### 2.2.4 类型化数组
+    // 连接关闭回调
+    private onSocketClose(e: any): void {
+        console.log("WebSocket 连接已关闭");
+    }
 
-Laya的byte封装的就是类型化数组，开发者可以参考mdn的官方api说明。来扩展自己的项目的应用。
+    // 连接错误回调
+    private onConnectError(e: any): void {
+        console.error("WebSocket 连接出错：", e);
+    }
+}
+```
 
-- [DataView ](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DataView)视图提供了一个与平台中字节在内存中的排列顺序(字节序)无关的从[`ArrayBuffer`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)读写多数字类型的底层接口。
-- [Uint8Array](https://developer.mozilla.org/zh_CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) 数组类型表示一个8位无符号整型数组，创建时内容被初始化为0。创建完后，可以以对象的方式或使用数组下标索引的方式引用数组中的元素。
-- **Int8Array** :类型数组表示二进制补码8位有符号整数的数组。内容初始化为0。 一旦建立，你可以使用对象的方法引用数组中的元素，或使用标准数组索引语法。
-- **Int16Array()**;类型数组表示二进制补码16位有符号的数组。
-- **Uint16Array()**;类型数组表示二进制补码16位无符号的数组
-- **Int32Array()**;类型数组表示二进制补码32位有符号的数组
-- **Uint32Array()**;类型数组表示二进制补码32位无符号的数组
-- **Float32Array()**;类型数组表示32位浮点数数组。
-- **Float64Array()**;类型数组表示64位浮点数数组。
+运行效果如图4-1所示，通过Laya.Byte成功发送和接收了二进制数据，并将数据读取打印出来。
 
+![](img/4-1.png) 
 
+（图4-1）
 
+## 四、其它API
+
+熟悉完主要的流程，其它的API可以查看引擎源码，或官网的API文档
+
+https://layaair.com/3.x/api/
+
+https://github.com/layabox/LayaAir
