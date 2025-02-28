@@ -113,8 +113,8 @@
   * [预制体](IDE/assets/prefab/readme.md)
   * [瓦片地图](IDE/assets/TileSet/readme.md)
 - 物理引擎
-  * [2D物理编辑](IDE/physicsEditor/physics2D/readme.md)
-  * [3D物理编辑](IDE/physicsEditor/physics3D/readme.md)
+  * [2D物理系统](IDE/physicsEditor/physics2D/readme.md)
+  * [3D物理系统](IDE/physicsEditor/physics3D/readme.md)
   * [自定义物理引擎](3D/advanced/customPhysicsEngine/readme.md)
 - 着色器
   * [自定义2D Shader](2D/advanced/customShader/readme.md)
@@ -171,7 +171,14 @@
       * [静态合批](IDE/Component/StaticBatchVolume/readme.md)
       * [LOD组](IDE/Component/LOD/readme.md)
     * [3D灯光](3D/Light/readme.md)
-    * [3D物理](IDE/physicsEditor/physics3D/readme.md)
+    * [3D物理](IDE/Component/physics3D/readme.md)
+      * [3D刚体](IDE/Component/physics3D/Rigidbody3D/readme.md)      
+      * [静态碰撞器](IDE/Component/physics3D/PhysicsCollider/readme.md)
+      * [角色控制器](IDE/Component/physics3D/CharacterController/readme.md)
+      * [固定约束](IDE/Component/physics3D/FixedConstraint/readme.md)
+      * [铰链约束](IDE/Component/physics3D/HingeConstraint/readme.md)
+      * [弹簧约束](IDE/Component/physics3D/SpringConstraint/readme.md)
+      * [可配置约束](IDE/Component/physics3D/ConfigurableConstraint/readme.md)      
     * [3D寻路](IDE/Component/navMesh/readme.md)
 - IDE插件
   * [插件开发说明](IDE/layapackage/plug-in/readme.md)
