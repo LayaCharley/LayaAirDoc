@@ -295,3 +295,7 @@ export default class DirectMove extends Laya.Script {
 	}
 }
 ```
+
+## 5、关联文档
+
+### [《3D物理系统》](../../../physicsEditor/physics3D/readme.md)
